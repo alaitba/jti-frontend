@@ -1,0 +1,139 @@
+<template>
+	<main>
+		<header-store/>
+		<div class="container">
+			<div class="select-store">
+				<div :class="{'select-store__item item' : true, 'active': selected =='Один'}">
+					<label class="radiobutton-container">
+						<input type="radio" v-model="selected" value="Один" name="radio" >
+						<span class="checkmark"></span>
+					</label>
+					<p class="title">						
+						Магазин «Супермаркет»						
+					</p>
+					<p class="address">
+						Алматы, ул. Байтурсынова 123, блок 2
+					</p>					
+				</div>
+				<div :class="{'select-store__item item' : true, 'active': selected=='два'}">
+					<label class="radiobutton-container">
+						<input type="radio" v-model="selected" value="два" name="radio" >
+						<span class="checkmark"></span>
+					</label>
+					<p class="title">						
+						Магазин «Супермаркет»						
+					</p>
+					<p class="address">
+						Алматы, ул. Байтурсынова 123, блок 2
+					</p>					
+				</div>
+				<div :class="{'select-store__item item' : true, 'active': selected=='три'}">
+					<label class="radiobutton-container">
+						<input type="radio" v-model="selected" value="три" name="radio" >
+						<span class="checkmark"></span>
+					</label>
+					<p class="title">						
+						Магазин «Супермаркет»						
+					</p>
+					<p class="address">
+						Алматы, ул. Байтурсынова 123, блок 2
+					</p>					
+				</div>
+				<div :class="{'select-store__item item' : true, 'active': selected=='четыре'}">
+					<label class="radiobutton-container">
+						<input type="radio" v-model="selected" value="четыре" name="radio" >
+						<span class="checkmark"></span>
+					</label>
+					<p class="title">						
+						Магазин «Супермаркет»						
+					</p>
+					<p class="address">
+						Алматы, ул. Байтурсынова 123, блок 2
+					</p>					
+				</div>
+			</div>
+			
+
+			<div class="continue">
+				<div class="container">
+					<button class="button button--green fixed" disabled v-if="!selected.length">
+						Продолжить
+					</button>
+					<nuxt-link to="/" class="button button--green fixed" v-if="selected.length">
+						Продолжить
+					</nuxt-link>	
+				</div>
+			</div>			
+		</div>
+	</main>
+</template>
+<script>
+	import HeaderStore from '~/components/layouts/Header/Header-store.vue'
+	export default{
+		components:{
+			HeaderStore	
+		},
+		data(){
+			return {
+				selected: '',	
+			}
+		}
+	}
+</script>
+<style lang="scss">
+	main{
+		&>.container{
+			position: relative;
+		}
+	}
+	.select-store{
+		margin-top: 16px;
+		&__item{
+			background: #FFFFFF;			
+			border: 1px solid #969696;
+			box-sizing: border-box;
+			border-radius: 5px;
+			margin-bottom: 8px;
+			padding: 12px 12px 12px 36px;
+			position: relative;
+			cursor: pointer;
+			&.active{
+				background: #C2EEE3;				
+				border: 1px solid #05B186;
+				.address{
+					color: #217461;
+				}
+			}
+			.title{
+				font-weight: 500;
+				font-size: 16px;
+				line-height: 19px;
+				color: #217461;
+				margin-bottom: 0;
+			}
+			.address{
+				font-weight: normal;
+				font-size: 12px;
+				line-height: 14px;				
+				color: #969696;
+				margin-bottom: 0;
+			}
+		}
+	}
+	.continue{
+		position: fixed;
+		width: 100%;
+		bottom: 16px;
+		left: 0;
+	}
+	.button--green{
+		width: 100%;		
+		text-align: center;
+		display: block;
+		&:hover{
+			text-decoration:none;
+			color:#fff;
+		}
+		// max-width: 300px;		
+	}
+</style>
