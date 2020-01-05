@@ -1,22 +1,47 @@
-# jti-frontend
+# [jti.com](https://jti.com)
 
-> My fabulous Nuxt.js project
+>  Проект для JTI продавцов с интеграцией с их внутренними сервисами - Siebel, CRM.
 
-## Build Setup
+### Application
 
-``` bash
-# install dependencies
-$ npm install
+|  Т            |    В       |
+| ---------     | -----:     |
+| Nuxt          |   2.11.0   |
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+### Серверное ПО
 
-# build for production and launch server
-$ npm run build
-$ npm start
+|  Т            |    В       |
+| ---------     | -----:     |
+| Node JS       |   v10.18.0 |
+| PM2           |   3.5.1    |
 
-# generate static project
-$ npm run generate
+# УСТАНОВКА
+#### 1. Клонируем проект
+```code
+git clone git@gitlab.ibecsystems.kz:web/jti-frontend.git
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+#### 2. Заходим в проект и устанавливаем зависимости
+```code
+npm install
+```
+
+#### 3. Разработка с горячей перезагрузкой на localhost:3000.
+```code
+npm run dev
+```
+
+#### 4. Сборка для прода и запуск сервера
+```code
+npm run build
+npm start
+```
+
+#### 5. Генерация static проекта.
+```code
+npm run generate
+```
+#### P.S
+[Документация к проекту](docs)
+
+*DevOps last audit [05.12.2019][10:07] - Rishat Sultanov*
