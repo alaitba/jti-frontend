@@ -39,8 +39,8 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [    
-    // '~plugins/bootstrap.js',    
+  plugins: [
+    // '~plugins/bootstrap.js',
   ],
 
   /*
@@ -60,10 +60,10 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
   },
 
-  server: {
-    port: 8000, // default: 3000
-    host: '0.0.0.0' // default: localhost
-  },
+  // server: {
+  //   port: 8000, // default: 3000
+  //   host: '0.0.0.0' // default: localhost
+  // }
 
   /*
   ** Build configuration
