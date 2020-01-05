@@ -29,7 +29,7 @@ module.exports = {
         env: {
           VIA_PM2: true,
           NODE_ENV: 'production',
-          PORT: 3002,
+          PORT: 3003,
         },
       },
     ],
