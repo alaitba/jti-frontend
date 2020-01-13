@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!-- <Header-Auth /> -->
-    <h1>
-      miko
-    </h1>
+    <!-- <Header-Auth /> -->    
     <nuxt />
   </div>
 </template>

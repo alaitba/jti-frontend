@@ -40,7 +40,7 @@
 				                  :class="{'form__input form__input--sms': true, 'permanent': permanent, 'error' : errorPermanenetPassword }" 
 				                  type="tel" 
 				                  mask="####" 
-				                  v-model="permanentPassword" 
+				                  v-model="recoveryPermanentPassword" 
 				                  placeholder="••••" 
 				                  :masked="false" 
 				                  maxlength="4"                  
@@ -86,7 +86,7 @@
 		data(){
 			return {
 				number: '',
-				permanentPassword: '',	
+				recoveryPermanentPassword: '',	
 				recoveryNumberStatus: true,
 				recoverySmsEnterStatus: false,
 				permanent: false,
@@ -126,7 +126,7 @@
 		        	'mobile_phone': '7'+this.number,
 		      	}
 		      // console.log(fields,'fields')
-		      	await this.$axios.post('http://jti.ibec.systems/auth/reset/phone/', fields)
+		      	await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/phone/', fields)
 		        .then(response =>{
 		        	localStorage.setItem("authUser", JSON.stringify(response.data));
 		          	localStorage.setItem("authUserStatus", true);
@@ -151,15 +151,16 @@
 				console.log('here')
 				let fields = {
 			        'mobile_phone': '7'+this.number,
-			        'sms_code': this.$store.state.auth.sms_code,
+			        'sms_code': this.recoveryPermanentPassword,
 		      	}
-
-		      	await this.$axios.post('http://jti.ibec.systems/auth/reset/sms-code/', fields)
+		      	this.errorPermanenetPassword = false;
+		      	await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/sms-code/', fields)
 		      	.then(response =>{
 		        	if(response.data.status = 'ok'){		          		
 		          		this.$router.push({path: '/auth/resetpassword', params: { userId: '123' }})
 		        	}
 		      	}).catch(error => {
+		      		this.errorPermanenetPassword = true;
 		          // $('#modal-auth-denied').modal('show')
 		            // this.$toast.error('Error');
 		      	});
@@ -172,7 +173,7 @@
 		          'mobile_phone': '7'+this.number,
 		      }
 		      // console.log(fields,'fields')
-		      await this.$axios.post('http://jti.ibec.systems/auth/reset/phone/', fields)
+		      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/phone/', fields)
 		        .then(response =>{
 		          this.$store.commit('setUser',response.data);
 		          this.$store.commit('setNumber', this.number);
@@ -198,13 +199,13 @@
 		        'password_check': this.newPassword
 		      }
 		      
-		      await this.$axios.post('http://jti.ibec.systems/auth/create-password',fields)
+		      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/create-password',fields)
 		        .then( response => {
 		          if(response.data.status == 'ok'){
 		            this.$router.push('/selectstore')
 		          }
 		        }).catch(error => {
-
+		        	
 		        })		      
 		    },
 

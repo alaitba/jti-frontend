@@ -11,11 +11,11 @@
 					<!-- <a href="#" class="lang">
 						Қазақша
 					</a> -->
-					<button :class="{'burger': true, 'open': burgerStatus}" @click="burgerStatus = !burgerStatus">
+					<!-- <button :class="{'burger': true, 'open': burgerStatus}" @click="burgerStatus = !burgerStatus">
 						<span class="burger__item"></span>
 						<span class="burger__item"></span>
 						<span class="burger__item"></span>
-					</button>
+					</button> -->
 					<!-- <div class="burger-menu"></div> -->
 				</div>
 			</div>

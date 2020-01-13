@@ -24,6 +24,9 @@
             <button class="button button--green" type="submit" :disabled="number.length<10">
               Далее
             </button>
+            <!-- <button class="button button--green"  @click="showModal()">
+              Далее
+            </button> -->
           </form>
         </div>
 
@@ -72,9 +75,10 @@
                   v-model="permanentPassword" 
                   placeholder="••••" 
                   :masked="false" 
-                  maxlength="4"                  
+                  maxlength="4" 
+                  @input="sendSms()"                    
                 />
-              </div> 
+              </div>                 
               <span class="error-text" v-if="errorPermanenetPassword">
                 Неверный пароль!
               </span>                                        
@@ -86,7 +90,6 @@
             </a>
             <p class="timer" v-if="!repeatSms">
               Выслать код повторно через
-
               <span>{{
                 timer
               }}</span>
@@ -97,9 +100,9 @@
             </h3>
 
 
-            <nuxt-link class="login-link" to="/selectstore">
+            <!-- <nuxt-link class="login-link" to="/selectstore">
               Не помню пароль
-            </nuxt-link>
+            </nuxt-link> -->
           </div>
         </div>
 
@@ -110,7 +113,7 @@
 
         
       <modal-number/>
-      <modal-password/>
+      <modal-password ref="foo" />
         
       </div>
     </div>
@@ -156,21 +159,34 @@ export default {
   computed: {
     ...mapState({
       auth: state => state.auth,      
-    })
+    }),
+    // checkSms(){
+    //   if(this.auth.sms_code == this.permanentPassword){
+    //     this.errorPermanenetPassword = false;
+    //   } else {
+    //     this.errorPermanenetPassword = true;
+    //   }
+
+    //   return this.errorPermanenetPassword;
+    // }
   },
   methods:{
+    showModal(){
+      $('#modal-auth-alert').modal('show');
+      this.$refs.foo.startTimerInterval();
+    },
     async authBtn() {
 
       let fields = {
           'mobile_phone': '7'+this.number,
       }
       // console.log(fields,'fields')
-      await this.$axios.post('http://jti.ibec.systems/auth/phone/', fields)
+      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/phone/', fields)
         .then(response =>{
           localStorage.setItem("authUser", JSON.stringify(response.data));
           localStorage.setItem("authUserStatus", true);
           this.$store.commit('setUser',response.data);
-          this.$store.commit('setNumber', this.number);
+          this.$store.commit('setNumber', this.number);          
           // console.log(this.$store.state.auth,'data')
           this.loginStatus = !this.loginStatus;
           if(response.data.sms_code){
@@ -191,48 +207,53 @@ export default {
 
       let fields = {
         'mobile_phone': '7'+this.number,
-        'sms_code': this.$store.state.auth.sms_code,
+        'sms_code': this.permanentPassword,
       }
-
-      await this.$axios.post('http://jti.ibec.systems/auth/sms-code/', fields)
-      .then(response =>{
-        if(response.data.status = 'ok'){
-          console.log(this.$router,'router');
-          this.$router.push('/auth/createpassword')
-        }
-      }).catch(error => {
-          // $('#modal-auth-denied').modal('show')
-            // this.$toast.error('Error');
-      });
+      console.log('sendSms',this.permanentPassword.length)
+      if(this.permanentPassword.length==4){
+        this.errorPermanenetPassword = false;
+        await this.$axios.post('http://jti.ibec.systems/api/v1/auth/sms-code/', fields)
+        .then(response =>{
+          if(response.data.status = 'ok'){
+            console.log(this.$router,'router');
+            this.$router.push('/auth/createpassword')
+          }
+        }).catch(error => {
+            this.errorPermanenetPassword = true;
+            // $('#modal-auth-denied').modal('show')
+              // this.$toast.error('Error');
+        });
+      }
 
       // console.log(fields,'fields')
     },
 
     async sendPassword(){
-      // console.log(password);
       this.counter ++;
       let fields = {
         'mobile_phone': '7'+this.number,
         'password': this.password
-      }
-
-      await this.$axios.post('http://jti.ibec.systems/auth/login/', fields)
-      .then(response =>{
-        if(response.data.status = 'ok'){
+      }      
+      this.errorPassword = false;
+      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/login/', fields)
+      .then(response =>{        
+        if(response.data.status == 'ok'){
+          this.$store.commit('setUserStatus', true);          
           this.$router.push('/selectstore')          
         }
         if(response.data.tradepoints){
           this.$store.commit('setTradePoints', response.data.tradepoints)
         }
       }).catch(error => {          
+          console.log('alert', this.counter)
           if(this.counter == 5){            
-            $('#modal-auth-alert').modal('show')
+            // $('#modal-auth-alert').modal('show')
+            this.showModal();
           } else{
             this.errorPassword = true;
           }          
             // this.$toast.error('Error');
         });
-      this.errorPassword = false;
 
     }, 
 
@@ -242,7 +263,7 @@ export default {
           'mobile_phone': '7'+this.number,
       }
       // console.log(fields,'fields')
-      await this.$axios.post('http://jti.ibec.systems/auth/phone/', fields)
+      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/phone/', fields)
         .then(response =>{
           this.$store.commit('setUser',response.data);
           this.$store.commit('setNumber', this.number);
@@ -284,9 +305,10 @@ export default {
         if(sec < 10) sec = '0'+sec;
         this.timer = min+':'+ sec
       } else {
-        console.log('time')
+        console.log('time');
         this.timeLimit = 180;        
         this.repeatSms = true;
+        clearInterval(this.time);
       }
       
       // return  ;
@@ -297,6 +319,7 @@ export default {
     },
     startTimerInterval(){
       this.time = setInterval(() =>{
+        console.log('startTimerInterval')
         this.startTimer();
       },1000);
     } 

@@ -62,6 +62,8 @@ main{
 	}
 	&--bordered{
 		box-shadow: none;
+		text-align: center;
+		text-decoration: none !important;
 		&.green{
 			color: #05B186;
 			border: 1px solid #05B186;
@@ -93,9 +95,9 @@ main{
 }
 
 .error-text{
-	position: absolute;
-	bottom: -18px;
-	left: 0;
+	// position: absolute;
+	// bottom: -18px;
+	// left: 0;
 	font-weight: normal;
 	font-size: 12px;
 	line-height: 14px;		
@@ -165,12 +167,12 @@ main{
 
 		// sms 
 		&--sms{
-		    width: 150px;
+		    width: auto;
 		    padding: 0 !important;
 		    margin-right: -20px;
 		    letter-spacing: 20px;
-			font-family: OpenSans;
-			font-weight: 600;
+			font-family: Roboto;
+			font-weight: bold;
 			font-size: 32px;
 			line-height: 38px;
 			text-align: center;
@@ -193,6 +195,7 @@ main{
 			}
 			&.error{
 				color: #F42626;
+				background: transparent !important;
 			}
 		}
 	}
