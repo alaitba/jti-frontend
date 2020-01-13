@@ -4,6 +4,7 @@ export const state = () => {
     authStatus: false,
     number: null,
     tradepoints: null,
+    selectedTradePoint: null,
   }
 }
 
@@ -19,5 +20,8 @@ export const mutations = {
   },
   setTradePoints (state, tradepoints) {
   	state.tradepoints = tradepoints;
+  },
+  setTradePoint (state, tradepoint) {
+  	state.tradepoint = tradepoint;	
   }
 }

@@ -1,13 +1,13 @@
 <template>
 	<header class="header">
 		<div class="container">
-			<div class="header__wrapper">
+			<div class="header__wrapper" v-if="!tradepoints">
 				<div class="header__logo">
 					<nuxt-link to="/">
 						<img src="~/assets/img/logo.svg" alt="">
 					</nuxt-link>
 					<h4>
-						JTI Partner 360
+						JTI Partner 360						
 					</h4>
 				</div>
 				<div class="header__link">
@@ -17,10 +17,43 @@
 					<!-- <div class="burger-menu"></div> -->
 				</div>
 			</div>
+
+			<div class="header__wrapper" v-else>
+				<div class="header__logo">					
+					<h4>
+						Выбор торговой точки
+					</h4>
+				</div>
+				<div class="header__link">
+					<!-- <a href="#" class="lang">
+						Қазақша
+					</a> -->
+					<!-- <button :class="{'burger': true, 'open': burgerStatus}" @click="burgerStatus = !burgerStatus">
+						<span class="burger__item"></span>
+						<span class="burger__item"></span>
+						<span class="burger__item"></span>
+					</button> -->
+					<!-- <div class="burger-menu"></div> -->
+				</div>
+			</div>
 		</div>
 	</header>
 </template>
 
+<script>
+	import {mapState, mapMutations} from 'vuex'
+
+	export default {		
+		data(){
+			return {}
+		},
+		computed: {
+			...mapState({
+		      tradepoints: state => state.tradepoints,      
+		    })
+		}
+	}
+</script>
 <style lang="scss">
 	.header{
 		padding: 12px 0;		

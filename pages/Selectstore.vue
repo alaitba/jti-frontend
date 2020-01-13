@@ -1,8 +1,27 @@
 <template>
 	<main>
-		<header-store/>
-		<div class="container">
-			<div class="select-store">
+		<header-auth/>
+		<div class="container">			
+			<div class="select-store" v-if="tradepoints">
+				<template v-for="(item,key) in tradepoints">
+					<div :class="{'select-store__item item' : true, 'active': selected == key}">
+						<label class="radiobutton-container">
+							<input type="radio" v-model="selected" :value="key" name="radio" @change="changeTradepoint()">
+							<span class="checkmark"></span>
+						</label>
+						<p class="title">						
+							Магазин «{{item.account_name}}»						
+						</p>
+						<p class="address">
+							{{item.city}}, {{item.street_address}}
+						</p>					
+					</div>
+				</template>
+				<template>
+					{{showSelected}}
+				</template>
+			</div>
+			<!-- <div class="select-store" v-if="!tradepoints">
 				<div :class="{'select-store__item item' : true, 'active': selected =='Один'}">
 					<label class="radiobutton-container">
 						<input type="radio" v-model="selected" value="Один" name="radio" >
@@ -51,7 +70,7 @@
 						Алматы, ул. Байтурсынова 123, блок 2
 					</p>					
 				</div>
-			</div>
+			</div> -->
 			
 
 			<div class="continue">
@@ -68,14 +87,27 @@
 	</main>
 </template>
 <script>
-	import HeaderStore from '~/components/layouts/Header/Header-store.vue'
+	import HeaderAuth from '~/components/layouts/Header/Header-Auth.vue'
+	import {mapState, mapMutations} from 'vuex'
 	export default{
 		components:{
-			HeaderStore	
+			HeaderAuth	
 		},
 		data(){
 			return {
 				selected: '',	
+				showSelected: '',
+			}
+		},
+		computed: {
+		    ...mapState({
+		      tradepoints: state => state.tradepoints,      
+		    }),
+		},
+		methods: {
+			changeTradepoint(){
+				// this.showSelected = this.selected;
+				this.$store.commit('setTradePoint', this.selected)
 			}
 		}
 	}

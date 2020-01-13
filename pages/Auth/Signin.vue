@@ -245,14 +245,11 @@ export default {
           this.$store.commit('setTradePoints', response.data.tradepoints)
         }
       }).catch(error => {          
-          console.log('alert', this.counter)
           if(this.counter == 5){            
-            // $('#modal-auth-alert').modal('show')
             this.showModal();
           } else{
             this.errorPassword = true;
-          }          
-            // this.$toast.error('Error');
+          }                      
         });
 
     }, 
@@ -304,8 +301,7 @@ export default {
         if(min < 10) min = '0'+min;
         if(sec < 10) sec = '0'+sec;
         this.timer = min+':'+ sec
-      } else {
-        console.log('time');
+      } else {        
         this.timeLimit = 180;        
         this.repeatSms = true;
         clearInterval(this.time);
@@ -318,8 +314,7 @@ export default {
       // this.timeLimit = 180;      
     },
     startTimerInterval(){
-      this.time = setInterval(() =>{
-        console.log('startTimerInterval')
+      this.time = setInterval(() =>{        
         this.startTimer();
       },1000);
     } 
