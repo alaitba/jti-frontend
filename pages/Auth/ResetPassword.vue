@@ -66,6 +66,7 @@ import {TheMask} from 'vue-the-mask'
 import {mapState, mapMutations} from 'vuex'
 
 export default {
+  layout: 'auth',
   components: {
     HeaderAuth,
     TheMask,

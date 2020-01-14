@@ -78,6 +78,7 @@
 	import ModalNumber from '~/components/layouts/ModalNumber.vue'
 	import {mapState, mapMutations} from 'vuex'
 	export default {
+		layout: 'auth',
 		components: {
 			HeaderAuth,
 			TheMask,

@@ -128,7 +128,7 @@ import {TheMask} from 'vue-the-mask'
 import {mapState, mapMutations} from 'vuex'
 
 export default {
-  // middleware: ['authenticated'],
+  middleware: ['authenticated'],
   layout: 'auth',
   components: {
     // Logo
