@@ -9,7 +9,7 @@
 						</nuxt-link>
 					</div>
 					<div class="header__link">
-						<div class="notification">
+						<!-- <div class="notification">
 							<a href="#">
 								<img src="~/assets/img/icons/bell.svg" alt="">
 							</a>
@@ -18,7 +18,7 @@
 							<span class="burger__item"></span>
 							<span class="burger__item"></span>
 							<span class="burger__item"></span>
-						</button>
+						</button> -->
 						<!-- <div class="burger-menu"></div> -->
 					</div>
 				</div>

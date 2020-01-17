@@ -21,13 +21,13 @@
 						<p class="head__title">
 							Номер телефона покупателя <br>
 							<span>
-								+7 {{anketaNumber}}
+								{{anketaNumber | formatNumber}}
 							</span>
 						</p>
 					</div>
 					<div class="body">
 						<div class="fill-section__form">
-							<form @submit.prevent="">
+							<form @submit.prevent="saveAnketa">
 					            <label for="" class="title__label">
 					              Данные покупателя
 					            </label>
@@ -69,9 +69,26 @@
 					              <span v-show="errors.has('birthData')" class="help is-danger">{{ errors.first('birthData') }}</span>
 					            </div>
 
-					            <div class="form-group">
+					            <div class="form-group" v-if="">
 					            	<!-- <div class="form-group__wrapper"> -->
-					            		<multiselect v-model="field.cigaretteBrand" :options="brands" :searchable="false" :close-on-select="true" :show-labels="false" placeholder="Марка сигарет"></multiselect>
+					            		<!-- <multiselect 
+					            			v-model="field.cigaretteBrand" 
+					            			:options="brands" 
+					            			:searchable="false" 
+					            			:close-on-select="true" 
+					            			label="sku",
+					            			track-by="sku",
+					            			placeholder="Марка сигарет">		
+					            		</multiselect> -->
+					            		<multiselect 
+					            			v-model="field.cigaretteBrand" 
+					            			track-by="name" 
+					            			label="name" 
+					            			placeholder="Select one" 
+					            			:options="options" 
+					            			:searchable="false" 
+					            			:allow-empty="false">
+					            		</multiselect>
 
 					            	<!-- </div> -->
 					            </div>
@@ -80,19 +97,19 @@
 					              Подпись покупателя
 					            </label>
 					            <div class="form-group">             
-					              	<div class="form-group__wrapper form-group__wrapper--grey" @click="showModal('modal-draw-sign')" v-if="!fields.img.length">
+					              	<div class="form-group__wrapper form-group__wrapper--grey" @click="showModal('modal-draw-sign')" v-if="!field.img">
 						                <!-- <input type="text" :class="{'form__input': true, 'error' : false }" placeholder=" " v-model="field.firstName" >
 						                <label for="input" class="form__label">
 						                  Имя
 						                </label>   -->
 						              </div>
-					              	<div class="form-group__wrapper form-group__wrapper--grey" :style="{'background-image' : 'url(' +fields.img+ ')'}" v-if="img.length">
+					              	<div class="form-group__wrapper form-group__wrapper--grey" :style="{'background-image' : 'url(' +field.img+ ')'}" v-if="field.img">
 					              	
 					              	</div>
 					            </div>
 
-					            <button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !img.length">
-					              Сохранить анкету {{errors.any()}}
+					            <button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.img.length">
+					              Сохранить анкету
 					            </button>
 					            <!-- <button class="button button--green"  @click="showModal()">
 					              Далее
@@ -168,6 +185,11 @@
 			ModalDrawSign,			
 			// Multiselect
 		},
+		filters: {
+	      formatNumber (value){
+	        return String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
+	      }
+	    },
 		data() {
 			return {
 				field: {
@@ -177,22 +199,30 @@
 					cigaretteBrand:'',				
 					img:'',
 				},
-				brands: ['list', 'of', 'options'],
+				options: [
+			        { name: 'Vue.js', language: 'JavaScript' },
+			        { name: 'Rails', language: 'Ruby' },
+			        { name: 'Sinatra', language: 'Ruby' },
+			        { name: 'Laravel', language: 'PHP', $isDisabled: true },
+			        { name: 'Phoenix', language: 'Elixir' }
+			      ],
+				brands: null,
+
 				number:'7776665544'
 			}
 		},
 		computed: {
 		    ...mapState({
 		      authToken: state => state.authToken,     
-		      anketaNumber: state =>state.anketaNumber
+		      anketaNumber: state =>state.numberAnketa
 		    }),
 		},
 		mounted(){
-			// this.getProducts();
+			this.getProducts();
 			Validator.localize('ru',dict['ru'])
 			this.$nuxt.$on('Save',(data) =>{
-				this.fields.img = data;
-				// console.log('data',data)
+				this.field.img = data;
+				// console.log('data',this.field.img)
 			})
 		},
 		methods:{
@@ -210,12 +240,15 @@
 
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
 
-				try{
-					let res = await this.$axios.$get('http://jti.ibec.systems/api/v1/dict/tobacco-products')
-					this.brands = res	
-				}catch(err){
-					console.log('error',err)
-				}			
+				await this.$axios.get('http://jti.ibec.systems/api/v1/dict/tobacco-products/')
+		        .then(response =>{
+		         	if(response.data.status =='ok'){
+		         		// this.$router.push('/anketa/listanketa')		            	
+		         		this.brands = response.data.data
+		          	} 
+		        }).catch(error => {
+		            
+		        });
 
 
 			},
@@ -249,7 +282,7 @@
 	}
 </script>
 <style lang="scss">
-	.page{
+	main.page{
 		display: flex;
 	}
 	.fill-section{

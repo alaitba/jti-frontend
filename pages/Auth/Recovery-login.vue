@@ -44,6 +44,7 @@
 				                  placeholder="••••" 
 				                  :masked="false" 
 				                  maxlength="4"                  
+				                  @input="sendRecoverySms()"
 				                />
 			              	</div> 
 				            <span class="error-text" v-if="errorPermanenetPassword">
@@ -149,22 +150,24 @@
 			},
 
 			async sendRecoverySms() {
-				console.log('here')
+				// console.log('here')
 				let fields = {
 			        'mobile_phone': '7'+this.number,
 			        'sms_code': this.recoveryPermanentPassword,
 		      	}
-		      	this.errorPermanenetPassword = false;
-		      	await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/sms-code/', fields)
-		      	.then(response =>{
-		        	if(response.data.status = 'ok'){	
-		          		this.$router.push({path: '/auth/resetpassword', params: { userId: '123' }})
-		        	}
-		      	}).catch(error => {
-		      		this.errorPermanenetPassword = true;
-		          // $('#modal-auth-denied').modal('show')
-		            // this.$toast.error('Error');
-		      	});
+		      	if(this.recoveryPermanentPassword.length==4){
+			      	this.errorPermanenetPassword = false;
+			      	await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/sms-code/', fields)
+			      	.then(response =>{
+			        	if(response.data.status = 'ok'){	
+			          		this.$router.push({path: '/auth/resetpassword', params: { userId: '123' }})
+			        	}
+			      	}).catch(error => {
+			      		this.errorPermanenetPassword = true;
+			          // $('#modal-auth-denied').modal('show')
+			            // this.$toast.error('Error');
+			      	});
+			     }
 
 			},	
 
@@ -200,7 +203,7 @@
 		        'password_check': this.newPassword
 		      }
 		      
-		      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/create-password',fields)
+		      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/create-password',fields)
 		        .then( response => {
 		        	if(response.data.tradepoints){
 			            this.$store.commit('setTradePoints', response.data.tradepoints);		

@@ -207,6 +207,12 @@ main{
 			// -moz-transform: translateY(-160%);
 			// -o-transform: translateY(-160%);		
 		}
+		&--grey{
+			background: #F9F9F9 !important;
+			&:focus{
+				background: #F9F9F9 !important;
+			}
+		}
 
 		// sms 
 		&--sms{

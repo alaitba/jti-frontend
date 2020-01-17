@@ -14,51 +14,112 @@
     			</div>
     		</div> -->
     	</div>
+    	<div class="section section--icons">
+    		<div class="container">
+    			<div class="icons">
+    				<div class="icons__item" @click="showModal()">
+    					<div class="img">
+    						<img src="~/assets/img/icons/links/plan.svg" alt="">
+    					</div>
+    					<div class="title">
+    						План закупок
+    					</div>
+    				</div>
+    				<div class="icons__item" @click="showModal()">
+    					<!-- <nuxt-link to="/anketa/createanketa"> -->
+	    					<div class="img">
+	    						<img src="~/assets/img/icons/links/new.svg" alt="">
+	    					</div>
+	    					<div class="title">
+	    						Анкеты
+	    					</div>
+	    				<!-- </nuxt-link> -->
+    				</div>
+    				<div class="icons__item" @click="showModal()">
+    					<div class="img">
+    						<img src="~/assets/img/icons/links/gift.svg" alt="">
+    					</div>
+    					<div class="title">
+    						Призы
+    					</div>
+    				</div>
+    				<div class="icons__item" @click="showModal()">
+    					<div class="img">
+    						<img src="~/assets/img/icons/links/agent.svg" alt="">
+    					</div>
+    					<div class="title">
+    						Агент+
+    					</div>
+    				</div>
+    				<div class="icons__item" @click="showModal()">
+    					<div class="img">
+    						<img src="~/assets/img/icons/links/quiz.svg" alt="">
+    					</div>
+    					<div class="title">
+    						Викторины
+    					</div>
+    				</div>
+    				<div class="icons__item" @click="showModal()">
+    					<div class="img">
+    						<img src="~/assets/img/icons/links/profile.svg" alt="">
+    					</div>
+    					<div class="title">
+    						Профиль
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
     	<div class="section section--news">
     		<div class="container">
     			<h3 class="section__title">
     				Новости
     			</h3>
     			<div class="news">
-    				<div class="news__item news__item--noimg">
-    					<!-- <div class="banner">
-    						<img src="~/assets/img/news/1.png" alt="">
-    					</div> -->
+    				<!-- div class="news__item news__item--noimg">    					
     					<div class="content">
     						<h4 class="title">
-	    						С Новым годом дорогие друзья...
+	    						Встречайте новую уникальную программу специально для наших партнеров!
 	    					</h4>
 	    					<p class="data">
-	    						30.12.2019
+	    						03.01.2020
 	    					</span>
 	    					<div class="text">
-	    						марка сигарет, выпускаемая компаниями R.J. Reynolds Tobacco Company
+	    						С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей!
 	    					</div>
     					</div>    					
-    				</div>
+    				</div> -->
     				<div class="news__item news__item--noimg">
     					<div class="banner">
-    						<img src="~/assets/img/news/1.png" alt="">
+    						<img src="~/assets/img/news/12.png" alt="">
     					</div>
     					<div class="content">
     						<h4 class="title">
-	    						С Новым годом дорогие друзья...
+	    						Призы можно заказывать только через веб-приложение «Partner 360».  
 	    					</h4>
 	    					<p class="data">
-	    						30.12.2019
+	    						10.01.2020
 	    					</span>
 	    					<div class="text">
-	    						марка сигарет, выпускаемая компаниями R.J. Reynolds Tobacco Company
+	    						С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей!
+ 
+								Вас ждут много интересных призов: термокружки, пледы, зонты, сертификаты, беспроводные наушники, мультиварки, футболки и другие. 
+								 
+								А еще специально для вас каждую неделю вас ждут еженедельные розыгрыши призов как смартфоны, телевизоры и стиральные машины. 
+								Для участия в них достаточно к моменту розыгрыша заработать минимум 100 баллов.
+								 
+								Главный приз финального розыгрыша – автомобиль Camry 70!							
+
 	    					</div>
     					</div>    					
     				</div>
-    				<div class="news__item news__item--noimg">
+    				<!-- <div class="news__item news__item--noimg">
     					<div class="banner">
     						<img src="~/assets/img/news/2.png" alt="">
     					</div>
     					<div class="content">
     						<h4 class="title">
-	    						С Новым годом дорогие друзья...
+	    						Главный приз финального розыгрыша – автомобиль Camry 70!
 	    					</h4>
 	    					<p class="data">
 	    						30.12.2019
@@ -67,12 +128,15 @@
 	    						марка сигарет, выпускаемая компаниями R.J. Reynolds Tobacco Company
 	    					</div>
     					</div>    					
-    				</div>
+    				</div> -->
 
     				<div class="news__all">
-    					<nuxt-link class="news__link" to="/news">
+    					<!-- <nuxt-link class="news__link" to="/news">
     						Все новости
-    					</nuxt-link>
+    					</nuxt-link> -->
+    					<a href="#" class="news__link">
+    						Все новости
+    					</a>
     				</div>
     			</div>
     		</div>
@@ -83,9 +147,9 @@
     				<h4 class="title">
     					JTI Partner 360
     				</h4>
-    				<nuxt-link class="button button--green" to="/faq">
+    				<!-- <nuxt-link class="button button--green" to="/faq">
     					Обратная связь
-    				</nuxt-link>
+    				</nuxt-link> -->
     			</div>
     			<div class="footer__bottom">
     				<a href="https://ibecsystems.com/ru#/" target="_blank" class="copyright">
@@ -107,15 +171,16 @@
      		</nuxt-link>
      	</h4> -->
     <!-- </div> -->
+    	<modal-error/>
   </main>
 </template>
 
 <script>
-	// import HeaderStore from '~/components/layouts/Header/HeaderStore.vue'
+	import ModalError from '~/components/layouts/Modals/ModalError.vue'
 	import {mapState, mapMutations} from 'vuex'
 	export default {
 	  	components: {
-	      // HeaderStore,      
+	      ModalError,      
 	    },
 	    data() {
 	    	return {
@@ -132,6 +197,12 @@
 	        tradepoint: state => state.tradepoint,      
 	      })
 	    },
+	    methods:{
+	    	showModal(){
+	    		// alert('asdasd')
+	    		$('#modal-error').modal('show')
+	    	}	
+	    }
 	}
 </script>
 
@@ -145,6 +216,44 @@
 		&__title{
 			line-height: 33px;			
 			color: #969696;
+		}
+		&--icons{
+			padding-top: 16px;
+			.icons{
+				display: flex;
+				flex-wrap:wrap;
+				&__item{
+					cursor: pointer;
+					background: #FFFFFF;
+					border: 1px solid #217461;
+					box-sizing: border-box;
+					border-radius: 8px;
+					padding: 16px 12px;
+					text-align: center;
+					width: calc((100% - 16px)/3);
+					height: 100%;
+					margin-bottom: 8px;
+					&>a{
+						&:hover{
+							text-decoration: none;
+						}
+					}
+					&:nth-child(2),&:nth-child(5){
+						margin: 0 8px 8px 8px;
+					}
+					.img{
+						max-width: 100%;
+						margin-bottom: 4px;
+					}
+					.title{
+						font-weight: normal;
+						font-size: 12px;
+						line-height: 14px;
+						text-align: center;
+						color: #217461;						
+					}
+				}
+			}
 		}
 		&--news{
 			padding-top: 32px;
@@ -164,6 +273,8 @@
 						img{
 							max-width: 100%;
 							width: 100%;
+							border-top-right-radius: 8px;
+							border-top-left-radius: 8px;
 						}
 					}
 					.content{
@@ -171,7 +282,10 @@
 						.title{
 							line-height: 20px;							
 							color: #217461;	
-							margin-bottom: 8px;						
+							margin-bottom: 8px;	
+							white-space: nowrap; /* Запрещаем перенос строк */
+						    overflow: hidden; 
+						    text-overflow: ellipsis;					
 						}
 						.data{
 							font-weight: normal;
@@ -200,6 +314,7 @@
 		&--footer{
 			margin-top: 32px;
 			.footer{
+				position: relative;
 				&__head{
 					background: #217461;
 					padding: 16px 16px 23px 16px;

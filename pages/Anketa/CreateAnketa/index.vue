@@ -50,7 +50,7 @@
 		            <div class="form-group">
 		              <div class="form-group__wrapper">                
 		                <the-mask 
-		                  :class="{'form__input form__input--sms': true, 'permanent': permanent, 'error' : errorPermanenetPassword }" 
+		                  :class="{'form__input form__input--sms form__input--grey': true, 'permanent': permanent, 'error' : errorPermanenetPassword }" 
 		                  type="tel" 
 		                  mask="####" 
 		                  v-model="permanentPassword" 
@@ -105,6 +105,7 @@
 			ModalExist,
 			FooterAnketa,
 		},
+		
 		data() {
 			return {
 				numberStatus: true,
@@ -164,11 +165,11 @@
 			    this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
 			    if(this.permanentPassword.length==4){
 		        	this.errorPermanenetPassword = false;
-		        	this.$router.push('/anketa/createanketa/fillform')
-		        	await this.$axios.post('http://jti.ibec.systems/api/v1//client/check-sms/', fields)
+		        	// this.$router.push('/anketa/createanketa/fillform')
+		        	await this.$axios.post('http://jti.ibec.systems/api/v1/client/check-sms/', fields)
 		        	.then(response =>{
 		          		if(response.data.status = 'ok'){
-		            		this.$router.push('/anketa/createanketa/fillform')
+		          			this.$router.push('/anketa/createanketa/fillform')
 		          		}
 		        	}).catch(error => {
 		            	this.errorPermanenetPassword = true;

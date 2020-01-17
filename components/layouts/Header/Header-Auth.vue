@@ -12,7 +12,7 @@
 				</div>
 				<div class="header__link">
 					<a href="#" class="lang">
-						Қазақша
+						<!-- Қазақша -->
 					</a>
 					<!-- <div class="burger-menu"></div> -->
 				</div>

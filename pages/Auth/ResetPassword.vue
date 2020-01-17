@@ -4,7 +4,7 @@
   	<div class="auth-section">
     	<div class="container">
         <h3 class="auth-section__title">
-          Восстановление пароля
+          Восстановление пароля asdasdas
         </h3>
 
 	  	<div class="auth-section__form">          
@@ -61,90 +61,98 @@
 
 
 <script>
-import HeaderAuth from '~/components/layouts/Header/Header-Auth.vue'
-import {TheMask} from 'vue-the-mask'
-import {mapState, mapMutations} from 'vuex'
+  import HeaderAuth from '~/components/layouts/Header/Header-Auth.vue'
+  import {TheMask} from 'vue-the-mask'
+  import {mapState, mapMutations} from 'vuex'
 
-export default {
-  layout: 'auth',
-  components: {
-    HeaderAuth,
-    TheMask,
-  },
-  data() {
-    return{
-      passEnterStatus: true,
-      password: '', 
-      newPassword: '',
-      showPassword: false,
-      errorPassword: false,     
-      title: '',
-      rules:[
-      		{ message:'Букв в нижнем регистре латинских букв', regex:/[a-z]+/ },
-      		{ message:"Букв в верхнем регистре латинских букв",  regex:/[A-Z]+/ },
-      		{ message:"Минимум 6 символов", regex:/.{6,}/ },
-      		{ message:"Цифр", regex:/[0-9]+/ },
-      		{ message:"Специальных символов", regex:/[!@#$%^&*(),.?":{}|<>]/}
+  export default {
+    layout: 'auth',
+    components: {
+      HeaderAuth,
+      TheMask,
+    },
+    data() {
+      return{
+        passEnterStatus: true,
+        password: '', 
+        newPassword: '',
+        showPassword: false,
+        errorPassword: false,     
+        title: '',
+        rules:[
+        		{ message:'Букв в нижнем регистре латинских букв', regex:/[a-z]+/ },
+        		{ message:"Букв в верхнем регистре латинских букв",  regex:/[A-Z]+/ },
+        		{ message:"Минимум 6 символов", regex:/.{6,}/ },
+        		{ message:"Цифр", regex:/[0-9]+/ },
+        		{ message:"Специальных символов", regex:/[!@#$%^&*(),.?":{}|<>]/}
 
-      ] 
-    }
-  },
-  computed: {
-    ...mapState({
-      number: state => state.number,      
-    }),
-  	checkPassword() {
-  		if(this.passwordsFilled){
-  			return (this.password !== this.newPassword )
-  		} else {
-  			return false
-  		} 		
-  	},
-  	passwordsFilled () {
-  		return (this.password !== '' && this.newPassword !== '')
-  	},
-  	passwordValidation () {
-  		let errors = []
-  		for (let condition of this.rules) {
-  			if (!condition.regex.test(this.password)) {
-  				errors.push(condition.message)
-  			}
-  		}
-  		if (errors.length === 0) {
-  			return { valid:true, errors }
-  		} else {
-  			return { valid:false, errors }
-  		}
-  	}
-  },
-  mounted(){
-    console.log(this.$router.params,'params');
-  },
-  methods:{        
-    async sendPassword() {
-      let fields = {
-        'mobile_phone': '7'+this.number,
-        'password': this.password,
-        'password_check': this.newPassword
+        ] 
       }
+    },
+    computed: {
+      ...mapState({
+        number: state => state.number,      
+      }),
+    	checkPassword() {
+    		if(this.passwordsFilled){
+    			return (this.password !== this.newPassword )
+    		} else {
+    			return false
+    		} 		
+    	},
+    	passwordsFilled () {
+    		return (this.password !== '' && this.newPassword !== '')
+    	},
+    	passwordValidation () {
+    		let errors = []
+    		for (let condition of this.rules) {
+    			if (!condition.regex.test(this.password)) {
+    				errors.push(condition.message)
+    			}
+    		}
+    		if (errors.length === 0) {
+    			return { valid:true, errors }
+    		} else {
+    			return { valid:false, errors }
+    		}
+    	}
+    },
+    // mounted(){
+    //   console.log(this.$router.params,'params');
+    // },
+    methods:{        
+      async sendPassword() {
+
+        let fields = {
+          'mobile_phone': '7'+this.number,
+          'password': this.password,
+          'password_check': this.newPassword
+        }
       
-      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/create-password',fields)
-        .then( response => {
-          if(response.data.status == 'ok'){
-            this.$store.commit('setAuthToken', response.data.token);          
-            this.$store.commit('setUserStatus', true);
-            if(response.data.message=='authorized'){
-              this.$router.push('/')
-            } else {            
-              this.$router.push('/selectstore')          
-            }            
-          }
-        }).catch(error => {
+        await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/create-password',fields)
+          .then( response => {
+            if(response.data.tradepoints){
+              this.$store.commit('setTradePoints', response.data.tradepoints);              
+            }
 
-        })
-      }
-    } 
-  }  
+            if(response.data.status == 'ok'){
+              this.$store.commit('setAuthToken', response.data.token);   
+              localStorage.setItem("authToken", response.data.token);       
+              this.$store.commit('setUserStatus', true);
+              if(response.data.message=='authorized'){
+                this.$router.push('/')
+              }else {            
+                this.$router.push('/selectstore')          
+              }
+            }
+          }).catch(error => {
+
+          })
+      }  
+      
+    }
+  } 
+
 </script>
 
 <style lang="scss">
