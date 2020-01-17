@@ -1,26 +1,87 @@
 <template>
-	<header class="header">
-		<div class="container">
-			<div class="header__wrapper">
-				<div class="header__logo">					
-					<h4>
-						Выбор торговой точки
-					</h4>
+	<div>
+		<header class="header">
+			<div class="container">
+				<div class="header__wrapper">
+					<div class="header__logo">					
+						<nuxt-link to="/">
+							<img src="~/assets/img/logo.svg" alt="">
+						</nuxt-link>
+					</div>
+					<div class="header__link">
+						<div class="notification">
+							<a href="#">
+								<img src="~/assets/img/icons/bell.svg" alt="">
+							</a>
+						</div>
+						<button :class="{'burger': true, 'open': burgerStatus}" @click="showBurger()">
+							<span class="burger__item"></span>
+							<span class="burger__item"></span>
+							<span class="burger__item"></span>
+						</button>
+						<!-- <div class="burger-menu"></div> -->
+					</div>
 				</div>
-				<div class="header__link">
-					<!-- <a href="#" class="lang">
-						Қазақша
-					</a> -->
-					<!-- <button :class="{'burger': true, 'open': burgerStatus}" @click="burgerStatus = !burgerStatus">
-						<span class="burger__item"></span>
-						<span class="burger__item"></span>
-						<span class="burger__item"></span>
-					</button> -->
-					<!-- <div class="burger-menu"></div> -->
-				</div>
+			</div>		
+		</header>
+		<!-- header menu -->
+		<div :class="{'header-mobile': true, 'show': burgerStatus}">
+			<div class="container">
+				<ul class="nav">
+					<li class="nav__item">
+						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+							Анкеты
+						</nuxt-link>
+					</li>
+					<li class="nav__item">
+						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+							Призы
+						</nuxt-link>
+					</li>
+					<li class="nav__item">
+						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+							Витрина
+						</nuxt-link>
+					</li>
+					<li class="nav__item">
+						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+							План закупок
+						</nuxt-link>
+					</li>
+					<li class="nav__item">
+						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+							Уведомления
+						</nuxt-link>
+					</li>
+					<li class="nav__item">
+						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+							Профиль
+						</nuxt-link>
+					</li>
+					<li class="nav__item">
+						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+							Викторины
+						</nuxt-link>
+					</li>
+					<li class="nav__item">
+						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+							Новости
+						</nuxt-link>
+					</li>
+					<li class="nav__item">
+						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+							Агент +
+						</nuxt-link>
+					</li>
+					<li class="nav__item">
+						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+							Обратная связь
+						</nuxt-link>
+					</li>
+				</ul>
 			</div>
 		</div>
-	</header>
+	</div>	
 </template>
 
 <script>
@@ -28,6 +89,13 @@
 		data() {
 			return {
 				burgerStatus: false
+			}
+		},
+		methods:{
+			showBurger(){
+				this.burgerStatus = !this.burgerStatus
+
+				$('body').toggleClass('overflow_hidden')
 			}
 		}
 	}
@@ -60,6 +128,11 @@
 			// justify-content: space-between;	
 		}
 		&__link{
+			display: flex;
+		    align-items: center;
+		    .notification{
+		    	margin-right: 16px;
+		    }
 			.lang{
 				font-weight: 500;
 				font-size: 16px;
@@ -71,6 +144,41 @@
 				/* Secondary Green */
 
 				color: #217461;
+			}
+		}
+		&-mobile{
+			background: #fff;
+			position: fixed;
+		    width: 100%;
+		    top: 0;
+		    bottom: 0;
+		    left: 0;
+		    transform: translateY(-100%);
+	        transition: .5s;
+	        z-index: 9;
+	        overflow: auto;
+	        &.show{
+	        	transform: translateY(56px);
+	        }
+			.nav{
+				margin: 0 -16px;
+				&__item{
+					width: 100%;
+				}
+				&__link{
+					font-weight: 300;
+					font-size: 16px;
+					line-height: 19px;					
+					color: #1F1F1F;
+					padding: 18px 16px;
+					display: block;
+					&:hover{
+						background: #F9F9F9;
+						font-weight: 500;
+						color: #217461;
+						text-decoration: none;
+					}
+				}
 			}
 		}
 	}

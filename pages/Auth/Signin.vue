@@ -80,7 +80,7 @@
                 />
               </div>                 
               <span class="error-text" v-if="errorPermanenetPassword">
-                Неверный пароль!
+                Неверный код подтверждения!
               </span>                                        
             </div>            
           </form>
@@ -122,8 +122,8 @@
 
 <script>
 import HeaderAuth from '~/components/layouts/Header/Header-Auth.vue'
-import ModalNumber from '~/components/layouts/ModalNumber.vue'
-import ModalPassword from '~/components/layouts/ModalPassword.vue'
+import ModalNumber from '~/components/layouts/Modals/ModalNumber.vue'
+import ModalPassword from '~/components/layouts/Modals/ModalPassword.vue'
 import {TheMask} from 'vue-the-mask'
 import {mapState, mapMutations} from 'vuex'
 
@@ -209,7 +209,7 @@ export default {
         'mobile_phone': '7'+this.number,
         'sms_code': this.permanentPassword,
       }
-      console.log('sendSms',this.permanentPassword.length)
+      // console.log('sendSms',this.permanentPassword.length)
       if(this.permanentPassword.length==4){
         this.errorPermanenetPassword = false;
         await this.$axios.post('http://jti.ibec.systems/api/v1/auth/sms-code/', fields)
@@ -236,14 +236,21 @@ export default {
       }      
       this.errorPassword = false;
       await this.$axios.post('http://jti.ibec.systems/api/v1/auth/login/', fields)
-      .then(response =>{        
+      .then(response =>{
+        if(response.data.tradepoints){
+          this.$store.commit('setTradePoints', response.data.tradepoints)          
+        }        
         if(response.data.status == 'ok'){
           this.$store.commit('setUserStatus', true);          
-          this.$router.push('/selectstore')          
+          this.$store.commit('setAuthToken', response.data.token);          
+          localStorage.setItem("authToken", response.data.token);
+          if(response.data.message=='authorized'){
+            this.$router.push('/')
+          } else {            
+            this.$router.push('/selectstore')          
+          }
         }
-        if(response.data.tradepoints){
-          this.$store.commit('setTradePoints', response.data.tradepoints)
-        }
+        
       }).catch(error => {          
           if(this.counter == 5){            
             this.showModal();

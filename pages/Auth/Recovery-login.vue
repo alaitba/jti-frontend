@@ -47,7 +47,7 @@
 				                />
 			              	</div> 
 				            <span class="error-text" v-if="errorPermanenetPassword">
-				                Неверный пароль!
+				                Неверный код подтверждения!
 				            </span>                                        
 			            </div>            
 			         </form>
@@ -75,7 +75,7 @@
 <script>
 	import HeaderAuth from '~/components/layouts/Header/Header-Auth.vue'
 	import {TheMask} from 'vue-the-mask'
-	import ModalNumber from '~/components/layouts/ModalNumber.vue'
+	import ModalNumber from '~/components/layouts/Modals/ModalNumber.vue'
 	import {mapState, mapMutations} from 'vuex'
 	export default {
 		layout: 'auth',
@@ -108,7 +108,7 @@
 			    rules:[
 			      	{ message:'Букв в нижнем регистре', regex:/[a-z]+/ },
 			      	{ message:"Букв в верхнем регистре",  regex:/[A-Z]+/ },
-			      	{ message:"Минимум 8 символов", regex:/.{8,}/ },
+			      	{ message:"Минимум 6 символов", regex:/.{6,}/ },
 			      	{ message:"Цифр", regex:/[0-9]+/ },
 			      	{ message:"Специальных символов", regex:/[!@#$%^&*(),.?":{}|<>]/}
 			      ]		
@@ -157,7 +157,7 @@
 		      	this.errorPermanenetPassword = false;
 		      	await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/sms-code/', fields)
 		      	.then(response =>{
-		        	if(response.data.status = 'ok'){		          		
+		        	if(response.data.status = 'ok'){	
 		          		this.$router.push({path: '/auth/resetpassword', params: { userId: '123' }})
 		        	}
 		      	}).catch(error => {
@@ -202,9 +202,18 @@
 		      
 		      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/create-password',fields)
 		        .then( response => {
-		          if(response.data.status == 'ok'){
-		            this.$router.push('/selectstore')
-		          }
+		        	if(response.data.tradepoints){
+			            this.$store.commit('setTradePoints', response.data.tradepoints);		
+			        }
+		          	if(response.data.status == 'ok'){
+		          		localStorage.setItem("authToken", response.data.token);
+		          		if(response.data.message=='authorized'){
+			              this.$router.push('/')
+			            } else {            
+			              this.$router.push('/selectstore')          
+			            }
+		            	
+		          	}
 		        }).catch(error => {
 		        	
 		        })		      

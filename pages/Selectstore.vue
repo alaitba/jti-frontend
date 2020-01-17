@@ -78,9 +78,9 @@
 					<button class="button button--green fixed" disabled v-if="!selected.length">
 						Продолжить
 					</button>
-					<nuxt-link to="/" class="button button--green fixed" v-if="selected.length">
+					<button class="button button--green fixed" v-if="selected.length" @click="setTradePoint()">
 						Продолжить
-					</nuxt-link>	
+					</button>	
 				</div>
 			</div>			
 		</div>
@@ -101,13 +101,29 @@
 		},
 		computed: {
 		    ...mapState({
-		      tradepoints: state => state.tradepoints,      
+		      tradepoints: state => state.tradepoints,
+		      authToken: state => state.authToken,          
 		    }),
 		},
 		methods: {
 			changeTradepoint(){
 				// this.showSelected = this.selected;
 				this.$store.commit('setTradePoint', this.selected)
+			},
+			async setTradePoint(){
+				let fields = {
+					'account_code': this.selected,
+				}
+
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
+
+				try{
+					let res = await this.$axios.$post('http://jti.ibec.systems/api/v1/auth/set-tradepoint', fields
+						)				
+						this.$router.push('/');
+				} catch(err){
+					console.log(err,'err')
+				}
 			}
 		}
 	}

@@ -2,7 +2,7 @@ const pkg = require('./package')
 
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
 
   /*
   ** Headers of the page
@@ -20,7 +20,8 @@ module.exports = {
     script: [
       {src:'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'},
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js' },
-      { src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js' }
+      { src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js' },
+      { src: 'https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js'}
     ]
   },
 
@@ -33,7 +34,8 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '@/assets/scss/index.scss'
+    '@/assets/scss/index.scss',
+    'vue-multiselect/dist/vue-multiselect.min.css'
   ],
 
   /*
@@ -41,6 +43,10 @@ module.exports = {
   */
   plugins: [
     // '~plugins/bootstrap.js',
+    '~plugins/vue-select.js',
+    '~plugins/vue-signature.js',
+    '~plugins/vee-validate.js',
+    '~plugins/vue-swiper.js',
   ],
 
   /*

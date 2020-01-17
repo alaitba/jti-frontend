@@ -27,6 +27,10 @@ h4{
 	color: #1F1F1F;
 }
 
+strong{
+	font-weight: bold;
+}
+
 *{
 	outline: none !important; 
 }
@@ -34,7 +38,10 @@ p, span, a, li, label, button{
 	font-family: 'Roboto';
 }
 
-
+.overflow_hidden{
+	overflow: hidden;
+	height: 100%;
+}
 main{
 	margin-top: 56px;
 	display: flex;
@@ -65,6 +72,12 @@ main{
 		font-weight: 500;
 		font-size: 16px;
 		line-height: 19px;
+		text-align: center;
+	    text-decoration: none;
+	    &:hover{
+	      text-decoration: none;
+	      color: #fff;
+		}
 	}
 	&--bordered{
 		box-shadow: none;
@@ -89,6 +102,18 @@ main{
 		background: url(~assets/img/icons/pass_show.svg) no-repeat;
 		background-repeat: no-repeat;
 		cursor: pointer;
+		box-shadow: none;
+	}
+	&--transparent{
+		background-color: transparent;
+		color: #217461;
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 19px;		
+		text-align: center;
+		text-decoration-line: underline;
+		width: 100%;
+		margin-top: 32px;
 		box-shadow: none;
 	}
 }
@@ -126,6 +151,15 @@ main{
 		&__wrapper{
 			position: relative;
 			overflow: hidden;
+			&--grey{
+				background: #F0F0F0;
+				background-repeat: no-repeat;
+			    background-position: center;
+				border-radius: 8px;
+				width: 100%;
+				height: 160px;
+				cursor: pointer;
+			}
 		}
 	}
 	&__input{
@@ -159,6 +193,8 @@ main{
 		}
 		&:focus{
 			background: #C2EEE3;
+			padding-top: 24px;
+		    padding-bottom: 12px;
 		}
 		&:focus  + .form__label,&:not(:placeholder-shown) + .form__label{
 			font-weight: normal;
@@ -196,10 +232,10 @@ main{
 				background: #fff;
 			}
 			&:focus::-webkit-input-placeholder{
-			     text-indent: -999px;
+		        text-indent: -9999px;
 			}
 			&:focus::-moz-input-placeholder{
-			     text-indent: -999px;
+		        text-indent: -9999px;
 			}
 			&.error{
 				color: #F42626;
@@ -360,6 +396,72 @@ main{
 // modals
 .modal{
 
+}
+.modal-draw-sign{
+	.modal{
+		&-content{
+			background: #FFFFFF;
+			border-radius: 8px;
+			padding: 16px;
+		}
+		&-body{
+			padding: 0;
+			.head{
+				.title{
+				    font-weight: 500;
+				    font-size: 16px;
+				    line-height: 19px;    
+				    color: #969696;    
+				}				
+			}
+			.body{
+				canvas {
+				    background: #F0F0F0;
+				    border-radius: 8px;
+				    width:100%;
+				    height:160px;
+				}
+			}
+		}
+		&-footer{
+			padding: 0;
+			border: 0;
+			margin-top: 16px;
+			.button{
+				width: 100%;
+				margin: 0;
+			}	
+		}
+	}
+}
+.modal-agreement{
+	.modal{
+		&-content{
+			background: #FFFFFF;
+			border-radius: 0px;
+			padding: 24px 16px;
+		}
+		&-body{
+			padding: 0;
+			margin-bottom: 24px;
+			max-height: 280px;
+			overflow-y: auto;
+			.head{
+				.text{
+					margin-top: 4px;
+					font-weight: 300;
+					font-size: 16px;
+					line-height: 19px;
+					color: #1F1F1F;
+					margin-bottom: 0;
+				}
+			}
+		}
+		&-footer{
+			padding: 0;
+			border: 0;	
+		}
+	}
 }
 
 .modal-auth-denied{

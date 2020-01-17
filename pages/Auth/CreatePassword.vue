@@ -81,7 +81,7 @@ export default {
       rules:[
       		{ message:'Букв в нижнем регистре латинских букв', regex:/[a-z]+/ },
       		{ message:"Букв в верхнем регистре латинских букв",  regex:/[A-Z]+/ },
-      		{ message:"Минимум 8 символов", regex:/.{8,}/ },
+      		{ message:"Минимум 6 символов", regex:/.{6,}/ },
       		{ message:"Цифр", regex:/[0-9]+/ },
       		{ message:"Специальных символов", regex:/[!@#$%^&*(),.?":{}|<>]/}
 
@@ -127,11 +127,18 @@ export default {
       await this.$axios.post('http://jti.ibec.systems/api/v1/auth/create-password',fields)
         .then( response => {
           if(response.data.tradepoints){
-            this.$store.commit('setTradePoints', response.data.tradepoints)
+            this.$store.commit('setTradePoints', response.data.tradepoints);              
           }
+
           if(response.data.status == 'ok'){
+            this.$store.commit('setAuthToken', response.data.token);   
+            localStorage.setItem("authToken", response.data.token);       
             this.$store.commit('setUserStatus', true);
-            this.$router.push('/selectstore')
+            if(response.data.message=='authorized'){
+              this.$router.push('/')
+            }else {            
+              this.$router.push('/selectstore')          
+            }
           }
         }).catch(error => {
 
