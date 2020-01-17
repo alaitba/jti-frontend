@@ -33,7 +33,7 @@
 							Анкеты
 						</nuxt-link>
 					</li>
-					<li class="nav__item">
+					<!-- <li class="nav__item">
 						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
 							Призы
 						</nuxt-link>
@@ -77,7 +77,7 @@
 						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
 							Обратная связь
 						</nuxt-link>
-					</li>
+					</li> -->
 				</ul>
 			</div>
 		</div>
