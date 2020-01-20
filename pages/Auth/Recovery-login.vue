@@ -8,7 +8,7 @@
 		        </h3>
 
 				<!-- compoenent for entering tel number-->
-		        <div class="auth-section__form" v-if="recoveryNumberStatus">
+		        <!-- <div class="auth-section__form" v-if="recoveryNumberStatus">
 		        	<form @submit.prevent="sendRecoveryNumber">
 		        		<label for="" class="title__label">
 			              Введите номер телефона
@@ -25,7 +25,7 @@
 			              Далее
 			            </button>
 		        	</form>
-		        </div>	        
+		        </div> -->	        
 
 
 		       	<!-- component enter password  if user has not signed before and has not password-->
@@ -53,17 +53,18 @@
 			            </div>            
 			         </form>
 		          	<div class="auth-section__recovery-link confirm">            
-		            	<a class="login-link" href="#" v-if="repeatSms" @click="showTimer">
+		            	<button class="login-link" v-if="repeatSms" @click="showTimer">
 		              		Выслать код повторно
-		            	</a>
+		            	</button>
 		            	<p class="timer" v-if="!repeatSms">
 		              		Выслать код повторно через
 		              		<span>
 		              			{{timer}}
 		              		</span>
 		            	</p>            
-			            <h3 v-if="auth" style="text-align:center; margin-top: 16px;">
-			              {{auth.sms_code}}
+
+		            	<h3 v-if="sms_code" style="text-align:center; margin-top: 16px;">
+			              {{sms_code}}
 			            </h3>	            
 		          	</div>
 		        </div> 	        
@@ -90,13 +91,13 @@
 				number: '',
 				recoveryPermanentPassword: '',	
 				recoveryNumberStatus: true,
-				recoverySmsEnterStatus: false,
+				recoverySmsEnterStatus: true,
 				permanent: false,
 				errorPermanenetPassword: false,	
 				recoveryNewPasswordStatus: false,
 				timeLimit: 180,
 			    timer: '',
-			    time:'',
+			    sms_code:'',
 			    repeatSms: false,
 			    counter: 0,	
 
@@ -120,12 +121,15 @@
 		      auth: state => state.auth,      
 		    })
 		},
+		mounted(){
+			this.sendRecoveryNumber();			
+		},
 		methods: {
 
 			async sendRecoveryNumber() {
 
 				let fields = {
-		        	'mobile_phone': '7'+this.number,
+		        	'mobile_phone': this.auth.mobile_phone,
 		      	}
 		      // console.log(fields,'fields')
 		      	await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/phone/', fields)
@@ -137,7 +141,8 @@
 		          	// console.log(this.$store.state.auth,'data')
 		          	this.recoveryNumberStatus = !this.recoveryNumberStatus;
 		          	if(response.data.sms_code){
-		            	this.recoverySmsEnterStatus = !this.recoverySmsEnterStatus;
+		          		this.sms_code = response.data.sms_code; 
+		            	// this.recoverySmsEnterStatus = !this.recoverySmsEnterStatus;
 		            	this.startTimerInterval();
 		          	} else{
 		            	// this.passEnterStatus = !this.passEnterStatus;
@@ -152,7 +157,7 @@
 			async sendRecoverySms() {
 				// console.log('here')
 				let fields = {
-			        'mobile_phone': '7'+this.number,
+			        'mobile_phone': this.auth.mobile_phone,
 			        'sms_code': this.recoveryPermanentPassword,
 		      	}
 		      	if(this.recoveryPermanentPassword.length==4){
@@ -173,18 +178,19 @@
 
 			async sendRecoverySmsAgain() {
 
-		      let fields = {
-		          'mobile_phone': '7'+this.number,
+
+			  let fields = {
+		          'mobile_phone': this.auth.mobile_phone,
 		      }
 		      // console.log(fields,'fields')
 		      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/phone/', fields)
 		        .then(response =>{
 		          this.$store.commit('setUser',response.data);
-		          this.$store.commit('setNumber', this.number);
+		          this.$store.commit('setNumber', this.auth.mobile_phone);
 		          // // console.log(this.$store.state.auth,'data')          
 		          if(response.data.sms_code){
 		            this.smsEnterStatus = true;
-		            this.startTimerInterval();
+		            // this.startTimerInterval();
 		          } else{
 		            this.passEnterStatus = !this.passEnterStatus;
 		          }
@@ -223,9 +229,10 @@
 		    },
 
 			showTimer(){
-		      this.repeatSms = !this.repeatSms;
 		      clearInterval(this.time);
+		      this.repeatSms = false;
 		      this.timeLimit = 180;
+		      this.recoveryPermanentPassword = '';
 		      setTimeout(this.startTimerInterval(), 1000);   
 		      this.sendRecoverySmsAgain();   
 		    },
@@ -240,18 +247,21 @@
 			        if(sec < 10) sec = '0'+sec;
 			        this.timer = min+':'+ sec
 			    } else {
-			        console.log('time')
+			        clearInterval(this.time);
 			        this.timeLimit = 180;        
 			        this.repeatSms = true;
+			        this.sms_code = '';
+			        this.errorPermanenetPassword = false;
 		      	}
 		    },
-		    startTimerInterval(){
-		    	console.log('hello')
-		      this.time = setInterval(() =>{
-		        this.startTimer();
-		      },1000);
-		    },
 
+		    startTimerInterval(){
+		    	console.log('hello');
+		    	// clearInterval(this.time);
+		      	this.time = setInterval(() =>{
+		        	this.startTimer();
+		      	},1000);
+		    },
 
 		    checkPassword() {
 		  		if(this.passwordsFilled){
@@ -260,9 +270,11 @@
 		  			return false
 		  		} 		
 		  	},
+
 		  	passwordsFilled () {
 		  		return (this.password !== '' && this.newPassword !== '')
 		  	},
+
 		  	passwordValidation () {
 		  		let errors = []
 		  		for (let condition of this.rules) {

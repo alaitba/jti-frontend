@@ -274,7 +274,7 @@ export default {
           // // console.log(this.$store.state.auth,'data')          
           if(response.data.sms_code){
             this.smsEnterStatus = true;
-            this.startTimerInterval();
+            // this.startTimerInterval();
           } else{
             this.passEnterStatus = !this.passEnterStatus;
           }
@@ -295,9 +295,10 @@ export default {
     },   
         
     showTimer(){
-      this.repeatSms = !this.repeatSms;
+      this.repeatSms = false;
       clearInterval(this.time);
       this.timeLimit = 180;
+      this.permanentPassword = '';
       setTimeout(this.startTimerInterval(), 1000);   
       this.sendSmsAgain();   
     },
@@ -331,64 +332,5 @@ export default {
 </script>
 
 <style lang="scss">
-  .auth-section{
-    padding-top: 40px;
-    width: 100%; 
-    &__title{
-      line-height: 33px;      
-      text-align: center;
-    }
-    &__form{
-      margin-top: 40px;
-      &--sms{
-        // display: flex;
-        // flex-direction:column;
-        // justify-content: center;
-        form{
-          text-align: center;
-        }
-        .form-group{
-          &__wrapper{
-            margin-top: 24px;
-          }
-          .error-text{
-            text-align: center;
-            width: 100%;
-          }
-        }
-        ::-webkit-input-placeholder { /* Edge */
-          color: #1F1F1F;
-        }
-
-        :-ms-input-placeholder { /* Internet Explorer 10-11 */
-          color: #1F1F1F;
-        }
-
-        ::placeholder {
-          color: #1F1F1F;
-        }
-      }
-      .button--green{
-        margin-top: 32px;
-      }
-    }
-    &__recovery-link{
-      display: flex;
-      justify-content: center;
-      margin-top: 32px;
-      &.confirm{
-        margin-top: 42px;
-        flex-direction:column;
-      }
-    }
-    .login-link{
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 19px;
-      text-align: center;
-      text-decoration-line: underline;
-      color: #217461;      
-      // margin-top: 32px;
-    }
-  }
+  
 </style>

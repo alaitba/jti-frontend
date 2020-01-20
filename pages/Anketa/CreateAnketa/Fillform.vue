@@ -1,5 +1,5 @@
 <template>
-	<main class="page">
+	<main class="page page--flex">
 		<div class="fill-section">
 			<div class="fill-section__menu">
 				<ul class="nav nav-pills">
@@ -57,16 +57,25 @@
 					                	placeholder=" " 
 					                	name="birthData" 
 					                	:mask="['##/##/####']" 
-					                	:class="{'form__input': true, 'error' : errors.has('birthData') }"
+					                	:class="{'form__input': true, 'error' : errors.has('birthData') || !ageValidate}"
 					                	v-model="field.birthData" 
-					                	v-validate="'date_format:DD/MM/YYYY|date_between:01/01/1960,20/09/2000'"
+					                	v-validate="'date_format:MM/DD/YYYY|required'"
 					                	:masked="true"
 					                	/>					                	
 					                <label for="input" class="form__label">
 					                  Дата рождения
 					                </label>  
 					              </div>
-					              <span v-show="errors.has('birthData')" class="help is-danger">{{ errors.first('birthData') }}</span>
+					              <span  class="help is-danger">
+					              	<template v-show="errors.has('birthData')">
+					              		{{ errors.first('birthData') }}
+					              	</template>	
+					              	<template v-if="errors.has('birthData') && (!ageValidate)">, </template>					              	
+					              	<template v-if="!ageValidate">
+					              		Потребитель должен быть старше 18 лет
+					              	</template>						              	
+					              </span>
+
 					            </div>
 
 								<div class="form-group" v-if="brands">
@@ -94,8 +103,8 @@
 					            <label for="" class="title__label">
 					              Подпись покупателя
 					            </label>
-					            <div class="form-group">             
-					              	<div class="form-group__wrapper form-group__wrapper--grey" @click="showModal('modal-draw-sign')" v-if="!field.img">
+					            <div class="form-group"> 
+					              	<div class="form-group__wrapper form-group__wrapper--grey" @click="showModal('modal-agreement')" v-if="!field.img">
 						                <!-- <input type="text" :class="{'form__input': true, 'error' : false }" placeholder=" " v-model="field.firstName" >
 						                <label for="input" class="form__label">
 						                  Имя
@@ -106,7 +115,7 @@
 					              	</div>
 					            </div>
 
-					            <button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.img.length">
+					            <button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.img.length || !ageValidate">
 					              Сохранить анкету
 					            </button>
 					            <!-- <button class="button button--green"  @click="showModal()">
@@ -122,7 +131,7 @@
 							<p class="head__title">
 								Номер телефона покупателя <br>
 								<span>
-									{{anketaNumber | formatNumber}}
+									{{anketaNumber | formatNumber}}.
 								</span>
 							</p>
 						</div>
@@ -144,6 +153,7 @@
 		<modal-agreement></modal-agreement>
 		<modal-draw-sign></modal-draw-sign>
 		<modal-anketa-error></modal-anketa-error>
+		<modal-exist :number="number"></modal-exist>
 
 	</main>
 </template>
@@ -155,36 +165,43 @@
 	import ModalAgreement from '~/components/layouts/Modals/ModalAgreement.vue'
 	import ModalDrawSign from '~/components/layouts/Modals/ModalDrawSign.vue'
 	import ModalAnketaError from '~/components/layouts/Modals/ModalAnketaError.vue'
+	import ModalExist from '~/components/layouts/Modals/ModalExist.vue'
 	import {mapState, mapMutations} from 'vuex'
 	import { Validator } from 'vee-validate';
+
+	import moment from 'moment'
 
 	const dict = {
 		ru:{
 			messages: {				
 	            date_format: "Введите правильные данные",	            
+	            date_between: 'Потребитель должен быть старше 18 лет',
 	            required: 'Поле обязательно к заполнению'
 	        }, 
 	        custom: {
-	        	birthData: "Введите правильные данные",
+	        	birthData: "Потребитель должен быть старше 18 лет",
 	        }
 		},
 		kk:{
 			messages: {
                 date_format: "Дұрыс деректерді енгізіңіз",
+                date_between: 'Тұтынушы 18 жастан асқан болуы керек',
                 required: 'Міндетті өріс'
             },
             custom: {
-	        	birthData: "Дұрыс деректерді енгізіңіз",
+	        	birthData: "Тұтынушы 18 жастан асқан болуы керек",
 	        }
 		}
 	}
 	export default{
+
 		components: {
 			TheMask,
 			ModalSendLink,
 			ModalAgreement,
 			ModalDrawSign,	
-			ModalAnketaError,		
+			ModalAnketaError,
+			ModalExist,		
 			// Multiselect
 		},
 		filters: {
@@ -212,6 +229,22 @@
 		      authToken: state => state.authToken,     
 		      anketaNumber: state =>state.numberAnketa
 		    }),
+
+		    ageValidate(){
+		    	if(this.field.birthData){
+		    		let  chosenDate = moment(this.field.birthData, "MM-DD-YYYY");
+			    	let age = moment().diff(chosenDate, 'years')	
+			    	if(age>=18){
+			    		return true
+			    	} else {
+			    		return false
+			    	}
+		    	} else {
+		    		return true
+		    	}
+		    	
+		    	
+		    }
 		},
 		mounted(){
 			this.getProducts();
@@ -284,7 +317,12 @@
 		         		this.$router.push('/anketa/listanketa')		            	
 		          	} 
 		        }).catch(error => {
-		            $('#modal-anketa-error').modal('show')				            
+		        	if(error.response.data.message=='already_filled'){
+			        	console.log('error',error.response)
+						$('#modal-exist-number').modal('show')				
+					} else{						
+			        	$('#modal-anketa-error').modal('show')				            
+					}
 		        });
 
 
@@ -294,8 +332,15 @@
 	}
 </script>
 <style lang="scss">
-	main.page{
-		display: flex !important;
+	main.page{		
+		&--flex{display: flex !important;}
+	}
+	.help.is-danger{
+		font-weight: normal;
+		font-size: 12px;
+		line-height: 14px;
+		text-align: center;
+		color: #F42626;
 	}
 	.fill-section{
 		width: 100%;

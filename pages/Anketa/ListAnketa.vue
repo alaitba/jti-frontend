@@ -1,35 +1,38 @@
 <template>
 	<main class="page">		
 		<div class="anketa">
-			<div class="container">
+			<div class="container" v-if="anketaStatus">
 				<div class="anketa__head">
 					<h3 class="anketa__title">
 						Мои анкеты
+
+						{{list.length}}
 					</h3>
-					<span class="amount">
-						Анкет: 3
+					<span class="amount" v-if="list">
+						Анкет: {{list.length}}
 					</span>
 				</div>			
-				<div class="anketa__wrapper">
-					<div class="item">
+				<div class="anketa__wrapper" v-if="list.length">
+
+					<div class="item" v-for="(item,key) in list">
 						<div class="item__content">
-							<p class="title">
-								+7 775 156 85 20
+							<p class="title" v-if="item.mobilePhone">
+								{{item.mobilePhone | formatNumber}}
 							</p>
-							<p class="info">
-								Сохранена 20.12.2019
+							<p class="info" v-if="item.fillingDate">
+								Сохранена {{item.fillingDate | formatData}}
 							</p>
 						</div>
 						<div class="item__status">
 							<p class="points">
-								+50 баллов
+								<!-- +50 баллов -->
 							</p>
-							<div class="status status--active">
+							<div :class="{'status' : true, 'status--active': item.isQualified && item.isEffective}">
 								<img src="~/assets/img/icons/anketa/status_active.svg" alt="">
 							</div>
 						</div>
 					</div>
-					<div class="item">
+					<!-- <div class="item">
 						<div class="item__content">
 							<p class="title">
 								+7 775 156 85 20
@@ -61,7 +64,7 @@
 								<img src="~/assets/img/icons/anketa/status_waiting.svg" alt="">
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -70,9 +73,67 @@
 </template>
 <script>
 	import FooterAnketa from '~/components/layouts/Footer/Footer.vue'
+	import {mapState, mapMutations} from 'vuex'
+	import moment from 'moment'
 	export default {
 		components:{
 			FooterAnketa,
+		},
+		filters: {
+	      formatNumber (value){
+	      	value = value.replace('+','');
+	        return '+' + String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
+	        // return value;
+	      },
+	      formatData(value) {
+	      	return moment(value).format('DD.MM.YYYY');
+	      }
+	    },
+
+		data() {
+			return {
+				list: null,
+				anketaStatus: false
+			}
+		},
+		computed:{
+			...mapState({
+		      authToken: state => state.authToken,     
+		      anketaNumber: state =>state.numberAnketa
+		    }),
+		},
+		mounted(){
+			this.getAnketaHistory();
+		},
+		methods: {
+			async getAnketaHistory() {
+
+				let fields = {
+					'perpage': 100,
+					'page':1
+				}
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
+
+				await this.$axios.get('http://jti.ibec.systems/api/v1/client/lead-history/', fields)
+		        .then(response =>{
+		        	console.log(response.data.data,'1')
+		        	if(response.data.status =='ok'){
+		         		// this.$router.push('/anketa/listanketa')	
+		         		this.anketaStatus = true;	            	
+		         		this.list = response.data.data;
+		         		console.log(response.data.data,'2')
+		         		// for(let i in response.data.data){
+		         		// 	// console.log(i,'i')
+		         		// 	this.brands.push(i)
+		         		// }		         		
+		         		
+		          	} 
+		        }).catch(error => {
+		            
+		        });
+
+
+			},
 		}
 	}
 </script>

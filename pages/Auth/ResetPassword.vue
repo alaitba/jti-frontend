@@ -4,7 +4,7 @@
   	<div class="auth-section">
     	<div class="container">
         <h3 class="auth-section__title">
-          Восстановление пароля asdasdas
+          Восстановление пароля
         </h3>
 
 	  	<div class="auth-section__form">          
@@ -91,8 +91,9 @@
     },
     computed: {
       ...mapState({
-        number: state => state.number,      
+        auth: state => state.auth,      
       }),
+      
     	checkPassword() {
     		if(this.passwordsFilled){
     			return (this.password !== this.newPassword )
@@ -124,7 +125,7 @@
       async sendPassword() {
 
         let fields = {
-          'mobile_phone': '7'+this.number,
+          'mobile_phone': this.auth.mobile_phone,
           'password': this.password,
           'password_check': this.newPassword
         }

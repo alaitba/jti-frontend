@@ -1,5 +1,5 @@
 <template>
-  <main class="page">
+  <main class="page page--block">
     <!-- <div class="container"> -->
     	<div class="section section--main">
     		<!-- <div class="main-slider">
@@ -214,7 +214,7 @@
 	main.page{
 		background: #F9F9F9;
 		height: 100vh;
-		display: block;
+		&--block{display: block !important;}
 	}
 	.section{
 		&__title{
