@@ -1,8 +1,10 @@
 const pkg = require('./package')
+const dir = "/"
 
 
 module.exports = {
   mode: 'spa',
+  cache: true,
 
   /*
   ** Headers of the page
@@ -15,16 +17,21 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v2' }
+
     ],
     script: [
       {src:'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'},
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js' },
       { src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js' },
-      { src: 'https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js'}
+      { src: 'https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js'},
+      {
+        src:"https://cdn.jsdelivr.net/npm/pwacompat@2.0.6/pwacompat.min.js",
+        integrity:"sha384-GOaSLecPIMCJksN83HLuYf9FToOiQ2Df0+0ntv7ey8zjUHESXhthwvq9hXAZTifA",
+        crossorigin:"anonymous" ,defer:true
+      }
     ]
   },
-
   /*
   ** Customize the progress-bar color
   */
@@ -59,6 +66,14 @@ module.exports = {
     // 'bootstrap-vue/nuxt',
     '@nuxtjs/pwa',
   ],
+
+  pwa: {
+    manifest: {
+      name: "test",      
+      start_url:`/`,
+      short_name:"test",      
+    },
+  },
   /*
   ** Axios module configuration
   */

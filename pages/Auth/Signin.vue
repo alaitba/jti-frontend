@@ -292,7 +292,8 @@ export default {
       this.smsEnterStatus = !this.smsEnterStatus;
       // console.log(number, "number");
       this.startTimerInterval();
-    },       
+    },   
+        
     showTimer(){
       this.repeatSms = !this.repeatSms;
       clearInterval(this.time);

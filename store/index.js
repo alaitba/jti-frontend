@@ -5,8 +5,8 @@ export const state = () => {
     number: null,
     tradepoints: null,
     selectedTradePoint: null,
-    authToken: null,
-    numberAnketa: null,
+    authToken: localStorage.getItem("authToken") ? localStorage.getItem("authToken") : null,
+    numberAnketa: localStorage.getItem("anketaNumber") ? localStorage.getItem("anketaNumber") : null,
     brands: null,
   }
 }

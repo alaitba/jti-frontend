@@ -25,15 +25,15 @@
     						План закупок
     					</div>
     				</div>
-    				<div class="icons__item" @click="showModal()">
-    					<!-- <nuxt-link to="/anketa/createanketa"> -->
+    				<div class="icons__item">
+    					<nuxt-link to="/anketa/createanketa">
 	    					<div class="img">
 	    						<img src="~/assets/img/icons/links/new.svg" alt="">
 	    					</div>
 	    					<div class="title">
 	    						Анкеты
 	    					</div>
-	    				<!-- </nuxt-link> -->
+	    				</nuxt-link>
     				</div>
     				<div class="icons__item" @click="showModal()">
     					<div class="img">
@@ -142,22 +142,26 @@
     		</div>
     	</div>
     	<div class="section section--footer">
-    		<div class="footer">
+    		<div class="footer">    			
     			<div class="footer__head">
-    				<h4 class="title">
-    					JTI Partner 360
-    				</h4>
+    				<div class="container">
+	    				<h4 class="title">
+	    					JTI Partner 360
+	    				</h4>
+	    			</div>
     				<!-- <nuxt-link class="button button--green" to="/faq">
     					Обратная связь
     				</nuxt-link> -->
     			</div>
     			<div class="footer__bottom">
-    				<a href="https://ibecsystems.com/ru#/" target="_blank" class="copyright">
-    					<span>
-    						Разработано в
-    					</span>
-    					<img src="~/assets/img/icons/ibec_systems_logo.svg" alt="">
-    				</a>
+    				<div class="container">
+	    				<a href="https://ibecsystems.com/ru#/" target="_blank" class="copyright">
+	    					<span>
+	    						Разработано в
+	    					</span>
+	    					<img src="~/assets/img/icons/ibec_systems_logo.svg" alt="">
+	    				</a>
+	    			</div>
     			</div>
     		</div>
     		<!-- <div class="container">
@@ -317,7 +321,7 @@
 				position: relative;
 				&__head{
 					background: #217461;
-					padding: 16px 16px 23px 16px;
+					padding: 16px 0px 23px 0px;
 					.title{
 						line-height: 25px;
 						color:#fff;
@@ -328,7 +332,7 @@
 					}
 				}
 				&__bottom{
-					padding: 16px;
+					padding: 16px 0;
 					background: #262626;
 					.copyright{
 						display: flex;

@@ -92,17 +92,23 @@
 		
 		<footer-anketa v-if="footerStatus"/>
 		<modal-exist :number="number"></modal-exist>
+		<modal-sms-error></modal-sms-error>
+		<modal-number-error></modal-number-error>
 	</main>
 </template>
 <script>
 	import FooterAnketa from '~/components/layouts/Footer/Footer.vue'
 	import ModalExist from '~/components/layouts/Modals/ModalExist.vue'
+	import ModalSmsError from '~/components/layouts/Modals/ModalSmsError.vue'
+	import ModalNumberError from '~/components/layouts/Modals/ModalNumberError.vue'
 	import {TheMask} from 'vue-the-mask'
 	import {mapState, mapMutations} from 'vuex'
 	export default{
 		components : {
 			TheMask,
 			ModalExist,
+			ModalSmsError,
+			ModalNumberError,
 			FooterAnketa,
 		},
 		
@@ -148,10 +154,17 @@
 						this.smsEnterStatus = !this.smsEnterStatus;
 						this.sms_code = response.data.sms_code;
 
-						this.$store.commit('setNumberAnketa',response.data.mobile_phone);
+						this.$store.commit('setNumberAnketa', response.data.mobile_phone);
+						localStorage.setItem("anketaNumber", response.data.mobile_phone);
 						this.startTimerInterval();
-					}).catch(error =>{
-						$('#modal-exist-number').modal('show')			
+					}).catch((error, e) =>{
+						if(error.response.data.message=='sms_send_limit'){
+							$('#modal-sms-limit').modal('show')				
+						} else if(error.response.data.message=='already_filled'){
+							$('#modal-exist-number').modal('show')				
+						} else {
+							$('#modal-error-number').modal('show')						
+						}
 					})				
 			},
 
@@ -203,6 +216,7 @@
 		    	this.repeatSms = !this.repeatSms;		    	
 		      	clearInterval(this.time);
 		      	this.timeLimit = 180;
+		      	this.permanentPassword = '';
 		      	setTimeout(this.startTimerInterval(), 1000);   
 		      	this.sendSmsAgain();   
 		    },
@@ -217,12 +231,15 @@
 		      	} else {        
 			        this.timeLimit = 180;        
 			        this.repeatSms = true;
+			        this.sms_code = '';
+			        this.errorPermanenetPassword = false;			        
 			        clearInterval(this.time);
 			    }
 		      
 		      // return  ;
 		    },
 		    startTimerInterval(){
+		    	console.log('asd')
 		      this.time = setInterval(() =>{        
 		        this.startTimer();
 		      },1000);

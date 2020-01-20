@@ -27,7 +27,7 @@
 					</div>
 					<div class="body">
 						<div class="fill-section__form">
-							<form @submit.prevent="saveAnketa">
+							<form @submit.prevent="validateBeforeSubmit">
 					            <label for="" class="title__label">
 					              Данные покупателя
 					            </label>
@@ -69,30 +69,28 @@
 					              <span v-show="errors.has('birthData')" class="help is-danger">{{ errors.first('birthData') }}</span>
 					            </div>
 
-					            <div class="form-group" v-if="">
-					            	<!-- <div class="form-group__wrapper"> -->
-					            		<!-- <multiselect 
-					            			v-model="field.cigaretteBrand" 
-					            			:options="brands" 
-					            			:searchable="false" 
-					            			:close-on-select="true" 
-					            			label="sku",
-					            			track-by="sku",
-					            			placeholder="Марка сигарет">		
-					            		</multiselect> -->
-					            		<multiselect 
-					            			v-model="field.cigaretteBrand" 
-					            			track-by="name" 
-					            			label="name" 
-					            			placeholder="Select one" 
-					            			:options="options" 
-					            			:searchable="false" 
-					            			:allow-empty="false">
-					            		</multiselect>
-
-					            	<!-- </div> -->
+								<div class="form-group" v-if="brands">
+					            	<multiselect v-model="selectedBrand" :options="brands" :searchable="false" :close-on-select="true" :show-labels="false" placeholder="Выбери марку сигарет"></multiselect>
 					            </div>
 
+					            <div class="form-group" v-if="options[selectedBrand]">					            	
+					            		<multiselect 
+					            			v-model="field.cigaretteBrand" 
+					            			track-by="sku"
+					            			label="sku" 							
+					            			placeholder="Марка сигарет" 
+					            			:options="options[selectedBrand]" 
+					            			:searchable="false" 
+					            			:allow-empty="false"
+					            			selectLabel=""
+					            			tagPlaceholder=""
+					            			selectGroupLabel=""
+					            			deselectLabel=""
+					            			selectedLabel=""
+					            			>
+					            		</multiselect>
+					            	
+					            </div>
 					            <label for="" class="title__label">
 					              Подпись покупателя
 					            </label>
@@ -124,7 +122,7 @@
 							<p class="head__title">
 								Номер телефона покупателя <br>
 								<span>
-									+7 {{anketaNumber}}
+									{{anketaNumber | formatNumber}}
 								</span>
 							</p>
 						</div>
@@ -145,6 +143,8 @@
 		<modal-send-link :number="number"></modal-send-link>	
 		<modal-agreement></modal-agreement>
 		<modal-draw-sign></modal-draw-sign>
+		<modal-anketa-error></modal-anketa-error>
+
 	</main>
 </template>
 <script>
@@ -154,6 +154,7 @@
 	import ModalSendLink from '~/components/layouts/Modals/ModalSendLink.vue'
 	import ModalAgreement from '~/components/layouts/Modals/ModalAgreement.vue'
 	import ModalDrawSign from '~/components/layouts/Modals/ModalDrawSign.vue'
+	import ModalAnketaError from '~/components/layouts/Modals/ModalAnketaError.vue'
 	import {mapState, mapMutations} from 'vuex'
 	import { Validator } from 'vee-validate';
 
@@ -182,12 +183,13 @@
 			TheMask,
 			ModalSendLink,
 			ModalAgreement,
-			ModalDrawSign,			
+			ModalDrawSign,	
+			ModalAnketaError,		
 			// Multiselect
 		},
 		filters: {
 	      formatNumber (value){
-	        return String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
+	        return '+' + String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
 	      }
 	    },
 		data() {
@@ -199,15 +201,9 @@
 					cigaretteBrand:'',				
 					img:'',
 				},
-				options: [
-			        { name: 'Vue.js', language: 'JavaScript' },
-			        { name: 'Rails', language: 'Ruby' },
-			        { name: 'Sinatra', language: 'Ruby' },
-			        { name: 'Laravel', language: 'PHP', $isDisabled: true },
-			        { name: 'Phoenix', language: 'Elixir' }
-			      ],
-				brands: null,
-
+				options: {},
+				brands: [],
+				selectedBrand:'',
 				number:'7776665544'
 			}
 		},
@@ -242,9 +238,14 @@
 
 				await this.$axios.get('http://jti.ibec.systems/api/v1/dict/tobacco-products/')
 		        .then(response =>{
-		         	if(response.data.status =='ok'){
+		        	if(response.data.status =='ok'){
 		         		// this.$router.push('/anketa/listanketa')		            	
-		         		this.brands = response.data.data
+		         		this.options = response.data.data;
+		         		for(let i in response.data.data){
+		         			// console.log(i,'i')
+		         			this.brands.push(i)
+		         		}		         		
+		         		
 		          	} 
 		        }).catch(error => {
 		            
@@ -253,15 +254,26 @@
 
 			},
 
+			validateBeforeSubmit() {
+		      this.$validator.validateAll().then((result) => {
+		        if (result) {
+		        	this.saveAnketa();
+		        	return;
+		        } else {
+		        	alert('Correct them errors!');
+		        }		        
+		      });
+		    },
+
 			async saveAnketa(){
 
 				let fields = {
-					'mobile_phone': '7'+this.anketaNumber,
-					'firstname': this.fields.firstName,
-					'lastname': this.fields.secondName,
-					'birthdate': this.fields.birthData,
-					'product_code': this.cigaretteBrand,
-					'signature': this.fields.img
+					'mobile_phone': this.anketaNumber,
+					'firstname': this.field.firstName,
+					'lastname': this.field.secondName,
+					'birthdate': this.field.birthData,
+					'product_code': this.field.cigaretteBrand.product_code,
+					'signature': this.field.img
 				}
 
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
@@ -272,7 +284,7 @@
 		         		this.$router.push('/anketa/listanketa')		            	
 		          	} 
 		        }).catch(error => {
-		            $('#modal-exist-number').modal('show')				            
+		            $('#modal-anketa-error').modal('show')				            
 		        });
 
 
@@ -283,7 +295,7 @@
 </script>
 <style lang="scss">
 	main.page{
-		display: flex;
+		display: flex !important;
 	}
 	.fill-section{
 		width: 100%;

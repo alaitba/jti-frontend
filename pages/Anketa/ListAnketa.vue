@@ -1,63 +1,65 @@
 <template>
 	<main class="page">		
 		<div class="anketa">
-			<div class="anketa__head">
-				<h3 class="anketa__title">
-					Мои анкеты
-				</h3>
-				<span class="amount">
-					Анкет: 20
-				</span>
-			</div>			
-			<div class="anketa__wrapper">
-				<div class="item">
-					<div class="item__content">
-						<p class="title">
-							+7 775 156 85 20
-						</p>
-						<p class="info">
-							Сохранена 20.12.2019
-						</p>
-					</div>
-					<div class="item__status">
-						<p class="points">
-							+50 баллов
-						</p>
-						<div class="status status--active">
-							<img src="~/assets/img/icons/anketa/status_active.svg" alt="">
+			<div class="container">
+				<div class="anketa__head">
+					<h3 class="anketa__title">
+						Мои анкеты
+					</h3>
+					<span class="amount">
+						Анкет: 3
+					</span>
+				</div>			
+				<div class="anketa__wrapper">
+					<div class="item">
+						<div class="item__content">
+							<p class="title">
+								+7 775 156 85 20
+							</p>
+							<p class="info">
+								Сохранена 20.12.2019
+							</p>
+						</div>
+						<div class="item__status">
+							<p class="points">
+								+50 баллов
+							</p>
+							<div class="status status--active">
+								<img src="~/assets/img/icons/anketa/status_active.svg" alt="">
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="item">
-					<div class="item__content">
-						<p class="title">
-							+7 775 156 85 20
-						</p>
-						<p class="info">
-							Сохранена 20.12.2019
-						</p>
-					</div>
-					<div class="item__status">
-						<p class="points">
-							+50 баллов
-						</p>
-						<div class="status status--filled">
-							<img src="~/assets/img/icons/anketa/status_filled.svg" alt="">
+					<div class="item">
+						<div class="item__content">
+							<p class="title">
+								+7 775 156 85 20
+							</p>
+							<p class="info">
+								Сохранена 20.12.2019
+							</p>
+						</div>
+						<div class="item__status">
+							<p class="points">
+								+50 баллов
+							</p>
+							<div class="status status--filled">
+								<img src="~/assets/img/icons/anketa/status_filled.svg" alt="">
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="item">
-					<div class="item__content">
-						<p class="title">
-							+7 775 156 85 20
-						</p>
-						<p class="info">
-							Сохранена 20.12.2019
-						</p>
-					</div>
-					<div class="item__status item__status--waiting">
-						<div class="status status--waiting">
-							<img src="~/assets/img/icons/anketa/status_waiting.svg" alt="">
+					<div class="item">
+						<div class="item__content">
+							<p class="title">
+								+7 775 156 85 20
+							</p>
+							<p class="info">
+								Сохранена 20.12.2019
+							</p>
+						</div>
+						<div class="item__status item__status--waiting">
+							<div class="status status--waiting">
+								<img src="~/assets/img/icons/anketa/status_waiting.svg" alt="">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -82,8 +84,9 @@
 	.anketa{
 		padding: 16px 0 20px;
 		height: 100vh;
+		width: 100%;
 		&__head{
-			padding: 0 16px;
+			// padding: 0 16px;
 			display: flex;
 			align-items: baseline;
 			justify-content: space-between;
@@ -102,6 +105,7 @@
 		}
 
 		&__wrapper{
+			margin: 0 -16px;
 			.item{
 				padding: 16px;
 				background-color: #fff;
