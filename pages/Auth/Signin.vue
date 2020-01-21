@@ -186,13 +186,13 @@ export default {
           this.$store.commit('setUser',response.data);
           this.$store.commit('setNumber', this.number);          
           // console.log(this.$store.state.auth,'data')
-          this.loginStatus = !this.loginStatus;
-          this.startTimerInterval();
-          if(response.data.sms_code){
-            this.smsEnterStatus = !this.smsEnterStatus;
-            this.sms_code = response.data.sms_code;
-          } else{
+          this.loginStatus = !this.loginStatus;          
+          if(response.data.message == 'need_password'){
             this.passEnterStatus = !this.passEnterStatus;
+          } 
+          if(response.data.message == 'need_otp'){
+            this.startTimerInterval();
+            this.smsEnterStatus = !this.smsEnterStatus;
           }
 
         }).catch(error => {
@@ -299,12 +299,13 @@ export default {
           this.$store.commit('setUser',response.data);
           this.$store.commit('setNumber', this.number);
           // // console.log(this.$store.state.auth,'data')          
-          if(response.data.sms_code){
-            this.smsEnterStatus = true;
-            this.sms_code = response.data.sms_code;
-            // this.startTimerInterval();
-          } else{
+          this.smsEnterStatus = true;
+          if(response.data.message == 'need_password'){
             this.passEnterStatus = !this.passEnterStatus;
+          } 
+          if(response.data.message == 'need_otp'){
+            // this.startTimerInterval();
+            this.smsEnterStatus = !this.smsEnterStatus;
           }
 
         }).catch(error => {

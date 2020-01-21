@@ -219,11 +219,19 @@
 		          this.$store.commit('setUser',response.data);
 		          this.$store.commit('setNumber', this.auth.mobile_phone);
 		          // // console.log(this.$store.state.auth,'data')          
-		          if(response.data.sms_code){
-		            this.smsEnterStatus = true;
-		            // this.startTimerInterval();
-		          } else{
+		          // if(response.data.sms_code){
+		          //   this.smsEnterStatus = true;
+		          //   // this.startTimerInterval();
+		          // } else{
+		          //   this.passEnterStatus = !this.passEnterStatus;
+		          // }
+
+		          if(response.data.message == 'need_password'){
 		            this.passEnterStatus = !this.passEnterStatus;
+		          } 
+		          if(response.data.message == 'need_otp'){
+		            // this.startTimerInterval();
+		            this.smsEnterStatus = true;
 		          }
 
 		        }).catch(error => {
