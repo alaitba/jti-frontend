@@ -82,7 +82,7 @@ module.exports = {
 
   axios: {
     // See https://github.com/nuxt-community/axios-module#options https://test-backend.oborotka.kz/web/v1
-    baseURL: development ? 'http://backend.partner360.kz' : 'http://jti.ibec.systems/api/v1',
+    baseURL: development ? 'http://backend.partner360.kz/api/v1' : 'http://jti.ibec.systems/api/v1',
   },
 
 
