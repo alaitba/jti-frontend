@@ -9,7 +9,7 @@
 					<p>
 						Количество баллов: 
 						<span>
-							5 000	
+							0	
 						</span>
 					</p>
 				</div>
@@ -25,7 +25,7 @@
 							<p class="text">
 								{{item.name}}
 							</p>
-							<p class="left">
+							<p class="left" v-if="item.left!=null">
 								Осталось штук: {{item.left}}
 							</p>
 							<button class="link" to="/" @click="showModal()">
@@ -58,34 +58,40 @@
 						url: '/gifts/0.png'
 					},
 					{
+						name: 'Пополнение баланса ',
+						points: 200,
+						left: null,
+						url: '/gifts/1.png'
+					},
+					{
 						name: 'Чайник Vitek',
 						points: 500,
 						left: 400,
-						url: '/gifts/1.png'
+						url: '/gifts/2.png'
 					},
 					{
 						name: 'Мультиварка Redmond',
 						points: 800,
 						left: 340,
-						url: '/gifts/2.png'
+						url: '/gifts/3.png'
 					},
 					{
 						name: 'Утюг Maxwell',
 						points: 600,
 						left: 400,
-						url: '/gifts/3.png'
+						url: '/gifts/4.png'
 					},
 					{
 						name: 'Power-bank Xiaomi',
 						points: 350,
 						left: 600,
-						url: '/gifts/4.png'
+						url: '/gifts/5.png'
 					},
 					{
 						name: 'Сертификат Технодом на 5000 тг',
 						points: 250,
 						left: 500,
-						url: '/gifts/5.png'
+						url: '/gifts/6.png'
 					}
 				]
 			}
