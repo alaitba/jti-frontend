@@ -120,7 +120,7 @@ export default {
         'password_check': this.newPassword
       }
       
-      await this.$axios.post('/auth/create-password',fields)
+      await this.$axios.post('/auth/create-password/',fields)
         .then( response => {
           if(response.data.tradepoints){
             this.$store.commit('setTradePoints', response.data.tradepoints);              
