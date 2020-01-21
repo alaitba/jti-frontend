@@ -35,13 +35,15 @@
 	    					</div>
 	    				</nuxt-link>
     				</div>
-    				<div class="icons__item" @click="showModal()">
-    					<div class="img">
-    						<img src="~/assets/img/icons/links/gift.svg" alt="">
-    					</div>
-    					<div class="title">
-    						Призы
-    					</div>
+    				<div class="icons__item">
+    					<nuxt-link to="/anketa/gifts">
+	    					<div class="img">
+	    						<img src="~/assets/img/icons/links/gift.svg" alt="">
+	    					</div>
+	    					<div class="title">
+	    						Призы
+	    					</div>
+	    				</nuxt-link>
     				</div>
     				<div class="icons__item" @click="showModal()">
     					<div class="img">

@@ -56,10 +56,10 @@
 					                	type="tel" 
 					                	placeholder=" " 
 					                	name="birthData" 
-					                	:mask="['##/##/####']" 
+					                	:mask="['##.##.####']" 
 					                	:class="{'form__input': true, 'error' : errors.has('birthData') || !ageValidate}"
 					                	v-model="field.birthData" 
-					                	v-validate="'date_format:MM/DD/YYYY|required'"
+					                	v-validate="'date_format:DD.MM.YYYY|required'"
 					                	:masked="true"
 					                	/>					                	
 					                <label for="input" class="form__label">
@@ -232,7 +232,7 @@
 
 		    ageValidate(){
 		    	if(this.field.birthData){
-		    		let  chosenDate = moment(this.field.birthData, "MM-DD-YYYY");
+		    		let  chosenDate = moment(this.field.birthData, "DD-MM-YYYY");
 			    	let age = moment().diff(chosenDate, 'years')	
 			    	if(age>=18){
 			    		return true
@@ -318,8 +318,7 @@
 		          	} 
 		        }).catch(error => {
 		        	if(error.response.data.message=='already_filled'){
-			        	console.log('error',error.response)
-						$('#modal-exist-number').modal('show')				
+			        	$('#modal-exist-number').modal('show')				
 					} else{						
 			        	$('#modal-anketa-error').modal('show')				            
 					}

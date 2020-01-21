@@ -114,6 +114,7 @@
         
       <modal-number/>
       <modal-sms-error></modal-sms-error>
+      <modal-sms-sent></modal-sms-sent>
       <modal-password ref="foo" />
         
       </div>
@@ -126,6 +127,7 @@ import HeaderAuth from '~/components/layouts/Header/Header-Auth.vue'
 import ModalNumber from '~/components/layouts/Modals/ModalNumber.vue'
 import ModalPassword from '~/components/layouts/Modals/ModalPassword.vue'
 import ModalSmsError from '~/components/layouts/Modals/ModalSmsError.vue'
+import ModalSmsSent from '~/components/layouts/Modals/ModalSmsSent.vue'
 import {TheMask} from 'vue-the-mask'
 import {mapState, mapMutations} from 'vuex'
 
@@ -139,6 +141,7 @@ export default {
     ModalNumber,
     ModalPassword,
     ModalSmsError,
+    ModalSmsSent
   },
   data() {
     return{
@@ -204,7 +207,10 @@ export default {
         }).catch(error => {
             if(error.response.data.message=='sms_send_limit'){
               $('#modal-sms-limit').modal('show')       
-            } else {
+            } else if(error.response.data.message=='sms_not_sent'){
+              $('#modal-sms-sent').modal('show')       
+            }
+              else {
               $('#modal-auth-denied').modal('show')              
             }
             // this.$toast.error('Error');

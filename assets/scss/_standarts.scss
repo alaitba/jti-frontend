@@ -399,6 +399,28 @@ main{
 	}
 }
 
+.points{
+	background: #F0F0F0;
+	border-radius: 8px;
+	width: 100%;
+	padding: 16px;
+	p{
+		text-align: center;
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 19px;		
+		color: #217461;
+		margin-bottom: 0;
+		span{
+			font-weight: 500;
+			font-size: 16px;
+			line-height: 19px;	
+			color: #217461;
+			margin-left: 4px;
+		}
+	}
+}
+
 .auth-section{
     padding-top: 40px;
     width: 100%; 

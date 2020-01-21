@@ -62,8 +62,9 @@
 		              			{{timer}}
 		              		</span>
 		            	</p>            
+						
 
-		            	<h3 v-if="sms_code" style="text-align:center; margin-top: 16px;">
+						<h3 v-if="sms_code" style="text-align:center; margin-top: 16px;">
 			              {{sms_code}}
 			            </h3>	            
 		          	</div>
@@ -204,7 +205,7 @@
 
 			async sendRecoveryPassword() {
 		      let fields = {
-		        'mobile_phone': '7'+this.number,
+		        'mobile_phone': this.auth.mobile_phone,
 		        'password': this.password,
 		        'password_check': this.newPassword
 		      }

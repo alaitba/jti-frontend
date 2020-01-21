@@ -27,10 +27,18 @@
           <button type="button" class="button button--green" data-dismiss="modal" :disabled="disabledByTimer" @click="stopTimer()">
             Повторить попытку
           </button>
+          
 
-          <nuxt-link class="button button--bordered green" to="/auth/recovery-login" data-dismiss="modal">
-            Не помню пароль
-          </nuxt-link>
+          <template v-if="disabledByTimer">
+            <button type="button" class="button button--bordered green" data-dismiss="modal" :disabled="disabledByTimer" >
+              Повторить попытку
+            </button>
+          </template>
+          <template v-else>
+            <nuxt-link class="button button--bordered green" to="/auth/recovery-login" data-dismiss="modal">
+              Не помню пароль
+            </nuxt-link>
+          </template>          
         </div>              
       </div>
     </div>
@@ -62,11 +70,11 @@
           if(sec < 10) sec = '0'+sec;
           this.passwordTimerText = min+':'+ sec
         } else {
+          clearInterval(this.time);
           // console.log('time');
           this.passwordTimer = 600;        
           // this.repeatSms = true;
           this.disabledByTimer= false;
-          clearInterval(this.time);
         }
         
         // return  ;

@@ -24,7 +24,7 @@
 							</p>
 						</div>
 						<div class="item__status">
-							<p class="points">
+							<p class="point">
 								<!-- +50 баллов -->
 							</p>
 							<div :class="{'status' : true, 'status--active': item.isQualified && item.isEffective}">
@@ -42,7 +42,7 @@
 							</p>
 						</div>
 						<div class="item__status">
-							<p class="points">
+							<p class="point">
 								+50 баллов
 							</p>
 							<div class="status status--filled">
@@ -116,17 +116,9 @@
 
 				await this.$axios.get('/client/lead-history/', fields)
 		        .then(response =>{
-		        	console.log(response.data.data,'1')
 		        	if(response.data.status =='ok'){
-		         		// this.$router.push('/anketa/listanketa')	
 		         		this.anketaStatus = true;	            	
-		         		this.list = response.data.data;
-		         		console.log(response.data.data,'2')
-		         		// for(let i in response.data.data){
-		         		// 	// console.log(i,'i')
-		         		// 	this.brands.push(i)
-		         		// }		         		
-		         		
+		         		this.list = response.data.data;		         				
 		          	} 
 		        }).catch(error => {
 		            
@@ -205,7 +197,7 @@
 						display: flex;
 						align-items:flex-end;
 					}
-					.points{
+					.point{
 						font-weight: 500;
 						font-size: 16px;
 						line-height: 19px;

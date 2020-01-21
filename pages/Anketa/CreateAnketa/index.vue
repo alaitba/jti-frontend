@@ -206,7 +206,13 @@
 		            	this.startTimerInterval();
 		          	} 
 		        }).catch(error => {
-		            $('#modal-exist-number').modal('show')				            
+		            if(error.response.data.message=='sms_send_limit'){
+						$('#modal-sms-limit').modal('show')				
+					} else if(error.response.data.message=='already_filled'){
+						$('#modal-exist-number').modal('show')				
+					} else {
+						$('#modal-error-number').modal('show')						
+					}			            
 		        });
 
 		    },

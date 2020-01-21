@@ -9,7 +9,7 @@
 						</nuxt-link>
 					</div>
 					<div class="header__link">
-						<!-- <div class="notification">
+						<div class="notification">
 							<a href="#">
 								<img src="~/assets/img/icons/bell.svg" alt="">
 							</a>
@@ -18,7 +18,7 @@
 							<span class="burger__item"></span>
 							<span class="burger__item"></span>
 							<span class="burger__item"></span>
-						</button> -->
+						</button>
 						<!-- <div class="burger-menu"></div> -->
 					</div>
 				</div>
@@ -29,55 +29,55 @@
 			<div class="container">
 				<ul class="nav">
 					<li class="nav__item">
-						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+						<nuxt-link to="/anketa/createanketa" class="nav__link nav__link--green" @click.native="showBurger()">
 							Анкеты
 						</nuxt-link>
 					</li>
-					<!-- <li class="nav__item">
-						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+					<li class="nav__item">
+						<nuxt-link to="/anketa/gifts" class="nav__link nav__link--green" @click.native="showBurger()">
 							Призы
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+						<nuxt-link to="#" class="nav__link" disabled>
 							Витрина
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+						<nuxt-link to="#" class="nav__link" disabled>
 							План закупок
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+						<nuxt-link to="#" class="nav__link" disabled>
 							Уведомления
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+						<nuxt-link to="#" class="nav__link" disabled>
 							Профиль
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+						<nuxt-link to="#" class="nav__link" disabled>
 							Викторины
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+						<nuxt-link to="#" class="nav__link" disabled>
 							Новости
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+						<nuxt-link to="#" class="nav__link" disabled>
 							Агент +
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="/anketa/createanketa" class="nav__link" @click.native="showBurger()">
+						<nuxt-link to="#" class="nav__link" disabled>
 							Обратная связь
 						</nuxt-link>
-					</li> -->
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -172,6 +172,10 @@
 					color: #1F1F1F;
 					padding: 18px 16px;
 					display: block;
+					&--green{
+						color: #05B186;
+						font-weight: bold;
+					}
 					&:hover{
 						background: #F9F9F9;
 						font-weight: 500;
