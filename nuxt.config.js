@@ -1,8 +1,7 @@
 const pkg = require('./package')
 const dir = "/"
 
-let development = process.env.NODE_ENV !== 'production'
-
+let development = process.env.NODE_ENV == 'development'
 
 module.exports = {
   mode: 'spa',
