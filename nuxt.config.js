@@ -1,7 +1,7 @@
 const pkg = require('./package')
 const dir = "/"
 
-let development = process.env.NODE_ENV == 'development'
+let development = process.env.NODE_ENV == 'production'
 
 module.exports = {
   mode: 'spa',
@@ -82,7 +82,7 @@ module.exports = {
 
   axios: {
     // See https://github.com/nuxt-community/axios-module#options https://test-backend.oborotka.kz/web/v1
-    baseURL: development ? 'http://jti.ibec.systems/api/v1' : 'http://backend.partner360.kz',
+    baseURL: development ? 'http://backend.partner360.kz' : 'http://jti.ibec.systems/api/v1',
   },
 
 
