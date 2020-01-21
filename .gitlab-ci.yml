@@ -65,7 +65,7 @@ deploy_production:
   script:
     - apk add --no-cache rsync openssh
     - mkdir -p ~/.ssh
-    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
+    - echo "$SSH_PRIVATE_KEY_PROD" >> ~/.ssh/id_dsa
     - chmod 600 ~/.ssh/id_dsa
     - echo -e "Host *\n\tStrictHostKeyChecking no\nHost 109.233.110.131 \nPort 2223" > ~/.ssh/config
     - rsync -rav --delete dist/ partner360@109.233.110.131:/home/partner360/www/partner360.kz/
