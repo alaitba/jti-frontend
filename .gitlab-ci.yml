@@ -1,95 +1,73 @@
-.deploy_template: &deploy_template
-    before_script:
-    # Install ssh-agent if not already installed, it is required by Docker.
-    # (change apt-get to yum if you use a CentOS-based image)
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh -y)'
-
-    # Add bash
-    - apt-get install bash -y
-
-    # Add git
-    - apt-get install git -y
-
-    # Run ssh-agent (inside the build environment)
-    - eval $(ssh-agent -s)
-
-    # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-    - echo "$SSH_PRIVATE_KEY" | ssh-add -
-
-    # For Docker builds disable host key checking. Be aware that by adding that
-    # you are suspectible to man-in-the-middle attacks.
-    # WARNING: Use this only with the Docker executor, if you use it with shell
-    # you will overwrite your user's SSH config.
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    # In order to properly check the server's host key, assuming you created the
-    # SSH_SERVER_HOSTKEYS variable previously, uncomment the following two lines
-    # instead.
-    # - mkdir -p ~/.ssh
-    # - '[[ -f /.dockerenv ]] && echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts'
-
-.deploy_template_prod: &deploy_template_prod
-    before_script:
-    # Install ssh-agent if not already installed, it is required by Docker.
-    # (change apt-get to yum if you use a CentOS-based image)
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh -y)'
-
-    # Add bash
-    - apt-get install bash -y
-
-    # Add git
-    - apt-get install git -y
-
-    # Run ssh-agent (inside the build environment)
-    - eval $(ssh-agent -s)
-
-    # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-    - echo "$SSH_PRIVATE_KEY_PROD" | ssh-add -
-
-    # For Docker builds disable host key checking. Be aware that by adding that
-    # you are suspectible to man-in-the-middle attacks.
-    # WARNING: Use this only with the Docker executor, if you use it with shell
-    # you will overwrite your user's SSH config.
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    # In order to properly check the server's host key, assuming you created the
-    # SSH_SERVER_HOSTKEYS variable previously, uncomment the following two lines
-    # instead.
-    # - mkdir -p ~/.ssh
-    # - '[[ -f /.dockerenv ]] && echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts'
-
 stages:
+  - build
   - deploy
 
-deploy_testing:
-  image: node:12.13
+build_test:
+  image: node:8.10.0
   tags:
     - frontend
-  stage: deploy
-  <<: *deploy_template
+  # Cache libraries in between jobs
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+    - node_modules/
+  stage: build
   script:
-    - npm i -g pm2
-    - pm2 deploy ecosystem.config.js testing
+    - npm install
+    - npm run test
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist
   only:
     - master
 
-# deploy_production:
-#   image: node:12.13
-#   tags:
-#     - frontend
-#   # Cache libraries in between jobs
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}
-#     paths:
-#     - node_modules/
-#   stage: deploy
-#   <<: *deploy_template_prod
-#   script:
-#     - npm i -g pm2
-#     - pm2 deploy ecosystem.config.js production
-#   artifacts:
-#     expire_in: 1 week
-#     paths:
-#       - dist
-#   only:
-#     - production
+build_production:
+  image: node:8.10.0
+  tags:
+    - frontend
+  # Cache libraries in between jobs
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+    - node_modules/
+  stage: build
+  script:
+    - npm install
+    - npm run prod
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist
+  only:
+    - production
+
+deploy_testing:
+  image: alpine
+  tags:
+    - frontend
+  stage: deploy
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\nHost 192.168.1.166 \nPort 2223" > ~/.ssh/config
+    - rsync -rav --delete dist/ jti@192.168.1.166:/var/www/jti/data/www/jti-frontend.ibec.systems
+  only:
+    - master
+    
+deploy_production:
+  image: alpine
+  tags:
+    - jti_terminal
+  stage: deploy
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY_PROD" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\nHost 109.233.110.131 \nPort 2223" > ~/.ssh/config
+    - rsync -rav --delete dist/ partner360@109.233.110.131:/home/partner360/www/partner360.kz/
+  only:
+    - production

@@ -11,6 +11,6 @@ http://jti-frontend.ibec.systems/
 
 ##### PRODUCTION СРЕДА(production):
 Вам достаточно сделать любой пуш в ветку production с ветки **master** и автодэплой подгрузит ваши наработки. 
-https://jti.com
+https://partner360.kz
 
 **Happy coding**!
