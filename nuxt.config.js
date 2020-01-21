@@ -56,6 +56,7 @@ module.exports = {
     '~plugins/vue-signature.js',
     '~plugins/vee-validate.js',
     '~plugins/vue-swiper.js',
+    '~plugins/sentry.js',
   ],
 
   /*
