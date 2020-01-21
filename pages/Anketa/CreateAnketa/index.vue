@@ -147,7 +147,7 @@
 				}
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
 
-				await this.$axios.post('http://jti.ibec.systems/api/v1/client/send-sms/', fields)
+				await this.$axios.post('/client/send-sms/', fields)
 					.then(response =>{
 						this.numberStatus = !this.numberStatus;
 						this.footerStatus = !this.footerStatus;		
@@ -179,7 +179,7 @@
 			    if(this.permanentPassword.length==4){
 		        	this.errorPermanenetPassword = false;
 		        	// this.$router.push('/anketa/createanketa/fillform')
-		        	await this.$axios.post('http://jti.ibec.systems/api/v1/client/check-sms/', fields)
+		        	await this.$axios.post('/client/check-sms/', fields)
 		        	.then(response =>{
 		          		if(response.data.status = 'ok'){
 		          			this.$router.push('/anketa/createanketa/fillform')
@@ -199,7 +199,7 @@
 				}
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
 		      
-		      	await this.$axios.post('http://jti.ibec.systems/api/v1/client/send-sms/', fields)
+		      	await this.$axios.post('/client/send-sms/', fields)
 		        .then(response =>{
 		         	if(response.data.sms_code){
 		            	this.sms_code = response.data.sms_code;
@@ -238,8 +238,7 @@
 		      
 		      // return  ;
 		    },
-		    startTimerInterval(){
-		    	console.log('asd')
+		    startTimerInterval(){		    	
 		      this.time = setInterval(() =>{        
 		        this.startTimer();
 		      },1000);

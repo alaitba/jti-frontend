@@ -132,7 +132,7 @@
 		        	'mobile_phone': this.auth.mobile_phone,
 		      	}
 		      // console.log(fields,'fields')
-		      	await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/phone/', fields)
+		      	await this.$axios.post('/auth/reset/phone/', fields)
 		        .then(response =>{
 		        	localStorage.setItem("authUser", JSON.stringify(response.data));
 		          	localStorage.setItem("authUserStatus", true);
@@ -162,7 +162,7 @@
 		      	}
 		      	if(this.recoveryPermanentPassword.length==4){
 			      	this.errorPermanenetPassword = false;
-			      	await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/sms-code/', fields)
+			      	await this.$axios.post('/auth/reset/sms-code/', fields)
 			      	.then(response =>{
 			        	if(response.data.status = 'ok'){	
 			          		this.$router.push({path: '/auth/resetpassword', params: { userId: '123' }})
@@ -183,7 +183,7 @@
 		          'mobile_phone': this.auth.mobile_phone,
 		      }
 		      // console.log(fields,'fields')
-		      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/phone/', fields)
+		      await this.$axios.post('/auth/reset/phone/', fields)
 		        .then(response =>{
 		          this.$store.commit('setUser',response.data);
 		          this.$store.commit('setNumber', this.auth.mobile_phone);
@@ -209,7 +209,7 @@
 		        'password_check': this.newPassword
 		      }
 		      
-		      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/create-password',fields)
+		      await this.$axios.post('/auth/reset/create-password',fields)
 		        .then( response => {
 		        	if(response.data.tradepoints){
 			            this.$store.commit('setTradePoints', response.data.tradepoints);		

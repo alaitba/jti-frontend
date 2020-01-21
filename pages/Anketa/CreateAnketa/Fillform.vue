@@ -269,7 +269,7 @@
 
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
 
-				await this.$axios.get('http://jti.ibec.systems/api/v1/dict/tobacco-products/')
+				await this.$axios.get('/dict/tobacco-products/')
 		        .then(response =>{
 		        	if(response.data.status =='ok'){
 		         		// this.$router.push('/anketa/listanketa')		            	
@@ -311,7 +311,7 @@
 
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
 
-				await this.$axios.post('http://jti.ibec.systems/api/v1/client/create-lead/', fields)
+				await this.$axios.post('/client/create-lead/', fields)
 		        .then(response =>{
 		         	if(response.data.status =='ok'){
 		         		this.$router.push('/anketa/listanketa')		            	

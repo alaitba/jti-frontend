@@ -130,7 +130,7 @@
           'password_check': this.newPassword
         }
       
-        await this.$axios.post('http://jti.ibec.systems/api/v1/auth/reset/create-password',fields)
+        await this.$axios.post('/auth/reset/create-password',fields)
           .then( response => {
             if(response.data.tradepoints){
               this.$store.commit('setTradePoints', response.data.tradepoints);              

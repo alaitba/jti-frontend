@@ -95,8 +95,8 @@
               }}</span>
             </p>            
 
-            <h3 v-if="auth" style="text-align:center; margin-top: 16px;">
-              {{auth.sms_code}}
+            <h3 v-if="sms_code" style="text-align:center; margin-top: 16px;">
+              {{sms_code}}
             </h3>
 
 
@@ -113,6 +113,7 @@
 
         
       <modal-number/>
+      <modal-sms-error></modal-sms-error>
       <modal-password ref="foo" />
         
       </div>
@@ -124,6 +125,7 @@
 import HeaderAuth from '~/components/layouts/Header/Header-Auth.vue'
 import ModalNumber from '~/components/layouts/Modals/ModalNumber.vue'
 import ModalPassword from '~/components/layouts/Modals/ModalPassword.vue'
+import ModalSmsError from '~/components/layouts/Modals/ModalSmsError.vue'
 import {TheMask} from 'vue-the-mask'
 import {mapState, mapMutations} from 'vuex'
 
@@ -136,6 +138,7 @@ export default {
     HeaderAuth,
     ModalNumber,
     ModalPassword,
+    ModalSmsError,
   },
   data() {
     return{
@@ -150,6 +153,7 @@ export default {
       permanentPassword: '',
       errorPermanenetPassword: false,
       timeLimit: 180,
+      sms_code: '',
       timer: '',
       time:'',
       repeatSms: false,
@@ -181,7 +185,7 @@ export default {
           'mobile_phone': '7'+this.number,
       }
       // console.log(fields,'fields')
-      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/phone/', fields)
+      await this.$axios.post('/auth/phone/', fields)
         .then(response =>{
           localStorage.setItem("authUser", JSON.stringify(response.data));
           localStorage.setItem("authUserStatus", true);
@@ -191,13 +195,18 @@ export default {
           this.loginStatus = !this.loginStatus;
           if(response.data.sms_code){
             this.smsEnterStatus = !this.smsEnterStatus;
+            this.sms_code = response.data.sms_code;
             this.startTimerInterval();
           } else{
             this.passEnterStatus = !this.passEnterStatus;
           }
 
         }).catch(error => {
-            $('#modal-auth-denied').modal('show')
+            if(error.response.data.message=='sms_send_limit'){
+              $('#modal-sms-limit').modal('show')       
+            } else {
+              $('#modal-auth-denied').modal('show')              
+            }
             // this.$toast.error('Error');
         });
 
@@ -212,7 +221,7 @@ export default {
       // console.log('sendSms',this.permanentPassword.length)
       if(this.permanentPassword.length==4){
         this.errorPermanenetPassword = false;
-        await this.$axios.post('http://jti.ibec.systems/api/v1/auth/sms-code/', fields)
+        await this.$axios.post('/auth/sms-code/', fields)
         .then(response =>{
           if(response.data.status = 'ok'){
             console.log(this.$router,'router');
@@ -235,7 +244,7 @@ export default {
         'password': this.password
       }      
       this.errorPassword = false;
-      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/login/', fields)
+      await this.$axios.post('/auth/login/', fields)
       .then(response =>{
         if(response.data.tradepoints){
           this.$store.commit('setTradePoints', response.data.tradepoints)          
@@ -267,13 +276,14 @@ export default {
           'mobile_phone': '7'+this.number,
       }
       // console.log(fields,'fields')
-      await this.$axios.post('http://jti.ibec.systems/api/v1/auth/phone/', fields)
+      await this.$axios.post('/auth/phone/', fields)
         .then(response =>{
           this.$store.commit('setUser',response.data);
           this.$store.commit('setNumber', this.number);
           // // console.log(this.$store.state.auth,'data')          
           if(response.data.sms_code){
             this.smsEnterStatus = true;
+            this.sms_code = response.data.sms_code;
             // this.startTimerInterval();
           } else{
             this.passEnterStatus = !this.passEnterStatus;
@@ -295,8 +305,8 @@ export default {
     },   
         
     showTimer(){
-      this.repeatSms = false;
       clearInterval(this.time);
+      this.repeatSms = false;
       this.timeLimit = 180;
       this.permanentPassword = '';
       setTimeout(this.startTimerInterval(), 1000);   
@@ -313,6 +323,8 @@ export default {
       } else {        
         this.timeLimit = 180;        
         this.repeatSms = true;
+        this.errorPermanenetPassword = false;
+        this.sms_code = '';
         clearInterval(this.time);
       }
       

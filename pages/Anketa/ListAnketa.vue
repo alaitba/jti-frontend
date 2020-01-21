@@ -114,7 +114,7 @@
 				}
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
 
-				await this.$axios.get('http://jti.ibec.systems/api/v1/client/lead-history/', fields)
+				await this.$axios.get('/client/lead-history/', fields)
 		        .then(response =>{
 		        	console.log(response.data.data,'1')
 		        	if(response.data.status =='ok'){

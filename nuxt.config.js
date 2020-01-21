@@ -1,6 +1,8 @@
 const pkg = require('./package')
 const dir = "/"
 
+let development = process.env.NODE_ENV !== 'production'
+
 
 module.exports = {
   mode: 'spa',
@@ -28,7 +30,7 @@ module.exports = {
       {
         src:"https://cdn.jsdelivr.net/npm/pwacompat@2.0.6/pwacompat.min.js",
         integrity:"sha384-GOaSLecPIMCJksN83HLuYf9FToOiQ2Df0+0ntv7ey8zjUHESXhthwvq9hXAZTifA",
-        crossorigin:"anonymous" ,defer:true
+        crossorigin:"anonymous", defer:true
       }
     ]
   },
@@ -77,9 +79,12 @@ module.exports = {
   /*
   ** Axios module configuration
   */
+
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+    // See https://github.com/nuxt-community/axios-module#options https://test-backend.oborotka.kz/web/v1
+    baseURL: development ? 'http://jti.ibec.systems/api/v1' : 'http://backend.partner360.kz',
   },
+
 
   // server: {
   //   port: 8000, // default: 3000
