@@ -13,7 +13,7 @@
 			            </label>
 		            	<div class="form-group">             
 		              		<div class="form-group__wrapper">
-		                		<the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel"/>
+		                		<the-mask :mask="['+7(777)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel"/>
 		                		<label for="input" class="form__label">
 		                  			Номер телефона
 		                		</label>  
@@ -26,8 +26,8 @@
 							  	<input type="checkbox" v-model="checkBox">
 							  	<span class="checkmark"></span>
 							</label>
-		            	</div>		            							
-		            	<button class="button button--green" type="submit" :disabled="!checkBox || number.length!=10">
+		            	</div>		 
+		            	<button class="button button--green" type="submit" :disabled="!checkBox || number.length!=7">
 		              		Далее
 		            	</button>
 		            <!-- <button class="button button--green"  @click="showModal()">
@@ -91,24 +91,26 @@
 	    </div>		
 		
 		<footer-anketa v-if="footerStatus"/>
-		<modal-exist :number="number"></modal-exist>
-		<modal-sms-error></modal-sms-error>
-		<modal-number-error></modal-number-error>
+		<modal-main :title="title" :text="text" :img="img" :number="number"></modal-main>
+		<!-- <modal-sms-error></modal-sms-error>
+		<modal-number-error></modal-number-error> -->
 	</main>
 </template>
 <script>
 	import FooterAnketa from '~/components/layouts/Footer/Footer.vue'
-	import ModalExist from '~/components/layouts/Modals/ModalExist.vue'
-	import ModalSmsError from '~/components/layouts/Modals/ModalSmsError.vue'
-	import ModalNumberError from '~/components/layouts/Modals/ModalNumberError.vue'
+	// import ModalExist from '~/components/layouts/Modals/ModalExist.vue'
+	// import ModalSmsError from '~/components/layouts/Modals/ModalSmsError.vue'
+	// import ModalNumberError from '~/components/layouts/Modals/ModalNumberError.vue'
+	import ModalMain from '~/components/layouts/Modals/modal-main.vue'
 	import {TheMask} from 'vue-the-mask'
 	import {mapState, mapMutations} from 'vuex'
 	export default{
 		components : {
 			TheMask,
-			ModalExist,
-			ModalSmsError,
-			ModalNumberError,
+			// ModalExist,
+			// ModalSmsError,
+			// ModalNumberError,
+			ModalMain,
 			FooterAnketa,
 		},
 		
@@ -125,7 +127,13 @@
 				timer: '',
 				timeLimit: 180,
 				footerStatus: true,
-				sms_code:''
+				sms_code:'',
+
+				// for modals
+			    title:'',
+			    text:'',
+			    img:'',
+			    tel:'',
 			}
 		},
 		computed: {
@@ -142,7 +150,7 @@
 		methods:{
 			async sendNumber(){
 				let fields = {
-					'mobile_phone': '7'+this.number,
+					'mobile_phone': '+7777'+this.number,
 					'legal_age': this.checkBox
 				}
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
@@ -158,20 +166,34 @@
 						localStorage.setItem("anketaNumber", response.data.mobile_phone);
 						this.startTimerInterval();
 					}).catch((error, e) =>{
-						if(error.response.data.message=='sms_send_limit'){
-							$('#modal-sms-limit').modal('show')				
-						} else if(error.response.data.message=='already_filled'){
-							$('#modal-exist-number').modal('show')				
+						if(error.response.data.message=='sms_not_sent'){
+			              this.title="Cмс не был отправлен!"
+			              this.text="Попробуйте еще раз!"
+			              this.img="alert"
+			              $('#modal-main').modal('show')           
+			            } else if(error.response.data.message=='sms_send_limit'){
+			              this.title="Cмс не был отправлен!"
+			              this.text="Вы превысели лимит отправки смс!"
+			              this.img="alert"
+			              $('#modal-main').modal('show')           
+			            } else if(error.response.data.message=='already_filled'){
+							this.tel=this.number;
+				            this.text="На указанный телефон анкета уже заполнялась в данной торговой точке!"
+				            this.img="alert"
+				            $('#modal-main').modal('show')				
 						} else {
-							$('#modal-error-number').modal('show')						
-						}
+							this.title="Отказано в доступе!"
+			              	this.text="Номер телефона введен неверно или не внесен в базу данных!"
+			              	this.img="error"
+			              	$('#modal-main').modal('show')
+						}					
 					})				
 			},
 
 			async sendSms() {
 
 				let fields = {
-			        'mobile_phone': '7'+this.number,
+			        'mobile_phone': '+7777'+this.number,
 			        'sms_code': this.permanentPassword,
 			    }
 
@@ -194,7 +216,7 @@
 			async sendSmsAgain() {
 
 		      	let fields = {
-					'mobile_phone': '7'+this.number,
+					'mobile_phone': '+7777'+this.number,
 					'legal_age': this.checkBox
 				}
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
@@ -207,11 +229,20 @@
 		          	} 
 		        }).catch(error => {
 		            if(error.response.data.message=='sms_send_limit'){
-						$('#modal-sms-limit').modal('show')				
+						this.title="Cмс не был отправлен!"
+		              	this.text="Вы превысели лимит отправки смс!"
+		              	this.img="alert"
+		              	$('#modal-main').modal('show')      				
 					} else if(error.response.data.message=='already_filled'){
-						$('#modal-exist-number').modal('show')				
+						this.tel=this.number;
+			            this.text="На указанный телефон анкета уже заполнялась в данной торговой точке!"
+			            this.img="alert"
+			            $('#modal-main').modal('show')			
 					} else {
-						$('#modal-error-number').modal('show')						
+						this.title="Отказано в доступе!"
+		              	this.text="Номер телефона введен неверно или не внесен в базу данных!"
+		              	this.img="error"
+		              	$('#modal-main').modal('show')						
 					}			            
 		        });
 

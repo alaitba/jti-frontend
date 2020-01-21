@@ -79,13 +79,9 @@ export default {
       showPassword: false,
       errorPassword: false,     
       rules:[
-      		{ message:'Букв в нижнем регистре латинских букв', regex:/[a-z]+/ },
-      		{ message:"Букв в верхнем регистре латинских букв",  regex:/[A-Z]+/ },
-      		{ message:"Минимум 6 символов", regex:/.{6,}/ },
-      		{ message:"Цифр", regex:/[0-9]+/ },
-      		{ message:"Специальных символов", regex:/[!@#$%^&*(),.?":{}|<>]/}
-
-      ] 
+          { message:'Букв латинского алфавита, цифр или спецсимволов', regex:/^[\x20-\x7F]+/ },
+          { message:"Минимум 6 символов", regex:/.{6,}/ },          
+        ] 
     }
   },
   computed: {

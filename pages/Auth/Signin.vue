@@ -61,7 +61,7 @@
         </div>
 
         <!-- component enter password  if user has not signed before and has not password-->
-        <div class="auth-section__form auth-section__form--sms" v-if="smsEnterStatus">          
+        <div class="auth-section__form auth-section__form--sms" v-if="smsEnterStatus">
           <form @submit.prevent="sendSms">
             <label for="" class="title__label">
               Введите код подтверждения
@@ -105,16 +105,8 @@
             </nuxt-link> -->
           </div>
         </div>
-
-
-        
-
-
-
-        
-      <modal-number/>
-      <modal-sms-error></modal-sms-error>
-      <modal-sms-sent></modal-sms-sent>
+    
+      <modal-main :title="title" :text="text" :img="img"></modal-main>
       <modal-password ref="foo" />
         
       </div>
@@ -124,10 +116,9 @@
 
 <script>
 import HeaderAuth from '~/components/layouts/Header/Header-Auth.vue'
-import ModalNumber from '~/components/layouts/Modals/ModalNumber.vue'
 import ModalPassword from '~/components/layouts/Modals/ModalPassword.vue'
-import ModalSmsError from '~/components/layouts/Modals/ModalSmsError.vue'
-import ModalSmsSent from '~/components/layouts/Modals/ModalSmsSent.vue'
+import ModalMain from '~/components/layouts/Modals/modal-main.vue'
+
 import {TheMask} from 'vue-the-mask'
 import {mapState, mapMutations} from 'vuex'
 
@@ -138,10 +129,8 @@ export default {
     // Logo
     TheMask,
     HeaderAuth,
-    ModalNumber,
     ModalPassword,
-    ModalSmsError,
-    ModalSmsSent
+    ModalMain
   },
   data() {
     return{
@@ -161,6 +150,12 @@ export default {
       time:'',
       repeatSms: false,
       counter: 0,
+
+
+      // for modals
+      title:'',
+      text:'',
+      img:'',
     }
   },
   computed: {
@@ -177,11 +172,7 @@ export default {
     //   return this.errorPermanenetPassword;
     // }
   },
-  methods:{
-    showModal(){
-      $('#modal-auth-alert').modal('show');
-      this.$refs.foo.startTimerInterval();
-    },
+  methods:{    
     async authBtn() {
 
       let fields = {
@@ -205,12 +196,26 @@ export default {
           }
 
         }).catch(error => {
-            if(error.response.data.message=='sms_send_limit'){
-              $('#modal-sms-limit').modal('show')       
+            if(error.response.data.message=='phone_does_not_exist' || error.response.data.message=='validation_failed'){
+              this.title="Отказано в доступе!"
+              this.text="Номер телефона введен неверно или не внесен в базу данных!"
+              this.img="error"
+              $('#modal-main').modal('show')       
             } else if(error.response.data.message=='sms_not_sent'){
-              $('#modal-sms-sent').modal('show')       
+              this.title="Cмс не был отправлен!"
+              this.text="Попробуйте еще раз!"
+              this.img="alert"
+              $('#modal-main').modal('show')           
+            } else if(error.response.data.message=='sms_send_limit'){
+              this.title="Cмс не был отправлен!"
+              this.text="Вы превысели лимит отправки смс!"
+              this.img="alert"
+              $('#modal-main').modal('show')           
             }
-              else {
+            else {
+              this.title="Отказано в доступе!"
+              this.text="Номер телефона введен неверно или не внесен в базу данных!"
+              this.img="error"
               $('#modal-auth-denied').modal('show')              
             }
             // this.$toast.error('Error');
@@ -230,13 +235,21 @@ export default {
         await this.$axios.post('/auth/sms-code/', fields)
         .then(response =>{
           if(response.data.status = 'ok'){
-            console.log(this.$router,'router');
             this.$router.push('/auth/createpassword')
           }
         }).catch(error => {
             this.errorPermanenetPassword = true;
-            // $('#modal-auth-denied').modal('show')
-              // this.$toast.error('Error');
+            if(error.response.data.message=='password_creation_expired_or_not_allowed' ){
+              this.title="Отказано в доступе!"
+              this.text="Введенный смс не правильный или просрочен!!"
+              this.img="error"
+              $('#modal-main').modal('show')       
+            } else{
+              this.title="Отказано в доступе!"
+              this.text="Номер телефона введен неверно или не внесен в базу данных!"
+              this.img="error"
+              $('#modal-auth-denied').modal('show')   
+            }
         });
       }
 
@@ -273,7 +286,6 @@ export default {
             this.errorPassword = true;
           }                      
         });
-
     }, 
 
     async sendSmsAgain() {
@@ -296,10 +308,35 @@ export default {
           }
 
         }).catch(error => {
-            $('#modal-auth-denied').modal('show')
-            // this.$toast.error('Error');
+            if(error.response.data.message=='phone_does_not_exist' || error.response.data.message=='validation_failed'){
+              this.title="Отказано в доступе!"
+              this.text="Номер телефона введен неверно или не внесен в базу данных!"
+              this.img="error"
+              $('#modal-main').modal('show')       
+            } else if(error.response.data.message=='sms_not_sent'){
+              this.title="Cмс не был отправлен!"
+              this.text="Попробуйте еще раз!"
+              this.img="alert"
+              $('#modal-main').modal('show')           
+            } else if(error.response.data.message=='sms_send_limit'){
+              this.title="Cмс не был отправлен!"
+              this.text="Вы превысели лимит отправки смс!"
+              this.img="alert"
+              $('#modal-main').modal('show')           
+            }
+            else {
+              this.title="Отказано в доступе!"
+              this.text="Номер телефона введен неверно или не внесен в базу данных!"
+              this.img="error"
+              $('#modal-auth-denied').modal('show')              
+            }
         });
+    },
 
+
+    showModal(){
+      $('#modal-auth-alert').modal('show');
+      this.$refs.foo.startTimerInterval();
     },
 
     checkNumber(number){
@@ -336,10 +373,7 @@ export default {
       
       // return  ;
     },
-    stopTimer(){      
-      // console.log('stopTimer');      
-      // this.timeLimit = 180;      
-    },
+
     startTimerInterval(){
       this.time = setInterval(() =>{        
         this.startTimer();

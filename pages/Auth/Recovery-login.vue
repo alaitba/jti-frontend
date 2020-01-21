@@ -71,21 +71,21 @@
 		        </div> 	        
 	 		</div>
 	 	</div>
-	 	<modal-number/>	    
+	 	<modal-main :title="title" :text="text" :img="img"></modal-main>
 	</main>
 </template>
 
 <script>
 	import HeaderAuth from '~/components/layouts/Header/Header-Auth.vue'
 	import {TheMask} from 'vue-the-mask'
-	import ModalNumber from '~/components/layouts/Modals/ModalNumber.vue'
+	import ModalMain from '~/components/layouts/Modals/modal-main.vue'
 	import {mapState, mapMutations} from 'vuex'
 	export default {
 		layout: 'auth',
 		components: {
 			HeaderAuth,
 			TheMask,
-			ModalNumber,		    
+			ModalMain,		    
 		},
 		data(){
 			return {
@@ -109,12 +109,13 @@
 			    showPassword: false,
 			    errorPassword: false,     
 			    rules:[
-			      	{ message:'Букв в нижнем регистре', regex:/[a-z]+/ },
-			      	{ message:"Букв в верхнем регистре",  regex:/[A-Z]+/ },
-			      	{ message:"Минимум 6 символов", regex:/.{6,}/ },
-			      	{ message:"Цифр", regex:/[0-9]+/ },
-			      	{ message:"Специальных символов", regex:/[!@#$%^&*(),.?":{}|<>]/}
-			      ]		
+		          { message:'Букв латинского алфавита, цифр или спецсимволов', regex:/^[\x20-\x7F]+/ },
+		          { message:"Минимум 6 символов", regex:/.{6,}/ },          
+		        ],
+			    // for modals
+		      	title:'',
+		      	text:'',
+		      	img:'',		
 			}
 		},
 		computed: {
@@ -150,8 +151,28 @@
 		          	}
 
 		        }).catch(error => {
-		            // $('#modal-auth-denied').modal('show')
-		            // this.$toast.error('Error');
+		            if(error.response.data.message=='phone_does_not_exist' || error.response.data.message=='validation_failed'){
+		              this.title="Отказано в доступе!"
+		              this.text="Номер телефона введен неверно или не внесен в базу данных!"
+		              this.img="error"
+		              $('#modal-main').modal('show')       
+		            } else if(error.response.data.message=='sms_not_sent'){
+		              this.title="Cмс не был отправлен!"
+		              this.text="Попробуйте еще раз!"
+		              this.img="alert"
+		              $('#modal-main').modal('show')           
+		            } else if(error.response.data.message=='sms_send_limit'){
+		              this.title="Cмс не был отправлен!"
+		              this.text="Вы превысели лимит отправки смс!"
+		              this.img="alert"
+		              $('#modal-main').modal('show')           
+		            }
+		            else {
+		              this.title="Отказано в доступе!"
+		              this.text="Номер телефона введен неверно или не внесен в базу данных!"
+		              this.img="error"
+		              $('#modal-auth-denied').modal('show')              
+		            }
 		        });
 			},
 
@@ -170,8 +191,17 @@
 			        	}
 			      	}).catch(error => {
 			      		this.errorPermanenetPassword = true;
-			          // $('#modal-auth-denied').modal('show')
-			            // this.$toast.error('Error');
+			          	if(error.response.data.message=='password_creation_expired_or_not_allowed' ){
+			              this.title="Отказано в доступе!"
+			              this.text="Введенный смс не правильный или просрочен!!"
+			              this.img="error"
+			              $('#modal-main').modal('show')       
+			            } else{
+			              this.title="Отказано в доступе!"
+			              this.text="Номер телефона введен неверно или не внесен в базу данных!"
+			              this.img="error"
+			              $('#modal-auth-denied').modal('show')   
+			            }
 			      	});
 			     }
 
@@ -197,8 +227,28 @@
 		          }
 
 		        }).catch(error => {
-		            $('#modal-auth-denied').modal('show')
-		            // this.$toast.error('Error');
+		            if(error.response.data.message=='phone_does_not_exist' || error.response.data.message=='validation_failed'){
+		              this.title="Отказано в доступе!"
+		              this.text="Номер телефона введен неверно или не внесен в базу данных!"
+		              this.img="error"
+		              $('#modal-main').modal('show')       
+		            } else if(error.response.data.message=='sms_not_sent'){
+		              this.title="Cмс не был отправлен!"
+		              this.text="Попробуйте еще раз!"
+		              this.img="alert"
+		              $('#modal-main').modal('show')           
+		            } else if(error.response.data.message=='sms_send_limit'){
+		              this.title="Cмс не был отправлен!"
+		              this.text="Вы превысели лимит отправки смс!"
+		              this.img="alert"
+		              $('#modal-main').modal('show')           
+		            }
+		            else {
+		              this.title="Отказано в доступе!"
+		              this.text="Номер телефона введен неверно или не внесен в базу данных!"
+		              this.img="error"
+		              $('#modal-auth-denied').modal('show')              
+		            }
 		        });
 
 		    },
