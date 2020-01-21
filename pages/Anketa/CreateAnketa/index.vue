@@ -234,7 +234,7 @@
 		              	this.img="alert"
 		              	$('#modal-main').modal('show')      				
 					} else if(error.response.data.message=='already_filled'){
-						this.tel=this.number;
+						this.tel='777'+this.number;
 			            this.text="На указанный телефон анкета уже заполнялась в данной торговой точке!"
 			            this.img="alert"
 			            $('#modal-main').modal('show')			
