@@ -187,10 +187,10 @@ export default {
           this.$store.commit('setNumber', this.number);          
           // console.log(this.$store.state.auth,'data')
           this.loginStatus = !this.loginStatus;
+          this.startTimerInterval();
           if(response.data.sms_code){
             this.smsEnterStatus = !this.smsEnterStatus;
             this.sms_code = response.data.sms_code;
-            this.startTimerInterval();
           } else{
             this.passEnterStatus = !this.passEnterStatus;
           }

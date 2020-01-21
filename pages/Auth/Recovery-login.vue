@@ -142,10 +142,10 @@
 		          	this.$store.commit('setNumber', this.number);
 		          	// console.log(this.$store.state.auth,'data')
 		          	this.recoveryNumberStatus = !this.recoveryNumberStatus;
+	            	this.startTimerInterval();
 		          	if(response.data.sms_code){
 		          		this.sms_code = response.data.sms_code; 
 		            	// this.recoverySmsEnterStatus = !this.recoverySmsEnterStatus;
-		            	this.startTimerInterval();
 		          	} else{
 		            	// this.passEnterStatus = !this.passEnterStatus;
 		          	}

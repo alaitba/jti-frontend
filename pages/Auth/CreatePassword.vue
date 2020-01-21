@@ -137,7 +137,9 @@ export default {
             }
           }
         }).catch(error => {
-
+            if(error.response.message == 'password_creation_expired_or_not_allowed'){
+              this.$router.push('/auth/signin')
+            }
         })
       }
     } 
