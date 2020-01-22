@@ -8,7 +8,7 @@ module.exports = {
   /*
   ** Headers of the page
   */
-  head: {
+  head: {    
     title: 'JTI Partner 360',
     meta: [
       { charset: 'utf-8' },
@@ -67,12 +67,16 @@ module.exports = {
     '@nuxtjs/pwa',
   ],
 
-  pwa: {
-    manifest: {
-      name: "test",      
-      start_url:`/`,
-      short_name:"test",      
-    },
+  manifest: {      
+    lang: 'en',
+    name: 'JTI Partner 360',
+    short_name: 'JTI Partner 360',
+    start_url:`/`,      
+    display: 'standalone',     
+  },
+
+  workbox: {
+    development: true // or use a global variable to track the current NODE_ENV, etc to determine dev mode
   },
   /*
   ** Axios module configuration

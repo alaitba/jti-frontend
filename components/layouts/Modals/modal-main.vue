@@ -28,7 +28,10 @@
           </div>              
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="button" class="button button--green" data-dismiss="modal">
+            <button type="button" class="button button--green" data-dismiss="modal" v-if="!status">
+              Повторить попытку
+            </button>
+            <button type="button" class="button button--green" v-else @click="sendSms">
               Повторить попытку
             </button>
           </div>              
@@ -39,10 +42,17 @@
 
 <script>
   export default{
-    props:['title','number','text','img'],
+    props:['title','number','text','img', 'status'],
     filters: {
       formatNumber (value){
         return value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4");
+      }
+    },
+    methods:{
+      sendSms(){
+        console.log('asdasdas')
+        $('#modal-main').modal('hide');
+        this.$nuxt.$emit('SendSmsAgain', 'dadas');
       }
     }
   }

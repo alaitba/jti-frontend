@@ -1,6 +1,6 @@
 export const state = () => {
   return {
-    auth: null,
+    auth: localStorage.getItem("authUser") ? localStorage.getItem("authUser") : null,
     authStatus: false,
     number: null,
     tradepoints: null,

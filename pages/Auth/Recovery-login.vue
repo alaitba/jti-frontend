@@ -71,7 +71,7 @@
 		        </div> 	        
 	 		</div>
 	 	</div>
-	 	<modal-main :title="title" :text="text" :img="img"></modal-main>
+	 	<modal-main :title="title" :text="text" :img="img" :status="status"></modal-main>
 	</main>
 </template>
 
@@ -115,7 +115,8 @@
 			    // for modals
 		      	title:'',
 		      	text:'',
-		      	img:'',		
+		      	img:'',	
+		      	status:'',	
 			}
 		},
 		computed: {
@@ -125,6 +126,8 @@
 		},
 		mounted(){
 			this.sendRecoveryNumber();			
+
+			this.$nuxt.$on('SendSmsAgain',this.sendRecoverySmsAgain)
 		},
 		methods: {
 
@@ -142,8 +145,8 @@
 		          	this.$store.commit('setNumber', this.number);
 		          	// console.log(this.$store.state.auth,'data')
 		          	this.recoveryNumberStatus = !this.recoveryNumberStatus;
-	            	this.startTimerInterval();
-		          	if(response.data.sms_code){
+	            	this.startTimerInterval();	            	
+	              	if(response.data.sms_code){
 		          		this.sms_code = response.data.sms_code; 
 		            	// this.recoverySmsEnterStatus = !this.recoverySmsEnterStatus;
 		          	} else{
@@ -160,7 +163,8 @@
 		              this.title="Cмс не был отправлен!"
 		              this.text="Попробуйте еще раз!"
 		              this.img="alert"
-		              $('#modal-main').modal('show')           
+		              this.status="recovery";
+		              $('#modal-main').modal('show');          
 		            } else if(error.response.data.message=='sms_send_limit'){
 		              this.title="Cмс не был отправлен!"
 		              this.text="Вы превысели лимит отправки смс!"
@@ -219,13 +223,9 @@
 		          this.$store.commit('setUser',response.data);
 		          this.$store.commit('setNumber', this.auth.mobile_phone);
 		          // // console.log(this.$store.state.auth,'data')          
-		          // if(response.data.sms_code){
-		          //   this.smsEnterStatus = true;
-		          //   // this.startTimerInterval();
-		          // } else{
-		          //   this.passEnterStatus = !this.passEnterStatus;
-		          // }
-
+		          if(response.data.sms_code){
+		            this.sms_code = response.data.sms_code;	            
+		          } 
 		          if(response.data.message == 'need_password'){
 		            this.passEnterStatus = !this.passEnterStatus;
 		          } 
@@ -243,6 +243,7 @@
 		            } else if(error.response.data.message=='sms_not_sent'){
 		              this.title="Cмс не был отправлен!"
 		              this.text="Попробуйте еще раз!"
+		              this.status="recovery";
 		              this.img="alert"
 		              $('#modal-main').modal('show')           
 		            } else if(error.response.data.message=='sms_send_limit'){
