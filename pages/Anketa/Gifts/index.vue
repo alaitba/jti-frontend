@@ -19,18 +19,22 @@
 							<img :src="item.url" alt="">
 						</div>
 						<div class="item__content">
-							<h4 class="title">
-								{{item.points}} <span>баллов</span>
-							</h4>
-							<p class="text">
-								{{item.name}}
-							</p>
-							<p class="left" v-if="item.left!=null">
-								Осталось штук: {{item.left}}
-							</p>
-							<button class="link" to="/" @click="showModal()">
-								Получить приз
-							</button>	
+							<div>
+								<h4 class="title">
+									{{item.points}} <span>баллов</span>
+								</h4>
+								<p class="text">
+									{{item.name}}
+								</p>
+								<p class="left" v-if="item.left!=null">
+									Осталось штук: {{item.left}}
+								</p>
+							</div>
+							<div>
+								<button class="link" to="/" @click="showModal()">
+									Получить приз
+								</button>	
+							</div>
 						</div>
 					</div>
 				</div>
@@ -60,7 +64,7 @@
 					{
 						name: 'Пополнение баланса ',
 						points: 50,
-						left: 2000,
+						left: 6000,
 						url: '/gifts/1.png'
 					},
 					{
@@ -128,6 +132,9 @@
 				}
 				&__content{
 					margin-left: 16px;
+				    display: flex;
+				    flex-direction: column;
+				    justify-content: space-between;
 					.title{
 						margin-top: 8px;
 						line-height: 25px;
@@ -154,6 +161,7 @@
 						background: transparent;
 						box-shadow: none;
 						border:0;
+						padding: 0;
 						&:hover{
 							text-decoration: none;
 						}
