@@ -27,7 +27,7 @@
 									{{item.name}}
 								</p>
 								<p class="left" v-if="item.left!=null">
-									Осталось штук: {{item.left}}
+									Осталось штук: {{item.left | formatAmount}}
 								</p>
 							</div>
 							<div>
@@ -52,51 +52,106 @@
 			FooterAnketa,
 			ModalError
 		},
+		filters:{
+			formatAmount(value){
+				// return typeof(value)
+				if(typeof(value)!='string' && value!=null){
+					return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+				} else{
+					return value
+				}
+			}
+		},
 		data(){
 			return {
 				gifts:[
 					{
-						name: 'Беспроводные наушники Xiaomi',
-						points: 600,
-						left: 250,
-						url: '/gifts/0.png'
+						name: 'Купон для участия в розыгрыше',
+						points: 25,
+						left: '∞',
+						url: '/gifts/10.png'
 					},
 					{
 						name: 'Пополнение баланса ',
 						points: 50,
 						left: 6000,
-						url: '/gifts/1.png'
+						url: '/gifts/15.png'
 					},
 					{
-						name: 'Чайник Vitek',
-						points: 500,
-						left: 400,
-						url: '/gifts/2.png'
+						name: 'Футболка',
+						points: 100,
+						left: 2400,
+						url: '/gifts/11.png'
+					},					
+					{
+						name: 'Плед',
+						points: 150,
+						left: 1700,
+						url: '/gifts/12.png'
 					},
 					{
-						name: 'Мультиварка Redmond',
-						points: 800,
-						left: 340,
-						url: '/gifts/3.png'
+						name: 'Термокружка',
+						points: 175,
+						left: 1600,
+						url: '/gifts/13.png'
 					},
 					{
-						name: 'Утюг Maxwell',
-						points: 400,
-						left: 600,
-						url: '/gifts/4.png'
+						name: 'Зонт',
+						points: 200,
+						left: 1200,
+						url: '/gifts/14.png'
+					},					
+					{
+						name: 'Сертификат Технодом на 5000 тг',
+						points: 250,
+						left: 500,
+						url: '/gifts/16.png'
+					},
+					{
+						name: 'Толстовка',
+						points: 300,
+						left: 500,
+						url: '/gifts/17.png'
 					},
 					{
 						name: 'Power-bank Xiaomi',
 						points: 350,
 						left: 600,
-						url: '/gifts/5.png'
+						url: '/gifts/18.png'
 					},
 					{
-						name: 'Сертификат Технодом на 5000 тг',
-						points: 250,
-						left: 500,
-						url: '/gifts/6.png'
-					}
+						name: 'Утюг Maxwell',
+						points: 400,
+						left: 600,
+						url: '/gifts/19.png'
+					},	
+					{
+						name: 'Чайник Vitek',
+						points: 500,
+						left: 400,
+						url: '/gifts/20.png'
+					},
+					{
+						name: 'Беспроводные наушники Xiaomi',
+						points: 600,
+						left: 250,
+						url: '/gifts/21.png'
+					},
+					{
+						name: 'Рюкзак',
+						points: 700,
+						left: 300,
+						url: '/gifts/22.png'
+					},
+					{
+						name: 'Мультиварка Redmond',
+						points: 800,
+						left: 340,
+						url: '/gifts/23.png'
+					},
+					
+					
+					
 				]
 			}
 		},
@@ -116,6 +171,7 @@
 	}
 	.gifts{
 		padding: 16px 0 120px 0;
+		width: 100%;
 		&__wrapper{
 			.item{
 				display: flex;
