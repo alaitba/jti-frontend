@@ -115,7 +115,7 @@ export default {
   methods:{        
     async sendPassword() {
       let fields = {
-        'mobile_phone': '7'+this.number,
+        'mobile_phone': this.$store.state.auth.mobile_phone,
         'password': this.password,
         'password_check': this.newPassword
       }

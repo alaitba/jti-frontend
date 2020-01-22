@@ -8,12 +8,12 @@
           <div class="modal-body">
               <div class="head">
                 <div class="head__img">
-                  <img src="~/assets/img/icons/exist.svg" alt="">
+                  <img src="~/assets/img/icons/alert.svg" alt="">
                 </div>                    
                 <div class="head__content">                  
-                  <p>
+                  <h4>
                     Раздел будет доступен с 3 февраля
-                  </p>
+                  </h4>
                 </div>                    
               </div>                   
               <div class="footer">

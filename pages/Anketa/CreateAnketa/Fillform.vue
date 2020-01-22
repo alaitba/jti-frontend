@@ -140,7 +140,7 @@
 								Покупателю на номер телефона  будет отправлена ссылка на самостоятельное заполнение анкеты. За самостоятельно заполненную анкету вам будет начислено 5 баллов
 							</p>
 
-							<button class="button button--green" type="button" @click="showModal('modal-main')">
+							<button class="button button--green" type="button" @click="showModal('modal-error')">
 					        	Отправить ссылку
 					        </button>
 						</div>
@@ -154,7 +154,8 @@
 		<modal-agreement></modal-agreement>
 		<modal-draw-sign></modal-draw-sign>
 		<modal-anketa-error></modal-anketa-error>
-		<modal-exist :text="number"></modal-exist>
+		<modal-error></modal-error>
+		<modal-exist :number="number"></modal-exist>
 
 	</main>
 </template>
@@ -168,6 +169,7 @@
 	import ModalAnketaError from '~/components/layouts/Modals/ModalAnketaError.vue'
 	import ModalExist from '~/components/layouts/Modals/ModalExist.vue'
 	import ModalMain from '~/components/layouts/Modals/modal-main.vue'
+	import ModalError from '~/components/layouts/Modals/ModalError.vue'
 	import {mapState, mapMutations} from 'vuex'
 	import { Validator } from 'vee-validate';
 
@@ -204,6 +206,7 @@
 			ModalDrawSign,	
 			ModalAnketaError,
 			ModalExist,	
+			ModalError,
 			ModalMain,	
 			// Multiselect
 		},
