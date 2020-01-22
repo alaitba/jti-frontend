@@ -59,8 +59,8 @@
 					},
 					{
 						name: 'Пополнение баланса ',
-						points: 200,
-						left: null,
+						points: 50,
+						left: 2000,
 						url: '/gifts/1.png'
 					},
 					{
@@ -77,8 +77,8 @@
 					},
 					{
 						name: 'Утюг Maxwell',
-						points: 600,
-						left: 400,
+						points: 400,
+						left: 600,
 						url: '/gifts/4.png'
 					},
 					{

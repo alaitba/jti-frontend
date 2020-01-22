@@ -91,7 +91,7 @@
 	    </div>		
 		
 		<footer-anketa v-if="footerStatus"/>
-		<modal-main :title="title" :text="text" :img="img" :number="number"></modal-main>
+		<modal-main :title="title" :text="text" :img="img" :number="tel"></modal-main>
 		<!-- <modal-sms-error></modal-sms-error>
 		<modal-number-error></modal-number-error> -->
 	</main>
@@ -177,7 +177,7 @@
 			              this.img="alert"
 			              $('#modal-main').modal('show')           
 			            } else if(error.response.data.message=='already_filled'){
-							this.tel=this.number;
+							this.tel='777'+this.number;
 				            this.text="На указанный телефон анкета уже заполнялась в данной торговой точке!"
 				            this.img="alert"
 				            $('#modal-main').modal('show')				

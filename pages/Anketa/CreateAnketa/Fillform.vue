@@ -137,10 +137,10 @@
 						</div>
 						<div class="body">
 							<p class="text">
-								Покупателю на номер телефона  будет отправлена ссылка на самостоятельное заполнение анкеты. За самостоятельно заполненную анкету вам будет начислено 50 баллов
+								Покупателю на номер телефона  будет отправлена ссылка на самостоятельное заполнение анкеты. За самостоятельно заполненную анкету вам будет начислено 5 баллов
 							</p>
 
-							<button class="button button--green" type="button" @click="showModal('modal-send-link')">
+							<button class="button button--green" type="button" @click="showModal('modal-main')">
 					        	Отправить ссылку
 					        </button>
 						</div>
@@ -149,11 +149,12 @@
 			</div>
 		</div>	
 
-		<modal-send-link :number="number"></modal-send-link>	
+		<!-- <modal-send-link :number="number"></modal-send-link>	 -->
+		<modal-main :number="number"></modal-main>
 		<modal-agreement></modal-agreement>
 		<modal-draw-sign></modal-draw-sign>
 		<modal-anketa-error></modal-anketa-error>
-		<modal-exist :number="number"></modal-exist>
+		<modal-exist :text="number"></modal-exist>
 
 	</main>
 </template>
@@ -166,6 +167,7 @@
 	import ModalDrawSign from '~/components/layouts/Modals/ModalDrawSign.vue'
 	import ModalAnketaError from '~/components/layouts/Modals/ModalAnketaError.vue'
 	import ModalExist from '~/components/layouts/Modals/ModalExist.vue'
+	import ModalMain from '~/components/layouts/Modals/modal-main.vue'
 	import {mapState, mapMutations} from 'vuex'
 	import { Validator } from 'vee-validate';
 
@@ -201,12 +203,13 @@
 			ModalAgreement,
 			ModalDrawSign,	
 			ModalAnketaError,
-			ModalExist,		
+			ModalExist,	
+			ModalMain,	
 			// Multiselect
 		},
 		filters: {
 	      formatNumber (value){
-	        return '+' + String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
+	        return String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
 	      }
 	    },
 		data() {
@@ -221,7 +224,8 @@
 				options: {},
 				brands: [],
 				selectedBrand:'',
-				number:'7776665544'
+				number:'7776665544',
+				text:''
 			}
 		},
 		computed: {
@@ -262,6 +266,7 @@
 					// 	penColor: "rgb(0, 0, 0)"
 					// });
 				}
+				this.text = 'Раздел будет доступен с 3 февраля'
 				$('#'+modal).modal('show')
 			},
 

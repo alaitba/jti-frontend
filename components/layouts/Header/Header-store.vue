@@ -9,11 +9,11 @@
 						</nuxt-link>
 					</div>
 					<div class="header__link">
-						<!-- <div class="notification">
+						<div class="notification">
 							<a href="#">
 								<img src="~/assets/img/icons/bell.svg" alt="">
 							</a>
-						</div> -->
+						</div>
 						<button :class="{'burger': true, 'open': burgerStatus}" @click="showBurger()">
 							<span class="burger__item"></span>
 							<span class="burger__item"></span>

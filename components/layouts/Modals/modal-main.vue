@@ -7,7 +7,7 @@
           <!-- Modal body -->
           <div class="modal-body">
               <div class="head">
-                <div class="head__img">
+                <div class="head__img" v-if="img">
                   <img :src="`/icons/${img}.svg`" alt="">
                 </div>                    
                 <div class="head__content">
