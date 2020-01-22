@@ -138,7 +138,7 @@
               this.$store.commit('setUserStatus', true);
               if(response.data.message=='authorized'){
                 this.$router.push('/')
-              }else {            
+              } else if(response.data.message=='need_tradepoint'){            
                 this.$router.push('/selectstore')          
               }
             }

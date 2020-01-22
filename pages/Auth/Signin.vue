@@ -185,8 +185,12 @@ export default {
           localStorage.setItem("authUserStatus", true);
           this.$store.commit('setUser',response.data);
           this.$store.commit('setNumber', this.number);          
-          // console.log(this.$store.state.auth,'data')
-          this.loginStatus = !this.loginStatus;          
+          this.loginStatus = !this.loginStatus;
+
+          if(response.data.sms_code){
+            this.sms_code = response.data.sms_code;
+          }
+
           if(response.data.message == 'need_password'){
             this.passEnterStatus = !this.passEnterStatus;
           } 
@@ -274,7 +278,7 @@ export default {
           localStorage.setItem("authToken", response.data.token);
           if(response.data.message=='authorized'){
             this.$router.push('/')
-          } else {            
+          } else if(response.data.message=='need_tradepoint'){            
             this.$router.push('/selectstore')          
           }
         }
@@ -298,8 +302,12 @@ export default {
         .then(response =>{
           this.$store.commit('setUser',response.data);
           this.$store.commit('setNumber', this.number);
-          // // console.log(this.$store.state.auth,'data')          
           this.smsEnterStatus = true;
+
+          if(response.data.sms_code){
+            this.sms_code = response.data.sms_code;
+          }
+
           if(response.data.message == 'need_password'){
             this.passEnterStatus = !this.passEnterStatus;
           } 
