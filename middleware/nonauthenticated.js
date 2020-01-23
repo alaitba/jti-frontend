@@ -1,6 +1,16 @@
-export default function ({ store, redirect }) {
+export default function ({ store, redirect, route }) {
   // If the user is not authenticated
-  if (!localStorage.getItem("authToken")) {
-  	return redirect('/auth/signin')
+  // console.log(route,'route')
+  if(route.name=='Selectstore') return
+  if (localStorage.getItem("authToken")) {
+	  	if((localStorage.getItem("setTradePoint")=='f')){  			
+	  		return redirect('/selectstore')
+		} else {
+			return redirect('/')
+		}  	  	
+  } else{
+  	if(!localStorage.getItem("authUser") && route.name!='Auth-Signin'){
+  		return redirect('/auth/signin')
+  	}
   }
 }

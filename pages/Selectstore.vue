@@ -93,6 +93,10 @@
 		components:{
 			HeaderAuth	
 		},
+		middleware:[
+			'select-store'
+		],
+		layout:'auth',
 		data(){
 			return {
 				selected: '',	
@@ -118,8 +122,9 @@
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
 
 				try{
-					let res = await this.$axios.$post('http://jti.ibec.systems/api/v1/auth/set-tradepoint', fields
+					let res = await this.$axios.$post('/auth/set-tradepoint', fields
 						)				
+						localStorage.setItem("setTradePoint", 't');          
 						this.$router.push('/');
 				} catch(err){
 					// console.log(err,'err')

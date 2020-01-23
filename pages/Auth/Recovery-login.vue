@@ -167,8 +167,10 @@
 		              $('#modal-main').modal('show');          
 		            } else if(error.response.data.message=='sms_send_limit'){
 		              this.title="Cмс не был отправлен!"
-		              this.text="Вы превысели лимит отправки смс!"
+		              this.repeatSms = true;
+		              this.text="Вы превысели лимит отправки смс! Попробуйте через 3 минуты"
 		              this.img="alert"
+		              // this.status="recovery";
 		              $('#modal-main').modal('show')           
 		            }
 		            else {

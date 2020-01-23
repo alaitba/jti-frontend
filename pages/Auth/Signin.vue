@@ -123,7 +123,6 @@ import {TheMask} from 'vue-the-mask'
 import {mapState, mapMutations} from 'vuex'
 
 export default {
-  middleware: ['authenticated'],
   layout: 'auth',
   components: {
     // Logo
@@ -271,14 +270,18 @@ export default {
       .then(response =>{
         if(response.data.tradepoints){
           this.$store.commit('setTradePoints', response.data.tradepoints)          
+          localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoints)); 
+          console.log('tradepoints',response.data.tradepoints)         
         }        
         if(response.data.status == 'ok'){
           this.$store.commit('setUserStatus', true);          
           this.$store.commit('setAuthToken', response.data.token);          
           localStorage.setItem("authToken", response.data.token);
           if(response.data.message=='authorized'){
-            this.$router.push('/')
+            localStorage.setItem("setTradePoint", 't');          
+            this.$router.push('/');
           } else if(response.data.message=='need_tradepoint'){            
+            localStorage.setItem("setTradePoint", 'f');          
             this.$router.push('/selectstore')          
           }
         }
@@ -364,6 +367,7 @@ export default {
       setTimeout(this.startTimerInterval(), 1000);   
       this.sendSmsAgain();   
     },
+
     startTimer() {
       if(this.timeLimit){
         this.timeLimit = this.timeLimit-1

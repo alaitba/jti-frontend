@@ -130,6 +130,7 @@
           .then( response => {
             if(response.data.tradepoints){
               this.$store.commit('setTradePoints', response.data.tradepoints);              
+              localStorage.setItem("tradePoints", response.data.tradepoints);          
             }
 
             if(response.data.status == 'ok'){
@@ -137,8 +138,10 @@
               localStorage.setItem("authToken", response.data.token);       
               this.$store.commit('setUserStatus', true);
               if(response.data.message=='authorized'){
+                localStorage.setItem("setTradePoint", 't');          
                 this.$router.push('/')
               } else if(response.data.message=='need_tradepoint'){            
+                localStorage.setItem("setTradePoint", 'f');          
                 this.$router.push('/selectstore')          
               }
             }

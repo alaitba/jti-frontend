@@ -10,7 +10,7 @@
   import {mapState, mapMutations} from 'vuex'
 
   export default {
-    middleware: ['authenticated'],
+    middleware: ['nonauthenticated'],
     // components: {
     //   HeaderAuth,      
     // },

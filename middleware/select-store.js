@@ -4,11 +4,8 @@ export default function ({ store, redirect, $axios }) {
   // console.log($axios,'aasdsa');
   if (localStorage.getItem("authToken")) { 
   	if((localStorage.getItem("setTradePoint")=='t')){
-  		console.log('default',localStorage.getItem("setTradePoint"))
-  		// return redirect('/')
-  	} else {
-  		console.log('default2',localStorage.getItem("setTradePoint"))
-  		return redirect('/selectstore')
+  		// console.log('default',localStorage.getItem("setTradePoint"))
+  		return redirect('/')
   	}
   } else{
   		return redirect('/auth/signin')
