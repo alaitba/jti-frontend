@@ -35,5 +35,15 @@ export const mutations = {
   },
   setBrands (state, brands) {
   	state.brands = brands;
+  },
+  resetState (state) {
+    state.auth = null;
+    state.authStatus = false;
+    state.number = null;
+    state.tradepoints = null;
+    state.setTradePoint = null;
+    state.authToken = null;
+    state.numberAnketa = null;
+    state.brands = null;
   }
 }
