@@ -115,7 +115,7 @@ export default {
   methods:{        
     async sendPassword() {
       let fields = {
-        'mobile_phone': this.$store.state.auth.mobile_phone,
+        'mobile_phone': JSON.parse(localStorage.getItem("authUser")).mobile_phone,
         'password': this.password,
         'password_check': this.newPassword
       }
@@ -123,8 +123,9 @@ export default {
       await this.$axios.post('/auth/create-password/',fields)
         .then( response => {
           if(response.data.tradepoints){
-            this.$store.commit('setTradePoints', response.data.tradepoints);              
-            localStorage.setItem("tradePoints", response.data.tradepoints);          
+            this.$store.commit('setTradePoints', response.data.tradepoints)          
+            localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoints)); 
+            // console.log('tradepoints',response.data.tradepoints)         
           }
 
           if(response.data.status == 'ok'){

@@ -44,7 +44,7 @@
 		          <form @submit.prevent="">
 		            <label for="" class="title__label" >
 		              Введите код, оправленный покупателю по СМС на номер: <strong v-if="number">
-		              	+7 {{number | formatNumber}} 
+		              	+7 777 {{number | formatNumber}} 
 		              </strong>
 		            </label>
 		            <div class="form-group">
@@ -119,8 +119,7 @@
 				numberStatus: true,
 				smsEnterStatus: false,
 				errorPermanenetPassword: false,
-				permanent: false,
-				number: '',
+				permanent: false,				
 				permanentPassword: '',
 				checkBox: '',
 				repeatSms: false,
@@ -131,6 +130,7 @@
 
 				// for modals
 			    title:'',
+				number: '',
 			    text:'',
 			    img:'',
 			    tel:'',
@@ -153,7 +153,7 @@
 					'mobile_phone': '+7777'+this.number,
 					'legal_age': this.checkBox
 				}
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
 
 				await this.$axios.post('/client/send-sms/', fields)
 					.then(response =>{
@@ -197,7 +197,7 @@
 			        'sms_code': this.permanentPassword,
 			    }
 
-			    this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
+			    this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
 			    if(this.permanentPassword.length==4){
 		        	this.errorPermanenetPassword = false;
 		        	// this.$router.push('/anketa/createanketa/fillform')
@@ -219,7 +219,7 @@
 					'mobile_phone': '+7777'+this.number,
 					'legal_age': this.checkBox
 				}
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
 		      
 		      	await this.$axios.post('/client/send-sms/', fields)
 		        .then(response =>{

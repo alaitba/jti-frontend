@@ -271,7 +271,7 @@ export default {
         if(response.data.tradepoints){
           this.$store.commit('setTradePoints', response.data.tradepoints)          
           localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoints)); 
-          console.log('tradepoints',response.data.tradepoints)         
+          // console.log('tradepoints',response.data.tradepoints)         
         }        
         if(response.data.status == 'ok'){
           this.$store.commit('setUserStatus', true);          

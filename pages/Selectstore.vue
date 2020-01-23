@@ -119,15 +119,24 @@
 					'account_code': this.selected,
 				}
 
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
 
 				try{
 					let res = await this.$axios.$post('/auth/set-tradepoint', fields
 						)				
 						localStorage.setItem("setTradePoint", 't');          
 						this.$router.push('/');
-				} catch(err){
-					// console.log(err,'err')
+				} catch(err){						
+					if(err.response.data == "Unauthorized."){
+						localStorage.clear();
+					    this.$store.commit('resetState');
+				    	this.$router.push('/auth/signin')
+					}
+					// if(err.response.data.message=="Unauthorized"){
+					// 	localStorage.clear()
+					// 	this.$store.commit('resetState');
+					
+					// }
 				}
 			}
 		}
@@ -141,6 +150,7 @@
 	}
 	.select-store{
 		margin-top: 16px;
+		padding-bottom: 100px;
 		&__item{
 			background: #FFFFFF;			
 			border: 1px solid #969696;

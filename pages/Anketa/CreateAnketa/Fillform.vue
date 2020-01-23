@@ -20,7 +20,7 @@
 					<div class="head">
 						<p class="head__title">
 							Номер телефона покупателя <br>
-							<span>
+							<span v-if="anketaNumber">
 								{{anketaNumber | formatNumber}}
 							</span>
 						</p>
@@ -130,7 +130,7 @@
 						<div class="head">
 							<p class="head__title">
 								Номер телефона покупателя <br>
-								<span>
+								<span v-if="anketaNumber">
 									{{anketaNumber | formatNumber}}.
 								</span>
 							</p>
@@ -149,13 +149,11 @@
 			</div>
 		</div>	
 
-		<!-- <modal-send-link :number="number"></modal-send-link>	 -->
-		<modal-main :number="number"></modal-main>
 		<modal-agreement></modal-agreement>
 		<modal-draw-sign></modal-draw-sign>
 		<modal-anketa-error></modal-anketa-error>
 		<modal-error></modal-error>
-		<modal-exist :number="number"></modal-exist>
+		<modal-main :title="title" :text="text" :img="img" :number="number"></modal-main>
 
 	</main>
 </template>
@@ -227,14 +225,17 @@
 				options: {},
 				brands: [],
 				selectedBrand:'',
-				number:'7776665544',
-				text:''
+				anketaNumber : localStorage.getItem("anketaNumber"),
+				number:'',
+				title:'',
+				text:'',
+				img:''
 			}
 		},
 		computed: {
 		    ...mapState({
 		      authToken: state => state.authToken,     
-		      anketaNumber: state =>state.numberAnketa
+		      // anketaNumber: state =>state.numberAnketa
 		    }),
 
 		    ageValidate(){
@@ -275,7 +276,7 @@
 
 			async getProducts() {
 
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
 
 				await this.$axios.get('/dict/tobacco-products/')
 		        .then(response =>{
@@ -317,7 +318,7 @@
 					'signature': this.field.img
 				}
 
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+this.authToken;
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
 
 				await this.$axios.post('/client/create-lead/', fields)
 		        .then(response =>{
@@ -326,7 +327,10 @@
 		          	} 
 		        }).catch(error => {
 		        	if(error.response.data.message=='already_filled'){
-			        	$('#modal-exist-number').modal('show')				
+		        		this.number = this.anketaNumber;
+		        		this.text = 'Этот номер уже зарегистрирован на точке!';
+		        		this.img = 'error';
+			        	$('#modal-main').modal('show')				
 					} else{						
 			        	$('#modal-anketa-error').modal('show')				            
 					}
@@ -387,6 +391,7 @@
 		}
 		&__content{
 			margin-top: 84px;
+			padding-bottom: 84px;
 			.head{
 				margin-bottom: 16px;
 				&__title{

@@ -15,9 +15,14 @@
                     {{title}}
                   </h4>
                   <h4 v-else-if="number">
-                    +7 {{number | formatNumber}}
+                    <template v-if="number.length==12">
+                      {{number | formatNumber}}                    
+                    </template>                    
+                    <template v-else>
+                      +7 {{number | formatNumber}}                    
+                    </template>                    
                   </h4>
-                  <p>
+                  <p v-if="text">
                     {{text}}
                   </p>
                 </div>                    
@@ -45,7 +50,15 @@
     props:['title','number','text','img', 'status'],
     filters: {
       formatNumber (value){
-        return value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4");
+        if(value.length==11){
+          return String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
+        }else if(value.length==12){
+          value = String(value).replace('+','')
+          return '+'+ String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
+        } else{
+          return value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4");  
+        }
+        
       }
     },
     methods:{

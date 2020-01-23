@@ -134,7 +134,7 @@
 			async sendRecoveryNumber() {
 
 				let fields = {
-		        	'mobile_phone': this.$store.state.auth.mobile_phone,
+		        	'mobile_phone': JSON.parse(localStorage.getItem("authUser")).mobile_phone,
 		      	}
 		      // console.log(fields,'fields')
 		      	await this.$axios.post('/auth/reset/phone/', fields)
@@ -185,7 +185,7 @@
 			async sendRecoverySms() {
 				// console.log('here')
 				let fields = {
-			        'mobile_phone': this.$store.state.auth.mobile_phone,
+			        'mobile_phone': JSON.parse(localStorage.getItem("authUser")).mobile_phone,
 			        'sms_code': this.recoveryPermanentPassword,
 		      	}
 		      	if(this.recoveryPermanentPassword.length==4){
@@ -217,7 +217,7 @@
 
 
 			  let fields = {
-		          'mobile_phone': this.$store.state.auth.mobile_phone,
+		          'mobile_phone': JSON.parse(localStorage.getItem("authUser")).mobile_phone,
 		      }
 		      // console.log(fields,'fields')
 		      await this.$axios.post('/auth/reset/phone/', fields)
@@ -266,7 +266,7 @@
 
 			async sendRecoveryPassword() {
 		      let fields = {
-		        'mobile_phone': this.$store.state.auth.mobile_phone,
+		        'mobile_phone': JSON.parse(localStorage.getItem("authUser")).mobile_phone,
 		        'password': this.password,
 		        'password_check': this.newPassword
 		      }
@@ -274,7 +274,9 @@
 		      await this.$axios.post('/auth/reset/create-password',fields)
 		        .then( response => {
 		        	if(response.data.tradepoints){
-			            this.$store.commit('setTradePoints', response.data.tradepoints);		
+			            this.$store.commit('setTradePoints', response.data.tradepoints)          
+				        localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoints)); 
+				        // console.log('tradepoints',response.data.tradepoints)         
 			        }
 		          	if(response.data.status == 'ok'){
 		          		localStorage.setItem("authToken", response.data.token);
