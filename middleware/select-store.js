@@ -7,17 +7,26 @@ export default async function ({ store, redirect, $axios }) {
   try {
     let res = await $axios.$post('/auth/refresh/');
       localStorage.setItem('authToken',res.token);
-  }catch(error){
-      console.log('error');
-      localStorage.clear();
-      store.commit('resetState');
-  }
+    }catch(error){
+        console.log('error');
+        localStorage.clear();
+        store.commit('resetState');
+    }
 
   if (localStorage.getItem("authToken")) { 
   	if((localStorage.getItem("setTradePoint")=='t')){
   		// console.log('default',localStorage.getItem("setTradePoint"))
   		return redirect('/')
-  	}
+  	}else if((localStorage.getItem("setTradePoint")=='f')) {
+        // console.log('default2',localStorage.getItem("setTradePoint"))
+        // return redirect('/selectstore')
+
+    } else {
+      // console.log('st')
+      localStorage.clear();
+      store.commit('resetState');
+      return redirect('/auth/signin')
+    }
   } else{
   		return redirect('/auth/signin')
   }

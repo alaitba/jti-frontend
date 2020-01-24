@@ -15,7 +15,7 @@
             </label>
             <div class="form-group">             
               <div class="form-group__wrapper">
-                <the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel"/>
+                <the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model.trim="number" :masked="false" type="tel"/>
                 <label for="input" class="form__label">
                   Номер телефона
                 </label>  
@@ -213,6 +213,12 @@ export default {
               this.title="Cмс не был отправлен!"
               this.text="Вы превысели лимит отправки смс!"
               this.img="alert"
+              $('#modal-main').modal('show')           
+            }
+            else if(error.response.data.message=='no_tradepoint'){
+              this.title="Отказано в доступе!"
+              this.text="У вас нет доступных торговых точек!"
+              this.img="error"
               $('#modal-main').modal('show')           
             }
             else {
