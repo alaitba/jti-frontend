@@ -21,7 +21,7 @@
                 </label>  
               </div>
             </div>
-            <button class="button button--green" type="submit" :disabled="number.length<10">
+            <button class="button button--green" type="submit" :disabled="number.length<10 || btnSignStatus">
               Далее
             </button>
             <!-- <button class="button button--green"  @click="showModal()">
@@ -49,7 +49,7 @@
                 Неверный пароль!
               </span>
             </div>
-            <button class="button button--green" type="submit" :disabled="password.length==0">
+            <button class="button button--green" type="submit" :disabled="password.length==0 || btnPasswordStatus">
               Далее
             </button>
           </form>
@@ -155,6 +155,11 @@ export default {
       title:'',
       text:'',
       img:'',
+
+      //btnStatus
+
+      btnSignStatus: false,
+      btnPasswordStatus: false,
     }
   },
   computed: {
@@ -177,6 +182,8 @@ export default {
       let fields = {
           'mobile_phone': '7'+this.number,
       }
+
+      this.btnSignStatus = true;
       // console.log(fields,'fields')
       await this.$axios.post('/auth/phone/', fields)
         .then(response =>{
@@ -185,7 +192,7 @@ export default {
           this.$store.commit('setUser',response.data);
           this.$store.commit('setNumber', this.number);          
           this.loginStatus = !this.loginStatus;
-
+          this.btnSignStatus = false;
           if(response.data.sms_code){
             this.sms_code = response.data.sms_code;
           }
@@ -199,6 +206,7 @@ export default {
           }
 
         }).catch(error => {
+            this.btnSignStatus = false;
             if(error.response.data.message=='phone_does_not_exist' || error.response.data.message=='validation_failed'){
               this.title="Отказано в доступе!"
               this.text="Номер телефона введен неверно или не внесен в базу данных!"
@@ -267,6 +275,8 @@ export default {
 
     async sendPassword(){
       this.counter ++;
+
+      this.btnPasswordStatus = true;
       let fields = {
         'mobile_phone': '7'+this.number,
         'password': this.password
@@ -278,7 +288,8 @@ export default {
           this.$store.commit('setTradePoints', response.data.tradepoints)          
           localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoints)); 
           // console.log('tradepoints',response.data.tradepoints)         
-        }        
+        }  
+        this.btnPasswordStatus = false;      
         if(response.data.status == 'ok'){
           this.$store.commit('setUserStatus', true);          
           this.$store.commit('setAuthToken', response.data.token);          
@@ -292,10 +303,12 @@ export default {
           }
         }
         
-      }).catch(error => {          
+      }).catch(error => { 
           if(this.counter == 5){            
             this.showModal();
+            this.btnPasswordStatus = true;      
           } else{
+            this.btnPasswordStatus = false;               
             this.errorPassword = true;
           }                      
         });

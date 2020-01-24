@@ -35,7 +35,7 @@
 	          	Пароль не соответствует требованиям!
 	          </span>
 	        </div>
-	        <button class="button button--green" type="submit" :disabled="!checkPassword && passwordValidation.errors.length>0">
+          <button class="button button--green" type="submit" :disabled="(checkPassword || passwordValidation.errors.length>0 || btnStatus)">
 	          Войти
 	        </button>
 	      </form>		     
@@ -82,7 +82,9 @@
         rules:[
           { message:'Букв латинского алфавита, цифр или спецсимволов', regex:/^[\x20-\x7F]+/ },
           { message:"Минимум 6 символов", regex:/.{6,}/ },          
-        ] 
+        ],
+        // btnstatus
+        btnStatus: false,
       }
     },
     computed: {
@@ -125,9 +127,10 @@
           'password': this.password,
           'password_check': this.newPassword
         }
-      
+        this.btnStatus = true;
         await this.$axios.post('/auth/reset/create-password',fields)
           .then( response => {
+            this.btnStatus = false;
             if(response.data.tradepoints){
               this.$store.commit('setTradePoints', response.data.tradepoints)          
               localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoints)); 
@@ -147,7 +150,7 @@
               }
             }
           }).catch(error => {
-
+              this.btnStatus = false;
           })
       }  
       

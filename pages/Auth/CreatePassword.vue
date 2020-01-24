@@ -35,9 +35,10 @@
 		          	Пароль не соответствует требованиям!
 		          </span>
 		        </div>
-		        <button class="button button--green" type="submit" :disabled="!checkPassword && passwordValidation.errors.length>0">
-		          Войти
-		        </button>
+		        <button class="button button--green" type="submit" :disabled="(checkPassword || passwordValidation.errors.length>0 || btnStatus)">
+              Войти
+            </button>
+            
 		      </form>		     
 		    </div>
 			
@@ -79,9 +80,11 @@ export default {
       showPassword: false,
       errorPassword: false,     
       rules:[
-          { message:'Букв латинского алфавита, цифр или спецсимволов', regex:/^[\x20-\x7F]+/ },
-          { message:"Минимум 6 символов", regex:/.{6,}/ },          
-        ] 
+        { message:'Букв латинского алфавита, цифр или спецсимволов', regex:/^[\x20-\x7F]+/ },
+        { message:"Минимум 6 символов", regex:/.{6,}/ },          
+      ],
+      // btnStatus
+      btnStatus: false,
     }
   },
   computed: {
@@ -119,9 +122,11 @@ export default {
         'password': this.password,
         'password_check': this.newPassword
       }
-      
+      this.btnStatus = true;
       await this.$axios.post('/auth/create-password/',fields)
         .then( response => {
+
+          this.btnStatus = false;
           if(response.data.tradepoints){
             this.$store.commit('setTradePoints', response.data.tradepoints)          
             localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoints)); 
@@ -141,6 +146,7 @@ export default {
             }
           }
         }).catch(error => {
+            this.btnStatus = false;
             if(error.response.message == 'password_creation_expired_or_not_allowed'){
               this.$router.push('/auth/signin')
             }

@@ -8,11 +8,40 @@
 				<div class="gifts__points points">
 					<p>
 						Количество баллов: 
-						<span>
-							0	
+						<span v-if="balance">
+							{{balance}}	
+						</span>
+						<span v-else>
+							0
 						</span>
 					</p>
 				</div>
+				<!-- <div class="gifts__wrapper" v-if="gifts.length">
+					<div class="item" v-for="(item,key) in gifts">
+						<div class="item__img" v-if="item.images">
+							<img :src="item.images[0].origin_url" alt="" v-if="item.images[0]">
+						</div>
+						<div class="item__content">
+							<div>
+								<h4 class="title">
+									{{item.price}} <span>баллов</span>
+								</h4>
+								<p class="text">
+									{{item.name}}
+								</p>
+								<p class="left" v-if="item.totalQty!=null">
+									Осталось штук: {{item.totalQty | formatAmount}}
+								</p>
+							</div>
+							<div>
+								<button class="link" to="/" @click="showModal()">
+									Получить приз
+								</button>	
+							</div>
+						</div>
+					</div>
+				</div> -->
+
 				<div class="gifts__wrapper">
 					<div class="item" v-for="(item,key) in gifts">
 						<div class="item__img">
@@ -148,16 +177,49 @@
 						points: 800,
 						left: 340,
 						url: '/gifts/23.png'
-					},
-					
-					
-					
-				]
+					},					
+
+				],
+				balance:'',
 			}
+		},
+		mounted(){
+			this.getBalance();
+			// this.getPrizes();
 		},
 		methods:{
 			showModal(modal){
 				$('#modal-error').modal('show')
+			},
+
+			async getBalance(){
+
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+				await this.$axios.get('/rewards/balance')
+					.then(response =>{
+						this.balance = response.data.balance;
+
+					}).catch(error =>{
+						// console.log('error',error.response)
+					})
+
+			},
+
+			async getPrizes(){
+
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+				await this.$axios.get('/rewards/available')
+					.then(response =>{
+						// if(response.data.rewards.length){							
+						// 	this.gifts = response.data.rewards;
+						// }
+
+					}).catch(error =>{
+						// console.log('error',error.response)
+					})
+
 			}
 		}
 	}

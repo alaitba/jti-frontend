@@ -27,7 +27,7 @@
 							  	<span class="checkmark"></span>
 							</label>
 		            	</div>		 
-		            	<button class="button button--green" type="submit" :disabled="!checkBox || number.length!=7">
+		            	<button class="button button--green" type="submit" :disabled="!checkBox || number.length!=7 || btnStatus">
 		              		Далее
 		            	</button>
 		            <!-- <button class="button button--green"  @click="showModal()">
@@ -134,6 +134,10 @@
 			    text:'',
 			    img:'',
 			    tel:'',
+
+			    // btnstatus
+
+			    btnStatus: false,
 			}
 		},
 		computed: {
@@ -153,6 +157,8 @@
 					'mobile_phone': '+7777'+this.number,
 					'legal_age': this.checkBox
 				}
+
+				this.btnStatus = true;
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
 
 				await this.$axios.post('/client/send-sms/', fields)
@@ -161,11 +167,12 @@
 						this.footerStatus = !this.footerStatus;		
 						this.smsEnterStatus = !this.smsEnterStatus;
 						this.sms_code = response.data.sms_code;
-
+						this.btnStatus = false;
 						this.$store.commit('setNumberAnketa', response.data.mobile_phone);
 						localStorage.setItem("anketaNumber", response.data.mobile_phone);
 						this.startTimerInterval();
 					}).catch((error, e) =>{
+						this.btnStatus = false;
 						if(error.response.data.message=='sms_not_sent'){
 			              this.title="Cмс не был отправлен!"
 			              this.text="Попробуйте еще раз!"

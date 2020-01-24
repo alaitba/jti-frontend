@@ -79,16 +79,16 @@
 					            </div>
 
 								<div class="form-group" v-if="brands">
-					            	<multiselect v-model="selectedBrand" :options="brands" :searchable="false" :close-on-select="true" :show-labels="false" placeholder="Выбери марку сигарет"></multiselect>
+					            	<multiselect v-model="field.selectedBrand" :options="brands" :searchable="false" :close-on-select="true" :show-labels="false" placeholder="Выбери марку сигарет"></multiselect>
 					            </div>
 
-					            <div class="form-group" v-if="options[selectedBrand]">					            	
+					            <div class="form-group" v-if="options[field.selectedBrand]">					            	
 					            		<multiselect 
 					            			v-model="field.cigaretteBrand" 
 					            			track-by="sku"
 					            			label="sku" 							
 					            			placeholder="Марка сигарет" 
-					            			:options="options[selectedBrand]" 
+					            			:options="options[field.selectedBrand]" 
 					            			:searchable="false" 
 					            			:allow-empty="false"
 					            			selectLabel=""
@@ -115,7 +115,7 @@
 					              	</div>
 					            </div>
 
-					            <button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.img.length || !ageValidate">
+					            <button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.img.length || !ageValidate || anketaBtnStatus">
 					              Сохранить анкету
 					            </button>
 					            <!-- <button class="button button--green"  @click="showModal()">
@@ -137,19 +137,23 @@
 						</div>
 						<div class="body">
 							<p class="text">
-								После того, как потребитель завершит регистрацию на сайте realday.kz, вам будет начислено 5 баллов
+								После того, как потребитель завершит регистрацию на сайте <a href="https://realday.kz/login" target="_blank">realday.kz</a>, вам будет начислено 5 баллов
 							</p>
 
-							<button class="button button--green" type="button" @click="showModal('modal-error')">
+							<!-- <button class="button button--green" type="button" @click="showModal('modal-error')">
 					        	Отправить ссылку
-					        </button>
-						</div>
-					</div>
-				</div>				
-			</div>
-		</div>	
+					        </button> -->
+					        <button class="button button--green" type="button" :disabled="errors.any() || !anketaNumber || !field.img.length || !ageValidate || smsBtnStatus" @click="validateBeforeSubmit('1')">
 
-		<modal-agreement></modal-agreement>
+					        		Отправить ссылку
+						        </button>
+							</div>
+						</div>
+					</div>				
+				</div>
+			</div>	
+
+			<modal-agreement></modal-agreement>
 		<modal-draw-sign></modal-draw-sign>
 		<modal-anketa-error></modal-anketa-error>
 		<modal-error></modal-error>
@@ -216,20 +220,27 @@
 		data() {
 			return {
 				field: {
-					firstName: '',
-					secondName: '',
-					birthData: '',	
-					cigaretteBrand:'',				
-					img:'',
+					firstName: JSON.parse(localStorage.getItem('anketaFields')) ? JSON.parse(localStorage.getItem('anketaFields')).firstName : '',
+					secondName: JSON.parse(localStorage.getItem('anketaFields')) ? JSON.parse(localStorage.getItem('anketaFields')).secondName : '',
+					birthData: JSON.parse(localStorage.getItem('anketaFields')) ? JSON.parse(localStorage.getItem('anketaFields')).birthData : '',	
+					selectedBrand: JSON.parse(localStorage.getItem('anketaFields')) ? JSON.parse(localStorage.getItem('anketaFields')).selectedBrand : '',	
+					cigaretteBrand:JSON.parse(localStorage.getItem('anketaFields')) ? JSON.parse(localStorage.getItem('anketaFields')).cigaretteBrand : '',				
+					img: JSON.parse(localStorage.getItem('anketaFields')) ? JSON.parse(localStorage.getItem('anketaFields')).img : '',
+					self:'',
 				},
 				options: {},
 				brands: [],
-				selectedBrand:'',
+				// selectedBrand:'',
 				anketaNumber : localStorage.getItem("anketaNumber"),
 				number:'',
 				title:'',
 				text:'',
-				img:''
+				img:'',
+
+				//btnStatus
+
+				smsBtnStatus: false,
+				anketaBtnStatus: false,
 			}
 		},
 		computed: {
@@ -249,10 +260,9 @@
 			    	}
 		    	} else {
 		    		return true
-		    	}
-		    	
-		    	
-		    }
+		    	}		    			    
+		    },
+
 		},
 		mounted(){
 			this.getProducts();
@@ -274,6 +284,11 @@
 				$('#'+modal).modal('show')
 			},
 
+			saveToCache(){
+				console.log(this.field,'field');
+                localStorage.setItem('anketaFields', JSON.stringify(this.field));
+            },
+
 			async getProducts() {
 
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
@@ -292,19 +307,59 @@
 		        }).catch(error => {
 		            
 		        });
-
-
 			},
 
-			validateBeforeSubmit() {
-		      this.$validator.validateAll().then((result) => {
-		        if (result) {
-		        	this.saveAnketa();
-		        	return;
-		        } else {
-		        	alert('Correct them errors!');
-		        }		        
-		      });
+			validateBeforeSubmit(self) {
+				
+		      	this.$validator.validateAll().then((result) => {
+			        if (result) {		        	
+			        	if(self=='1'){
+			        		this.smsBtnStatus = true;
+			        		console.log('self1',self);
+			        		this.sendLinkSms();
+			        	}else{
+			        		console.log('self2',self);
+			        		this.anketaBtnStatus = true;
+			        		this.saveToCache();
+				        	this.saveAnketa();			        	
+			        	}
+			        	return;
+			        } else {
+			        	this.title="Заполните все поля!"
+		              	this.text="Для сохранения анкеты заполните все поля!"
+		              	this.img="error"
+			            $('#modal-main').modal('show')
+			        }		        
+		      	});
+		    },
+
+		    async sendLinkSms(){
+		    	let fields = {
+		    		'mobile_phone': this.anketaNumber,
+		    		'self': 1
+		    	}
+
+		    	this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
+
+		    	await this.$axios.post('/client/create-lead/', fields)
+		    		.then(response =>{
+		    			this.number = this.anketaNumber;
+		    			this.img = 'mail';
+		    			this.text = 'На указанный номер отправлена ссылка для заполнения анкеты';
+		    			this.smsBtnStatus = false;
+						$('#modal-main').modal('show');
+
+		    		}).catch(error =>{
+		    			this.smsBtnStatus = false;
+		    			if(error.response.data.message=='already_filled'){
+			        		this.number = this.anketaNumber;
+			        		this.text = 'На указанный номер уже отправлен смс со ссылкой!';
+			        		this.img = 'error';
+				        	$('#modal-main').modal('show')				
+						} else{						
+				        	$('#modal-anketa-error').modal('show')				            
+						}
+		    		})
 		    },
 
 			async saveAnketa(){
@@ -315,28 +370,38 @@
 					'lastname': this.field.secondName,
 					'birthdate': this.field.birthData,
 					'product_code': this.field.cigaretteBrand.product_code,
-					'signature': this.field.img
+					'signature': this.field.img,
+					'self': this.field.self
 				}
 
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
 
 				await this.$axios.post('/client/create-lead/', fields)
-		        .then(response =>{
-		         	if(response.data.status =='ok'){
-		         		this.$router.push('/anketa/listanketa')		            	
-		          	} 
-		        }).catch(error => {
-		        	if(error.response.data.message=='already_filled'){
-		        		this.number = this.anketaNumber;
-		        		this.text = 'Этот номер уже зарегистрирован на точке!';
-		        		this.img = 'error';
-			        	$('#modal-main').modal('show')				
-					} else{						
-			        	$('#modal-anketa-error').modal('show')				            
-					}
-		        });
-
-
+			        .then(response =>{
+			        	this.anketaBtnStatus = false;
+			         	if(response.data.status =='ok'){
+			         		this.$router.push('/anketa/listanketa')		            	
+			          	} 
+			        }).catch(error => {
+			        	this.anketaBtnStatus = false;
+			        	if(error.response.data.message=='already_filled'){
+			        		this.number = this.anketaNumber;
+			        		this.text = 'На указанный номер отправлена ссылка для заполнения анкеты!';
+			        		this.img = 'error';
+				        	$('#modal-main').modal('show')				
+						} else if((error.response.data.message=='validation_failed') || (error.response.data.message=='mobile_phone_not_verified')){
+							// this.number = this.anketaNumber;
+				            this.title="Отказано в доступе!"
+			              	this.text="Номер телефона введен неверно или не внесен в базу данных!"
+			              	this.img="error"
+				            $('#modal-main').modal('show')				
+						} else {
+							this.title="Отказано в доступе!"
+			              	this.text="Номер телефона введен неверно или не внесен в базу данных!"
+			              	this.img="error"
+			              	$('#modal-main').modal('show')
+						}							
+			        });
 			}
 
 		}
