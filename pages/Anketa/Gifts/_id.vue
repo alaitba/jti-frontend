@@ -293,6 +293,10 @@
 		    		max-height: 162px !important;
 				}
 			}
+			&__banner{
+				background: #fff;
+			    border-radius: 8px;
+			}
 			&__content{
 				margin-top: 16px;
 			}
