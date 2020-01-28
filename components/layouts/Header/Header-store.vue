@@ -64,7 +64,7 @@
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="#" class="nav__link" disabled>
+						<nuxt-link to="/news" class="nav__link nav__link--green" @click.native="showBurger()">
 							Новости
 						</nuxt-link>
 					</li>

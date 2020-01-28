@@ -1,5 +1,5 @@
 <template>
-	<main>
+	<main class="page page--grey">
 		<header-auth/>
 		<div class="container">			
 			<div class="select-store" v-if="tradepoints">

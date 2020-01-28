@@ -1,5 +1,5 @@
 <template>
-	<main class="page">
+	<main class="page page--grey page--block">
 		<!-- <header-auth/>		 -->
 		<div class="auth-section">
 	    	<div class="container">
@@ -291,9 +291,6 @@
 	}
 </script>
 <style lang="scss">
-	main{
-		display: block;
-	}
 	.auth-section{
 	    padding-top: 32px;
 	    width: 100%; 

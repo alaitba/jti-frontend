@@ -96,6 +96,14 @@
 			line-height: 14px;			
 			text-align: center;
 			color: #969696;
+			@media screen and (max-width: 359px) {
+				font-size: 10px;
+				line-height: 12px;		
+			}				
+			@media screen and (max-width: 320px) {
+				font-size: 9px;
+				line-height: 11px;		
+			}						
 		}
 		.nuxt-link-exact-active,.nuxt-link-active{
 			.footer{

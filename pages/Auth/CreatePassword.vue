@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="page page--grey">
     <header-auth/>
   	<div class="auth-section">
       	<div class="container">
@@ -135,10 +135,11 @@ export default {
 
           if(response.data.status == 'ok'){
             this.$store.commit('setAuthToken', response.data.token);   
-            localStorage.setItem("authToken", response.data.token);       
+            localStorage.setItem("authToken", response.data.token);
+            this.$store.commit('setTokenStatus', true);
             this.$store.commit('setUserStatus', true);
             if(response.data.message=='authorized'){
-              localStorage.setItem("setTradePoint", 't');                    
+              localStorage.setItem("setTradePoint", 't');
               this.$router.push('/');
             } else if(response.data.message=='need_tradepoint'){            
               localStorage.setItem("setTradePoint", 'f');          

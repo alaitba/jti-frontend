@@ -45,6 +45,21 @@ p, span, a, li, label, button{
 main{
 	margin-top: 56px;
 	display: flex;
+	min-height: 100vh;
+	&.page{
+		&--white{
+			background: #fff !important;
+		}
+		&--grey{
+			background: #F9F9F9;
+		}
+		&--block{
+			display: block !important;
+		}
+		&--flex{
+			display: flex !important;
+		}
+	}
 }
 
 
@@ -268,6 +283,24 @@ main{
 	}	
 }
 
+
+// slider
+.swiper-slide{
+	img{
+		max-width: 100%;
+		width: 100%;
+	}
+}
+.swiper-pagination-bullet{
+	background: #C2EEE3 !important;
+	opacity: 1 !important;
+}
+.swiper-pagination-bullet-active{
+	background: #05B186 !important;
+}
+ .swiper-container-horizontal > .swiper-pagination-bullets{
+	bottom: 4px;
+}
 // tools
 
 .radiobutton-container{
@@ -483,11 +516,116 @@ main{
       box-shadow: none;   
       // margin-top: 32px;
     }
-  }
+}
+
+// section
+
+.section{
+	&--news{
+		padding-top: 32px;
+		.news{
+			margin-top: 4px;
+			&__item{
+				background: #fff;
+				box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 4px 8px rgba(0, 0, 0, 0.04);
+				border-radius: 8px;
+				margin-bottom: 16px;
+				&>a{
+					text-decoration: none;
+					&:hover{
+						text-decoration: none;
+					}
+				}
+				&--noimg{
+					.content{
+						padding: 16px;
+					}
+				}
+				.banner{
+					img{
+						max-width: 100%;
+						width: 100%;
+						border-top-right-radius: 8px;
+						border-top-left-radius: 8px;
+					}
+				}
+				.content{
+					padding: 8px 16px 16px;
+					.title{
+						line-height: 20px;							
+						color: #217461;	
+						margin-bottom: 8px;	
+						white-space: nowrap; /* Запрещаем перенос строк */
+					    overflow: hidden; 
+					    text-overflow: ellipsis;					
+					}
+					.data{
+						font-weight: normal;
+						font-size: 12px;
+						line-height: 14px;
+						color: #969696;
+						margin-bottom: 8px;						
+					}
+					.text{
+						font-weight: 300;
+						font-size: 16px;
+						line-height: 19px;							
+						color: #1F1F1F;
+					}
+				}
+			}
+			&__link{
+				font-weight: 500;
+				font-size: 16px;
+				line-height: 19px;
+				text-decoration-line: underline;
+				color: #217461;
+			}
+		}
+	}
+	&--footer{
+		margin-top: 32px;
+		.footer{
+			position: relative;
+			&__head{
+				background: #217461;
+				padding: 16px 0px 23px 0px;
+				.title{
+					line-height: 25px;
+					color:#fff;
+				}
+				.button--green{
+					margin-top: 24px;
+					display: block;
+				}
+			}
+			&__bottom{
+				padding: 16px 0;
+				background: #262626;
+				.copyright{
+					display: flex;
+					span{
+						font-weight: 300;
+						font-size: 16px;
+						line-height: 16px;
+						text-align: right;
+						color: #FFFFFF;
+					}
+					img{
+						margin-left: 8px;
+						margin-top: 1px;
+					}
+					&:hover{
+						text-decoration: none;
+					}
+				}
+			}
+		}
+	}
+}
 
 // modals
 .modal{
-
 }
 .modal-draw-sign{
 	.modal{
@@ -555,7 +693,6 @@ main{
 		}
 	}
 }
-
 .modal-auth-denied{
 	.modal{
 		&-content{

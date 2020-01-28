@@ -33,9 +33,12 @@
           </div>              
           <!-- Modal footer -->
           <div class="modal-footer">
+            <button type="button" class="button button--green" data-dismiss="modal" v-if="btnText">
+              {{btnText}}
+            </button>
             <button type="button" class="button button--green" data-dismiss="modal" v-if="!status">
               Повторить попытку
-            </button>
+            </button>            
             <button type="button" class="button button--green" v-else @click="sendSms">
               Повторить попытку
             </button>
@@ -47,7 +50,7 @@
 
 <script>
   export default{
-    props:['title','number','text','img', 'status'],
+    props:['title','number','text','img', 'status', 'btnText'],
     filters: {
       formatNumber (value){
         if(value.length==11){

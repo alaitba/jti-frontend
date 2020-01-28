@@ -1,5 +1,5 @@
 <template>
-	<main class="page">		
+	<main class="page page--grey page--block">		
 		<div class="anketa">
 			<div class="container" v-if="anketaStatus">
 				<div class="anketa__head">
@@ -27,8 +27,10 @@
 							<p class="point">
 								<!-- +50 баллов -->
 							</p>
-							<div :class="{'status' : true, 'status--active': item.isQualified && item.isEffective}">
-								<img src="~/assets/img/icons/anketa/status_active.svg" alt="">
+							<div :class="{'status' : true, 'status--active': item.isEffective, 'status--filled': item.isQualified, 'status--waiting': !item.isQualified}">
+								<img src="~/assets/img/icons/anketa/status_active.svg" alt="" v-if="item.isQualified">
+								<img src="~/assets/img/icons/anketa/status_filled.svg" alt="" v-if="item.isEffective">
+								<img src="~/assets/img/icons/anketa/status_waiting.svg" alt="" v-if="!item.isEffective">
 							</div>
 						</div>
 					</div>
@@ -130,10 +132,7 @@
 	}
 </script>
 
-<style lang="scss">
-	main.page{
-		background: #F9F9F9;		
-	}
+<style lang="scss">	
 	.anketa{
 		padding: 16px 0 20px;
 		height: 100vh;

@@ -1,18 +1,26 @@
 <template>
-  <main class="page page--block">
+  <main class="page page--block page--grey">
     <!-- <div class="container"> -->
     	<div class="section section--main">
-    		<!-- <div class="main-slider">
-    			<div class="main-slider__item">
-    				<swiper :options="swiperOption" ref="mySwiper">
-    					<swiper-slide></swiper-slide>
-					    <swiper-slide></swiper-slide>
-					    <swiper-slide></swiper-slide>
-					    <swiper-slide></swiper-slide>
+    		<div class="main-slider">
+    			<!-- <div class="container"> -->
+    				<!-- <swiper :options="swiperOption" ref="mySwiper">
+    					<swiper-slide>
+    						<img src="~assets/img/gifts/inside/1.png" alt="">
+    					</swiper-slide>
+					    <swiper-slide>
+					    	<img src="~assets/img/gifts/inside/1.png" alt="">
+					    </swiper-slide>
+					    <swiper-slide>
+					    	<img src="~assets/img/gifts/inside/1.png" alt="">
+					    </swiper-slide>
+					    <swiper-slide>
+					    	<img src="~assets/img/gifts/inside/1.png" alt="">
+					    </swiper-slide>
 					    <div class="swiper-pagination" slot="pagination"></div>
-    				</swiper>
-    			</div>
-    		</div> -->
+    				</swiper> -->
+    			<!-- </div> -->
+    		</div>
     	</div>
     	<div class="section section--icons">
     		<div class="container">
@@ -212,12 +220,7 @@
 	}
 </script>
 
-<style lang="scss">
-	main.page{
-		background: #F9F9F9;
-		height: 100vh;
-		&--block{display: block !important;}
-	}
+<style lang="scss">	
 	.section{
 		&__title{
 			line-height: 33px;			
@@ -234,7 +237,7 @@
 					border: 1px solid #217461;
 					box-sizing: border-box;
 					border-radius: 8px;
-					padding: 16px 12px;
+					padding: 16px 11px;
 					text-align: center;
 					width: calc((100% - 16px)/3);
 					height: 100%;
@@ -256,105 +259,21 @@
 						font-size: 12px;
 						line-height: 14px;
 						text-align: center;
-						color: #217461;						
+						color: #217461;							
+						@media screen and (max-width: 359px) {
+							font-size: 10px;
+							line-height: 12px;		
+						}				
+						@media screen and (max-width: 320px) {
+							font-size: 9px;
+							line-height: 11px;		
+						}						
 					}
 				}
 			}
 		}
 		&--news{
-			padding-top: 32px;
-			.news{
-				margin-top: 4px;
-				&__item{
-					background: #fff;
-					box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 4px 8px rgba(0, 0, 0, 0.04);
-					border-radius: 8px;
-					margin-bottom: 16px;
-					&--noimg{
-						.content{
-							padding: 16px;
-						}
-					}
-					.banner{
-						img{
-							max-width: 100%;
-							width: 100%;
-							border-top-right-radius: 8px;
-							border-top-left-radius: 8px;
-						}
-					}
-					.content{
-						padding: 8px 16px 16px;
-						.title{
-							line-height: 20px;							
-							color: #217461;	
-							margin-bottom: 8px;	
-							white-space: nowrap; /* Запрещаем перенос строк */
-						    overflow: hidden; 
-						    text-overflow: ellipsis;					
-						}
-						.data{
-							font-weight: normal;
-							font-size: 12px;
-							line-height: 14px;
-							color: #969696;
-							margin-bottom: 8px;						
-						}
-						.text{
-							font-weight: 300;
-							font-size: 16px;
-							line-height: 19px;							
-							color: #1F1F1F;
-						}
-					}
-				}
-				&__link{
-					font-weight: 500;
-					font-size: 16px;
-					line-height: 19px;
-					text-decoration-line: underline;
-					color: #217461;
-				}
-			}
-		}
-		&--footer{
-			margin-top: 32px;
-			.footer{
-				position: relative;
-				&__head{
-					background: #217461;
-					padding: 16px 0px 23px 0px;
-					.title{
-						line-height: 25px;
-						color:#fff;
-					}
-					.button--green{
-						margin-top: 24px;
-						display: block;
-					}
-				}
-				&__bottom{
-					padding: 16px 0;
-					background: #262626;
-					.copyright{
-						display: flex;
-						span{
-							font-weight: 300;
-							font-size: 16px;
-							line-height: 16px;
-							text-align: right;
-							color: #FFFFFF;
-						}
-						img{
-							margin-left: 8px;
-							margin-top: 1px;
-						}
-						&:hover{
-							text-decoration: none;
-						}
-					}
-				}
-			}
-		}
+			// padding-top: 32px;	
+		}		
 	}
 </style>

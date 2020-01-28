@@ -54,6 +54,7 @@ module.exports = {
     '~plugins/vee-validate.js',
     '~plugins/vue-swiper.js',
     '~plugins/sentry.js',
+    '~/plugins/axios.js'
   ],
 
   /*

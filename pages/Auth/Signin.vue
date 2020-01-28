@@ -292,7 +292,8 @@ export default {
         this.btnPasswordStatus = false;      
         if(response.data.status == 'ok'){
           this.$store.commit('setUserStatus', true);          
-          this.$store.commit('setAuthToken', response.data.token);          
+          this.$store.commit('setAuthToken', response.data.token);     
+          this.$store.commit('setTokenStatus', true);
           localStorage.setItem("authToken", response.data.token);
           if(response.data.message=='authorized'){
             localStorage.setItem("setTradePoint", 't');          

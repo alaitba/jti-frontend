@@ -7,17 +7,17 @@
 				</h3>
 				<div class="gifts__points points">
 					<p>
-						Количество баллов: 
+						Количество баллов:
 						<span v-if="balance">
-							{{balance}}	
+							{{balance}}
 						</span>
 						<span v-else>
 							0
 						</span>
 					</p>
 				</div>
-				<!-- <div class="gifts__wrapper" v-if="gifts.length">
-					<div class="item" v-for="(item,key) in gifts">
+				<div class="gifts__wrapper" v-if="gifts.length">
+					<div class="item" v-for="(item,key) in gifts" v-if="item.qty!=0">
 						<div class="item__img" v-if="item.images">
 							<img :src="item.images[0].origin_url" alt="" v-if="item.images[0]">
 						</div>
@@ -34,15 +34,15 @@
 								</p>
 							</div>
 							<div>
-								<button class="link" to="/" @click="showModal()">
-									Получить приз
-								</button>	
+								<nuxt-link class="link" :to="{name : 'Anketa-Gifts-id', params: {id : item.rewardId}}">
+                  Получить приз
+                </nuxt-link>
 							</div>
 						</div>
 					</div>
-				</div> -->
+				</div>
 
-				<div class="gifts__wrapper">
+				<!-- <div class="gifts__wrapper">
 					<div class="item" v-for="(item,key) in gifts">
 						<div class="item__img">
 							<img :src="item.url" alt="">
@@ -60,13 +60,13 @@
 								</p>
 							</div>
 							<div>
-								<button class="link" to="/" @click="showModal()">
+								<nuxt-link class="link" :to="{name : 'Anketa-Gifts-id', params: {id : 'd492446f-2826-ea11-80cc-1cc1dee6b654'}}">
 									Получить приз
-								</button>	
+								</nuxt-link>
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<footer-anketa/>
@@ -111,7 +111,7 @@
 						points: 100,
 						left: 2400,
 						url: '/gifts/11.png'
-					},					
+					},
 					{
 						name: 'Плед',
 						points: 150,
@@ -129,7 +129,7 @@
 						points: 200,
 						left: 1200,
 						url: '/gifts/14.png'
-					},					
+					},
 					{
 						name: 'Сертификат Технодом на 5000 тг',
 						points: 250,
@@ -153,7 +153,7 @@
 						points: 400,
 						left: 600,
 						url: '/gifts/19.png'
-					},	
+					},
 					{
 						name: 'Чайник Vitek',
 						points: 500,
@@ -177,7 +177,7 @@
 						points: 800,
 						left: 340,
 						url: '/gifts/23.png'
-					},					
+					},
 
 				],
 				balance:'',
@@ -185,7 +185,7 @@
 		},
 		mounted(){
 			this.getBalance();
-			// this.getPrizes();
+			this.getPrizes();
 		},
 		methods:{
 			showModal(modal){
@@ -212,9 +212,9 @@
 
 				await this.$axios.get('/rewards/available')
 					.then(response =>{
-						// if(response.data.rewards.length){							
-						// 	this.gifts = response.data.rewards;
-						// }
+						if(response.data.rewards.length){
+							this.gifts = response.data.rewards;
+						}
 
 					}).catch(error =>{
 						// console.log('error',error.response)
@@ -226,7 +226,7 @@
 </script>
 <style lang="scss">
 	main.page{
-		
+
 	}
 	.points{
 		margin-top: 16px;
@@ -260,7 +260,7 @@
 					.text{
 						font-weight: 300;
 						font-size: 16px;
-						line-height: 19px;						
+						line-height: 19px;
 						color: #1F1F1F;
 						margin-bottom: 0;
 					}
@@ -274,7 +274,7 @@
 					.link{
 						font-weight: bold;
 						font-size: 14px;
-						line-height: 16px;						
+						line-height: 16px;
 						color: #05B186;
 						background: transparent;
 						box-shadow: none;

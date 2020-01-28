@@ -1,5 +1,5 @@
 <template>
-	<main class="page page--flex">
+	<main class="page page--flex page--grey">
 		<div class="fill-section">
 			<div class="fill-section__menu">
 				<ul class="nav nav-pills">
@@ -81,8 +81,9 @@
 								<div class="form-group" v-if="brands">
 					            	<multiselect v-model="field.selectedBrand" :options="brands" :searchable="false" :close-on-select="true" :show-labels="false" placeholder="Выбери марку сигарет"></multiselect>
 					            </div>
+																
 
-					            <div class="form-group" v-if="options[field.selectedBrand]">					            	
+					            <!-- <div class="form-group" v-if="options[field.selectedBrand]">					            	
 					            		<multiselect 
 					            			v-model="field.cigaretteBrand" 
 					            			track-by="sku"
@@ -99,7 +100,7 @@
 					            			>
 					            		</multiselect>
 					            	
-					            </div>
+					            </div> -->
 					            <label for="" class="title__label">
 					              Подпись покупателя
 					            </label>
@@ -369,7 +370,7 @@
 					'firstname': this.field.firstName,
 					'lastname': this.field.secondName,
 					'birthdate': this.field.birthData,
-					'product_code': this.field.cigaretteBrand.product_code,
+					'product_code': this.options[this.field.selectedBrand][0].product_code,
 					'signature': this.field.img,
 					'self': this.field.self
 				}
@@ -386,7 +387,7 @@
 			        	this.anketaBtnStatus = false;
 			        	if(error.response.data.message=='already_filled'){
 			        		this.number = this.anketaNumber;
-			        		this.text = 'На указанный номер отправлена ссылка для заполнения анкеты!';
+			        		this.text = 'На указанный телефон анкета уже заполнялась в данной торговой точке!';
 			        		this.img = 'error';
 				        	$('#modal-main').modal('show')				
 						} else if((error.response.data.message=='validation_failed') || (error.response.data.message=='mobile_phone_not_verified')){
@@ -408,9 +409,6 @@
 	}
 </script>
 <style lang="scss">
-	main.page{		
-		&--flex{display: flex !important;}
-	}
 	.help.is-danger{
 		font-weight: normal;
 		font-size: 12px;

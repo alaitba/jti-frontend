@@ -8,6 +8,7 @@ export const state = () => {
     authToken: localStorage.getItem("authToken") ? localStorage.getItem("authToken") : null,
     numberAnketa: localStorage.getItem("anketaNumber") ? localStorage.getItem("anketaNumber") : null,
     brands: null,
+    tokenStatus: null,
   }
 }
 
@@ -35,6 +36,9 @@ export const mutations = {
   },
   setBrands (state, brands) {
   	state.brands = brands;
+  },
+  setTokenStatus (state, tokenStatus){
+    state.tokenStatus = tokenStatus;
   },
   resetState (state) {
     state.auth = null;

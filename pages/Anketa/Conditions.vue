@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<main class="page page--block">
+		<main class="page page--grey page--block">
 			<div class="container">
 				<div class="section section--condition">
 					<h3 class="section__title">
@@ -120,12 +120,7 @@
 		}
 	}
 </script>
-<style lang="scss">
-	main.page{
-		background: #F9F9F9;
-		height: 100vh;
-		&--block{display: block !important;}
-	}
+<style lang="scss">	
 	.section{
 		&__title{
 			line-height: 33px;			
