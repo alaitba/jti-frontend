@@ -233,6 +233,8 @@
 	// 	padding-bottom: 100px;
 	// }
 	.swiper-slide{
+		background: #fff;
+		border-radius: 8px;
 		img{
 			// max-width: 312px !important;
 			width: auto;
@@ -305,13 +307,17 @@
 				margin-bottom: 0;
 			}
 			.text{
-				margin-top: 16px;
-				font-style: normal;
-				font-weight: 300;
-				font-size: 16px;
-				line-height: 19px;				
-				color: #1F1F1F;
-				margin-bottom: 0;
+				margin-top: 16px;				
+				p{
+					b{
+						font-weight: 300;
+					}
+					font-weight: 300;
+					font-size: 16px;
+					line-height: 19px;				
+					color: #1F1F1F;
+					margin-bottom: 0;
+				}
 			}			
 		}
 	}

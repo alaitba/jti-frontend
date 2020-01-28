@@ -168,17 +168,26 @@
           }
         }
 				&__img{
+            background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, rgba(5, 177, 134, 0.05) 100%);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 125px;
+            height: 121px;
+            align-items: center;
 					img{
-						// max-width: 100%;
 						// max-height: 121px;
-            max-width: 125px;
+            // max-width: 125px;
+            max-height: 100%;
+            max-width: 100%;
 					}
 				}
 				&__content{
 					margin-left: 16px;
-				    display: flex;
-				    flex-direction: column;
-				    justify-content: space-between;
+			    display: flex;
+			    flex-direction: column;
+			    justify-content: space-between;
 					.title{
 						margin-top: 8px;
 						line-height: 25px;
