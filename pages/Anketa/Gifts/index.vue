@@ -1,5 +1,5 @@
 <template>
-	<main class="page page--flex">
+	<main class="page page--flex page--grey">
 		<div class="gifts">
 			<div class="container">
 				<h3 class="section__title gifts__title">
@@ -34,7 +34,7 @@
   									Осталось штук: {{item.totalQty | formatAmount}}
   								</p>
   							</div>
-  							<div>
+  							<div class="d-flex">
   								<nuxt-link class="link" :to="{name : 'Anketa-Gifts-id', params: {id : item.rewardId}}">
                     Получить приз
                   </nuxt-link>
@@ -161,6 +161,9 @@
 				box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 4px 8px rgba(0, 0, 0, 0.04);
 				border-radius: 8px;
 				padding: 8px;
+        .d-flex{
+          padding-bottom: 4px;
+        }
         &>a{
           display: flex;
           &:hover{
@@ -173,6 +176,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            min-width: 125px;
+            max-width: 125px;
             width: 125px;
             height: 121px;
             align-items: center;
@@ -197,7 +202,7 @@
 						font-size: 16px;
 						line-height: 19px;
 						color: #1F1F1F;
-						margin-bottom: 0;
+				    margin-bottom: 4px;
 					}
 					.left{
 						font-weight: normal;

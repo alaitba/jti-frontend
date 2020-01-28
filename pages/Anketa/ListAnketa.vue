@@ -4,9 +4,7 @@
 			<div class="container" v-if="anketaStatus">
 				<div class="anketa__head">
 					<h3 class="anketa__title">
-						Мои анкеты
-
-						{{list.length}}
+						Мои анкеты						
 					</h3>
 					<span class="amount" v-if="list">
 						Анкет: {{list.length}}

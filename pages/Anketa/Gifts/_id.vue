@@ -41,9 +41,9 @@
 						    <div class="swiper-pagination" slot="pagination"></div>
 	    				</swiper>
 					</div>
-					<!-- <div class="gift__banner" v-else-if="gift.images.length==1">
-						<img src="~assets/img/gifts/inside/1.png" alt="">
-					</div> -->
+					<div class="gift__banner" v-else-if="gift.images.length==1">
+						<img :src="gift.images[0].origin_url" alt="">
+					</div>
 					<div class="gift__content">
 						<h4 class="point" v-if="gift.price">
 							{{gift.price | formatPrice}} баллов
@@ -286,18 +286,22 @@
 		}
 		.gift{
 			&__banner, &__slider{
-				margin: 16px 0;
+				margin: 16px 0 0 0;
 				text-align: center;
 				img{
-					max-width: 100%;
+				    width: auto;
+		    		max-height: 162px !important;
 				}
+			}
+			&__content{
+				margin-top: 16px;
 			}
 			.title{
 				font-weight: 500;
 				font-size: 16px;
 				line-height: 19px;				
 				color: #1F1F1F;
-				margin-bottom: 0;
+				margin-bottom: 8px;
 			}
 			.left{
 				font-weight: normal;
