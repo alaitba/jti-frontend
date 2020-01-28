@@ -144,6 +144,7 @@
               this.$store.commit('setUserStatus', true);
               if(response.data.message=='authorized'){
                 localStorage.setItem("setTradePoint", 't');          
+                localStorage.setItem("tradepoint", JSON.stringify(response.data.tradepoint));
                 this.$router.push('/')
               } else if(response.data.message=='need_tradepoint'){            
                 localStorage.setItem("setTradePoint", 'f');          

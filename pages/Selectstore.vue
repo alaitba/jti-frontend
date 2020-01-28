@@ -124,7 +124,8 @@
 				try{
 					let res = await this.$axios.$post('/auth/set-tradepoint', fields
 						)				
-						localStorage.setItem("setTradePoint", 't');          
+						localStorage.setItem("setTradePoint", 't');   
+						localStorage.setItem("tradepoint", JSON.stringify(response.data.tradepoint));       
 						this.$router.push('/');
 				} catch(err){						
 					if(err.response.data == "Unauthorized."){

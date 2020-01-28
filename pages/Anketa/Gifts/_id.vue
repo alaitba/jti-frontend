@@ -65,7 +65,7 @@
 			</div>
 			<div class="gifts__select">
 				<div class="container">
-					<button type="button" class="button button--green" @click="getCurrentPrize()">
+					<button type="button" class="button button--green" :disabled="btnStatus" @click="getCurrentPrize()">
 						Получить приз
 					</button>
 				</div>
@@ -73,7 +73,7 @@
 		</div>
 		<footer-anketa/>
 		<modal-error/>
-		<modal-main :title="title" :text="text" :img="img"></modal-main>
+		<modal-main :title="title" :text="text" :img="img" :btnText="btnText"></modal-main>
 	</main>
 </template>
 <script>
@@ -109,11 +109,14 @@
 	    		},
 				balance:'',
 				gift: '',
+				btnStatus: false,
 
 				title:'',
 				text:'',
 				img:'',
 				btnText: '',
+
+				tradePoint : localStorage.getItem("tradepoint") ? JSON.parse(localStorage.getItem("tradepoint")) : null,
 			}
 		},
 		mounted(){
@@ -158,26 +161,7 @@
 								}
 							}
 
-							if(this.gift.name == "Мобильный баланс"){
-								this.title = JSON.parse(localStorage.getItem('authUser')).mobile_phone;
-								this.text = 'на указанный номер в ближайшее время будет начислено 200 тг';
-								this.img = 'money';
-								this.btnText = 'Вернуться в Призы'
-							} else{
-								this.title = this.gift.name;
-								this.text = 'приз будет доставлен торговым представителем к вам на точку г.Алматы, ул.Байтурсынова 123';
-								this.img = 'gift'
-								this.btnText = 'Вернуться в Призы'
-							}
-							console.log(response.data.rewards,'gift')
-							// this.gift = response.data.rewards;
-						// }
-
-					}).catch(error =>{
-						this.title = 'Недостаточно баллов!';
-						this.text = 'У вас не хватает баллов для получения данного приза';
-						this.img = 'alert'
-						// this.btnText = 'Вернуться в Призы'
+					}).catch(error =>{						
 						console.log('error',error.response)
 					})
 
@@ -193,25 +177,36 @@
 					'reward_id': this.$route.params.id,
 				}
 
+				this.btnStatus = true;
 				// console.log(fields)
-				await this.$axios.get('/rewards/get', fields)
+				await this.$axios.get('/rewards/get?reward_id=' + this.$route.params.id)
 					.then(response =>{
-						// if(response.data.rewards.length){				
-							if(this.gift.name == "Мобильный баланс"){
-								this.title = JSON.parse(localStorage.getItem('authUser')).mobile_phone;
-								this.text = 'на указанный номер в ближайшее время будет начислено 200 тг';
-								this.img = 'money'
-							} else{
-								this.title = this.gift.name;
-								this.text = 'приз будет доставлен торговым представителем к вам на точку г.Алматы, ул.Байтурсынова 123';
-								this.img = 'gift'
-							}
-							console.log(response.data.rewards,'gift')
+						// if(response.data.rewards.length){
+						// this.$store.commit('setBalance')				
+						if(this.gift.name == "Мобильный баланс"){
+							this.title = JSON.parse(localStorage.getItem('authUser')).mobile_phone;
+							this.text = 'на указанный номер в ближайшее время будет начислено 500 тг';
+							this.img = 'money'
+						} else{
+							this.title = this.gift.name;
+							this.text = 'приз будет доставлен торговым представителем к вам на точку г.' +  this.tradePoint.city+ ', ул.' + this.tradePoint.street_address;
+							this.img = 'gift'
+						}
+						this.btnText = 'Вернуться в Призы'
+						$('#modal-main').modal('show');
+							// console.log(response.data.rewards,'gift')
 							// this.gift = response.data.rewards;
 						// }
+						this.btnStatus = false;
 
 					}).catch(error =>{
-						console.log('error',error.response)
+						console.log('error',error.response);
+						this.btnStatus = false;
+						this.title = 'Недостаточно баллов!';
+						this.text = 'У вас не хватает баллов для получения данного приза!';
+						this.img = 'alert';
+						$('#modal-main').modal('show');
+						// this.btnText = 'Вернуться в Призы'
 					})
 
 			}
@@ -290,12 +285,23 @@
 				text-align: center;
 				img{
 				    width: auto;
-		    		max-height: 162px !important;
+		    		// max-height: 162px !important;
+		    		max-width: 312px !important;
 				}
 			}
 			&__banner{
 				background: #fff;
 			    border-radius: 8px;
+			    width: 100%;
+			    height: 162px;
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			    img{
+			    	width: auto;
+		    		max-height: 162px !important;
+		    		max-width: 312px !important;
+			    }
 			}
 			&__content{
 				margin-top: 16px;

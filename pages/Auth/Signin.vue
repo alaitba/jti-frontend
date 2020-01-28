@@ -284,25 +284,29 @@ export default {
       this.errorPassword = false;
       await this.$axios.post('/auth/login/', fields)
       .then(response =>{
+        this.btnPasswordStatus = false;      
+
         if(response.data.tradepoints){
           this.$store.commit('setTradePoints', response.data.tradepoints)          
           localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoints)); 
           // console.log('tradepoints',response.data.tradepoints)         
         }  
-        this.btnPasswordStatus = false;      
+
         if(response.data.status == 'ok'){
           this.$store.commit('setUserStatus', true);          
           this.$store.commit('setAuthToken', response.data.token);     
           this.$store.commit('setTokenStatus', true);
-          localStorage.setItem("authToken", response.data.token);
+          localStorage.setItem("authToken", response.data.token);          
           if(response.data.message=='authorized'){
             localStorage.setItem("setTradePoint", 't');          
+            localStorage.setItem("tradepoint", JSON.stringify(response.data.tradepoint));
             this.$router.push('/');
           } else if(response.data.message=='need_tradepoint'){            
             localStorage.setItem("setTradePoint", 'f');          
             this.$router.push('/selectstore')          
           }
         }
+
         
       }).catch(error => { 
           if(this.counter == 5){            

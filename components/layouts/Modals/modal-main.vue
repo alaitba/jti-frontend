@@ -26,20 +26,18 @@
                     {{text}}
                   </p>
                 </div>                    
-              </div>                   
-              <div class="footer">
-                
-              </div>
-          </div>              
+              </div>                                 
+          </div>      
+
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="button" class="button button--green" data-dismiss="modal" v-if="btnText">
+            <button type="button" class="button button--green" data-dismiss="modal" v-if="btnText && !status">
               {{btnText}}
             </button>
-            <button type="button" class="button button--green" data-dismiss="modal" v-if="!status">
+            <button type="button" class="button button--green" data-dismiss="modal" v-if="!status && !btnText">
               Повторить попытку
             </button>            
-            <button type="button" class="button button--green" v-else @click="sendSms">
+            <button type="button" class="button button--green" v-if="status && !btnText " @click="sendSms">
               Повторить попытку
             </button>
           </div>              
