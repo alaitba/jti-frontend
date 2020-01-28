@@ -97,8 +97,8 @@
 			line-height: 14px;			
 			text-align: center;
 			color: #969696;
-			@media screen and (max-width: 359px) {
-				font-size: 10px;
+			@media screen and (max-width: 370px) {
+				font-size: 11px;
 				line-height: 12px;		
 			}				
 			@media screen and (max-width: 320px) {

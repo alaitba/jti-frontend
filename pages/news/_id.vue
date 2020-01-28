@@ -1,6 +1,11 @@
 <template>
-	<main class="page page--white">
+	<main class="page page--white page--df">
 		<div class="container">
+			<h3 class="section__title  section__title--link">
+				<nuxt-link to="/news">
+					Новости
+				</nuxt-link>	
+			</h3>
 			<div class="news-item">
 				<div class="news-item__banner">
 					<img src="~/assets/img/news/12.png" alt="">
@@ -64,6 +69,16 @@
 <style lang="scss">
 	.page--white{
 		flex-direction: column;
+	}
+	.page--df{
+		display: flex;
+	    flex-direction: column;
+	    justify-content: space-between;
+	}
+	.section{
+		&__title{
+			margin-top: 16px;
+		}
 	}
 	.news-item{
 		margin-top: 16px;

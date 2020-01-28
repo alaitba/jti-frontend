@@ -2,7 +2,7 @@
 	<main class="page page--flex page--grey">
 		<div class="gifts">
 			<div class="container">
-				<h3 class="section__title gifts__title gifts__title--link">
+				<h3 class="section__title section__title--link">
 					<nuxt-link to="/anketa/gifts">
 						Призы
 					</nuxt-link>	
@@ -245,31 +245,31 @@
 	.gifts{
 		padding: 16px 0 120px 0;
 		width: 100%;
-		&__title{
-			&--link{
-				position: relative;
-				padding-left: 25px;
-				a{
-					color: #969696;
-					text-decoration: none;
-					&:hover{
-						color: #969696;
-					}
-					&:after{
-						content: '';
-						position: absolute;
-						top: -2px;
-						bottom: 0;
-						left: 0;
-						margin: auto;
-						background: url('~assets/img/icons/backlink.svg');
-						width: 12px;
-						height: 20px;
-					}
-				}
+		// &__title{
+		// 	&--link{
+		// 		position: relative;
+		// 		padding-left: 25px;
+		// 		a{
+		// 			color: #969696;
+		// 			text-decoration: none;
+		// 			&:hover{
+		// 				color: #969696;
+		// 			}
+		// 			&:after{
+		// 				content: '';
+		// 				position: absolute;
+		// 				top: -2px;
+		// 				bottom: 0;
+		// 				left: 0;
+		// 				margin: auto;
+		// 				background: url('~assets/img/icons/backlink.svg');
+		// 				width: 12px;
+		// 				height: 20px;
+		// 			}
+		// 		}
 				
-			}
-		}
+		// 	}
+		// }
 		&__select{
 			position: fixed;
 			width: 100%;
