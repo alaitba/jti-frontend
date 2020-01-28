@@ -18,27 +18,29 @@
 				</div>
 				<div class="gifts__wrapper" v-if="gifts.length">
 					<div class="item" v-for="(item,key) in gifts" v-if="item.qty!=0">
-						<div class="item__img" v-if="item.images">
-							<img :src="item.images[0].origin_url" alt="" v-if="item.images[0]">
-						</div>
-						<div class="item__content">
-							<div>
-								<h4 class="title">
-									{{item.price}} <span>баллов</span>
-								</h4>
-								<p class="text">
-									{{item.name}}
-								</p>
-								<p class="left" v-if="item.totalQty!=null">
-									Осталось штук: {{item.totalQty | formatAmount}}
-								</p>
-							</div>
-							<div>
-								<nuxt-link class="link" :to="{name : 'Anketa-Gifts-id', params: {id : item.rewardId}}">
-                  Получить приз
-                </nuxt-link>
-							</div>
-						</div>
+            <nuxt-link :to="{name : 'Anketa-Gifts-id', params: {id : item.rewardId}}">
+  						<div class="item__img" v-if="item.images">
+  							<img :src="item.images[0].origin_url" alt="" v-if="item.images[0]">
+  						</div>
+  						<div class="item__content">
+  							<div>
+  								<h4 class="title" v-if="item.price">
+  									{{item.price | formatPrice}} <span>баллов</span>
+  								</h4>
+  								<p class="text">
+  									{{item.name}}
+  								</p>
+  								<p class="left" v-if="item.totalQty!=null">
+  									Осталось штук: {{item.totalQty | formatAmount}}
+  								</p>
+  							</div>
+  							<div>
+  								<nuxt-link class="link" :to="{name : 'Anketa-Gifts-id', params: {id : item.rewardId}}">
+                    Получить приз
+                  </nuxt-link>
+  							</div>
+  						</div>
+            </nuxt-link>
 					</div>
 				</div>
 
@@ -89,97 +91,14 @@
 				} else{
 					return value
 				}
-			}
+			},
+      formatPrice(value){
+        return parseInt(Number(value));
+      }
 		},
 		data(){
 			return {
-				gifts:[
-					{
-						name: 'Купон для участия в розыгрыше',
-						points: 25,
-						left: '∞',
-						url: '/gifts/10.png'
-					},
-					{
-						name: 'Пополнение баланса ',
-						points: 50,
-						left: 6000,
-						url: '/gifts/15.png'
-					},
-					{
-						name: 'Футболка',
-						points: 100,
-						left: 2400,
-						url: '/gifts/11.png'
-					},
-					{
-						name: 'Плед',
-						points: 150,
-						left: 1700,
-						url: '/gifts/12.png'
-					},
-					{
-						name: 'Термокружка',
-						points: 175,
-						left: 1600,
-						url: '/gifts/13.png'
-					},
-					{
-						name: 'Зонт',
-						points: 200,
-						left: 1200,
-						url: '/gifts/14.png'
-					},
-					{
-						name: 'Сертификат Технодом на 5000 тг',
-						points: 250,
-						left: 500,
-						url: '/gifts/16.png'
-					},
-					{
-						name: 'Толстовка',
-						points: 300,
-						left: 500,
-						url: '/gifts/17.png'
-					},
-					{
-						name: 'Power-bank Xiaomi',
-						points: 350,
-						left: 600,
-						url: '/gifts/18.png'
-					},
-					{
-						name: 'Утюг Maxwell',
-						points: 400,
-						left: 600,
-						url: '/gifts/19.png'
-					},
-					{
-						name: 'Чайник Vitek',
-						points: 500,
-						left: 400,
-						url: '/gifts/20.png'
-					},
-					{
-						name: 'Беспроводные наушники Xiaomi',
-						points: 600,
-						left: 250,
-						url: '/gifts/21.png'
-					},
-					{
-						name: 'Рюкзак',
-						points: 700,
-						left: 300,
-						url: '/gifts/22.png'
-					},
-					{
-						name: 'Мультиварка Redmond',
-						points: 800,
-						left: 340,
-						url: '/gifts/23.png'
-					},
-
-				],
+				gifts:[],
 				balance:'',
 			}
 		},
@@ -242,10 +161,17 @@
 				box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 4px 8px rgba(0, 0, 0, 0.04);
 				border-radius: 8px;
 				padding: 8px;
+        &>a{
+          display: flex;
+          &:hover{
+            text-decoration: none;
+          }
+        }
 				&__img{
 					img{
 						// max-width: 100%;
-						max-height: 121px;
+						// max-height: 121px;
+            max-width: 125px;
 					}
 				}
 				&__content{

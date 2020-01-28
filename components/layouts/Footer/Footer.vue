@@ -75,6 +75,7 @@
 		bottom:0;
 		left: 0;
 		background: #fff;
+		z-index: 9;
 		&__wrapper{
 			display: flex;
 			flex-wrap: wrap;

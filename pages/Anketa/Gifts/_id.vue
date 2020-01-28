@@ -23,7 +23,10 @@
 				<div class="gift" v-if="gift">
 					<div class="gift__slider" v-if="gift.images.length>1">
 						<swiper :options="swiperOption" ref="mySwiper">
-	    					<swiper-slide>
+							<swiper-slide v-for="(item,key) in gift.images" :key="key">
+	    						<img :src="item.origin_url" alt="">
+	    					</swiper-slide>
+	    					<!-- <swiper-slide>
 	    						<img src="~assets/img/gifts/inside/1.png" alt="">
 	    					</swiper-slide>
 						    <swiper-slide>
@@ -34,7 +37,7 @@
 						    </swiper-slide>
 						    <swiper-slide>
 						    	<img src="~assets/img/gifts/inside/1.png" alt="">
-						    </swiper-slide>
+						    </swiper-slide> -->
 						    <div class="swiper-pagination" slot="pagination"></div>
 	    				</swiper>
 					</div>
@@ -43,7 +46,7 @@
 					</div> -->
 					<div class="gift__content">
 						<h4 class="point" v-if="gift.price">
-							{{gift.price}} баллов
+							{{gift.price | formatPrice}} баллов
 						</h4>
 						<p class="title" v-if="gift.name">
 							{{gift.name}}
@@ -51,11 +54,12 @@
 						<p class="left" v-if="gift.totalQty">
 							Осталось штук: {{gift.totalQty}} 
 						</p>
-						<p class="text" v-if="gift.description">
+						<div class="text" v-if="gift.description" v-html="gift.description"></div>
+						<!-- <p class="text" v-if="gift.description">
 							{{gift.description}}
-							<!-- Рюкзак сделан из велюра зеленого цвета. На рюкзаке термопечатью нанесен логотип JTI Company <br>
-							<strong>Внимание!</strong> Определенный приз можно заказать только 1 раз. При заказе приза, представитель JTI доставит вам его на торговую точку. -->
-						</p>
+							Рюкзак сделан из велюра зеленого цвета. На рюкзаке термопечатью нанесен логотип JTI Company <br>
+							<strong>Внимание!</strong> Определенный приз можно заказать только 1 раз. При заказе приза, представитель JTI доставит вам его на торговую точку.
+						</p> -->
 					</div>					
 				</div>			
 			</div>
@@ -90,7 +94,10 @@
 				} else{
 					return value
 				}
-			}
+			},
+			formatPrice(value){
+		        return parseInt(Number(value));
+		    }
 		},
 		data(){
 			return {
@@ -225,6 +232,13 @@
 	// main.page{
 	// 	padding-bottom: 100px;
 	// }
+	.swiper-slide{
+		img{
+			// max-width: 312px !important;
+			width: auto;
+    		max-height: 162px !important;
+		}
+	}
 	.points{
 		margin-top: 16px;
 	}
@@ -263,6 +277,7 @@
 			position: fixed;
 			width: 100%;
 			bottom: 72px;
+			z-index: 9;
 			@media screen and (max-width: 320px) {
 				// bottom: 89px;
 			}
