@@ -1,74 +1,79 @@
 <template>
   	<main class="page page--flex page--grey">
-    	<div class="section section--news">
-    		<div class="container">
-    			<h3 class="section__title">
-    				Новости
-    			</h3>
-    			<div class="news">
-    				<template v-if="news.length">
-    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length<1}" v-for="(item, key) in news">
-    						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
-	    						<div class="banner" v-if="item.media">
-		    						<img :src="item.media[0].url" alt="">
-		    					</div>
+  		<template v-if="loaderStatus">
+			<loader/>
+		</template>
+		<template v-else>
+	    	<div class="section section--news">
+	    		<div class="container">
+	    			<h3 class="section__title">
+	    				Новости
+	    			</h3>
+	    			<div class="news">
+	    				<template v-if="news.length">
+	    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length<1}" v-for="(item, key) in news">
+	    						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
+		    						<div class="banner" v-if="item.media">
+			    						<img :src="item.media[0].url" alt="">
+			    					</div>
+			    					<div class="content">
+			    						<h4 class="title" v-if="item.title">
+				    						{{item.title.ru}}
+				    					</h4>
+				    					<p class="data" v-if="item.created_at">
+				    						{{ item.created_at | formatData}}
+				    					</p>
+				    					<div class="text" v-if="item.contents" v-html="item.contents.ru"></div>
+			    					</div>
+			    				</nuxt-link>
+	    					</div>
+	    				</template>
+	    				<!-- <div class="news__item news__item--noimg">    					
+	    					<nuxt-link :to="{name: 'news-id', params: {id: 1}}">
 		    					<div class="content">
-		    						<h4 class="title" v-if="item.title">
-			    						{{item.title.ru}}
+		    						<h4 class="title">
+			    						Встречайте новую уникальную программу специально для наших партнеров!
 			    					</h4>
-			    					<p class="data" v-if="item.created_at">
-			    						{{ item.created_at | formatData}}
+			    					<p class="data">
+			    						03.01.2020
 			    					</p>
-			    					<div class="text" v-if="item.contents" v-html="item.contents.ru"></div>
-		    					</div>
+			    					<div class="text">
+			    						С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей!
+			    					</div>
+		    					</div>    					
 		    				</nuxt-link>
-    					</div>
-    				</template>
-    				<!-- <div class="news__item news__item--noimg">    					
-    					<nuxt-link :to="{name: 'news-id', params: {id: 1}}">
-	    					<div class="content">
-	    						<h4 class="title">
-		    						Встречайте новую уникальную программу специально для наших партнеров!
-		    					</h4>
-		    					<p class="data">
-		    						03.01.2020
-		    					</p>
-		    					<div class="text">
-		    						С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей!
-		    					</div>
-	    					</div>    					
-	    				</nuxt-link>
-    				</div> -->
-    			</div>
-    		</div>
-    	</div>
-    	<div class="section section--footer">
-    		<div class="footer">    			
-    			<div class="footer__head">
-    				<div class="container">
-	    				<h4 class="title">
-	    					JTI Partner 360
-	    				</h4>
+	    				</div> -->
 	    			</div>
-    				<!-- <nuxt-link class="button button--green" to="/faq">
-    					Обратная связь
-    				</nuxt-link> -->
-    			</div>
-    			<div class="footer__bottom">
-    				<div class="container">
-	    				<a href="https://ibecsystems.com/ru#/" target="_blank" class="copyright">
-	    					<span>
-	    						Разработано в
-	    					</span>
-	    					<img src="~/assets/img/icons/ibec_systems_logo.svg" alt="">
-	    				</a>
+	    		</div>
+	    	</div>
+	    	<div class="section section--footer">
+	    		<div class="footer">    			
+	    			<div class="footer__head">
+	    				<div class="container">
+		    				<h4 class="title">
+		    					JTI Partner 360
+		    				</h4>
+		    			</div>
+	    				<!-- <nuxt-link class="button button--green" to="/faq">
+	    					Обратная связь
+	    				</nuxt-link> -->
 	    			</div>
-    			</div>
-    		</div>
-    		<!-- <div class="container">
-    			
-    		</div> -->
-    	</div>     	
+	    			<div class="footer__bottom">
+	    				<div class="container">
+		    				<a href="https://ibecsystems.com/ru#/" target="_blank" class="copyright">
+		    					<span>
+		    						Разработано в
+		    					</span>
+		    					<img src="~/assets/img/icons/ibec_systems_logo.svg" alt="">
+		    				</a>
+		    			</div>
+	    			</div>
+	    		</div>
+	    		<!-- <div class="container">
+	    			
+	    		</div> -->
+	    	</div>     	
+	    </template>
     	<modal-error/>
   	</main>
 </template>
@@ -77,9 +82,11 @@
 	import ModalError from '~/components/layouts/Modals/ModalError.vue'
 	import {mapState, mapMutations} from 'vuex'
 	import moment from 'moment'
+	import Loader from '~/components/layouts/loader.vue'
 	export default {
 	  	components: {
 	      ModalError,      
+	      Loader,
 	    },
 	    filters:{
 	    	truncateText(text,stop,clamp){
@@ -91,6 +98,7 @@
 	    },
 	    data() {
 	    	return {
+	    		loaderStatus: true,
 	    		text : "С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей! Вас ждут много интересных призов: термокружки, пледы, зонты, сертификаты, беспроводные наушники, мультиварки, футболки и другие. А еще специально для вас каждую неделю вас ждут еженедельные розыгрыши призов как смартфоны, телевизоры и стиральные машины. Для участия в них достаточно к моменту розыгрыша заработать минимум 100 баллов.Главный приз финального розыгрыша – автомобиль Camry 70!",
 	    		news: '',
 	    	}
@@ -129,6 +137,8 @@
 
 	    				
 	    				this.news = JSON.parse(localStorage.getItem("news"));
+
+	    				this.loaderStatus = false;
 	    			}).catch(error =>{
 	    				console.log('error news')
 	    			})

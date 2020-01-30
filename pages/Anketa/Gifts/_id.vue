@@ -1,97 +1,104 @@
 <template>
 	<main class="page page--flex page--grey">
-		<div class="gifts">
-			<div class="container">
-				<h3 class="section__title section__title--link">
-					<nuxt-link to="/anketa/gifts">
-						Призы
-					</nuxt-link>	
-				</h3>
-				<div class="gifts__points points">
-					<p>
-						Количество баллов: 
-						<span v-if="balance">
-							{{balance}}	
-						</span>
-						<span v-else>
-							0
-						</span>
-					</p>
-				</div>	
-
-
-				<div class="gift" v-if="gift">
-					<div class="gift__slider" v-if="gift.images.length>1">
-						<swiper :options="swiperOption" ref="mySwiper">
-							<swiper-slide v-for="(item,key) in gift.images" :key="key">
-	    						<img :src="item.origin_url" alt="">
-	    					</swiper-slide>
-	    					<!-- <swiper-slide>
-	    						<img src="~assets/img/gifts/inside/1.png" alt="">
-	    					</swiper-slide>
-						    <swiper-slide>
-						    	<img src="~assets/img/gifts/inside/1.png" alt="">
-						    </swiper-slide>
-						    <swiper-slide>
-						    	<img src="~assets/img/gifts/inside/1.png" alt="">
-						    </swiper-slide>
-						    <swiper-slide>
-						    	<img src="~assets/img/gifts/inside/1.png" alt="">
-						    </swiper-slide> -->
-						    <div class="swiper-pagination" slot="pagination"></div>
-	    				</swiper>
-					</div>
-					<div class="gift__banner" v-else-if="gift.images.length==1">
-						<img :src="gift.images[0].origin_url" alt="">
-					</div>
-					<div class="gift__content">
-						<h4 class="point" v-if="gift.price">
-							{{gift.price | formatPrice}} баллов
-						</h4>
-						<p class="title" v-if="gift.name">
-							{{gift.name}}
-						</p>
-						<template v-if="gift.rewardId!='069ab460-263c-ea11-80cc-1cc1dee6b654'">
-		                    <p class="left" v-if="gift.totalQty!=null">
-		                      Осталось штук: {{gift.totalQty | formatAmount}}
-		                    </p>
-		                  </template>
-		                  <template v-else>
-		                    <p class="left" v-if="gift.totalQty">
-		                      количество не ограничено
-		                    </p>
-	                  	</template>						
-						<div class="text" v-if="gift.description" v-html="gift.description"></div>
-						<!-- <p class="text" v-if="gift.description">
-							{{gift.description}}
-							Рюкзак сделан из велюра зеленого цвета. На рюкзаке термопечатью нанесен логотип JTI Company <br>
-							<strong>Внимание!</strong> Определенный приз можно заказать только 1 раз. При заказе приза, представитель JTI доставит вам его на торговую точку.
-						</p> -->
-					</div>					
-				</div>			
-			</div>
-			<div class="gifts__select">
+		<template v-if="loaderStatus">
+			<loader/>
+		</template>
+		<template v-else>
+			<div class="gifts gifts-inside">
 				<div class="container">
-					<button type="button" class="button button--green" :disabled="btnStatus" @click="getCurrentPrize()">
-						Получить приз
-					</button>
+					<h3 class="section__title section__title--link">
+						<nuxt-link to="/anketa/gifts">
+							Призы
+						</nuxt-link>	
+					</h3>
+					<div class="gifts__points points">
+						<p>
+							Количество баллов: 
+							<span v-if="balance">
+								{{balance}}	
+							</span>
+							<span v-else>
+								0
+							</span>
+						</p>
+					</div>	
+
+
+					<div class="gift" v-if="gift">
+						<div class="gift__slider" v-if="gift.images.length>1">
+							<swiper :options="swiperOption" ref="mySwiper">
+								<swiper-slide v-for="(item,key) in gift.images" :key="key">
+		    						<img :src="item.origin_url" alt="">
+		    					</swiper-slide>
+		    					<!-- <swiper-slide>
+		    						<img src="~assets/img/gifts/inside/1.png" alt="">
+		    					</swiper-slide>
+							    <swiper-slide>
+							    	<img src="~assets/img/gifts/inside/1.png" alt="">
+							    </swiper-slide>
+							    <swiper-slide>
+							    	<img src="~assets/img/gifts/inside/1.png" alt="">
+							    </swiper-slide>
+							    <swiper-slide>
+							    	<img src="~assets/img/gifts/inside/1.png" alt="">
+							    </swiper-slide> -->
+							    <div class="swiper-pagination" slot="pagination"></div>
+		    				</swiper>
+						</div>
+						<div class="gift__banner" v-else-if="gift.images.length==1">
+							<img :src="gift.images[0].origin_url" alt="">
+						</div>
+						<div class="gift__content">
+							<h4 class="point" v-if="gift.price">
+								{{gift.price | formatPrice}} баллов
+							</h4>
+							<p class="title" v-if="gift.name">
+								{{gift.name}}
+							</p>
+							<template v-if="gift.rewardId!='069ab460-263c-ea11-80cc-1cc1dee6b654'">
+			                    <p class="left" v-if="gift.totalQty!=null">
+			                      Осталось штук: {{gift.totalQty | formatAmount}}
+			                    </p>
+			                  </template>
+			                  <template v-else>
+			                    <p class="left" v-if="gift.totalQty">
+			                      количество не ограничено
+			                    </p>
+		                  	</template>						
+							<div class="text" v-if="gift.description" v-html="gift.description"></div>
+							<!-- <p class="text" v-if="gift.description">
+								{{gift.description}}
+								Рюкзак сделан из велюра зеленого цвета. На рюкзаке термопечатью нанесен логотип JTI Company <br>
+								<strong>Внимание!</strong> Определенный приз можно заказать только 1 раз. При заказе приза, представитель JTI доставит вам его на торговую точку.
+							</p> -->
+						</div>					
+					</div>			
+				</div>
+				<div class="gifts__select">
+					<div class="container">
+						<button type="button" class="button button--green" :disabled="btnStatus" @click="getCurrentPrize()">
+							Получить приз
+						</button>
+					</div>
 				</div>
 			</div>
-		</div>
-		<footer-anketa/>
-		<modal-error/>
-		<modal-main :title="title" :text="text" :img="img" :btnText="btnText"></modal-main>
+			<footer-anketa/>
+			<modal-error/>
+			<modal-main :title="title" :text="text" :img="img" :btnText="btnText"></modal-main>
+		</template>
 	</main>
 </template>
 <script>
 	import FooterAnketa from '~/components/layouts/Footer/Footer.vue'
 	import ModalError from '~/components/layouts/Modals/ModalError.vue'
 	import ModalMain from '~/components/layouts/Modals/modal-main.vue'
+	import Loader from '~/components/layouts/loader.vue'
 	export default {
 		components:{
 			FooterAnketa,
 			ModalError,
-			ModalMain
+			ModalMain,
+			Loader
 		},
 		filters:{
 			formatAmount(value){
@@ -117,6 +124,7 @@
 				balance:'',
 				gift: '',
 				btnStatus: false,
+				loaderStatus: true,
 
 				title:'',
 				text:'',
@@ -165,6 +173,7 @@
 							for(var i =0; i< response.data.rewards.length;i++){
 								if(response.data.rewards[i].rewardId == this.$route.params.id){
 									this.gift = response.data.rewards[i];
+									this.loaderStatus = false;
 								}
 							}
 
@@ -254,7 +263,9 @@
 		position: relative;
 	}
 	.gifts{
-		padding: 16px 0 220px 0;
+		&-inside{
+			padding: 16px 0 220px 0 !important;			
+		}
 		width: 100%;
 		// &__title{
 		// 	&--link{

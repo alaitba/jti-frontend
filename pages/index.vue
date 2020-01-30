@@ -1,193 +1,192 @@
-<template>
-  <main class="page page--flex page--grey">
-    <!-- <div class="container"> -->
-    	<div class="section section--main">
-    		<div class="main-slider">
-    			<!-- <div class="container"> -->
-    				<!-- <swiper :options="swiperOption" ref="mySwiper">
-    					<swiper-slide>
-    						<img src="~assets/img/gifts/inside/1.png" alt="">
-    					</swiper-slide>
-					    <swiper-slide>
-					    	<img src="~assets/img/gifts/inside/1.png" alt="">
-					    </swiper-slide>
-					    <swiper-slide>
-					    	<img src="~assets/img/gifts/inside/1.png" alt="">
-					    </swiper-slide>
-					    <swiper-slide>
-					    	<img src="~assets/img/gifts/inside/1.png" alt="">
-					    </swiper-slide>
-					    <div class="swiper-pagination" slot="pagination"></div>
-    				</swiper> -->
-    			<!-- </div> -->
-    		</div>
-    	</div>
-    	<div class="section section--icons">
-    		<div class="container">
-    			<div class="icons">
-    				<div class="icons__item" @click="showModal()">
-    					<div class="img">
-    						<img src="~/assets/img/icons/links/plan.svg" alt="">
-    					</div>
-    					<div class="title">
-    						План закупок
-    					</div>
-    				</div>
-    				<div class="icons__item">
-    					<nuxt-link to="/anketa/createanketa">
+<template>	
+  	<main class="page page--flex page--grey">
+  		<template v-if="loaderStatus">
+			<loader/>
+		</template>
+		<template v-else>
+	    	<div class="section section--main">
+	    		<div class="main-slider">
+	    			<!-- <div class="container"> -->
+	    				<!-- <swiper :options="swiperOption" ref="mySwiper">
+	    					<swiper-slide>
+	    						<img src="~assets/img/gifts/inside/1.png" alt="">
+	    					</swiper-slide>
+						    <swiper-slide>
+						    	<img src="~assets/img/gifts/inside/1.png" alt="">
+						    </swiper-slide>
+						    <swiper-slide>
+						    	<img src="~assets/img/gifts/inside/1.png" alt="">
+						    </swiper-slide>
+						    <swiper-slide>
+						    	<img src="~assets/img/gifts/inside/1.png" alt="">
+						    </swiper-slide>
+						    <div class="swiper-pagination" slot="pagination"></div>
+	    				</swiper> -->
+	    			<!-- </div> -->
+	    		</div>
+	    	</div>
+	    	<div class="section section--icons">
+	    		<div class="container">
+	    			<div class="icons">
+	    				<div class="icons__item" @click="showModal()">
 	    					<div class="img">
-	    						<img src="~/assets/img/icons/links/new.svg" alt="">
+	    						<img src="~/assets/img/icons/links/plan.svg" alt="">
 	    					</div>
 	    					<div class="title">
-	    						Анкеты
+	    						План закупок
 	    					</div>
-	    				</nuxt-link>
-    				</div>
-    				<div class="icons__item">
-    					<nuxt-link to="/anketa/gifts">
-	    					<div class="img">
-	    						<img src="~/assets/img/icons/links/gift.svg" alt="">
-	    					</div>
-	    					<div class="title">
-	    						Призы
-	    					</div>
-	    				</nuxt-link>
-    				</div>
-    				<div class="icons__item" @click="showModal()">
-    					<div class="img">
-    						<img src="~/assets/img/icons/links/agent.svg" alt="">
-    					</div>
-    					<div class="title">
-    						Агент+
-    					</div>
-    				</div>
-    				<div class="icons__item" @click="showModal()">
-    					<div class="img">
-    						<img src="~/assets/img/icons/links/quiz.svg" alt="">
-    					</div>
-    					<div class="title">
-    						Викторины
-    					</div>
-    				</div>
-    				<div class="icons__item">
-    					<nuxt-link to="/profile">
-	    					<div class="img">
-	    						<img src="~/assets/img/icons/links/profile.svg" alt="">
-	    					</div>
-	    					<div class="title">
-	    						Профиль
-	    					</div>
-	    				</nuxt-link>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    	<div class="section section--news">
-    		<div class="container">
-    			<h3 class="section__title">
-    				Новости
-    			</h3>
-    			<div class="news">    				
-    				<template v-if="news">
-    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length<1}" v-for="(item, key) in news">
-    						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
-	    						<div class="banner" v-if="item.media">
-		    						<img :src="item.media[0].url" alt="">
+	    				</div>
+	    				<div class="icons__item">
+	    					<nuxt-link to="/anketa/createanketa">
+		    					<div class="img">
+		    						<img src="~/assets/img/icons/links/new.svg" alt="">
 		    					</div>
-		    					<div class="content">
-		    						<h4 class="title" v-if="item.title">
-			    						{{item.title.ru}}
-			    					</h4>
-			    					<p class="data" v-if="item.created_at">
-			    						{{ item.created_at | formatData}}
-			    					</p>
-			    					<div class="text" v-if="item.contents" v-html="item.contents.ru"></div>
+		    					<div class="title">
+		    						Анкеты
 		    					</div>
 		    				</nuxt-link>
-    					</div>
-    				</template>
-    				<!-- <div class="news__item news__item--noimg">
-    					<nuxt-link :to="{name: 'news-id', params:{id: '1'}}">
-	    					<div class="banner">
-	    						<img src="~/assets/img/news/12.png" alt="">
-	    					</div>
-	    					<div class="content">
-	    						<h4 class="title">
-		    						Призы можно заказывать только через веб-приложение «Partner 360».  
-		    					</h4>
-		    					<p class="data">
-		    						10.01.2020
-		    					</span>
-		    					<div class="text">
-		    						С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей!
-	 
-									Вас ждут много интересных призов: термокружки, пледы, зонты, сертификаты, беспроводные наушники, мультиварки, футболки и другие. 
-									 
-									А еще специально для вас каждую неделю вас ждут еженедельные розыгрыши призов как смартфоны, телевизоры и стиральные машины. 
-									Для участия в них достаточно к моменту розыгрыша заработать минимум 100 баллов.
-									 
-									Главный приз финального розыгрыша – автомобиль Camry 70!							
-
+	    				</div>
+	    				<div class="icons__item">
+	    					<nuxt-link to="/anketa/gifts">
+		    					<div class="img">
+		    						<img src="~/assets/img/icons/links/gift.svg" alt="">
 		    					</div>
-	    					</div>    
-	    				</nuxt-link>					
-    				</div> -->    				
-    				<div class="news__all">
-    					<!-- <nuxt-link class="news__link" to="/news">
-    						Все новости
-    					</nuxt-link> -->
-    					<nuxt-link to="/news" class="news__link">
-    						Все новости
-    					</nuxt-link>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    	<div class="section section--footer">
-    		<div class="footer">    			
-    			<div class="footer__head">
-    				<div class="container">
-	    				<h4 class="title">
-	    					JTI Partner 360
-	    				</h4>
+		    					<div class="title">
+		    						Призы
+		    					</div>
+		    				</nuxt-link>
+	    				</div>
+	    				<div class="icons__item" @click="showModal()">
+	    					<div class="img">
+	    						<img src="~/assets/img/icons/links/agent.svg" alt="">
+	    					</div>
+	    					<div class="title">
+	    						Агент+
+	    					</div>
+	    				</div>
+	    				<div class="icons__item" @click="showModal()">
+	    					<div class="img">
+	    						<img src="~/assets/img/icons/links/quiz.svg" alt="">
+	    					</div>
+	    					<div class="title">
+	    						Викторины
+	    					</div>
+	    				</div>
+	    				<div class="icons__item">
+	    					<nuxt-link to="/profile">
+		    					<div class="img">
+		    						<img src="~/assets/img/icons/links/profile.svg" alt="">
+		    					</div>
+		    					<div class="title">
+		    						Профиль
+		    					</div>
+		    				</nuxt-link>
+	    				</div>
 	    			</div>
-    				<!-- <nuxt-link class="button button--green" to="/faq">
-    					Обратная связь
-    				</nuxt-link> -->
-    			</div>
-    			<div class="footer__bottom">
-    				<div class="container">
-	    				<a href="https://ibecsystems.com/ru#/" target="_blank" class="copyright">
-	    					<span>
-	    						Разработано в
-	    					</span>
-	    					<img src="~/assets/img/icons/ibec_systems_logo.svg" alt="">
-	    				</a>
+	    		</div>
+	    	</div>
+	    	<div class="section section--news">
+	    		<div class="container">
+	    			<h3 class="section__title">
+	    				Новости
+	    			</h3>
+	    			<div class="news">    				
+	    				<template v-if="news">
+	    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length<1}" v-for="(item, key) in news">
+	    						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
+		    						<div class="banner" v-if="item.media">
+			    						<img :src="item.media[0].url" alt="">
+			    					</div>
+			    					<div class="content">
+			    						<h4 class="title" v-if="item.title">
+				    						{{item.title.ru}}
+				    					</h4>
+				    					<p class="data" v-if="item.created_at">
+				    						{{ item.created_at | formatData}}
+				    					</p>
+				    					<div class="text" v-if="item.contents" v-html="item.contents.ru"></div>
+			    					</div>
+			    				</nuxt-link>
+	    					</div>
+	    				</template>
+	    				<!-- <div class="news__item news__item--noimg">
+	    					<nuxt-link :to="{name: 'news-id', params:{id: '1'}}">
+		    					<div class="banner">
+		    						<img src="~/assets/img/news/12.png" alt="">
+		    					</div>
+		    					<div class="content">
+		    						<h4 class="title">
+			    						Призы можно заказывать только через веб-приложение «Partner 360».  
+			    					</h4>
+			    					<p class="data">
+			    						10.01.2020
+			    					</span>
+			    					<div class="text">
+			    						С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей!
+		 
+										Вас ждут много интересных призов: термокружки, пледы, зонты, сертификаты, беспроводные наушники, мультиварки, футболки и другие. 
+										 
+										А еще специально для вас каждую неделю вас ждут еженедельные розыгрыши призов как смартфоны, телевизоры и стиральные машины. 
+										Для участия в них достаточно к моменту розыгрыша заработать минимум 100 баллов.
+										 
+										Главный приз финального розыгрыша – автомобиль Camry 70!							
+
+			    					</div>
+		    					</div>    
+		    				</nuxt-link>					
+	    				</div> -->    				
+	    				<div class="news__all">
+	    					<!-- <nuxt-link class="news__link" to="/news">
+	    						Все новости
+	    					</nuxt-link> -->
+	    					<nuxt-link to="/news" class="news__link">
+	    						Все новости
+	    					</nuxt-link>
+	    				</div>
 	    			</div>
-    			</div>
-    		</div>
-    		<!-- <div class="container">
-    			
-    		</div> -->
-    	</div>
-     	<!-- <h4>
-     		tradepoint:{{ tradepoint }}
-     		<nuxt-link to="/anketa/createanketa">
-     			asdsadasdasd
-     		</nuxt-link>
-     	</h4> -->
-    <!-- </div> -->
-    	<modal-error/>
-  </main>
+	    		</div>
+	    	</div>
+	    	<div class="section section--footer">
+	    		<div class="footer">    			
+	    			<div class="footer__head">
+	    				<div class="container">
+		    				<h4 class="title">
+		    					JTI Partner 360
+		    				</h4>
+		    			</div>
+	    				<!-- <nuxt-link class="button button--green" to="/faq">
+	    					Обратная связь
+	    				</nuxt-link> -->
+	    			</div>
+	    			<div class="footer__bottom">
+	    				<div class="container">
+		    				<a href="https://ibecsystems.com/ru#/" target="_blank" class="copyright">
+		    					<span>
+		    						Разработано в
+		    					</span>
+		    					<img src="~/assets/img/icons/ibec_systems_logo.svg" alt="">
+		    				</a>
+		    			</div>
+	    			</div>
+	    		</div>
+	    		<!-- <div class="container">
+	    			
+	    		</div> -->
+	    	</div>     	
+	    	<modal-error/>
+	    </template>
+    </main>	
 </template>
 
 <script>
 	import ModalError from '~/components/layouts/Modals/ModalError.vue'
 	import moment from 'moment'
+	import Loader from '~/components/layouts/loader.vue'
 	import {mapState, mapMutations} from 'vuex'
 	export default {
 	  	components: {
 	      ModalError,      
+	      Loader,
 	    },
 	    filters:{
 	    	formatData(value){
@@ -206,6 +205,7 @@
 	    			}			    			
 	    		},
 	    		news: '',
+	    		loaderStatus: true,
 	    	}
 	    },
 	    mounted() {
@@ -248,6 +248,8 @@
 
 	    				
 	    				this.news = JSON.parse(localStorage.getItem("news")).slice(0,3);
+
+	    				this.loaderStatus = false;
 	    			}).catch(error =>{
 	    				console.log('error news')
 	    			})
