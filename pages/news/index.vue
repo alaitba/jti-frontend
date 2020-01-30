@@ -7,7 +7,7 @@
     			</h3>
     			<div class="news">
     				<template v-if="news.length">
-    					<div class="news__item news__item--noimg" v-for="(item, key) in news">
+    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length<1}" v-for="(item, key) in news">
     						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
 	    						<div class="banner" v-if="item.media">
 		    						<img :src="item.media[0].url" alt="">
@@ -164,7 +164,7 @@
 					text-align: center;
 					width: calc((100% - 16px)/3);
 					height: 100%;
-					margin-bottom: 8px;
+					margin-bottom: 8px;					
 					&>a{
 						&:hover{
 							text-decoration: none;

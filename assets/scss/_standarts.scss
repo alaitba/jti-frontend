@@ -46,6 +46,7 @@ main{
 	margin-top: 56px;
 	display: flex;
 	min-height: 100vh;
+	// padding-top: 16px;
 	&.page{
 		&--white{
 			background: #fff !important;
@@ -98,11 +99,20 @@ main{
 		box-shadow: none;
 		text-align: center;
 		text-decoration: none !important;
+		display: block;
 		&.green{
 			color: #05B186;
 			border: 1px solid #05B186;
 			padding: 18px 12px;
 			width: 100%;
+		}
+		&.red{
+			color: #F42626;
+			border: 1px solid #F42626;
+			padding: 18px 12px;
+			width: 100%;
+			background: #F9F9F9;
+			display: block;
 		}
 	}
 	&--show{

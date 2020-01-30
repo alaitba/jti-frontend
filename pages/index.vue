@@ -69,13 +69,15 @@
     						Викторины
     					</div>
     				</div>
-    				<div class="icons__item" @click="showModal()">
-    					<div class="img">
-    						<img src="~/assets/img/icons/links/profile.svg" alt="">
-    					</div>
-    					<div class="title">
-    						Профиль
-    					</div>
+    				<div class="icons__item">
+    					<nuxt-link to="/profile">
+	    					<div class="img">
+	    						<img src="~/assets/img/icons/links/profile.svg" alt="">
+	    					</div>
+	    					<div class="title">
+	    						Профиль
+	    					</div>
+	    				</nuxt-link>
     				</div>
     			</div>
     		</div>
@@ -87,7 +89,7 @@
     			</h3>
     			<div class="news">    				
     				<template v-if="news">
-    					<div class="news__item news__item--noimg" v-for="(item, key) in news">
+    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length<1}" v-for="(item, key) in news">
     						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
 	    						<div class="banner" v-if="item.media">
 		    						<img :src="item.media[0].url" alt="">

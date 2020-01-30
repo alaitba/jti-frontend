@@ -3,9 +3,16 @@
     <header-auth/>
   	<div class="auth-section">
     	<div class="container">
-        <h3 class="auth-section__title">
-          Восстановление пароля
-        </h3>
+        <template v-if="$route.query.title">          
+          <h3 class="auth-section__title">
+            {{$route.query.title}}
+          </h3>
+        </template>
+        <template v-else>          
+          <h3 class="auth-section__title">
+            Восстановление пароля
+          </h3>
+        </template>
 
 	  	<div class="auth-section__form">          
 	      <form @submit.prevent = "sendPassword">
@@ -87,6 +94,9 @@
         btnStatus: false,
       }
     },
+    mounted(){
+      console.log(this.$route);
+    },
     computed: {
       ...mapState({
         auth: state => state.auth,      
@@ -145,6 +155,8 @@
               if(response.data.message=='authorized'){
                 localStorage.setItem("setTradePoint", 't');          
                 localStorage.setItem("tradepoint", JSON.stringify(response.data.tradepoint));
+                localStorage.setItem('account',JSON.stringify(response.data.account));
+                localStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));
                 this.$router.push('/')
               } else if(response.data.message=='need_tradepoint'){            
                 localStorage.setItem("setTradePoint", 'f');          

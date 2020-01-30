@@ -69,7 +69,7 @@
             <div class="form-group">
               <div class="form-group__wrapper">                
                 <the-mask 
-                  :class="{'form__input form__input--sms': true, 'permanent': permanent, 'error' : errorPermanenetPassword }" 
+                  :class="{'form__input form__input--sms ': true, 'permanent': permanent, 'error' : errorPermanenetPassword }" 
                   type="tel" 
                   mask="####" 
                   v-model="permanentPassword" 
@@ -300,6 +300,8 @@ export default {
           if(response.data.message=='authorized'){
             localStorage.setItem("setTradePoint", 't');          
             localStorage.setItem("tradepoint", JSON.stringify(response.data.tradepoint));
+            localStorage.setItem('account',JSON.stringify(response.data.account));
+            localStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));
             this.$router.push('/');
           } else if(response.data.message=='need_tradepoint'){            
             localStorage.setItem("setTradePoint", 'f');          

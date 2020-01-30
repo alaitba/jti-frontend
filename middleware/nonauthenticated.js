@@ -4,10 +4,12 @@ export default function ({ store, redirect, route }) {
   if(route.name=='Selectstore') return
   if (localStorage.getItem("authToken")) {
 	  	if((localStorage.getItem("setTradePoint")=='f')){  			
-	  		return redirect('/selectstore')
-		} else {
-			return redirect('/')
-		}  	  	
+  	  		return redirect('/selectstore')
+  		} else {
+        if(route.name!=='Auth-ResetPassword'){
+    			return redirect('/')          
+        }
+  		}  	  	
   } else{
   	if(!localStorage.getItem("authUser") && route.name!='Auth-Signin'){
   		return redirect('/auth/signin')

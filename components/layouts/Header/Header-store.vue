@@ -29,7 +29,7 @@
 			<div class="container">
 				<ul class="nav">
 					<li class="nav__item">
-						<nuxt-link to="/" class="nav__link" >
+						<nuxt-link to="/" class="nav__link nav__link--green"  @click.native="showBurger()">
 							Главная
 						</nuxt-link>
 					</li>
@@ -54,7 +54,7 @@
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="#" class="nav__link" disabled>
+						<nuxt-link to="#" class="nav__link nav__link--green" @click.native="showBurger()">
 							Профиль
 						</nuxt-link>
 					</li>

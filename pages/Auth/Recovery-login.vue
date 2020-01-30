@@ -1,5 +1,5 @@
 <template>
-	<main class="page page--grey">
+	<main class="page">
 	 	<header-auth/>
 	 	<div class="auth-section auth-section--recovery">
 	 		<div class="container">
@@ -37,7 +37,7 @@
 			            <div class="form-group">
 			              	<div class="form-group__wrapper">                
 				                <the-mask 
-				                  :class="{'form__input form__input--sms': true, 'permanent': permanent, 'error' : errorPermanenetPassword }" 
+				                  :class="{'form__input form__input--sms  ': true, 'permanent': permanent, 'error' : errorPermanenetPassword }" 
 				                  type="tel" 
 				                  mask="####" 
 				                  v-model="recoveryPermanentPassword" 
