@@ -30,9 +30,16 @@
   								<p class="text">
   									{{item.name}}
   								</p>
-  								<p class="left" v-if="item.totalQty!=null">
-  									Осталось штук: {{item.totalQty | formatAmount}}
-  								</p>
+                  <template v-if="item.rewardId!='069ab460-263c-ea11-80cc-1cc1dee6b654'">
+                    <p class="left" v-if="item.totalQty!=null">
+                      Осталось штук: {{item.totalQty | formatAmount}}
+                    </p>
+                  </template>
+                  <template v-else>
+                    <p class="left" v-if="item.totalQty!=null">
+                      количество не ограничено
+                    </p>
+                  </template>
   							</div>
   							<div class="d-flex">
   								<nuxt-link class="link" :to="{name : 'Anketa-Gifts-id', params: {id : item.rewardId}}">

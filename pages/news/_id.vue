@@ -6,26 +6,18 @@
 					Новости
 				</nuxt-link>	
 			</h3>
-			<div class="news-item">
-				<div class="news-item__banner">
-					<img src="~/assets/img/news/12.png" alt="">
+			<div class="news-item" v-if="newsItem.length && newsItem[$route.params.id]">
+				<div class="news-item__banner" v-if="newsItem[$route.params.id].media.length">
+					<img :src="newsItem[$route.params.id].media[0].url" alt="">
 				</div>
 				<div class="news-item__content">
-					<h4 class="title">
-						Призы можно заказывать только через веб-приложение «Partner 360».  
+					<h4 class="title" v-if="newsItem[$route.params.id].title">
+						{{newsItem[$route.params.id].title.ru}}
 					</h4>
-					<p class="data">
-						10.01.2020
+					<p class="data" v-if="newsItem[$route.params.id].created_at">
+						{{newsItem[$route.params.id].title | formatData}}
 					</span>
-					<div class="text">
-						С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей!
- 
-						Вас ждут много интересных призов: термокружки, пледы, зонты, сертификаты, беспроводные наушники, мультиварки, футболки и другие. 
-						 
-						А еще специально для вас каждую неделю вас ждут еженедельные розыгрыши призов как смартфоны, телевизоры и стиральные машины. 
-						Для участия в них достаточно к моменту розыгрыша заработать минимум 100 баллов.
-						 
-						Главный приз финального розыгрыша – автомобиль Camry 70!
+					<div class="text" v-if="newsItem[$route.params.id].contents" v-html="newsItem[$route.params.id].contents.ru">			
 					</div>
 				</div>
 			</div>
@@ -60,9 +52,24 @@
 	</main>
 </template>
 <script>
+	import moment from 'moment'
 	export default{
+
+		filters:{
+	    	formatData(value){
+	    		return moment(value).format('DD.MM.YYYY');
+	    	},
+	    	truncateText(text,stop,clamp){
+				return text.slice(0,stop) +  (stop < text.length ? clamp || '...' : '');
+			}
+	    },
+		data(){
+			return {
+				newsItem: JSON.parse(localStorage.getItem("news"))
+			}
+		},
 		mounted(){
-			console.log('route',this.$route)
+			console.log('route',this.$route.params.id)
 		}
 	}
 </script>
@@ -82,6 +89,7 @@
 	}
 	.news-item{
 		margin-top: 16px;
+		padding-bottom: 100px;
 		&__banner{
 			img{
 				max-width: 100%;

@@ -31,9 +31,9 @@
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="button" class="button button--green" data-dismiss="modal" v-if="btnText && !status">
+            <nuxt-link to="/anketa/gifts" class="button button--green" data-dismiss="modal" v-if="btnText && !status">
               {{btnText}}
-            </button>
+            </nuxt-link>
             <button type="button" class="button button--green" data-dismiss="modal" v-if="!status && !btnText">
               Повторить попытку
             </button>            

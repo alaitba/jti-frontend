@@ -29,6 +29,11 @@
 			<div class="container">
 				<ul class="nav">
 					<li class="nav__item">
+						<nuxt-link to="/" class="nav__link" >
+							Главная
+						</nuxt-link>
+					</li>
+					<li class="nav__item">
 						<nuxt-link to="/anketa/createanketa" class="nav__link nav__link--green" @click.native="showBurger()">
 							Анкеты
 						</nuxt-link>
@@ -37,12 +42,7 @@
 						<nuxt-link to="/anketa/gifts" class="nav__link nav__link--green" @click.native="showBurger()">
 							Призы
 						</nuxt-link>
-					</li>
-					<li class="nav__item">
-						<nuxt-link to="#" class="nav__link" disabled>
-							Витрина
-						</nuxt-link>
-					</li>
+					</li>					
 					<li class="nav__item">
 						<nuxt-link to="#" class="nav__link" disabled>
 							План закупок

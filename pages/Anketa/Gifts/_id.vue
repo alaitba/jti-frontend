@@ -51,9 +51,16 @@
 						<p class="title" v-if="gift.name">
 							{{gift.name}}
 						</p>
-						<p class="left" v-if="gift.totalQty">
-							Осталось штук: {{gift.totalQty}} 
-						</p>
+						<template v-if="gift.rewardId!='069ab460-263c-ea11-80cc-1cc1dee6b654'">
+		                    <p class="left" v-if="gift.totalQty!=null">
+		                      Осталось штук: {{gift.totalQty | formatAmount}}
+		                    </p>
+		                  </template>
+		                  <template v-else>
+		                    <p class="left" v-if="gift.totalQty">
+		                      количество не ограничено
+		                    </p>
+	                  	</template>						
 						<div class="text" v-if="gift.description" v-html="gift.description"></div>
 						<!-- <p class="text" v-if="gift.description">
 							{{gift.description}}
@@ -187,6 +194,10 @@
 							this.title = JSON.parse(localStorage.getItem('authUser')).mobile_phone;
 							this.text = 'на указанный номер в ближайшее время будет начислено 500 тг';
 							this.img = 'money'
+						} else if(this.gift.name == "Купон для участия в розыгрыше"){
+							this.title = this.gift.name;
+							this.text = 'Поздравляем, вы приобрели купон на участие в розыгрыше! Участники розыгрыша и победители будут объявлены в разделе "Новости"';
+							this.img = 'gift'
 						} else{
 							this.title = this.gift.name;
 							this.text = 'приз будет доставлен торговым представителем к вам на точку г.' +  this.tradePoint.city+ ', ул.' + this.tradePoint.street_address;
@@ -243,7 +254,7 @@
 		position: relative;
 	}
 	.gifts{
-		padding: 16px 0 120px 0;
+		padding: 16px 0 220px 0;
 		width: 100%;
 		// &__title{
 		// 	&--link{

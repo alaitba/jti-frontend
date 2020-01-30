@@ -132,8 +132,8 @@
 
 <style lang="scss">	
 	.anketa{
-		padding: 16px 0 20px;
-		height: 100vh;
+		padding: 16px 0 120px;
+		min-height: 100vh;
 		width: 100%;
 		&__head{
 			// padding: 0 16px;

@@ -1,5 +1,5 @@
 <template>
-  <main class="page page--block page--grey">
+  <main class="page page--flex page--grey">
     <!-- <div class="container"> -->
     	<div class="section section--main">
     		<div class="main-slider">
@@ -85,21 +85,26 @@
     			<h3 class="section__title">
     				Новости
     			</h3>
-    			<div class="news">
-    				<!-- div class="news__item news__item--noimg">    					
-    					<div class="content">
-    						<h4 class="title">
-	    						Встречайте новую уникальную программу специально для наших партнеров!
-	    					</h4>
-	    					<p class="data">
-	    						03.01.2020
-	    					</span>
-	    					<div class="text">
-	    						С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей!
-	    					</div>
-    					</div>    					
-    				</div> -->
-    				<div class="news__item news__item--noimg">
+    			<div class="news">    				
+    				<template v-if="news">
+    					<div class="news__item news__item--noimg" v-for="(item, key) in news">
+    						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
+	    						<div class="banner" v-if="item.media">
+		    						<img :src="item.media[0].url" alt="">
+		    					</div>
+		    					<div class="content">
+		    						<h4 class="title" v-if="item.title">
+			    						{{item.title.ru}}
+			    					</h4>
+			    					<p class="data" v-if="item.created_at">
+			    						{{ item.created_at | formatData}}
+			    					</p>
+			    					<div class="text" v-if="item.contents" v-html="item.contents.ru"></div>
+		    					</div>
+		    				</nuxt-link>
+    					</div>
+    				</template>
+    				<!-- <div class="news__item news__item--noimg">
     					<nuxt-link :to="{name: 'news-id', params:{id: '1'}}">
 	    					<div class="banner">
 	    						<img src="~/assets/img/news/12.png" alt="">
@@ -124,24 +129,7 @@
 		    					</div>
 	    					</div>    
 	    				</nuxt-link>					
-    				</div>
-    				<!-- <div class="news__item news__item--noimg">
-    					<div class="banner">
-    						<img src="~/assets/img/news/2.png" alt="">
-    					</div>
-    					<div class="content">
-    						<h4 class="title">
-	    						Главный приз финального розыгрыша – автомобиль Camry 70!
-	    					</h4>
-	    					<p class="data">
-	    						30.12.2019
-	    					</p>
-	    					<div class="text">
-	    						марка сигарет, выпускаемая компаниями R.J. Reynolds Tobacco Company
-	    					</div>
-    					</div>    					
-    				</div> -->
-
+    				</div> -->    				
     				<div class="news__all">
     					<!-- <nuxt-link class="news__link" to="/news">
     						Все новости
@@ -193,10 +181,19 @@
 
 <script>
 	import ModalError from '~/components/layouts/Modals/ModalError.vue'
+	import moment from 'moment'
 	import {mapState, mapMutations} from 'vuex'
 	export default {
 	  	components: {
 	      ModalError,      
+	    },
+	    filters:{
+	    	formatData(value){
+	    		return moment(value).format('DD.MM.YYYY');
+	    	},
+	    	truncateText(text,stop,clamp){
+				return text.slice(0,stop) +  (stop < text.length ? clamp || '...' : '');
+			}
 	    },
 	    data() {
 	    	return {
@@ -205,7 +202,15 @@
 	    				el: '.swiper-pagination',
 		    			dynamicBullets: true
 	    			}			    			
-	    		}
+	    		},
+	    		news: '',
+	    	}
+	    },
+	    mounted() {
+	    	this.getNews();
+
+	    	if(process.BROWSER){
+	    		console.log('process')
 	    	}
 	    },
 	    computed: {
@@ -217,12 +222,45 @@
 	    	showModal(){
 	    		// alert('asdasd')
 	    		$('#modal-error').modal('show')
+	    	},
+	    	async getNews(){
+
+	    		let data  = JSON.parse(localStorage.getItem("news")) ? JSON.parse(localStorage.getItem("news"))[0].created_at : 1;
+
+	    		this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+	    		await this.$axios.get('/news?from_date=' + data)
+	    			.then(response =>{
+	    				// console.log(response.data.data);
+
+	    				let arr = Object.values(response.data.data);
+
+	    				arr = arr.sort((a,b) => { return new Date(b.created_at) - new Date(a.created_at)});	   
+	    				
+	    				if(localStorage.getItem("news")){
+	    					localStorage.setItem("news", JSON.stringify(JSON.parse(localStorage.getItem("news")).concat(arr)));	
+	    				} else {
+	    					console.log('news')
+	    					localStorage.setItem("news", JSON.stringify(arr));	
+	    				}
+
+	    				
+	    				this.news = JSON.parse(localStorage.getItem("news")).slice(0,3);
+	    			}).catch(error =>{
+	    				console.log('error news')
+	    			})
 	    	}	
 	    }
 	}
 </script>
 
 <style lang="scss">	
+	.page{
+		&--flex{
+			flex-direction: column;
+			justify-content: space-between;
+		}
+	}
 	.section{
 		&__title{
 			line-height: 33px;			

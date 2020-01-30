@@ -1,12 +1,30 @@
 <template>
-  	<main class="page page--block page--grey">
+  	<main class="page page--flex page--grey">
     	<div class="section section--news">
     		<div class="container">
     			<h3 class="section__title">
     				Новости
     			</h3>
     			<div class="news">
-    				<div class="news__item news__item--noimg">    					
+    				<template v-if="news.length">
+    					<div class="news__item news__item--noimg" v-for="(item, key) in news">
+    						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
+	    						<div class="banner" v-if="item.media">
+		    						<img :src="item.media[0].url" alt="">
+		    					</div>
+		    					<div class="content">
+		    						<h4 class="title" v-if="item.title">
+			    						{{item.title.ru}}
+			    					</h4>
+			    					<p class="data" v-if="item.created_at">
+			    						{{ item.created_at | formatData}}
+			    					</p>
+			    					<div class="text" v-if="item.contents" v-html="item.contents.ru"></div>
+		    					</div>
+		    				</nuxt-link>
+    					</div>
+    				</template>
+    				<!-- <div class="news__item news__item--noimg">    					
     					<nuxt-link :to="{name: 'news-id', params: {id: 1}}">
 	    					<div class="content">
 	    						<h4 class="title">
@@ -14,49 +32,13 @@
 		    					</h4>
 		    					<p class="data">
 		    						03.01.2020
-		    					</span>
+		    					</p>
 		    					<div class="text">
 		    						С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей!
 		    					</div>
 	    					</div>    					
 	    				</nuxt-link>
-    				</div>
-    				<div class="news__item news__item--noimg">
-    					<nuxt-link :to="{name: 'news-id', params: {id: 1}}">
-	    					<div class="banner">
-	    						<img src="~/assets/img/news/12.png" alt="">
-	    					</div>
-	    					<div class="content">
-	    						<h4 class="title">
-		    						Призы можно заказывать только через веб-приложение «Partner 360».  
-		    					</h4>
-		    					<p class="data">
-		    						10.01.2020
-		    					</span>
-		    					<div class="text">
-		    						 {{text | truncateText(120, '...')}}					
-		    					</div>
-	    					</div>  
-	    				</nuxt-link>  					
-    				</div>
-    				<div class="news__item news__item--noimg">
-    					<nuxt-link :to="{name: 'news-id', params: {id: 1}}">
-	    					<div class="banner">
-	    						<img src="~/assets/img/news/2.png" alt="">
-	    					</div>
-	    					<div class="content">
-	    						<h4 class="title">
-		    						Главный приз финального розыгрыша – автомобиль Camry 70!
-		    					</h4>
-		    					<p class="data">
-		    						30.12.2019
-		    					</p>
-		    					<div class="text">
-		    						марка сигарет, выпускаемая компаниями R.J. Reynolds Tobacco Company
-		    					</div>
-	    					</div>
-    					</nuxt-link>    					
-    				</div>    				
+    				</div> -->
     			</div>
     		</div>
     	</div>
@@ -94,6 +76,7 @@
 <script>
 	import ModalError from '~/components/layouts/Modals/ModalError.vue'
 	import {mapState, mapMutations} from 'vuex'
+	import moment from 'moment'
 	export default {
 	  	components: {
 	      ModalError,      
@@ -101,12 +84,19 @@
 	    filters:{
 	    	truncateText(text,stop,clamp){
 				return text.slice(0,stop) +  (stop < text.length ? clamp || '...' : '');
-			}
+			},
+			formatData(value){
+	    		return moment(value).format('DD.MM.YYYY');
+	    	},
 	    },
 	    data() {
 	    	return {
-	    		text : "С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей! Вас ждут много интересных призов: термокружки, пледы, зонты, сертификаты, беспроводные наушники, мультиварки, футболки и другие. А еще специально для вас каждую неделю вас ждут еженедельные розыгрыши призов как смартфоны, телевизоры и стиральные машины. Для участия в них достаточно к моменту розыгрыша заработать минимум 100 баллов.Главный приз финального розыгрыша – автомобиль Camry 70!"
+	    		text : "С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей! Вас ждут много интересных призов: термокружки, пледы, зонты, сертификаты, беспроводные наушники, мультиварки, футболки и другие. А еще специально для вас каждую неделю вас ждут еженедельные розыгрыши призов как смартфоны, телевизоры и стиральные машины. Для участия в них достаточно к моменту розыгрыша заработать минимум 100 баллов.Главный приз финального розыгрыша – автомобиль Camry 70!",
+	    		news: '',
 	    	}
+	    },
+	    mounted(){
+	    	this.getNews();
 	    },
 	    computed: {
 	      
@@ -115,12 +105,45 @@
 	    	showModal(){
 	    		// alert('asdasd')
 	    		$('#modal-error').modal('show')
+	    	},
+	    	async getNews(){
+
+	    		let data  = JSON.parse(localStorage.getItem("news")).length>0 ? JSON.parse(localStorage.getItem("news"))[0].created_at : 1;
+	    		
+	    		this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+	    		await this.$axios.get('/news?from_date=' + data)
+	    			.then(response =>{
+	    				console.log(response.data.data);
+
+	    				let arr = Object.values(response.data.data);
+
+	    				arr = arr.sort((a,b) => { return new Date(b.created_at) - new Date(a.created_at)});	   
+	    				
+	    				if(localStorage.getItem("news")){
+	    					localStorage.setItem("news", JSON.stringify(JSON.parse(localStorage.getItem("news")).concat(arr)));	
+	    				} else {
+	    					console.log('news')
+	    					localStorage.setItem("news", JSON.stringify(arr));	
+	    				}
+
+	    				
+	    				this.news = JSON.parse(localStorage.getItem("news"));
+	    			}).catch(error =>{
+	    				console.log('error news')
+	    			})
 	    	}	
 	    }
 	}
 </script>
 
 <style lang="scss">
+	.page{
+		&--flex{
+		    flex-direction: column;
+		    justify-content: space-between;
+		}
+	}
 	.section{
 		&__title{
 			line-height: 33px;			
