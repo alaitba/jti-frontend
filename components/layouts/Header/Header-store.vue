@@ -2,10 +2,10 @@
 	<div>
 		<header class="header">
 			<div class="container">
-				<div class="header__wrapper">
+				<div class="header__wrapper" >
 					<div class="header__logo">					
-						<nuxt-link to="/">
-							<img src="~/assets/img/logo.svg" alt="">
+						<nuxt-link to="/" @click.native = "closeMenu">
+							<img src="~/assets/img/logo.svg" alt="" >
 						</nuxt-link>
 					</div>
 					<div class="header__link">
@@ -96,6 +96,10 @@
 				this.burgerStatus = !this.burgerStatus
 
 				$('body').toggleClass('overflow_hidden')
+			},
+			closeMenu(){
+				this.burgerStatus = false;
+				$('body').removeClass('overflow_hidden')
 			}
 		}
 	}

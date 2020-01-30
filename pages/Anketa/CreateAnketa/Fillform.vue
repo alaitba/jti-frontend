@@ -408,7 +408,12 @@
 		}
 	}
 </script>
-<style lang="scss">
+<style scoped>
+	.header-mobile.show {
+	    transform: translateY(128px);
+    }
+</style>
+<style lang="scss">	
 	.help.is-danger{
 		font-weight: normal;
 		font-size: 12px;

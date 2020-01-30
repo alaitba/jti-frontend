@@ -13,7 +13,7 @@
 			            </label>
 		            	<div class="form-group">             
 		              		<div class="form-group__wrapper">
-		                		<the-mask :mask="['+7(777)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel"/>
+		                		<the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel"/>
 		                		<label for="input" class="form__label">
 		                  			Номер телефона
 		                		</label>  
@@ -27,7 +27,7 @@
 							  	<span class="checkmark"></span>
 							</label>
 		            	</div>		 
-		            	<button class="button button--green" type="submit" :disabled="!checkBox || number.length!=7 || btnStatus">
+		            	<button class="button button--green" type="submit" :disabled="!checkBox || number.length!=10 || btnStatus">
 		              		Далее
 		            	</button>
 		            <!-- <button class="button button--green"  @click="showModal()">
@@ -44,7 +44,7 @@
 		          <form @submit.prevent="">
 		            <label for="" class="title__label" >
 		              Введите код, оправленный покупателю по СМС на номер: <strong v-if="number">
-		              	+7 777 {{number | formatNumber}} 
+		              	+7 {{number | formatNumber}} 
 		              </strong>
 		            </label>
 		            <div class="form-group">
@@ -154,7 +154,7 @@
 		methods:{
 			async sendNumber(){
 				let fields = {
-					'mobile_phone': '+7777'+this.number,
+					'mobile_phone': '+7'+this.number,
 					'legal_age': this.checkBox
 				}
 
@@ -184,7 +184,7 @@
 			              this.img="alert"
 			              $('#modal-main').modal('show')           
 			            } else if(error.response.data.message=='already_filled'){
-							this.tel='777'+this.number;
+							this.tel=this.number;
 				            this.text="На указанный телефон анкета уже заполнялась в данной торговой точке!"
 				            this.img="alert"
 				            $('#modal-main').modal('show')				
@@ -200,7 +200,7 @@
 			async sendSms() {
 
 				let fields = {
-			        'mobile_phone': '+7777'+this.number,
+			        'mobile_phone': '+7'+this.number,
 			        'sms_code': this.permanentPassword,
 			    }
 
@@ -223,7 +223,7 @@
 			async sendSmsAgain() {
 
 		      	let fields = {
-					'mobile_phone': '+7777'+this.number,
+					'mobile_phone': '+7'+this.number,
 					'legal_age': this.checkBox
 				}
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
@@ -241,7 +241,7 @@
 		              	this.img="alert"
 		              	$('#modal-main').modal('show')      				
 					} else if(error.response.data.message=='already_filled'){
-						this.tel='777'+this.number;
+						this.tel=this.number;
 			            this.text="На указанный телефон анкета уже заполнялась в данной торговой точке!"
 			            this.img="alert"
 			            $('#modal-main').modal('show')			

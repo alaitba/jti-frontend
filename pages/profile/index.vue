@@ -2,8 +2,14 @@
 	<main class="page page--flex page--grey page--pd">
 		<div class="section section--profile">
 			<div class="container">
-    			<h3 class="section__title">
-    				Профиль
+    			<h3 class="section__title section__title--profile">
+    				<span>
+    					Профиль
+    				</span>
+    				<button class="button button--transparent" @click="logOut">
+    					Выйти
+    				</button>
+
     			</h3>
 
     			<div class="profile">
@@ -39,7 +45,9 @@
     						{{tradeagent.name}}
     					</p>
     					<p class="tel tel--green" v-if="tradeagent.tel">
-    						+{{tradeagent.tel | formatNumber}}
+    						<a :href="'tel:+'+tradeagent.tel">
+    							+{{tradeagent.tel | formatNumber}}
+    						</a>
     					</p>    			
     				</div>
     			</div>
@@ -80,6 +88,20 @@
 					tel: localStorage.getItem('tradeagent') ? JSON.parse(localStorage.getItem('tradeagent')).phone : '',
 				}
 			}
+		},
+		methods:{
+			async logOut(){
+
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+				await this.$axios.get('/auth/logout')
+					.then(response =>{
+						localStorage.clear();
+						this.$store.commit('resetState');
+						this.$router.push('/')
+					}).catch(error =>{
+						console.log(error);
+					})
+			}
 		}
 	}
 </script>
@@ -90,6 +112,18 @@
 		&--pd{
 			padding-top: 16px; 
 			padding-bottom: 120px;
+		}
+	}
+	.section{
+		&__title{
+			&--profile{
+				display: flex;
+				justify-content: space-between;
+				.button{
+					width: auto;
+					margin-top: 0;
+				}
+			}
 		}
 	}
 	.profile{
@@ -139,7 +173,11 @@
 				color: #1F1F1F;
 				&--green{
 					margin-top: 8px;
-					color: #05B186;
+					a{
+						text-decoration: none;
+						color: #05B186;	
+					}
+					
 				}
 			}
 		}
