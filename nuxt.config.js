@@ -4,6 +4,7 @@ const dir = "/"
 module.exports = {
   mode: 'spa',
   cache: true,
+  loading: true,
 
   /*
   ** Headers of the page

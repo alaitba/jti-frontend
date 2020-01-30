@@ -1,5 +1,5 @@
 <template>
-  <main class="page page--grey">
+  <main class="page ">
     <header-auth/>
   	<div class="auth-section">
       	<div class="container">

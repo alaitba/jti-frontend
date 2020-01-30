@@ -1,5 +1,5 @@
 <template>
-	<main class="page">
+	<main class="page ">
 	 	<header-auth/>
 	 	<div class="auth-section auth-section--recovery">
 	 		<div class="container">

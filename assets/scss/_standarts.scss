@@ -45,9 +45,13 @@ p, span, a, li, label, button{
 main{
 	margin-top: 56px;
 	display: flex;
-	min-height: 100vh;
+	// min-height: 100vh;
+	min-height: calc(100vh - 56px);
 	// padding-top: 16px;
 	&.page{
+		&--mh{
+			min-height: calc(100vh - 56px);
+		}
 		&--white{
 			background: #fff !important;
 		}
