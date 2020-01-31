@@ -6,10 +6,10 @@
 		<template v-else>
 			<div class="gifts gifts-inside">
 				<div class="container">
-					<h3 class="section__title section__title--link">
-						<nuxt-link to="/anketa/gifts">
+					<h3 class="section__title section__title--link" @click="$router.go(-1)">
+						<!-- <nuxt-link to="/anketa/gifts"> -->
 							Призы
-						</nuxt-link>	
+						<!-- </nuxt-link>	 -->
 					</h3>
 					<div class="gifts__points points">
 						<p>
@@ -103,8 +103,12 @@
 		filters:{
 			formatAmount(value){
 				// return typeof(value)
-				if(typeof(value)!='string' && value!=null){
-					return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+				if(value!=null){
+					if(typeof(value)!='string'){						
+						return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+					} else{
+						return value.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+					}
 				} else{
 					return value
 				}

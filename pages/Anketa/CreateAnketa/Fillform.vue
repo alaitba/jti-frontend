@@ -157,7 +157,7 @@
 		<modal-draw-sign></modal-draw-sign>
 		<modal-anketa-error></modal-anketa-error>
 		<modal-error></modal-error>
-		<modal-main :title="title" :text="text" :img="img" :number="number"></modal-main>
+		<modal-main :title="title" :text="text" :img="img" :number="number" :btnText="btnText"></modal-main>
 
 	</main>
 </template>
@@ -245,6 +245,7 @@
 				title:'',
 				text:'',
 				img:'',
+				btnText: '',
 
 				//btnStatus
 
@@ -349,6 +350,7 @@
 		    			this.number = this.anketaNumber;
 		    			this.img = 'mail';
 		    			this.text = 'На указанный номер отправлена ссылка для заполнения анкеты';
+		    			this.btnText = 'Готово'
 		    			this.smsBtnStatus = false;
 						$('#modal-main').modal('show');
 

@@ -538,6 +538,7 @@ main{
 	&__title{
 		line-height: 32px;
 		&--link{
+			cursor: pointer;
 			position: relative;
 			padding-left: 25px;
 			&:after{

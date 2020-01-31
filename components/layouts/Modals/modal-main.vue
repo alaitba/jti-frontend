@@ -31,15 +31,22 @@
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <nuxt-link to="/anketa/gifts" class="button button--green" data-dismiss="modal" v-if="btnText && !status">
-              {{btnText}}
-            </nuxt-link>
-            <button type="button" class="button button--green" data-dismiss="modal" v-if="!status && !btnText">
-              Повторить попытку
-            </button>            
-            <button type="button" class="button button--green" v-if="status && !btnText " @click="sendSms">
-              Повторить попытку
-            </button>
+            <template v-if="btnText == 'Готово'">
+              <nuxt-link to="/anketa/listanketa" class="button button--green" data-dismiss="modal">
+                {{btnText}}
+              </nuxt-link>  
+            </template>
+            <template v-else>
+              <nuxt-link to="/anketa/gifts" class="button button--green" data-dismiss="modal" v-if="btnText && !status">
+                {{btnText}}
+              </nuxt-link>
+              <button type="button" class="button button--green" data-dismiss="modal" v-if="!status && !btnText">
+                Повторить попытку
+              </button>            
+              <button type="button" class="button button--green" v-if="status && !btnText " @click="sendSms">
+                Повторить попытку
+              </button>
+            </template>            
           </div>              
         </div>
       </div>

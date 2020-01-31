@@ -74,8 +74,12 @@
 		filters:{
 			formatAmount(value){
 				// return typeof(value)
-				if(typeof(value)!='string' && value!=null){
-					return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+				if(value!=null){
+					if(typeof(value)!='string'){						
+						return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+					} else{
+						return value.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+					}
 				} else{
 					return value
 				}
