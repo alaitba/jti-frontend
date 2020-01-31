@@ -21,7 +21,7 @@
 						<p class="head__title">
 							Номер телефона покупателя <br>
 							<span v-if="anketaNumber">
-								{{anketaNumber | formatNumber}}
+								+{{anketaNumber | formatNumber}}
 							</span>
 						</p>
 					</div>
@@ -132,7 +132,7 @@
 							<p class="head__title">
 								Номер телефона покупателя <br>
 								<span v-if="anketaNumber">
-									{{anketaNumber | formatNumber}}.
+									+{{anketaNumber | formatNumber}}.
 								</span>
 							</p>
 						</div>
