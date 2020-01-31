@@ -25,7 +25,7 @@
 			</div>		
 		</header>
 		<!-- header menu -->
-		<div :class="{'header-mobile': true, 'show': burgerStatus}">
+		<div :class="{'header-mobile': true, 'show': burgerStatus, 'show--fillform' : burgerStatus && $route.name == 'Anketa-CreateAnketa-Fillform'}">
 			<div class="container">
 				<ul class="nav">
 					<li class="nav__item">
@@ -161,8 +161,13 @@
 	        transition: .5s;
 	        z-index: 9;
 	        overflow: auto;
+	        height: calc(100% - 60px);
 	        &.show{
 	        	transform: translateY(56px);
+	        	&--fillform{
+	        		height: calc(100% - 130px);
+	        		transform: translateY(128px);
+	        	}
 	        }
 			.nav{
 				margin: 0 -16px;

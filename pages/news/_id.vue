@@ -1,10 +1,8 @@
 <template>
 	<main class="page page--white page--df">
 		<div class="container">
-			<h3 class="section__title  section__title--link">
-				<nuxt-link to="/news">
-					Новости
-				</nuxt-link>	
+			<h3 class="section__title  section__title--link" @click="$router.go(-1)">
+				Назад				
 			</h3>
 			<div class="news-item" v-if="newsItem.length && newsItem[$route.params.id]">
 				<div class="news-item__banner" v-if="newsItem[$route.params.id].media.length">
