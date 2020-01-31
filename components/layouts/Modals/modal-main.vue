@@ -15,7 +15,7 @@
                     {{title}}
                   </h4>
                   <h4 v-else-if="number">
-                    <template v-if="number.length==12">
+                    <template v-if="number.length>=11">
                       {{number | formatNumber}}                    
                     </template>                    
                     <template v-else>
