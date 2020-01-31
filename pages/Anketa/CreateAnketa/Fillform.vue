@@ -338,7 +338,7 @@
 
 		    async sendLinkSms(){
 		    	let fields = {
-		    		'mobile_phone': this.anketaNumber,
+		    		'mobile_phone': '+'+this.anketaNumber,
 		    		'self': 1
 		    	}
 
@@ -370,7 +370,7 @@
 			async saveAnketa(){
 
 				let fields = {
-					'mobile_phone': this.anketaNumber,
+					'mobile_phone': '+'+this.anketaNumber,
 					'firstname': this.field.firstName,
 					'lastname': this.field.secondName,
 					'birthdate': this.field.birthData,

@@ -59,7 +59,7 @@
     filters: {
       formatNumber (value){
         if(value.length==11){
-          return String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
+          return '+' + String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
         }else if(value.length==12){
           value = String(value).replace('+','')
           return '+'+ String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
