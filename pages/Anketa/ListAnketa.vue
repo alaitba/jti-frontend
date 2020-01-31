@@ -32,7 +32,7 @@
 								<div :class="{'status' : true, 'status--active': item.isEffective, 'status--filled': item.isQualified, 'status--waiting': !item.isQualified}">
 									<img src="~/assets/img/icons/anketa/status_active.svg" alt="" v-if="item.isEffective">
 									<img src="~/assets/img/icons/anketa/status_filled.svg" alt="" v-if="item.isQualified">
-									<img src="~/assets/img/icons/anketa/status_waiting.svg" alt="" v-if="!item.isEffective">
+									<img src="~/assets/img/icons/anketa/status_waiting.svg" alt="" v-if="!item.isQualified && !item.isEffective">
 								</div>
 							</div>
 						</div>
