@@ -127,8 +127,8 @@
 						// console.log(res,'res')		
 						localStorage.setItem("setTradePoint", 't');   
 						localStorage.setItem("tradepoint", JSON.stringify(res.tradepoint));
-						localStorage.setItem('account',JSON.stringify(response.data.account));
-			            localStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));       
+						localStorage.setItem('account',JSON.stringify(res.account));
+			            localStorage.setItem('tradeagent',JSON.stringify(res.tradeagent));       
 						this.$router.push('/');
 				} catch(err){						
 					if(err.response.data == "Unauthorized."){
