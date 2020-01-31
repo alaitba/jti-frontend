@@ -144,8 +144,7 @@
 							<!-- <button class="button button--green" type="button" @click="showModal('modal-error')">
 					        	Отправить ссылку
 					        </button> -->
-					        <button class="button button--green" type="button" :disabled="errors.any() || !anketaNumber || !field.img.length || !ageValidate || smsBtnStatus" @click="validateBeforeSubmit('1')">
-
+					        <button class="button button--green" type="button" :disabled="!anketaNumber || smsBtnStatus" @click="sendLinkSms()">
 					        		Отправить ссылку
 						        </button>
 							</div>
@@ -323,16 +322,9 @@
 				
 		      	this.$validator.validateAll().then((result) => {
 			        if (result) {		        	
-			        	if(self=='1'){
-			        		this.smsBtnStatus = true;
-			        		console.log('self1',self);
-			        		this.sendLinkSms();
-			        	}else{
-			        		console.log('self2',self);
 			        		this.anketaBtnStatus = true;
 			        		this.saveToCache();
-				        	this.saveAnketa();			        	
-			        	}
+				        	this.saveAnketa();			        				
 			        	return;
 			        } else {
 			        	this.title="Заполните все поля!"
@@ -349,6 +341,7 @@
 		    		'self': 1
 		    	}
 
+		    	this.smsBtnStatus = true;
 		    	this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
 
 		    	await this.$axios.post('/client/create-lead/', fields)
