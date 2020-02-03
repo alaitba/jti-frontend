@@ -70,7 +70,7 @@
 					              	<template v-show="errors.has('birthData')">
 					              		{{ errors.first('birthData') }}
 					              	</template>	
-					              	<template v-if="errors.has('birthData') && (!ageValidate)">, </template>					              	
+					              	<template v-if="errors.has('birthData') && (!ageValidate)">. </template>					              	
 					              	<template v-if="!ageValidate">
 					              		Потребитель должен быть старше 18 лет
 					              	</template>						              	
@@ -79,7 +79,20 @@
 					            </div>
 
 								<div class="form-group" v-if="brands">
-					            	<multiselect v-model="field.selectedBrand" :options="brands" :searchable="false" :close-on-select="true" :show-labels="false" placeholder="Выбери марку сигарет"></multiselect>
+					            	<multiselect 
+					            		v-model="field.selectedBrand" 
+					            		name="brands"
+					            		:options="brands" 
+					            		:searchable="false" 
+					            		:close-on-select="true" 
+					            		:show-labels="false" 
+					            		placeholder="Выбери марку сигарет"
+					            		v-validate="'required'"
+					            	>					            		
+					            	</multiselect>
+					            	<span v-show="errors.has('brands')" class="help is-danger">
+					            		{{ errors.first('brands') }}
+					            	</span>
 					            </div>
 																
 
@@ -116,7 +129,7 @@
 					              	</div>
 					            </div>
 
-					            <button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.img.length || !ageValidate || anketaBtnStatus">
+					            <button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.img.length || !field.selectedBrand.length || !ageValidate || anketaBtnStatus">
 					              Сохранить анкету
 					            </button>
 					            <!-- <button class="button button--green"  @click="showModal()">
@@ -323,9 +336,9 @@
 				
 		      	this.$validator.validateAll().then((result) => {
 			        if (result) {		        	
-			        		this.anketaBtnStatus = true;
-			        		this.saveToCache();
-				        	this.saveAnketa();			        				
+		        		this.anketaBtnStatus = true;
+		        		this.saveToCache();
+			        	this.saveAnketa();			        				
 			        	return;
 			        } else {
 			        	this.title="Заполните все поля!"
@@ -376,7 +389,7 @@
 					'birthdate': this.field.birthData,
 					'product_code': this.options[this.field.selectedBrand][0].product_code,
 					'signature': this.field.img,
-					'self': this.field.self
+					'self': ''
 				}
 
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
@@ -389,6 +402,7 @@
 			          	} 
 			        }).catch(error => {
 			        	this.anketaBtnStatus = false;
+			        	console.log(error.response,'error')
 			        	if(error.response.data.message=='already_filled'){
 			        		this.number = this.anketaNumber;
 			        		this.text = 'На указанный телефон анкета уже заполнялась в данной торговой точке!';
