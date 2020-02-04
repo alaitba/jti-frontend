@@ -25,7 +25,7 @@
 			</div>		
 		</header>
 		<!-- header menu -->
-		<div :class="{'header-mobile': true, 'show': burgerStatus, 'show--fillform' : burgerStatus && $route.name == 'Anketa-CreateAnketa-Fillform'}">
+		<div :class="{'header-mobile': true, 'show': burgerStatus, 'show--fillform' : burgerStatus && ($route.name == 'Anketa-CreateAnketa-Fillform' || $route.name == 'plan')}">
 			<div class="container">
 				<ul class="nav">
 					<li class="nav__item">
@@ -44,6 +44,7 @@
 						</nuxt-link>
 					</li>					
 					<li class="nav__item">
+						<!-- <nuxt-link to="/plan" class="nav__link nav__link--green" @click.native="showBurger()"> -->
 						<nuxt-link to="#" class="nav__link" disabled>
 							План закупок
 						</nuxt-link>

@@ -207,6 +207,7 @@ export default {
 
         }).catch(error => {
             this.btnSignStatus = false;
+            console.log(error.response)
             if(error.response.data.message=='phone_does_not_exist' || error.response.data.message=='validation_failed'){
               this.title="Отказано в доступе!"
               this.text="Номер телефона введен неверно или не внесен в базу данных!"

@@ -32,23 +32,23 @@
 					              Данные покупателя
 					            </label>
 					            <div class="form-group">             
-					              <div class="form-group__wrapper">
-					                <!-- <input type="text" :class="{'form__input': true, 'error' : false }" placeholder=" " v-model="fields.firstName" > -->
-					                <input :class="{'form__input': true, 'error' : errors.has('firstName') }" v-validate="'required'" type="text" placeholder=" " v-model="field.firstName" name="firstName">
-					                <label for="input" class="form__label">
-					                  Имя
-					                </label>  					                
-					              </div>
-					              <span v-show="errors.has('firstName')" class="help is-danger">{{ errors.first('firstName') }}</span>
+					              	<div class="form-group__wrapper">
+					                	<!-- <input type="text" :class="{'form__input': true, 'error' : false }" placeholder=" " v-model="fields.firstName" > -->
+						                <input :class="{'form__input': true, 'error' : errors.has('firstName') }" v-validate="'required'" type="text" placeholder=" " v-model="field.firstName" name="firstName">
+						                <label for="input" class="form__label">
+						                  Имя
+						                </label>  					                
+					              	</div>
+					              	<span v-show="errors.has('firstName')" class="help is-danger">{{ errors.first('firstName') }}</span>
 					            </div>
 					            <div class="form-group">             
-					              <div class="form-group__wrapper">
-					                <input type="text" :class="{'form__input': true, 'error' : errors.has('secondName') }" v-validate="'required'" placeholder=" " v-model="field.secondName" name="secondName">
-					                <label for="input" class="form__label">
-					                  Фамилия
-					                </label>  
-					              </div>
-					              <span v-show="errors.has('secondName')" class="help is-danger">{{ errors.first('secondName') }}</span>
+					              	<div class="form-group__wrapper">
+						                <input type="text" :class="{'form__input': true, 'error' : errors.has('secondName') }" v-validate="'required'" placeholder=" " v-model="field.secondName" name="secondName">
+						                <label for="input" class="form__label">
+						                  Фамилия
+						                </label>  
+						            </div>
+					              	<span v-show="errors.has('secondName')" class="help is-danger">{{ errors.first('secondName') }}</span>
 					            </div>
 					            <div class="form-group">             
 					              <div class="form-group__wrapper">
@@ -158,15 +158,15 @@
 					        	Отправить ссылку
 					        </button> -->
 					        <button class="button button--green" type="button" :disabled="!anketaNumber || smsBtnStatus" @click="sendLinkSms()">
-					        		Отправить ссылку
-						        </button>
-							</div>
+				        		Отправить ссылку
+					        </button>
 						</div>
-					</div>				
-				</div>
-			</div>	
+					</div>
+				</div>				
+			</div>
+		</div>	
 
-			<modal-agreement></modal-agreement>
+		<modal-agreement></modal-agreement>
 		<modal-draw-sign></modal-draw-sign>
 		<modal-anketa-error></modal-anketa-error>
 		<modal-error></modal-error>
@@ -337,7 +337,7 @@
 		      	this.$validator.validateAll().then((result) => {
 			        if (result) {		        	
 		        		this.anketaBtnStatus = true;
-		        		this.saveToCache();
+		        		// this.saveToCache();
 			        	this.saveAnketa();			        				
 			        	return;
 			        } else {
@@ -392,6 +392,8 @@
 					'self': ''
 				}
 
+				console.log('fields1', this.field.selectedBrand, this.options[this.field.selectedBrand][0])
+
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
 
 				await this.$axios.post('/client/create-lead/', fields)
@@ -426,11 +428,6 @@
 		}
 	}
 </script>
-<style scoped>
-	.header-mobile.show {
-	    transform: translateY(128px);
-    }
-</style>
 <style lang="scss">	
 	.help.is-danger{
 		font-weight: normal;
@@ -441,40 +438,40 @@
 	}
 	.fill-section{
 		width: 100%;
-		&__menu{
-			position: fixed;
-			top: 56px;
-			left: 0;
-			background: #fff;
-			// height: 51px;
-			box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-			z-index: 11;
-			width: 100%;
-			.nav{
-				&-pills{
-					flex-wrap: nowrap;
-					width: 100%;
-				}
-				&-item{
-					width: 100%;
-				}
-				&-link{
-					font-weight: 500;
-					font-size: 16px;
-					line-height: 19px;					
-					text-align: center;
-					color: #969696;
-					background-color: transparent;
-					padding: 16px;
-					border-radius: 0;
-					&.active{
-						color: #05B186;
-						background-color: transparent;
-						border-bottom: 2px solid #05B186;
-					}
-				}
-			}
-		}
+		// &__menu{
+		// 	position: fixed;
+		// 	top: 56px;
+		// 	left: 0;
+		// 	background: #fff;
+		// 	// height: 51px;
+		// 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+		// 	z-index: 11;
+		// 	width: 100%;
+		// 	.nav{
+		// 		&-pills{
+		// 			flex-wrap: nowrap;
+		// 			width: 100%;
+		// 		}
+		// 		&-item{
+		// 			width: 100%;
+		// 		}
+		// 		&-link{
+		// 			font-weight: 500;
+		// 			font-size: 16px;
+		// 			line-height: 19px;					
+		// 			text-align: center;
+		// 			color: #969696;
+		// 			background-color: transparent;
+		// 			padding: 16px;
+		// 			border-radius: 0;
+		// 			&.active{
+		// 				color: #05B186;
+		// 				background-color: transparent;
+		// 				border-bottom: 2px solid #05B186;
+		// 			}
+		// 		}
+		// 	}
+		// }
 		&__content{
 			margin-top: 84px;
 			padding-bottom: 84px;
@@ -506,56 +503,56 @@
 					color: #6E6E6E;
 					margin-bottom: 40px;
 				}
-				.multiselect{
-					&__tags{
-						min-height: 55px;
-						padding: 18px 12px;
-						border: 0;
-						background: #F0F0F0;
-						border-radius: 8px;
-						font-family: Roboto;
-						font-weight: 300;
-						font-size: 16px;
-						line-height: 19px;
-					}
-					&__placeholder{
-						color: #969696;
-						margin-bottom: 0;
-						padding: 0;
-					}
-					&__select{
-						height: 55px;
-						&:before{
-							top: 55%;
-						}
-					}
-					&__input,&__single{
-						background: transparent;
-						padding: 0;
-						font-size: 16px;
-						line-height: 19px;
-						color: #6E6E6E;
-						margin-bottom: 0;
-						min-height: auto;						
-					}
-					&__option{
-						font-family: Roboto;
-						font-weight: 300;
-						font-size: 16px;
-						line-height: 19px;	
-						&--highlight{
-							background: #C2EEE3;
-							color: #000;
-						}	
-						&--selected{
-							background: #05B186;
-							color: #fff;
-						}					
-					}
-				}
-				.multiselect__option--highlight.multiselect__option--selected{
-					background: #05B186;
-				}
+				// .multiselect{
+				// 	&__tags{
+				// 		min-height: 55px;
+				// 		padding: 18px 12px;
+				// 		border: 0;
+				// 		background: #F0F0F0;
+				// 		border-radius: 8px;
+				// 		font-family: Roboto;
+				// 		font-weight: 300;
+				// 		font-size: 16px;
+				// 		line-height: 19px;
+				// 	}
+				// 	&__placeholder{
+				// 		color: #969696;
+				// 		margin-bottom: 0;
+				// 		padding: 0;
+				// 	}
+				// 	&__select{
+				// 		height: 55px;
+				// 		&:before{
+				// 			top: 55%;
+				// 		}
+				// 	}
+				// 	&__input,&__single{
+				// 		background: transparent;
+				// 		padding: 0;
+				// 		font-size: 16px;
+				// 		line-height: 19px;
+				// 		color: #6E6E6E;
+				// 		margin-bottom: 0;
+				// 		min-height: auto;						
+				// 	}
+				// 	&__option{
+				// 		font-family: Roboto;
+				// 		font-weight: 300;
+				// 		font-size: 16px;
+				// 		line-height: 19px;	
+				// 		&--highlight{
+				// 			background: #C2EEE3;
+				// 			color: #000;
+				// 		}	
+				// 		&--selected{
+				// 			background: #05B186;
+				// 			color: #fff;
+				// 		}					
+				// 	}
+				// }
+				// .multiselect__option--highlight.multiselect__option--selected{
+				// 	background: #05B186;
+				// }
 			}
 		}
 	}

@@ -1,6 +1,8 @@
+if(!navigator.cookieEnabled){
+  alert('Включите cookies в настройках браузера и обновите страницу');  
+} 
 export default function ({ store, redirect, route }) {
   // If the user is not authenticated
-  // console.log(route,'route')
   if(route.name=='Selectstore') return
   if (localStorage.getItem("authToken")) {
 	  	if((localStorage.getItem("setTradePoint")=='f')){  			

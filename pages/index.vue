@@ -29,12 +29,14 @@
 	    		<div class="container">
 	    			<div class="icons">
 	    				<div class="icons__item" @click="showModal()">
-	    					<div class="img">
-	    						<img src="~/assets/img/icons/links/plan.svg" alt="">
-	    					</div>
-	    					<div class="title">
-	    						План закупок
-	    					</div>
+	    					<!-- <nuxt-link to="/plan"> -->
+		    					<div class="img">
+		    						<img src="~/assets/img/icons/links/plan.svg" alt="">
+		    					</div>
+		    					<div class="title">
+		    						План закупок
+		    					</div>
+		    				<!-- </nuxt-link> -->
 	    				</div>
 	    				<div class="icons__item">
 	    					<nuxt-link to="/anketa/createanketa">
@@ -220,7 +222,7 @@
 	        tradepoint: state => state.tradepoint,      
 	      })
 	    },
-	    methods:{
+	    methods:{	    	
 	    	showModal(){
 	    		// alert('asdasd')
 	    		$('#modal-error').modal('show')

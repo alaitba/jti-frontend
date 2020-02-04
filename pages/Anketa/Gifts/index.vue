@@ -34,14 +34,14 @@
 		  								<p class="text">
 		  									{{item.name}}
 		  								</p>
-						                <template v-if="item.rewardId!='069ab460-263c-ea11-80cc-1cc1dee6b654'">
-						                    <p class="left" v-if="item.totalQty!=null">
-						                      Осталось штук: {{item.totalQty | formatAmount}}
-						                    </p>
+						                <template v-if="item.rewardId=='069ab460-263c-ea11-80cc-1cc1dee6b654' || item.rewardId=='7b9f8a06-0a44-ea11-80cc-1cc1dee6b654'">
+						                	<p class="left" v-if="item.totalQty!=null">
+						                      количество не ограничено
+						                    </p>						                    
 						                </template>
 						                <template v-else>
 						                    <p class="left" v-if="item.totalQty!=null">
-						                      количество не ограничено
+						                      Осталось штук: {{item.totalQty | formatAmount}}
 						                    </p>
 						                </template>
 		  							</div>
