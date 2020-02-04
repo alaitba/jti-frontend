@@ -55,16 +55,17 @@
 							<p class="title" v-if="gift.name">
 								{{gift.name}}
 							</p>
-							<template v-if="gift.rewardId!='069ab460-263c-ea11-80cc-1cc1dee6b654'">
-			                    <p class="left" v-if="gift.totalQty!=null">
-			                      Осталось штук: {{gift.totalQty | formatAmount}}
-			                    </p>
-			                  </template>
-			                  <template v-else>
+							<template v-if="gift.rewardId=='069ab460-263c-ea11-80cc-1cc1dee6b654' || gift.rewardId=='7b9f8a06-0a44-ea11-80cc-1cc1dee6b654'">
 			                    <p class="left" v-if="gift.totalQty">
 			                      количество не ограничено
 			                    </p>
-		                  	</template>						
+			                  </template>
+			                  <template v-else>
+			                  	<p class="left" v-if="gift.totalQty!=null">
+			                      Осталось штук: {{gift.totalQty | formatAmount}}
+			                    </p>			                    
+		                  	</template>			
+
 							<div class="text" v-if="gift.description" v-html="gift.description"></div>
 							<!-- <p class="text" v-if="gift.description">
 								{{gift.description}}
