@@ -6,7 +6,7 @@
 				<template v-for="(item,key) in tradepoints">
 					<div :class="{'select-store__item item' : true, 'active': selected == key}">
 						<label class="radiobutton-container">
-							<input type="radio" v-model="selected" :value="key" name="radio" @change="changeTradepoint()">
+							<input type="radio" v-model="selected" :value="item.account_code" name="radio" @change="changeTradepoint()">
 							<span class="checkmark"></span>
 						</label>
 						<p class="title">						
@@ -15,7 +15,7 @@
 						<p class="address">
 							{{item.city}}, {{item.street_address}}
 						</p>					
-					</div>
+					</div>					
 				</template>
 				<template>
 					{{showSelected}}
@@ -74,13 +74,13 @@
 			
 
 			<div class="continue">
-				<div class="container">
-					<button class="button button--green fixed" disabled v-if="!selected.length">
-						Продолжить
-					</button>
+				<div class="container">					
 					<button class="button button--green fixed" v-if="selected.length" @click="setTradePoint()">
 						Продолжить
 					</button>	
+					<button class="button button--green fixed" disabled v-else>
+						Продолжить
+					</button>
 				</div>
 			</div>			
 		</div>

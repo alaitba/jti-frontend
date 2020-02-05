@@ -141,6 +141,7 @@ export default {
             if(response.data.message=='authorized'){
               localStorage.setItem("setTradePoint", 't');
               localStorage.setItem("tradepoint", JSON.stringify(response.data.tradepoint));
+              localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoint)); 
               localStorage.setItem('account',JSON.stringify(response.data.account));
               localStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));
               this.$router.push('/');
