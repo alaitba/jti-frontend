@@ -29,20 +29,17 @@
 			<div class="container">
 				<ul class="nav">
 					<li class="nav__item">
-						<!-- <nuxt-link to="/" class="nav__link nav__link--green"  @click.native="showBurger()"> -->
-						<nuxt-link to="#" class="nav__link" disabled>
+						<nuxt-link to="/" class="nav__link nav__link--green"  @click.native="showBurger()">
 							Главная
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<!-- <nuxt-link to="/anketa/createanketa" class="nav__link nav__link--green" @click.native="showBurger()"> -->
-						<nuxt-link to="#" class="nav__link" disabled>
+						<nuxt-link to="/anketa/createanketa" class="nav__link nav__link--green" @click.native="showBurger()">
 							Анкеты
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<!-- <nuxt-link to="/anketa/gifts" class="nav__link nav__link--green" @click.native="showBurger()"> -->
-						<nuxt-link to="#" class="nav__link" disabled>
+						<nuxt-link to="/anketa/gifts" class="nav__link nav__link--green" @click.native="showBurger()">
 							Призы
 						</nuxt-link>
 					</li>					
@@ -58,8 +55,7 @@
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<!-- <nuxt-link to="/profile" class="nav__link nav__link--green" @click.native="showBurger()"> -->
-						<nuxt-link to="#" class="nav__link" disabled>
+						<nuxt-link to="/profile" class="nav__link nav__link--green" @click.native="showBurger()">
 							Профиль
 						</nuxt-link>
 					</li>
@@ -69,8 +65,7 @@
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<!-- <nuxt-link to="/news" class="nav__link nav__link--green" @click.native="showBurger()"> -->
-						<nuxt-link to="#" class="nav__link" disabled>
+						<nuxt-link to="/news" class="nav__link nav__link--green" @click.native="showBurger()">
 							Новости
 						</nuxt-link>
 					</li>
