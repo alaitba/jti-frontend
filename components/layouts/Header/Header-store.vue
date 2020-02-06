@@ -44,8 +44,8 @@
 						</nuxt-link>
 					</li>					
 					<li class="nav__item">
-						<nuxt-link to="/plan" class="nav__link nav__link--green" @click.native="showBurger()">
-						<!-- <nuxt-link to="#" class="nav__link" disabled> -->
+						<!-- <nuxt-link to="/plan" class="nav__link nav__link--green" @click.native="showBurger()"> -->
+						<nuxt-link to="#" class="nav__link" disabled>
 							План закупок
 						</nuxt-link>
 					</li>

@@ -129,6 +129,13 @@
 					              	</div>
 					            </div>
 
+
+					            <div class="form-group mb-32" v-if="geFilledAnketa">
+					            	<p class="content">
+					            		В случае несоответствия данных потребителя, он может изменить данные самостоятельно на сайте realday.kz
+					            	</p>
+					            </div>
+
 					            <button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.img.length || !field.selectedBrand.length || !ageValidate || anketaBtnStatus">
 					              Сохранить анкету
 					            </button>
@@ -271,6 +278,10 @@
 		      authToken: state => state.authToken,     
 		      // anketaNumber: state =>state.numberAnketa
 		    }),
+
+		    geFilledAnketa(){
+		    	return  JSON.parse(localStorage.getItem('client_data'));	
+		    },
 
 		    ageValidate(){
 		    	if(this.field.birthData){
@@ -430,6 +441,16 @@
 	}
 </script>
 <style lang="scss">	
+	.mb-32{
+		margin-bottom: 32px !important;
+		.content{
+			font-weight: 300;
+			font-size: 16px;
+			line-height: 19px;
+			color: #000000;
+			margin-bottom: 0;
+		}
+	}
 	.help.is-danger{
 		font-weight: normal;
 		font-size: 12px;
