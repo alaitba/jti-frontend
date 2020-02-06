@@ -170,6 +170,9 @@
 						this.btnStatus = false;
 						this.$store.commit('setNumberAnketa', response.data.mobile_phone);
 						localStorage.setItem("anketaNumber", response.data.mobile_phone);
+						if(response.data.client_data){							
+							localStorage.setItem('client_data', JSON.stringify(response.data.client_data))
+						}
 						this.startTimerInterval();
 					}).catch((error, e) =>{
 						this.btnStatus = false;
