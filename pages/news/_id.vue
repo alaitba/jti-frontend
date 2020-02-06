@@ -96,6 +96,9 @@
 		}
 		&__content{
 			margin-top: 8px;
+			iframe{
+				width: 100%;
+			}
 			.title{
 				color: #217461;
 				line-height: 1.05;

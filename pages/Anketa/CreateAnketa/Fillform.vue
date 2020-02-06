@@ -297,13 +297,14 @@
 		},
 		methods:{
 			showModal(modal){
-				if(modal == 'modal-draw-sign'){
-					// var canvas = document.getElementById('signature-pad');
-					// var signaturePad = new SignaturePad(canvas,{
-					// 	penColor: "rgb(0, 0, 0)"
-					// });
-				}
-				this.text = 'Раздел будет доступен с 3 февраля'
+				// if(modal == 'modal-draw-sign'){
+				// 	// var canvas = document.getElementById('signature-pad');
+				// 	// var signaturePad = new SignaturePad(canvas,{
+				// 	// 	penColor: "rgb(0, 0, 0)"
+				// 	// });
+				// }
+				// this.text = 'Раздел будет доступен с 3 февраля'
+				console.log('modal', modal)
 				$('#'+modal).modal('show')
 			},
 

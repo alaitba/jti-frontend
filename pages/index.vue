@@ -96,7 +96,7 @@
 	    				<template v-if="news">
 	    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length<1}" v-for="(item, key) in news">
 	    						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
-		    						<div class="banner" v-if="item.media">
+		    						<div class="banner" v-if="item.media.length">
 			    						<img :src="item.media[0].url" alt="">
 			    					</div>
 			    					<div class="content">
@@ -319,6 +319,9 @@
 			}
 		}
 		&--news{
+			iframe{
+				width: 100%;
+			}
 			// padding-top: 32px;	
 		}		
 	}
