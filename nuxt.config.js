@@ -58,7 +58,7 @@ module.exports = {
     '~plugins/vue-swiper.js',
     '~plugins/sentry.js',
     '~/plugins/axios.js',
-    {src: '~/plugins/sw.js', ssr: false}
+    '~/plugins/sw.js'
   ],
 
   /*
