@@ -4,7 +4,7 @@
 		<div class="container">			
 			<div class="select-store" v-if="tradepoints">
 				<template v-for="(item,key) in tradepoints">
-					<div :class="{'select-store__item item' : true, 'active': selected == key}">
+					<div :class="{'select-store__item item' : true, 'active': selected == item.account_code}">
 						<label class="radiobutton-container">
 							<input type="radio" v-model="selected" :value="item.account_code" name="radio" @change="changeTradepoint()">
 							<span class="checkmark"></span>

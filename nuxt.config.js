@@ -58,30 +58,29 @@ module.exports = {
     '~plugins/vue-swiper.js',
     '~plugins/sentry.js',
     '~/plugins/axios.js',
-    // '~/plugins/sw.js'
+    '~/plugins/serviceworker.js'
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/onesignal',
+    // '@nuxtjs/onesignal',
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
     // 'bootstrap-vue/nuxt',
     '@nuxtjs/pwa',
   ],
   // Options
-  oneSignal: {
-    init: {
-      appId: "00841468-ed04-4d0f-9ca5-4ccc53eab1ea",
-      allowLocalhostAsSecureOrigin: true,
-      welcomeNotification: {
-          disable: false
-      }
-    }
-  },
+  // oneSignal: {
+  //   init: {
+  //     allowLocalhostAsSecureOrigin: true,
+  //     appId: "00841468-ed04-4d0f-9ca5-4ccc53eab1ea",
+  //     welcomeNotification: {
+  //         disable: false
+  //     }
+  //   }
+  // },
 
   manifest: {      
     lang: 'en',
@@ -92,7 +91,8 @@ module.exports = {
   },
 
   workbox: {
-    development: true, // or use a global variable to track the current NODE_ENV, etc to determine dev mode
+    dev: true,
+    autoRegister: true, // or use a global variable to track the current NODE_ENV, etc to determine dev mode
     cleanupOutdatedCaches: true,
     offline: true,
     debug: true,

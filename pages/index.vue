@@ -213,7 +213,7 @@
 	    mounted() {
 	    	this.getNews();
 
-	    	this.showModal();
+	    	// this.showModal();
 	    		    	
 	    },
 	    computed: {
