@@ -257,7 +257,7 @@
 			}
 		},
 		mounted(){
-			console.log('route', this.$route);
+			// console.log('route', this.$route);
 
 			moment.locale('ru');
 
@@ -297,10 +297,10 @@
 
 					this.loaderStatus = false;
 
-					console.log(res.data);
+					// console.log(res.data);
 				} catch(error){
 
-					console.log('error', error.response)
+					// console.log('error', error.response)
 				}
 			},
 
@@ -311,12 +311,12 @@
 
 					let res = await this.$axios.$get('/plan-fact/history');
 
-					console.log(res.data);
+					// console.log(res.data);
 
 					this.history = res.data;
 				} catch(error){
 
-					console.log('error', error.response)
+					// console.log('error', error.response)
 				}
 			}
 		}
