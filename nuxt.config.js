@@ -58,7 +58,6 @@ module.exports = {
     '~plugins/vue-swiper.js',
     '~plugins/sentry.js',
     '~/plugins/axios.js',
-    // '~/plugins/sw.js',
   ],
 
   /*
@@ -92,8 +91,6 @@ module.exports = {
   },
 
   workbox: {
-    cacheAssets: true, // for /*
-    offline: true,
     development: true // or use a global variable to track the current NODE_ENV, etc to determine dev mode
   },
   /*
