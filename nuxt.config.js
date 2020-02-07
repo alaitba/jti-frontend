@@ -58,6 +58,7 @@ module.exports = {
     '~plugins/vue-swiper.js',
     '~plugins/sentry.js',
     '~/plugins/axios.js',
+    {src: '~/plugins/sw.js', ssr: false}
   ],
 
   /*
@@ -91,7 +92,10 @@ module.exports = {
   },
 
   workbox: {
-    development: true // or use a global variable to track the current NODE_ENV, etc to determine dev mode
+    development: true, // or use a global variable to track the current NODE_ENV, etc to determine dev mode
+    cleanupOutdatedCaches: true,
+    offline: true,
+    debug: true,
   },
   /*
   ** Axios module configuration
