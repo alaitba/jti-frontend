@@ -92,8 +92,8 @@ module.exports = {
   },
 
   workbox: {
-    cacheAssets: false, // for /*
-    offline: false,
+    cacheAssets: true, // for /*
+    offline: true,
     development: true // or use a global variable to track the current NODE_ENV, etc to determine dev mode
   },
   /*
