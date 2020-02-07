@@ -28,15 +28,15 @@
 	    	<div class="section section--icons">
 	    		<div class="container">
 	    			<div class="icons">
-	    				<div class="icons__item">
-	    					<nuxt-link to="/plan">
+	    				<div class="icons__item" @click="showModal()">
+	    					<!-- <nuxt-link to="/plan"> -->
 		    					<div class="img">
 		    						<img src="~/assets/img/icons/links/plan.svg" alt="">
 		    					</div>
 		    					<div class="title">
 		    						План закупок
 		    					</div>
-		    				</nuxt-link>
+		    				<!-- </nuxt-link> -->
 	    				</div>
 	    				<div class="icons__item">
 	    					<nuxt-link to="/anketa/createanketa">
