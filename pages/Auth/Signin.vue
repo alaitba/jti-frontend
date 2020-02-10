@@ -220,7 +220,7 @@ export default {
               $('#modal-main').modal('show')
             } else if(error.response.data.message=='sms_send_limit'){
               this.title="Cмс не был отправлен!"
-              this.text="Вы превысели лимит отправки смс!"
+              this.text="Вы превысили лимит отправки смс!"
               this.img="alert"
               $('#modal-main').modal('show')
             }
@@ -360,7 +360,7 @@ export default {
               $('#modal-main').modal('show')
             } else if(error.response.data.message=='sms_send_limit'){
               this.title="Cмс не был отправлен!"
-              this.text="Вы превысели лимит отправки смс!"
+              this.text="Вы превысили лимит отправки смс!"
               this.img="alert"
               $('#modal-main').modal('show')
             }
