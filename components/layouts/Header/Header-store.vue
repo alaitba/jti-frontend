@@ -160,9 +160,9 @@
 		    left: 0;
 		    transform: translateY(-100%);
 	        transition: .5s;
-	        z-index: 9;
+	        z-index: 10;
 	        overflow: auto;
-	        height: calc(100% - 60px);
+	        height: calc(100% - 56px);
 	        &.show{
 	        	transform: translateY(56px);
 	        	&--fillform{

@@ -1,7 +1,7 @@
 <template>
 	<header class="header">
 		<div class="container">
-			<div class="header__wrapper" v-if="!tradepoints">
+			<div class="header__wrapper" v-if="!($route.name == 'Selectstore')">
 				<div class="header__logo">
 					<nuxt-link to="/">
 						<img src="~/assets/img/logo.svg" alt="">

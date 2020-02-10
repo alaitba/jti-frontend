@@ -92,24 +92,26 @@
 	    			<h3 class="section__title">
 	    				Новости
 	    			</h3>
-	    			<div class="news">    				
-	    				<template v-if="news">
-	    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length<1}" v-for="(item, key) in news">
-	    						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
-		    						<div class="banner" v-if="item.media.length">
-			    						<img :src="item.media[0].url" alt="">
-			    					</div>
-			    					<div class="content">
-			    						<h4 class="title" v-if="item.title">
-				    						{{item.title.ru}}
-				    					</h4>
-				    					<p class="data" v-if="item.created_at">
-				    						{{ item.created_at | formatData}}
-				    					</p>
-				    					<div class="text" v-if="item.contents" v-html="item.contents.ru"></div>
-			    					</div>
-			    				</nuxt-link>
-	    					</div>
+	    			<div class="news" v-if="news">    				
+	    				<template v-if="news.length">
+	    					<template v-for="(item, key) in news">
+		    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length==0}">
+		    						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
+			    						<div class="banner" v-if="item.media.length">
+				    						<img :src="item.media[0].url" alt="">
+				    					</div>
+				    					<div class="content">
+				    						<h4 class="title" v-if="item.title">
+					    						{{item.title.ru}}
+					    					</h4>
+					    					<p class="data" v-if="item.created_at">
+					    						{{ item.created_at | formatData}}
+					    					</p>
+					    					<div class="text" v-if="item.contents" v-html="item.contents.ru"></div>
+				    					</div>
+				    				</nuxt-link>
+		    					</div>
+		    				</template>
 	    				</template>
 	    				<!-- <div class="news__item news__item--noimg">
 	    					<nuxt-link :to="{name: 'news-id', params:{id: '1'}}">
@@ -238,17 +240,24 @@
 
 	    				let arr = Object.values(response.data.data);
 
-	    				arr = arr.sort((a,b) => { return new Date(b.created_at) - new Date(a.created_at)});	   
+	    				arr = arr.sort((a,b) => {
+	    					return moment(b.created_at) - moment(a.created_at)
+	    				});	   	    				
 	    				
 	    				if(localStorage.getItem("news")){
 	    					localStorage.setItem("news", JSON.stringify(JSON.parse(localStorage.getItem("news")).concat(arr)));	
 	    				} else {
-	    					console.log('news')
+	    					// console.log('news')
 	    					localStorage.setItem("news", JSON.stringify(arr));	
-	    				}
+	    				}	    				
 
-	    				
-	    				this.news = JSON.parse(localStorage.getItem("news")).slice(0,3);
+	    				let newArr = JSON.parse(localStorage.getItem("news"));
+
+	    				newArr = newArr.sort((a,b) => {
+	    					return moment(b.created_at) - moment(a.created_at)
+	    				});	
+
+	    				this.news = newArr.slice(0,3);
 
 	    				this.loaderStatus = false;
 	    			}).catch(error =>{

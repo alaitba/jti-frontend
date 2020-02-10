@@ -36,6 +36,14 @@
                 {{btnText}}
               </nuxt-link>  
             </template>
+            <template v-else-if="btnText == 'logout'">
+              <button type="button" class="button button--bordered red" @click="logOut">
+                Выйти
+              </button>             
+              <button type="button" class="button button--bordered green" data-dismiss="modal">
+                Вернуться в Профиль
+              </button>             
+            </template>
             <template v-else>
               <nuxt-link to="/anketa/gifts" class="button button--green" data-dismiss="modal" v-if="btnText && !status">
                 {{btnText}}
@@ -71,9 +79,12 @@
     },
     methods:{
       sendSms(){
-        console.log('asdasdas')
         $('#modal-main').modal('hide');
         this.$nuxt.$emit('SendSmsAgain', 'dadas');
+      },
+      logOut(){
+        console.log('logout')        
+        this.$nuxt.$emit('logOut', 'dadas');
       }
     }
   }

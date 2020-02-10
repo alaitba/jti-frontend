@@ -9,24 +9,27 @@
 	    			<h3 class="section__title">
 	    				Новости
 	    			</h3>
-	    			<div class="news">
-	    				<template v-if="news.length">
-	    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length<1}" v-for="(item, key) in news">
-	    						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
-		    						<div class="banner" v-if="item.media.length">
-			    						<img :src="item.media[0].url" alt="">
-			    					</div>
-			    					<div class="content">
-			    						<h4 class="title" v-if="item.title">
-				    						{{item.title.ru}}
-				    					</h4>
-				    					<p class="data" v-if="item.created_at">
-				    						{{ item.created_at | formatData}}
-				    					</p>
-				    					<div class="text" v-if="item.contents" v-html="item.contents.ru"></div>
-			    					</div>
-			    				</nuxt-link>
-	    					</div>
+	    			<div class="news" v-if="news">
+	    				<template v-if="news.length>0">
+	    					<template v-for="(item, key) in news">
+
+	    						<div :class="{'news__item' : true, 'news__item--noimg': item.media.length==0}">
+		    						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
+			    						<div class="banner" v-if="item.media.length">
+				    						<img :src="item.media[0].url" alt="">
+				    					</div>
+				    					<div class="content">
+				    						<h4 class="title" v-if="item.title">
+					    						{{item.title.ru}}
+					    					</h4>
+					    					<p class="data" v-if="item.created_at">
+					    						{{ item.created_at | formatData}}
+					    					</p>
+					    					<div class="text" v-if="item.contents" v-html="item.contents.ru"></div>
+				    					</div>
+				    				</nuxt-link>
+		    					</div>
+	    					</template>	    					
 	    				</template>
 	    				<!-- <div class="news__item news__item--noimg">    					
 	    					<nuxt-link :to="{name: 'news-id', params: {id: 1}}">
@@ -100,7 +103,7 @@
 	    	return {
 	    		loaderStatus: true,
 	    		text : "С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей! Вас ждут много интересных призов: термокружки, пледы, зонты, сертификаты, беспроводные наушники, мультиварки, футболки и другие. А еще специально для вас каждую неделю вас ждут еженедельные розыгрыши призов как смартфоны, телевизоры и стиральные машины. Для участия в них достаточно к моменту розыгрыша заработать минимум 100 баллов.Главный приз финального розыгрыша – автомобиль Camry 70!",
-	    		news: '',
+	    		news: [],
 	    	}
 	    },
 	    mounted(){
@@ -116,27 +119,39 @@
 	    	},
 	    	async getNews(){
 
+	    		
 	    		let data  = JSON.parse(localStorage.getItem("news")).length>0 ? JSON.parse(localStorage.getItem("news"))[0].created_at : 1;
 	    		
 	    		this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
 
 	    		await this.$axios.get('/news?from_date=' + data)
 	    			.then(response =>{
-	    				console.log(response.data.data);
+	    				console.log('get:',response.data.data);
 
 	    				let arr = Object.values(response.data.data);
 
-	    				arr = arr.sort((a,b) => { return new Date(b.created_at) - new Date(a.created_at)});	   
+	    				// console.log('before:', Object.values(response.data.data))
+
+	    				arr = arr.sort((a,b) => {
+	    					return moment(b.created_at) - moment(a.created_at)
+	    				});	   	    				
 	    				
+
 	    				if(localStorage.getItem("news")){
 	    					localStorage.setItem("news", JSON.stringify(JSON.parse(localStorage.getItem("news")).concat(arr)));	
 	    				} else {
-	    					console.log('news')
 	    					localStorage.setItem("news", JSON.stringify(arr));	
 	    				}
 
+	    				let newArr = JSON.parse(localStorage.getItem("news"));
+
+	    				newArr = newArr.sort((a,b) => {
+	    					return moment(b.created_at) - moment(a.created_at)
+	    				});	
 	    				
-	    				this.news = JSON.parse(localStorage.getItem("news"));
+	    				this.news = newArr;
+
+
 
 	    				this.loaderStatus = false;
 	    			}).catch(error =>{

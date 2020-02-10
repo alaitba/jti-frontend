@@ -412,7 +412,11 @@
 			        .then(response =>{
 			        	this.anketaBtnStatus = false;
 			         	if(response.data.status =='ok'){
-			         		this.$router.push('/anketa/listanketa')		            	
+			         		this.title = 'Анкета сохранена';
+			         		this.text = 'Спасибо, Партнёр! Не забудьте напомнить потребителю отправить код с пачки LD после регистрации на realday';
+			         		this.img = 'exist';
+			         		this.btnText = 'Готово';
+			         		$('#modal-main').modal('show')
 			          	} 
 			        }).catch(error => {
 			        	this.anketaBtnStatus = false;
