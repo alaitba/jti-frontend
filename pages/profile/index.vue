@@ -6,9 +6,9 @@
     				<span>
     					Профиль
     				</span>
-    				<button class="button button--transparent" @click="logOut">
+    				<!-- <button class="button button--transparent" @click="logOut">
     					Выйти
-    				</button>
+    				</button> -->
 
     			</h3>
 
