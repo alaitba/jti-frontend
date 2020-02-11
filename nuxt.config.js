@@ -3,7 +3,7 @@ const dir = "/"
 
 module.exports = {
   mode: 'spa',
-  cache: true,
+  // cache: true,
   loading: true,
 
   /*

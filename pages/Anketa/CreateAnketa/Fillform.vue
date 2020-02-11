@@ -42,6 +42,7 @@
 						                	v-model="field.firstName" 
 						                	name="firstName"
 						                	autocomplete="off"
+						                	:disabled="geFilledAnketa"
 						                >
 						                <label for="input" class="form__label">
 						                  Имя
@@ -58,6 +59,7 @@
 						                	v-model="field.secondName" 
 						                	name="secondName"
 						                	autocomplete="off"
+						                	:disabled="geFilledAnketa"
 						                >
 						                <label for="input" class="form__label">
 						                  Фамилия
@@ -77,6 +79,7 @@
 					                	v-validate="'date_format:DD.MM.YYYY|required'"
 					                	:masked="true"
 					                	autocomplete="off"
+					                	:disabled="geFilledAnketa"
 					                	/>					                	
 					                <label for="input" class="form__label">
 					                  Дата рождения
@@ -103,7 +106,8 @@
 					            		:close-on-select="true" 
 					            		:show-labels="false" 
 					            		placeholder="Выбери марку сигарет"
-					            		v-validate="'required'"					            
+					            		v-validate="'required'"	
+					            		:disabled="geFilledAnketa"
 					            	>					            		
 					            	</multiselect>
 					            	<span v-show="errors.has('brands')" class="help is-danger">
@@ -296,7 +300,7 @@
 		    }),
 
 		    geFilledAnketa(){
-		    	return  JSON.parse(localStorage.getItem('client_data'));	
+		    	return  (localStorage.getItem('client_data')).length> 0 ? true : false;	
 		    },
 
 		    ageValidate(){

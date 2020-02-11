@@ -201,6 +201,13 @@ main{
 		line-height: 19px;	
 		color: #1F1F1F;
 		border: 0;
+		&::-webkit-contacts-auto-fill-button {
+			visibility: hidden;
+		  	display: none !important;
+		  	pointer-events: none;
+		  	position: absolute;
+		  	right: 0;
+		}		
 		&.filled{
 			background: #C2EEE3;			
 		}		

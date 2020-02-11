@@ -111,7 +111,7 @@
 		padding: 12px 0;		
 		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 	    position: fixed;
-	    z-index: 10;
+	    z-index: 11;
 	    background-color: #fff;
 	    width: 100%;
 	    top: 0;
@@ -166,8 +166,12 @@
 	        &.show{
 	        	transform: translateY(56px);
 	        	&--fillform{
-	        		height: calc(100% - 130px);
-	        		transform: translateY(128px);
+	        		height: calc(100% - 110px);
+	        		transform: translateY(110px);
+	        		@media screen and (max-width: 335px) {
+	        			height: calc(100% - 130px);
+		        		transform: translateY(128px);
+	        		}
 	        	}
 	        }
 			.nav{

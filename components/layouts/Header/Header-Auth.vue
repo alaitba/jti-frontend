@@ -59,7 +59,7 @@
 		padding: 12px 0;		
 		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 	    position: fixed;
-	    z-index: 10;
+	    z-index: 11;
 	    background-color: #fff;
 	    width: 100%;
 	    top: 0;
