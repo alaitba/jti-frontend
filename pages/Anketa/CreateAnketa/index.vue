@@ -175,17 +175,32 @@
 						}
 						this.startTimerInterval();
 					}).catch((error, e) =>{
-						this.btnStatus = false;
-						if(error.response.data.message=='sms_not_sent'){
-			              this.title="Cмс не был отправлен!"
-			              this.text="Попробуйте еще раз!"
-			              this.img="alert"
+						this.btnStatus = false;						
+						const code = parseInt(error.response && error.response.status);
+						console.log('code:',code)
+						if(code === 500){
+							this.title="Отказано в доступе!"
+			              	this.text="Ошибка на стороне сервера!"
+			              	this.img="error"
+			              	$('#modal-main').modal('show');
+			              	return
+						}
+
+						if(error.response.data.message=='is_seller'){
+							this.title="Отказ в анкетировании"
+				            this.text="Этот номер принадлежит продавцу и не может быть использован в анкетировании!"
+				            this.img="alert"
+				            $('#modal-main').modal('show')           	
+						} else if(error.response.data.message=='sms_not_sent'){
+			              	this.title="Cмс не был отправлен!"
+			              	this.text="Попробуйте еще раз!"
+			              	this.img="alert"
 			              $('#modal-main').modal('show')           
 			            } else if(error.response.data.message=='sms_send_limit'){
-			              this.title="Cмс не был отправлен!"
-			              this.text="Вы превысили лимит отправки смс!"
-			              this.img="alert"
-			              $('#modal-main').modal('show')           
+			              	this.title="Cмс не был отправлен!"
+			              	this.text="Вы превысили лимит отправки смс!"
+			              	this.img="alert"
+			              	$('#modal-main').modal('show')           
 			            } else if(error.response.data.message=='already_filled'){
 							this.tel=this.number;
 				            this.text="На указанный телефон анкета уже заполнялась в данной торговой точке!"
