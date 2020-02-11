@@ -15,7 +15,15 @@
             </label>
             <div class="form-group">
               <div class="form-group__wrapper">
-                <the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model.trim="number" :masked="false" type="tel"/>
+                <the-mask 
+                  :mask="['+7(###)-###-##-##']" 
+                  class="form__input" 
+                  placeholder=" " 
+                  v-model.trim="number" 
+                  :masked="false" 
+                  type="tel" 
+                  autocomplete="off"
+                />
                 <label for="input" class="form__label">
                   Номер телефона
                 </label>
@@ -40,7 +48,13 @@
             <div class="form-group">
               <div class="form-group__wrapper">
                 <button class="button button--show" type="button" @click="showPassword = !showPassword"></button>
-                <input :type="showPassword ? 'text' : 'password'" :class="{'form__input': true, 'error' : errorPassword }" placeholder=" " v-model="password" >
+                <input 
+                  :type="showPassword ? 'text' : 'password'" 
+                  :class="{'form__input': true, 'error' : errorPassword }" 
+                  placeholder=" " 
+                  v-model="password" 
+                  autocomplete="off"
+                >
                 <label for="input" class="form__label">
                   Пароль
                 </label>

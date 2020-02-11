@@ -13,7 +13,7 @@
 		            </label>
 	            	<div class="form-group">
 	              		<div class="form-group__wrapper">
-	                		<the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel"/>
+	                		<the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel" autocomplete="off"/>
 	                		<label for="input" class="form__label">
 	                  			Номер телефона
 	                		</label>

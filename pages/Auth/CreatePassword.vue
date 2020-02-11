@@ -14,7 +14,7 @@
 		        </label>
 		        <div class="form-group">
 		          <div class="form-group__wrapper">
-		            <input type="password" :class="{'form__input': true, 'error' : checkPassword }" placeholder=" " v-model="password" >
+		            <input type="password" :class="{'form__input': true, 'error' : checkPassword }" placeholder=" " v-model="password" autocomplete="off">
 		            <label for="input" class="form__label">
 		              Новый пароль
 		            </label>  
@@ -23,7 +23,7 @@
 
 		        <div class="form-group mt-8">
 		          <div class="form-group__wrapper">
-		            <input type="password" :class="{'form__input': true, 'error' : checkPassword }" placeholder=" " v-model="newPassword" >
+		            <input type="password" :class="{'form__input': true, 'error' : checkPassword }" placeholder=" " v-model="newPassword" autocomplete="off">
 		            <label for="input" class="form__label">
 		              Подтверждения пароля
 		            </label>  

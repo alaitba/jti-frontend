@@ -41,7 +41,7 @@
 						                	placeholder=" " 
 						                	v-model="field.firstName" 
 						                	name="firstName"
-						                	autocomplete="false"
+						                	autocomplete="off"
 						                >
 						                <label for="input" class="form__label">
 						                  Имя
@@ -57,7 +57,7 @@
 						                	placeholder=" " 
 						                	v-model="field.secondName" 
 						                	name="secondName"
-						                	autocomplete="false"
+						                	autocomplete="off"
 						                >
 						                <label for="input" class="form__label">
 						                  Фамилия
@@ -76,7 +76,7 @@
 					                	v-model="field.birthData" 
 					                	v-validate="'date_format:DD.MM.YYYY|required'"
 					                	:masked="true"
-					                	autocomplete="false"
+					                	autocomplete="off"
 					                	/>					                	
 					                <label for="input" class="form__label">
 					                  Дата рождения
