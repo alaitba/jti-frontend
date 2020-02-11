@@ -3,93 +3,93 @@
 		<!-- <header-auth/>		 -->
 		<div class="auth-section">
 	    	<div class="container">
-	        	
 
-	        	<!-- component number -->
-		        <div class="auth-section__form" v-if="numberStatus">          
-		        	<form @submit.prevent="sendNumber">
-			            <label for="" class="title__label">
-			              Введите номер телефона покупателя, чтобы отправить код подтверждения
-			            </label>
-		            	<div class="form-group">             
-		              		<div class="form-group__wrapper">
-		                		<the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel"/>
-		                		<label for="input" class="form__label">
-		                  			Номер телефона
-		                		</label>  
-		              		</div>
-		            	</div>
 
-		            	<div class="form-group mt-16">
-		            		<label class="checkbox-container">
-			            		Покупателю есть 18 лет
-							  	<input type="checkbox" v-model="checkBox">
-							  	<span class="checkmark"></span>
-							</label>
-		            	</div>		 
-		            	<button class="button button--green" type="submit" :disabled="!checkBox || number.length!=10 || btnStatus">
-		              		Далее
-		            	</button>
-		            <!-- <button class="button button--green"  @click="showModal()">
-		              Далее
-		            </button> -->
-			          </form>
-		        </div>
-				
-				<h3 class="auth-section__title" v-if="smsEnterStatus">
-	          		Подтверждение номера        
-	        	</h3>
-
-				<div class="auth-section__form auth-section__form--sms" v-if="smsEnterStatus">          
-		          <form @submit.prevent="">
-		            <label for="" class="title__label" >
-		              Введите код, оправленный покупателю по СМС на номер: <strong v-if="number">
-		              	+7 {{number | formatNumber}} 
-		              </strong>
+        	<!-- component number -->
+	        <div class="auth-section__form" v-if="numberStatus">
+	        	<form @submit.prevent="sendNumber">
+		            <label for="" class="title__label">
+		              Введите номер телефона покупателя, чтобы отправить код подтверждения
 		            </label>
-		            <div class="form-group">
-		              <div class="form-group__wrapper">                
-		                <the-mask 
-		                  :class="{'form__input form__input--sms form__input--grey': true, 'permanent': permanent, 'error' : errorPermanenetPassword }" 
-		                  type="tel" 
-		                  mask="####" 
-		                  v-model="permanentPassword" 
-		                  placeholder="••••" 
-		                  :masked="false" 
-		                  maxlength="4" 
-		                  @input="sendSms()"                    
-		                />
-		              </div>                 
-		              <span class="error-text" v-if="errorPermanenetPassword">
-		                Неверный код подтверждения!
-		              </span>                                        
-		            </div>            
+	            	<div class="form-group">
+	              		<div class="form-group__wrapper">
+	                		<the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel"/>
+	                		<label for="input" class="form__label">
+	                  			Номер телефона
+	                		</label>
+	              		</div>
+	            	</div>
+
+	            	<div class="form-group mt-16">
+	            		<label class="checkbox-container">
+  			            Покупателю есть 18 лет
+  							  	<input type="checkbox" v-model="checkBox">
+  							  	<span class="checkmark"></span>
+    							</label>
+	            	</div>
+	            	<button class="button button--green" type="submit" :disabled="!checkBox || number.length!=10 || btnStatus">
+	              		Далее
+	            	</button>
+	            <!-- <button class="button button--green"  @click="showModal()">
+	              Далее
+	            </button> -->
 		          </form>
-		          <div class="auth-section__recovery-link confirm">            
-		            <a class="login-link" href="#" v-if="repeatSms" @click="showTimer">
-		              Выслать код повторно
-		            </a>
-		            <p class="timer" v-if="!repeatSms">
-		              Выслать код повторно через
-		              <span>{{
-		                timer
-		              }}</span>
-		            </p>            
-
-		            <h3 v-if="sms_code" style="text-align:center; margin-top: 16px;">
-		              {{sms_code}}
-		            </h3>
-
-
-		            <!-- <nuxt-link class="login-link" to="/selectstore">
-		              Не помню пароль
-		            </nuxt-link> -->
-		          </div>
-		        </div>
-
 	        </div>
-	    </div>		
-		
+
+			    <h3 class="auth-section__title" v-if="smsEnterStatus">
+          		Подтверждение номера
+        	</h3>
+
+			    <div class="auth-section__form auth-section__form--sms" v-if="smsEnterStatus">
+	          <form @submit.prevent="">
+	            <label for="" class="title__label" >
+	              Введите код, оправленный покупателю по СМС на номер: <strong v-if="number">
+	              	+7 {{number | formatNumber}}
+	              </strong>
+	            </label>
+	            <div class="form-group">
+	              <div class="form-group__wrapper">
+	                <the-mask
+	                  :class="{'form__input form__input--sms form__input--grey': true, 'permanent': permanent, 'error' : errorPermanenetPassword }"
+	                  type="tel"
+	                  mask="####"
+	                  v-model="permanentPassword"
+	                  placeholder="••••"
+	                  :masked="false"
+	                  maxlength="4"
+	                  @input="sendSms()"
+	                />
+	              </div>
+	              <span class="error-text" v-if="errorPermanenetPassword">
+	                Неверный код подтверждения!
+	              </span>
+	            </div>
+	          </form>
+	          <div class="auth-section__recovery-link confirm">
+	            <a class="login-link" href="#" v-if="repeatSms" @click="showTimer">
+	              Выслать код повторно
+	            </a>
+	            <p class="timer" v-if="!repeatSms">
+	              Выслать код повторно через
+	              <span>{{
+	                timer
+	              }}</span>
+	            </p>
+
+	            <h3 v-if="sms_code" style="text-align:center; margin-top: 16px;">
+	              {{sms_code}}
+	            </h3>
+
+
+	            <!-- <nuxt-link class="login-link" to="/selectstore">
+	              Не помню пароль
+	            </nuxt-link> -->
+	          </div>
+	        </div>
+
+        </div>
+    </div>
+
 		<footer-anketa v-if="footerStatus"/>
 		<modal-main :title="title" :text="text" :img="img" :number="tel"></modal-main>
 		<!-- <modal-sms-error></modal-sms-error>
@@ -113,13 +113,13 @@
 			ModalMain,
 			FooterAnketa,
 		},
-		
+
 		data() {
 			return {
 				numberStatus: true,
 				smsEnterStatus: false,
 				errorPermanenetPassword: false,
-				permanent: false,				
+				permanent: false,
 				permanentPassword: '',
 				checkBox: '',
 				repeatSms: false,
@@ -129,21 +129,21 @@
 				sms_code:'',
 
 				// for modals
-			    title:'',
+			  title:'',
 				number: '',
-			    text:'',
-			    img:'',
-			    tel:'',
+			  text:'',
+			  img:'',
+			  tel:'',
 
 			    // btnstatus
 
-			    btnStatus: false,
+		    btnStatus: false,
 			}
 		},
 		computed: {
 		    ...mapState({
-		      auth: state => state.auth, 
-		      authToken: state => state.authToken,     
+		      auth: state => state.auth,
+		      authToken: state => state.authToken,
 		    }),
 		},
 		filters:{
@@ -164,18 +164,18 @@
 				await this.$axios.post('/client/send-sms/', fields)
 					.then(response =>{
 						this.numberStatus = !this.numberStatus;
-						this.footerStatus = !this.footerStatus;		
+						this.footerStatus = !this.footerStatus;
 						this.smsEnterStatus = !this.smsEnterStatus;
 						this.sms_code = response.data.sms_code;
 						this.btnStatus = false;
 						this.$store.commit('setNumberAnketa', response.data.mobile_phone);
 						localStorage.setItem("anketaNumber", response.data.mobile_phone);
-						if(response.data.client_data){							
+						if(response.data.client_data){
 							localStorage.setItem('client_data', JSON.stringify(response.data.client_data))
 						}
 						this.startTimerInterval();
 					}).catch((error, e) =>{
-						this.btnStatus = false;						
+						this.btnStatus = false;
 						const code = parseInt(error.response && error.response.status);
 						console.log('code:',code)
 						if(code === 500){
@@ -190,29 +190,29 @@
 							this.title="Отказ в анкетировании"
 				            this.text="Этот номер принадлежит продавцу и не может быть использован в анкетировании!"
 				            this.img="alert"
-				            $('#modal-main').modal('show')           	
+				            $('#modal-main').modal('show')
 						} else if(error.response.data.message=='sms_not_sent'){
 			              	this.title="Cмс не был отправлен!"
 			              	this.text="Попробуйте еще раз!"
 			              	this.img="alert"
-			              $('#modal-main').modal('show')           
+			              $('#modal-main').modal('show')
 			            } else if(error.response.data.message=='sms_send_limit'){
 			              	this.title="Cмс не был отправлен!"
 			              	this.text="Вы превысили лимит отправки смс!"
 			              	this.img="alert"
-			              	$('#modal-main').modal('show')           
+			              	$('#modal-main').modal('show')
 			            } else if(error.response.data.message=='already_filled'){
 							this.tel=this.number;
 				            this.text="На указанный телефон анкета уже заполнялась в данной торговой точке!"
 				            this.img="alert"
-				            $('#modal-main').modal('show')				
+				            $('#modal-main').modal('show')
 						} else {
 							this.title="Отказано в доступе!"
 			              	this.text="Номер телефона введен неверно или не внесен в базу данных!"
 			              	this.img="error"
 			              	$('#modal-main').modal('show')
-						}					
-					})				
+						}
+					})
 			},
 
 			async sendSms() {
@@ -233,7 +233,7 @@
 		          		}
 		        	}).catch(error => {
 		            	this.errorPermanenetPassword = true;
-		            	// $('#modal-auth-denied').modal('show')		              	
+		            	// $('#modal-auth-denied').modal('show')
 		        	});
 		      	}
 			},
@@ -245,42 +245,42 @@
 					'legal_age': this.checkBox
 				}
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
-		      
+
 		      	await this.$axios.post('/client/send-sms/', fields)
 		        .then(response =>{
 		         	if(response.data.sms_code){
 		            	this.sms_code = response.data.sms_code;
 		            	this.startTimerInterval();
-		          	} 
+		          	}
 		        }).catch(error => {
 		            if(error.response.data.message=='sms_send_limit'){
 						this.title="Cмс не был отправлен!"
 		              	this.text="Вы превысили лимит отправки смс!"
 		              	this.img="alert"
-		              	$('#modal-main').modal('show')      				
+		              	$('#modal-main').modal('show')
 					} else if(error.response.data.message=='already_filled'){
 						this.tel=this.number;
 			            this.text="На указанный телефон анкета уже заполнялась в данной торговой точке!"
 			            this.img="alert"
-			            $('#modal-main').modal('show')			
+			            $('#modal-main').modal('show')
 					} else {
 						this.title="Отказано в доступе!"
 		              	this.text="Номер телефона введен неверно или не внесен в базу данных!"
 		              	this.img="error"
-		              	$('#modal-main').modal('show')						
-					}			            
+		              	$('#modal-main').modal('show')
+					}
 		        });
 
 		    },
 
 
 			showTimer(){
-		    	this.repeatSms = !this.repeatSms;		    	
+		    	this.repeatSms = !this.repeatSms;
 		      	clearInterval(this.time);
 		      	this.timeLimit = 180;
 		      	this.permanentPassword = '';
-		      	setTimeout(this.startTimerInterval(), 1000);   
-		      	this.sendSmsAgain();   
+		      	setTimeout(this.startTimerInterval(), 1000);
+		      	this.sendSmsAgain();
 		    },
 		    startTimer() {
 		      	if(this.timeLimit){
@@ -290,30 +290,30 @@
 			        if(min < 10) min = '0'+min;
 			        if(sec < 10) sec = '0'+sec;
 			        this.timer = min+':'+ sec
-		      	} else {        
-			        this.timeLimit = 180;        
+		      	} else {
+			        this.timeLimit = 180;
 			        this.repeatSms = true;
 			        this.sms_code = '';
-			        this.errorPermanenetPassword = false;			        
+			        this.errorPermanenetPassword = false;
 			        clearInterval(this.time);
 			    }
-		      
+
 		      // return  ;
 		    },
-		    startTimerInterval(){		    	
-		      this.time = setInterval(() =>{        
+		    startTimerInterval(){
+		      this.time = setInterval(() =>{
 		        this.startTimer();
 		      },1000);
-		    } 
+		    }
 		}
 	}
 </script>
 <style lang="scss">
 	.auth-section{
 	    padding-top: 32px;
-	    width: 100%; 
+	    width: 100%;
 	    &__title{
-	    	line-height: 33px;      
+	    	line-height: 33px;
 	      	text-align: center;
 	      	margin-bottom: 40px;
 	    }
@@ -366,7 +366,7 @@
 	      	line-height: 19px;
 	      	text-align: center;
 	      	text-decoration-line: underline;
-	      	color: #217461;      
+	      	color: #217461;
 	      	// margin-top: 32px;
 	   	}
 	}

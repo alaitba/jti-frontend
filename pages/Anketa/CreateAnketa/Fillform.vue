@@ -34,7 +34,15 @@
 					            <div class="form-group">             
 					              	<div class="form-group__wrapper">
 					                	<!-- <input type="text" :class="{'form__input': true, 'error' : false }" placeholder=" " v-model="fields.firstName" > -->
-						                <input :class="{'form__input': true, 'error' : errors.has('firstName') }" v-validate="'required'" type="text" placeholder=" " v-model="field.firstName" name="firstName">
+						                <input 
+						                	:class="{'form__input': true, 'error' : errors.has('firstName') }" 
+						                	v-validate="'required'" 
+						                	type="text" 
+						                	placeholder=" " 
+						                	v-model="field.firstName" 
+						                	name="firstName"
+						                	autocomplete="false"
+						                >
 						                <label for="input" class="form__label">
 						                  Имя
 						                </label>  					                
@@ -43,7 +51,14 @@
 					            </div>
 					            <div class="form-group">             
 					              	<div class="form-group__wrapper">
-						                <input type="text" :class="{'form__input': true, 'error' : errors.has('secondName') }" v-validate="'required'" placeholder=" " v-model="field.secondName" name="secondName">
+						                <input 
+						                	type="text" :class="{'form__input': true, 'error' : errors.has('secondName') }" 
+						                	v-validate="'required'" 
+						                	placeholder=" " 
+						                	v-model="field.secondName" 
+						                	name="secondName"
+						                	autocomplete="false"
+						                >
 						                <label for="input" class="form__label">
 						                  Фамилия
 						                </label>  
@@ -61,6 +76,7 @@
 					                	v-model="field.birthData" 
 					                	v-validate="'date_format:DD.MM.YYYY|required'"
 					                	:masked="true"
+					                	autocomplete="false"
 					                	/>					                	
 					                <label for="input" class="form__label">
 					                  Дата рождения
@@ -87,7 +103,7 @@
 					            		:close-on-select="true" 
 					            		:show-labels="false" 
 					            		placeholder="Выбери марку сигарет"
-					            		v-validate="'required'"
+					            		v-validate="'required'"					            
 					            	>					            		
 					            	</multiselect>
 					            	<span v-show="errors.has('brands')" class="help is-danger">
