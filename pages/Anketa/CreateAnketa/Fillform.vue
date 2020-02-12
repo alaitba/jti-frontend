@@ -269,10 +269,10 @@
 				// 	self:'',
 				// },
 				field: {
-					firstName: JSON.parse(localStorage.getItem('client_data')) ? JSON.parse(localStorage.getItem('client_data')).firstName : '',
-					secondName: JSON.parse(localStorage.getItem('client_data')) ? JSON.parse(localStorage.getItem('client_data')).lastName : '',
-					birthData: JSON.parse(localStorage.getItem('client_data')) ? JSON.parse(localStorage.getItem('client_data')).birthDate : '',	
-					selectedBrand: JSON.parse(localStorage.getItem('client_data')) ? JSON.parse(localStorage.getItem('client_data')).brand : '',	
+					firstName: localStorage.getItem('client_data') ? JSON.parse(localStorage.getItem('client_data')).firstName : '',
+					secondName: localStorage.getItem('client_data') ? JSON.parse(localStorage.getItem('client_data')).lastName : '',
+					birthData: localStorage.getItem('client_data') ? JSON.parse(localStorage.getItem('client_data')).birthDate : '',	
+					selectedBrand: localStorage.getItem('client_data') ? JSON.parse(localStorage.getItem('client_data')).brand : '',	
 					cigaretteBrand: '',				
 					img:  '',
 					self:'',
@@ -300,7 +300,11 @@
 		    }),
 
 		    geFilledAnketa(){
-		    	return  (localStorage.getItem('client_data')).length> 0 ? true : false;	
+		    	if(localStorage.getItem('client_data')){
+		    		return  (localStorage.getItem('client_data')).length> 0 ? true : false;	
+		    	}else{
+		    		return false;
+		    	}		    	
 		    },
 
 		    ageValidate(){
@@ -400,7 +404,7 @@
 						$('#modal-main').modal('show');
 
 		    		}).catch(error =>{
-		    			this.smsBtnStatus = false;
+		    			this.smsBtnStatus = false;		    			
 		    			if(error.response.data.message=='already_filled'){
 			        		this.number = this.anketaNumber;
 			        		this.text = 'На указанный номер уже отправлен смс со ссылкой!';
@@ -423,9 +427,7 @@
 					'signature': this.field.img,
 					'self': ''
 				}
-
-				console.log('fields1', this.field.selectedBrand, this.options[this.field.selectedBrand][0])
-
+			
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
 
 				await this.$axios.post('/client/create-lead/', fields)

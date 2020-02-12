@@ -160,7 +160,10 @@
 
 				this.btnStatus = true;
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
-
+        if(localStorage.getItem('client_data') != null && localStorage.getItem('client_data')!=''){
+          console.log('client_data1:', JSON.parse(localStorage.getItem('client_data')));
+          localStorage.setItem('client_data', '');
+        }
 				await this.$axios.post('/client/send-sms/', fields)
 					.then(response =>{
 						this.numberStatus = !this.numberStatus;
@@ -170,9 +173,10 @@
 						this.btnStatus = false;
 						this.$store.commit('setNumberAnketa', response.data.mobile_phone);
 						localStorage.setItem("anketaNumber", response.data.mobile_phone);
-						if(response.data.client_data){
+						if(response.data.client_data !=null){
 							localStorage.setItem('client_data', JSON.stringify(response.data.client_data))
-						}
+              console.log('client_data2:', JSON.parse(localStorage.client_data));
+            }
 						this.startTimerInterval();
 					}).catch((error, e) =>{
 						this.btnStatus = false;
