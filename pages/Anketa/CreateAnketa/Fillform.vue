@@ -42,7 +42,7 @@
 						                	v-model="field.firstName" 
 						                	name="firstName"
 						                	autocomplete="off"
-						                	:disabled="geFilledAnketa"
+						                	:disabled="getFilledAnketa"
 						                >
 						                <label for="input" class="form__label">
 						                  Имя
@@ -59,7 +59,7 @@
 						                	v-model="field.secondName" 
 						                	name="secondName"
 						                	autocomplete="off"
-						                	:disabled="geFilledAnketa"
+						                	:disabled="getFilledAnketa"
 						                >
 						                <label for="input" class="form__label">
 						                  Фамилия
@@ -76,10 +76,10 @@
 					                	:mask="['##.##.####']" 
 					                	:class="{'form__input': true, 'error' : errors.has('birthData') || !ageValidate}"
 					                	v-model="field.birthData" 
-					                	v-validate="'date_format:DD.MM.YYYY|required'"
+					                	v-validate="'required|date_format:DD.MM.YYYY|after:01.01.1899'"
 					                	:masked="true"
 					                	autocomplete="off"
-					                	:disabled="geFilledAnketa"
+					                	:disabled="getFilledAnketa"
 					                	/>					                	
 					                <label for="input" class="form__label">
 					                  Дата рождения
@@ -107,7 +107,7 @@
 					            		:show-labels="false" 
 					            		placeholder="Выбери марку сигарет"
 					            		v-validate="'required'"	
-					            		:disabled="geFilledAnketa"
+					            		:disabled="getFilledAnketa"
 					            	>					            		
 					            	</multiselect>
 					            	<span v-show="errors.has('brands')" class="help is-danger">
@@ -137,7 +137,7 @@
 					            <label for="" class="title__label">
 					              Подпись покупателя
 					            </label>
-					            <div class="form-group"> 
+					            <div class="form-group" v-if="!getFilledAnketa"> 
 					              	<div class="form-group__wrapper form-group__wrapper--grey" @click="showModal('modal-agreement')" v-if="!field.img">
 						                <!-- <input type="text" :class="{'form__input': true, 'error' : false }" placeholder=" " v-model="field.firstName" >
 						                <label for="input" class="form__label">
@@ -150,15 +150,22 @@
 					            </div>
 
 
-					            <div class="form-group mb-32" v-if="geFilledAnketa">
+					            <div class="form-group mb-32" v-if="getFilledAnketa">
 					            	<p class="content">
 					            		В случае несоответствия данных потребителя, он может изменить данные самостоятельно на сайте realday.kz
 					            	</p>
 					            </div>
-
-					            <button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.img.length || !field.selectedBrand.length || !ageValidate || anketaBtnStatus">
-					              Сохранить анкету
-					            </button>
+								
+								<template v-if="!getFilledAnketa">
+									<button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.img.length || !field.selectedBrand.length || !ageValidate || anketaBtnStatus">
+						              Сохранить анкету
+						            </button>
+								</template>	
+								<template v-else>
+									<button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.selectedBrand.length || !ageValidate || anketaBtnStatus">
+						              Сохранить анкету
+						            </button>
+								</template>				            
 					            <!-- <button class="button button--green"  @click="showModal()">
 					              Далее
 					            </button> -->
@@ -222,7 +229,8 @@
 			messages: {				
 	            date_format: "Введите правильные данные",	            
 	            date_between: 'Потребитель должен быть старше 18 лет',
-	            required: 'Поле обязательно к заполнению'
+	            required: 'Поле обязательно к заполнению',
+	            after: 'Введите правильный год рождения'
 	        }, 
 	        custom: {
 	        	birthData: "Потребитель должен быть старше 18 лет",
@@ -232,7 +240,8 @@
 			messages: {
                 date_format: "Дұрыс деректерді енгізіңіз",
                 date_between: 'Тұтынушы 18 жастан асқан болуы керек',
-                required: 'Міндетті өріс'
+                required: 'Міндетті өріс',
+                after:'Дұрыс туған жылды енгізіңіз'
             },
             custom: {
 	        	birthData: "Тұтынушы 18 жастан асқан болуы керек",
@@ -299,7 +308,7 @@
 		      // anketaNumber: state =>state.numberAnketa
 		    }),
 
-		    geFilledAnketa(){
+		    getFilledAnketa(){
 		    	if(localStorage.getItem('client_data')){
 		    		return  (localStorage.getItem('client_data')).length> 0 ? true : false;	
 		    	}else{

@@ -20,7 +20,7 @@
 					</ul>
 				</div>
 				<div class="fill-section__content tab-content">				
-					<div class="tab-pane active container" id="home">
+					<div class="tab-pane fade container" id="home">
 						<h3 class="section__title section__title--profile">
 	    					Текущий план закупок
 	    				</h3>
@@ -147,7 +147,7 @@
 	    					</div>  					
 	    				</div>
 					</div>
-					<div class="tab-pane container fade" id="menu">
+					<div class="tab-pane container active" id="menu">
 						<h3 class="section__title section__title--profile">
 	    					История плана закупок
 	    				</h3>
@@ -178,23 +178,54 @@
 
 	    					</div>
 
-	    					<div class="history__table table" v-if="history && history[selectedBrand.account_code]">
+	    					<!-- <div class="history__table table" v-if="history && history[selectedBrand.account_code]"> -->
+    						<div class="history__table table">
 	    						<table >
-	    							<thead>
+	    							<!-- <thead>
 									    <tr class="thead">
-									    	<th width="35%">Месяц</th>
+									    	<th class="bold" width="35%">Месяц</th>
 									    	<th width="20%">План</th>
 									    	<th width="20%">Факт</th>
 									    	<th width="25%">Бонус</th>
 									    </tr>
-									</thead>
+									</thead> -->
 									<tbody>
-										<tr v-for="(item, key) in history[selectedBrand.account_code]">
+										<!-- <tr v-for="(item, key) in history[selectedBrand.account_code]">
 											<td width="30%">{{item.year_month | formatData}}</td>
 											<td width="20%">{{item.plan_brand}}</td>
 											<td width="20%">{{item.fact_brand}}</td>
 											<td width="20%">{{item.bonus_brand}}</td>
-										</tr>
+										</tr> -->
+									<template v-for="(item, key) in history[selectedBrand.account_code]">
+																			
+									    <tr class="head">
+									    	<td class="bold" width="30%">
+									    		{{item.year_month | formatData}}
+									    	</td>
+									    	<template v-if="key==0">
+										    	<td width="20%">План</td>
+										    	<td width="20%">Факт</td>
+										    	<td width="25%">Бонус</td>
+									    	</template>
+									    	<template v-else>
+									    		<td width="20%"></td>
+										    	<td width="20%"></td>
+										    	<td width="25%"></td>
+									    	</template>
+									    </tr>									
+									    <tr class="body">
+									    	<td class="bold" width="30%">Общий</td>
+									    	<td width="20%">{{item.plan_portfolio}}</td>
+									    	<td width="20%">{{item.fact_portfolio}}</td>
+									    	<td width="25%">{{item.bonus_portfolio}}</td>
+									    </tr>									
+									    <tr class="body">
+									    	<td class="bold" width="30%">Бренд</td>
+									    	<td width="20%">{{item.plan_brand}}</td>
+									    	<td width="20%">{{item.fact_brand}}</td>
+									    	<td width="25%">{{item.bonus_brand}}</td>
+									    </tr>
+									</template>									
 									    <!-- <tr>
 									    	<td width="30%">Январь</td>
 									    	<td width="20%">2 000</td>
@@ -247,7 +278,7 @@
 				n: 0,
                 m: 28,
                 c: 28, 
-                brands : JSON.parse(localStorage.getItem('tradePoints')) ? JSON.parse(localStorage.getItem('tradePoints')) : '',
+                brands : localStorage.getItem('tradePoints') ? JSON.parse(localStorage.getItem('tradePoints')) : '',
                 swiperOption: {	    	
 	    			pagination:{
 	    				el: '.swiper-pagination',
@@ -471,39 +502,92 @@
 			border: 0 !important;
 			border-radius: 8px 8px 8px 8px;
 			overflow: hidden;
-
+			font-family: 'Roboto';
 		}
-		thead{
-			background: #217461;
-			th{
-				padding: 4px;
-				word-break: break-word;
-				font-weight: 300;
-				font-size: 14px;
-				line-height: 19px;				
-				color: #FFFFFF;
-				&:first-child,&:last-child{
-					padding: 4px 16px;
-				}
-			}			
-			// border: 5px solid;
+		th,td{
+			&.bold{
+				font-weight: 500 !important;
+				text-align: left !important;
+			}
 		}
+		// thead{
+		// 	background: #217461;
+		// 	th{
+		// 		padding: 4px;
+		// 		word-break: break-word;
+		// 		font-weight: 300;
+		// 		font-size: 16px;
+		// 		line-height: 19px;				
+		// 		color: #FFFFFF;
+		// 		&:first-child,&:last-child{
+		// 			padding: 4px 16px;
+		// 		}
+		// 	}						
+		// }
 		tbody{
 			tr{
-				&:nth-of-type(odd){
-					background: #C2EEE3;
+				&.head{
+					background: #217461;
+					td{
+						font-weight: 300;
+						font-size: 16px;
+						line-height: 19px;						
+						text-align: center;						
+						color: #FFFFFF;						
+					}
 				}
+				&.body{
+					background: #C2EEE3;
+					position: relative;
+					td{
+						font-weight: normal;
+						font-size: 12px;
+						line-height: 14px;
+						color: #1F1F1F;
+						text-align: center;
+					}						
+					&:nth-of-type(odd){
+						td{
+							position: relative;							
+							&:before{
+								content:'';
+								position: absolute;
+								top: 0;
+								left: 0;
+								right: 0;
+								margin: 0 auto;
+								height: 1px;
+								width: 100%;
+								background: #71B1A2;
+							}
+							&:first-child{
+								&:before{
+									// width: calc(100% - 16px)
+									left: 16px;
+								}
+							}
+							&:last-child{
+								&:before{
+									// width: calc(100% - 16px)
+									left: auto;
+									right: 16px;
+								}
+							}
+						}						
+						// border-top: 1px solid #71B1A2; 
+					}
+				}				
 			}
 			td{
-				padding: 4px;
+				padding: 8px;
 				word-break: break-word;
-				font-weight: 300;
+				font-weight: normal;
 				font-size: 14px;
 				line-height: 19px;				
 				color: #1F1F1F;
 				text-transform: capitalize;
 				&:first-child,&:last-child{
-					padding: 4px 16px;
+					padding: 8px 16px;
 				}
 			}
 		}
