@@ -20,7 +20,7 @@
 					</ul>
 				</div>
 				<div class="fill-section__content tab-content">				
-					<div class="tab-pane fade container" id="home">
+					<div class="tab-pane fade active container" id="home">
 						<h3 class="section__title section__title--profile">
 	    					Текущий план закупок
 	    				</h3>
@@ -31,8 +31,7 @@
 		    						<label for="input" class="form__label form__label--selector"> 
 					                  Торговая точка
 					                </label>  
-					                <!-- {{setBrands}} -->
-					            	<multiselect 
+					                <multiselect 
 					            		v-model="selectedBrand" 
 					            		name="brands"
 					            		track-by="account_name"
@@ -43,6 +42,7 @@
 					            		:show-labels="false" 
 					            		placeholder="Торговая точка"
 					            		v-validate="'required'"
+					            		:disabled="setBrands.length<2"
 					            	>					            		
 					            	</multiselect>			            	
 					            </div>				            
@@ -116,7 +116,7 @@
 			    							</div>    			
 			    							<div class="plan-item__main">
 			    								<p class="title">
-			    									Общий план
+			    									{{reports[selectedBrand.account_code][0].brand}}
 			    								</p>
 			    								<p class="amount">
 			    									<span class="name">
@@ -147,7 +147,7 @@
 	    					</div>  					
 	    				</div>
 					</div>
-					<div class="tab-pane container active" id="menu">
+					<div class="tab-pane container" id="menu">
 						<h3 class="section__title section__title--profile">
 	    					История плана закупок
 	    				</h3>
@@ -155,13 +155,13 @@
 	    				<div class="history">
 	    					<div class="history__selector">
 	    						
-	    						<div class="form-group--selector" v-if="setBrands">
+	    						<div class="form-group--selector" v-if="history && setBrands">
 		    						<label for="input" class="form__label form__label--selector"> 
 					                  Торговая точка
 					                </label>  
 					                <!-- {{setBrands}} -->
 					            	<multiselect 
-					            		v-model="selectedBrand" 
+					            		v-model="selectedBrandHistory" 
 					            		name="brands"
 					            		track-by="account_name"
 						            	label="account_name" 				
@@ -171,6 +171,7 @@
 					            		:show-labels="false" 
 					            		placeholder="Торговая точка"
 					            		v-validate="'required'"
+					            		:disabled="setBrands.length<2"
 					            	>					            		
 					            	</multiselect>			            	
 					            </div>
@@ -179,7 +180,7 @@
 	    					</div>
 
 	    					<!-- <div class="history__table table" v-if="history && history[selectedBrand.account_code]"> -->
-    						<div class="history__table table">
+    						<div class="history__table table" v-if="history">
 	    						<table >
 	    							<!-- <thead>
 									    <tr class="thead">
@@ -196,7 +197,7 @@
 											<td width="20%">{{item.fact_brand}}</td>
 											<td width="20%">{{item.bonus_brand}}</td>
 										</tr> -->
-									<template v-for="(item, key) in history[selectedBrand.account_code]">
+									<template v-for="(item, key) in history[selectedBrandHistory.account_code]">
 																			
 									    <tr class="head">
 									    	<td class="bold" width="30%">
@@ -271,6 +272,7 @@
 		data(){
 			return {
 				selectedBrand: '',
+				selectedBrandHistory:'',
 				reports: '',		
 				history: '',		
 				amount: 200000,
@@ -458,6 +460,7 @@
 				}
 				img{
 					max-width: 100%;
+				    width: 100%;
 				}
 			}
 		}
