@@ -53,13 +53,13 @@
     			</div>
 
     			<div class="profile-links">
-    				<div class="profile-links__item">
+    				<!-- <div class="profile-links__item">
     					<nuxt-link to="#">
 	    					<p class="title">
 	    						Обратная связь
 	    					</p>    					
 	    				</nuxt-link>	    				
-    				</div>
+    				</div> -->
     				<div class="profile-links__item">    					
 	    				<nuxt-link :to="{name: 'Auth-ResetPassword', query: { title : 'Изменение пароля'}}">
 	    					<p class="title">
@@ -67,13 +67,13 @@
 	    					</p>    					
 	    				</nuxt-link>	    				
     				</div>
-    				<div class="profile-links__item">    					
+    				<!-- <div class="profile-links__item">    					
 	    				<nuxt-link to="#">
 	    					<p class="title">
-	    						Обратная связь
+	    						Қазақша нұсқасы
 	    					</p>    					
 	    				</nuxt-link>
-    				</div>
+    				</div> -->
     				<!-- <nuxt-link class="button button--green" to="#">
     					Обратная связь
     				</nuxt-link> -->    				

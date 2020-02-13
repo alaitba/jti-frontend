@@ -134,7 +134,7 @@
 					            		</multiselect>
 					            	
 					            </div> -->
-					            <label for="" class="title__label">
+					            <label for="" class="title__label" v-if="!getFilledAnketa">
 					              Подпись покупателя
 					            </label>
 					            <div class="form-group" v-if="!getFilledAnketa"> 
