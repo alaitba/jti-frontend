@@ -202,7 +202,7 @@
               $('#modal-main').modal('show')
             } else if(error.response.data.message=='leads_limit_exceeded'){
                 this.title="Отказ в анкетировании"
-                this.text="Вы можете заполнить не более әққ анкет!"
+                this.text="Вы можете заполнить не более 200 анкет!"
                 this.img="alert"
               $('#modal-main').modal('show')
             } else if(error.response.data.message=='sms_send_limit'){

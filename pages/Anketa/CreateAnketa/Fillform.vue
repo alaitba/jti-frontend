@@ -444,7 +444,7 @@
 			        	this.anketaBtnStatus = false;
 			         	if(response.data.status =='ok'){
 			         		this.title = 'Анкета сохранена';
-			         		this.text = 'Спасибо, Партнёр! Не забудьте напомнить потребителю отправить код с пачки LD после регистрации на realday';
+			         		this.text = 'Спасибо, Партнёр! Не забудьте напомнить потребителю отправить код с пачки LD';
 			         		this.img = 'exist';
 			         		this.btnText = 'Готово';
 			         		$('#modal-main').modal('show')
