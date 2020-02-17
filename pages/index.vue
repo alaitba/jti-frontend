@@ -158,9 +158,9 @@
 		    					JTI Partner 360
 		    				</h4>
 		    			</div>
-	    				<!-- <nuxt-link class="button button--green" to="/faq">
+	    				<button class="button button--green" type="button" @click="getSubscribed()">
 	    					Обратная связь
-	    				</nuxt-link> -->
+	    				</button>
 	    			</div>
 	    			<div class="footer__bottom">
 	    				<div class="container">
@@ -214,7 +214,7 @@
 	    },
 	    mounted() {
 	    	this.getNews();
-
+	    	// this.getSubscribed();
 	    	// this.showModal();
 	    		    	
 	    },
@@ -223,7 +223,30 @@
 	        tradepoint: state => state.tradepoint,      
 	      })
 	    },
-	    methods:{	    	
+	    methods:{	
+	    	getSubscribed(){
+
+	    		// let fields = {
+	    		// 	'push_token' : 
+	    		// }
+
+
+	    		OneSignal.push(function() {
+					OneSignal.on('subscriptionChange', function(isSubscribed) {
+						console.log('isSubscribed:', isSubscribed)
+				    	if (isSubscribed) {
+				      		// The user is subscribed
+				      		//   Either the user subscribed for the first time
+				      		//   Or the user was subscribed -> unsubscribed -> subscribed
+				      		OneSignal.getUserId( function(userId) {
+				        		// Make a POST call to your server with the user ID
+
+				        		console.log('userId:', userId)
+				      		});
+				    	}
+				  	});
+				});
+	    	},    	
 	    	showModal(){
 	    		// alert('asdasd')
 	    		$('#modal-error').modal('show')
