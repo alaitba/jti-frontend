@@ -157,10 +157,11 @@
 		    				<h4 class="title">
 		    					JTI Partner 360
 		    				</h4>
-		    			</div>
-	    				<button class="button button--green" type="button" @click="getSubscribed()">
-	    					Обратная связь
-	    				</button>
+
+		    				<button class="button button--green" type="button" @click="getSubscribed()">
+		    					Обратная связь
+		    				</button>
+		    			</div>	    				
 	    			</div>
 	    			<div class="footer__bottom">
 	    				<div class="container">
@@ -229,7 +230,7 @@
 	    		// let fields = {
 	    		// 	'push_token' : 
 	    		// }
-
+	    		console.log('OneSignal:', OneSignal)
 
 	    		OneSignal.push(function() {
 					OneSignal.on('subscriptionChange', function(isSubscribed) {
