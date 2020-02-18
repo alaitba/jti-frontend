@@ -215,7 +215,7 @@
 	    },
 	    mounted() {
 	    	this.getNews();
-	    	// this.getSubscribed();
+	    	this.getSubscribed();
 	    	// this.showModal();
 	    		    	
 	    },
