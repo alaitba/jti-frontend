@@ -225,12 +225,7 @@
 	      })
 	    },
 	    methods:{	
-	    	getSubscribed(){
-
-	    		// let fields = {
-	    		// 	'push_token' : 
-	    		// }
-	    		console.log('OneSignal:', OneSignal)
+	    	getSubscribed(){	    		
 
 	    		OneSignal.push(function() {
 					OneSignal.on('subscriptionChange', function(isSubscribed) {
