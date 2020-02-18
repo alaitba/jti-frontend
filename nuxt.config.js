@@ -65,22 +65,22 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/onesignal',
+    // '@nuxtjs/onesignal',
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
     // 'bootstrap-vue/nuxt',
     '@nuxtjs/pwa',
   ],
   // Options
-  oneSignal: {
-    init: {
-      allowLocalhostAsSecureOrigin: true,
-      appId: "5417b9e6-310b-4114-bd99-b1ac31b3ed35",
-      welcomeNotification: {
-          disable: false
-      }
-    }
-  },
+  // oneSignal: {
+  //   init: {
+  //     allowLocalhostAsSecureOrigin: true,
+  //     appId: "00841468-ed04-4d0f-9ca5-4ccc53eab1ea",
+  //     welcomeNotification: {
+  //         disable: false
+  //     }
+  //   }
+  // },
 
   manifest: {      
     lang: 'en',

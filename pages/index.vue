@@ -1,4 +1,4 @@
-<template>	
+<template>
   	<main class="page page--flex page--grey">
   		<template v-if="loaderStatus">
 			<loader/>
@@ -92,7 +92,7 @@
 	    			<h3 class="section__title">
 	    				Новости
 	    			</h3>
-	    			<div class="news" v-if="news">    				
+	    			<div class="news" v-if="news">
 	    				<template v-if="news.length">
 	    					<template v-for="(item, key) in news">
 		    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length==0}">
@@ -120,25 +120,25 @@
 		    					</div>
 		    					<div class="content">
 		    						<h4 class="title">
-			    						Призы можно заказывать только через веб-приложение «Partner 360».  
+			    						Призы можно заказывать только через веб-приложение «Partner 360».
 			    					</h4>
 			    					<p class="data">
 			    						10.01.2020
 			    					</span>
 			    					<div class="text">
 			    						С 03 февраля 2020 года покупайте больше продукции LD с красной лентой, регистрируйте потребителей и получайте крутые призы от наших Торговых представителей!
-		 
-										Вас ждут много интересных призов: термокружки, пледы, зонты, сертификаты, беспроводные наушники, мультиварки, футболки и другие. 
-										 
-										А еще специально для вас каждую неделю вас ждут еженедельные розыгрыши призов как смартфоны, телевизоры и стиральные машины. 
+
+										Вас ждут много интересных призов: термокружки, пледы, зонты, сертификаты, беспроводные наушники, мультиварки, футболки и другие.
+
+										А еще специально для вас каждую неделю вас ждут еженедельные розыгрыши призов как смартфоны, телевизоры и стиральные машины.
 										Для участия в них достаточно к моменту розыгрыша заработать минимум 100 баллов.
-										 
-										Главный приз финального розыгрыша – автомобиль Camry 70!							
+
+										Главный приз финального розыгрыша – автомобиль Camry 70!
 
 			    					</div>
-		    					</div>    
-		    				</nuxt-link>					
-	    				</div> -->    				
+		    					</div>
+		    				</nuxt-link>
+	    				</div> -->
 	    				<div class="news__all">
 	    					<!-- <nuxt-link class="news__link" to="/news">
 	    						Все новости
@@ -151,7 +151,7 @@
 	    		</div>
 	    	</div>
 	    	<div class="section section--footer">
-	    		<div class="footer">    			
+	    		<div class="footer">
 	    			<div class="footer__head">
 	    				<div class="container">
 		    				<h4 class="title">
@@ -161,7 +161,7 @@
 		    				<button class="button button--green" type="button" @click="getSubscribed()">
 		    					Обратная связь
 		    				</button>
-		    			</div>	    				
+		    			</div>
 	    			</div>
 	    			<div class="footer__bottom">
 	    				<div class="container">
@@ -175,12 +175,12 @@
 	    			</div>
 	    		</div>
 	    		<!-- <div class="container">
-	    			
+
 	    		</div> -->
-	    	</div>     	
+	    	</div>
 	    	<modal-error/>
 	    </template>
-    </main>	
+    </main>
 </template>
 
 <script>
@@ -190,7 +190,7 @@
 	import {mapState, mapMutations} from 'vuex'
 	export default {
 	  	components: {
-	      ModalError,      
+	      ModalError,
 	      Loader,
 	    },
 	    filters:{
@@ -203,11 +203,11 @@
 	    },
 	    data() {
 	    	return {
-	    		swiperOption: {	    	
+	    		swiperOption: {
 	    			pagination:{
 	    				el: '.swiper-pagination',
 		    			dynamicBullets: true
-	    			}			    			
+	    			}
 	    		},
 	    		news: '',
 	    		loaderStatus: true,
@@ -215,17 +215,17 @@
 	    },
 	    mounted() {
 	    	this.getNews();
-	    	this.getSubscribed();
+	    	// this.getSubscribed();
 	    	// this.showModal();
-	    		    	
+
 	    },
 	    computed: {
 	      ...mapState({
-	        tradepoint: state => state.tradepoint,      
+	        tradepoint: state => state.tradepoint,
 	      })
 	    },
-	    methods:{	
-	    	getSubscribed(){	    		
+	    methods:{
+	    	getSubscribed(){
 
 	    		OneSignal.push(function() {
 					OneSignal.on('subscriptionChange', function(isSubscribed) {
@@ -241,8 +241,10 @@
 				      		});
 				    	}
 				  	});
+
+				  	//
 				});
-	    	},    	
+	    	},
 	    	showModal(){
 	    		// alert('asdasd')
 	    		$('#modal-error').modal('show')
@@ -261,20 +263,20 @@
 
 	    				arr = arr.sort((a,b) => {
 	    					return moment(b.created_at) - moment(a.created_at)
-	    				});	   	    				
-	    				
+	    				});
+
 	    				if(localStorage.getItem("news")){
-	    					localStorage.setItem("news", JSON.stringify(JSON.parse(localStorage.getItem("news")).concat(arr)));	
+	    					localStorage.setItem("news", JSON.stringify(JSON.parse(localStorage.getItem("news")).concat(arr)));
 	    				} else {
 	    					// console.log('news')
-	    					localStorage.setItem("news", JSON.stringify(arr));	
-	    				}	    				
+	    					localStorage.setItem("news", JSON.stringify(arr));
+	    				}
 
 	    				let newArr = JSON.parse(localStorage.getItem("news"));
 
 	    				newArr = newArr.sort((a,b) => {
 	    					return moment(b.created_at) - moment(a.created_at)
-	    				});	
+	    				});
 
 	    				this.news = newArr.slice(0,3);
 
@@ -282,12 +284,12 @@
 	    			}).catch(error =>{
 	    				console.log('error news')
 	    			})
-	    	}	
+	    	}
 	    }
 	}
 </script>
 
-<style lang="scss">	
+<style lang="scss">
 	.page{
 		&--flex{
 			flex-direction: column;
@@ -296,7 +298,7 @@
 	}
 	.section{
 		&__title{
-			line-height: 33px;			
+			line-height: 33px;
 			color: #969696;
 		}
 		&--icons{
@@ -332,15 +334,15 @@
 						font-size: 12px;
 						line-height: 14px;
 						text-align: center;
-						color: #217461;							
+						color: #217461;
 						@media screen and (max-width: 359px) {
 							font-size: 10px;
-							line-height: 12px;		
-						}				
+							line-height: 12px;
+						}
 						@media screen and (max-width: 320px) {
 							font-size: 9px;
-							line-height: 11px;		
-						}						
+							line-height: 11px;
+						}
 					}
 				}
 			}
@@ -349,7 +351,7 @@
 			iframe{
 				width: 100%;
 			}
-			// padding-top: 32px;	
-		}		
+			// padding-top: 32px;
+		}
 	}
 </style>
