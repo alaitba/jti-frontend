@@ -228,8 +228,8 @@
 	    	getSubscribed(){
 
 	    		OneSignal.push(function() {
-					OneSignal.on('subscriptionChange', function(isSubscribed) {
-						console.log('isSubscribed:', isSubscribed)
+					 OneSignal.on('subscriptionChange', function(isSubscribed) {
+					   console.log('isSubscribed:', isSubscribed)
 				    	if (isSubscribed) {
 				      		// The user is subscribed
 				      		//   Either the user subscribed for the first time
@@ -242,8 +242,15 @@
 				    	}
 				  	});
 
+            OneSignal.isPushNotificationsEnabled((isEnabled) => {
+              if (isEnabled) {
+                console.log('Push notifications are enabled!')
+              } else {
+                console.log('Push notifications are not enabled yet.')
+              }
+            })
 				  	//
-				});
+				  });
 	    	},
 	    	showModal(){
 	    		// alert('asdasd')

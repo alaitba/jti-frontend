@@ -204,11 +204,11 @@
 					.then(response =>{
 						// if(response.data.rewards.length){
 						// this.$store.commit('setBalance')				
-						if(this.gift.name == "Мобильный баланс"){
+						if(this.gift.rewardId == "7d9f8a06-0a44-ea11-80cc-1cc1dee6b654" || this.gift.rewardId == "089ab460-263c-ea11-80cc-1cc1dee6b654"){
 							this.title = JSON.parse(localStorage.getItem('authUser')).mobile_phone;
 							this.text = 'на указанный номер в ближайшее время будет начислено 500 тг';
 							this.img = 'money'
-						} else if(this.gift.name == "Купон для участия в розыгрыше"){
+						} else if(this.gift.rewardId == "7b9f8a06-0a44-ea11-80cc-1cc1dee6b654" || this.gift.rewardId=='069ab460-263c-ea11-80cc-1cc1dee6b654'){
 							this.title = this.gift.name;
 							this.text = 'Поздравляем, вы приобрели купон на участие в розыгрыше! Участники розыгрыша и победители будут объявлены в разделе "Новости"';
 							this.img = 'gift'

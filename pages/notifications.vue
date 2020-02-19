@@ -5,7 +5,7 @@
 		</template>
 		<template v-else>
 			<div class="anketa">
-				<div class="container" v-if="notificationsStatus">
+				<div class="container" v-if="notifications">
 					<div class="anketa__head">
 						<h3 class="anketa__title">
 							Уведомления		
@@ -16,27 +16,52 @@
 					</div>			
 					<div class="anketa__wrapper">
 
-						<!-- <div class="item" v-for="(item,key) in list"> -->
-							<!-- <div class="item__content">
-								<p class="title" v-if="item.mobilePhone">
-									{{item.mobilePhone | formatNumber}}
+						<div class="item" v-for="(item,key) in notifications">
+							<div class="item__content">
+								<p class="title" v-if="item">
+									<template v-if="item.type=='LeadCreated'">
+										Анкета отправлена потребителю
+									</template>								
+									<template v-else-if="item.type=='LeadQualified'">
+										Анкета заполнена
+									</template>								
+									<template v-else-if="item.type=='LeadEffective'">
+										Код с пачки отправлен, анкета эффективна
+									</template>								
+									<template v-else-if="item.type=='RewardBought'">
+										{{item.data.title}}
+									</template>								
+									<template v-else-if="item.type=='HappyBirthday'">
+										C днем рождения
+									</template>								
+									<template v-else-if="item.type=='BalanceReplenished'">
+										Пополнен баланс телефона
+									</template>								
+									<!-- {{item.mobilePhone | formatNumber}} -->
 								</p>
-								<p class="info" v-if="item.fillingDate">
-									Сохранена {{item.fillingDate | formatData}}
+								
+								<p class="info" v-if="item.created_at">
+									{{item.created_at | formatData}}
 								</p>
 							</div>
 							<div class="item__status">
-								<p class="point">
-									+50 баллов
-								</p>
-								<div :class="{'status' : true, 'status--active': item.isEffective, 'status--filled': item.isQualified, 'status--waiting': !item.isQualified}">
-									<img src="~/assets/img/icons/anketa/status_active.svg" alt="" v-if="item.isEffective && item.isQualified">
-									<img src="~/assets/img/icons/anketa/status_filled.svg" alt="" v-if="item.isQualified && !item.isEffective">
-									<img src="~/assets/img/icons/anketa/status_waiting.svg" alt="" v-if="!item.isQualified && !item.isEffective">
+								<template v-if="item.type =='RewardBought' || item.type == 'BalanceReplenished'">
+									<p class="point minus" v-if="item.data.amount">
+									- {{item.data.amount | formatAmount}} баллов						
+									</p>
+								</template>
+								<template v-else>									
+									<p class="point minus" v-if="item.data.amount">
+										+ {{item.data.amount}} баллов						
+									</p>
+								</template>									
+								<div :class="{'status' : true, 'status--active': true}">
+									<!-- <img src="~/assets/img/icons/anketa/status_active.svg" alt=""> -->
+									<!-- <img src="~/assets/img/icons/anketa/status_filled.svg" alt="">									 -->
 								</div>
-							</div> -->
-						<!-- </div> -->
-						<div class="item">
+							</div>
+						</div>
+						<!-- <div class="item">
 							<div class="item__content">
 								<p class="title">
 									Прохождение викторинывикторины
@@ -86,7 +111,7 @@
 									<img src="~/assets/img/icons/anketa/status_waiting.svg" alt="">
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>		
@@ -101,19 +126,53 @@
 			Loader
 		},
 		filters: {
-	      formatNumber (value){
-	      	value = value.replace('+','');
-	        return '+' + String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
+	      	formatNumber (value){
+	      		value = value.replace('+','');
+	        	return '+' + String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
 	        // return value;
-	      },
-	      formatData(value) {
-	      	return moment(value).format('DD.MM.YYYY');
-	      }
+	      	},
+	      	formatAmount(value){
+				// return typeof(value)
+				if(value!=null){
+					if(typeof(value)!='string'){						
+						return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+					} else{
+						return value.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+					}
+				} else{
+					return value
+				}
+			},
+	    	formatData(value) {
+	      		return moment(value).format('DD.MM.YYYY');
+	      	}
 	    },
 		data(){
 			return{
 				notificationsStatus: true,
-				loaderStatus: false,
+				loaderStatus: true,
+				notifications:[],
+			}
+		},
+		mounted(){
+			this.getNotifications();
+		},
+		methods:{
+			async getNotifications(){
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+				try{
+					
+					let res = await this.$axios.$get('/notifications');
+
+					this.loaderStatus = false;
+
+					this.notifications = res.data;
+
+					console.log('res:',res.data);
+				} catch(error){
+					console.log(error)
+				}
+
 			}
 		}
 	}
