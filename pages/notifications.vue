@@ -29,7 +29,7 @@
 										Код с пачки отправлен, анкета эффективна
 									</template>								
 									<template v-else-if="item.type=='RewardBought'">
-										{{item.data.title}}
+										{{item.data.rewardTitle}}
 									</template>								
 									<template v-else-if="item.type=='HappyBirthday'">
 										C днем рождения
@@ -45,14 +45,14 @@
 								</p>
 							</div>
 							<div class="item__status">
-								<template v-if="item.type =='RewardBought' || item.type == 'BalanceReplenished'">
-									<p class="point minus" v-if="item.data.amount">
-									- {{item.data.amount | formatAmount}} баллов						
+								<template v-if="item.type =='RewardBought' || item.type == 'BalanceReplenished'">									
+									<p class="point minus" v-if="item.data.price">
+									- {{item.data.price | formatAmount}} баллов						
 									</p>
 								</template>
 								<template v-else>									
-									<p class="point minus" v-if="item.data.amount">
-										+ {{item.data.amount}} баллов						
+									<p class="point minus" v-if="item.data.price">
+										+ {{item.data.price | formatAmount}} баллов						
 									</p>
 								</template>									
 								<div :class="{'status' : true, 'status--active': true}">
@@ -135,9 +135,9 @@
 				// return typeof(value)
 				if(value!=null){
 					if(typeof(value)!='string'){						
-						return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+						return parseInt(Number(value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')))
 					} else{
-						return value.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+						return parseInt(value.replace(/\B(?=(\d{3})+(?!\d))/g, ' '))
 					}
 				} else{
 					return value
@@ -168,7 +168,7 @@
 
 					this.notifications = res.data;
 
-					console.log('res:',res.data);
+					// console.log('res:',res.data);
 				} catch(error){
 					console.log(error)
 				}
