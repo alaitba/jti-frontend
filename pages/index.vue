@@ -158,7 +158,7 @@
 		    					JTI Partner 360
 		    				</h4>
 
-		    				<button class="button button--green" type="button" @click="getSubscribed()">
+		    				<button class="button button--green" type="button">
 		    					Обратная связь
 		    				</button>
 		    			</div>
@@ -215,7 +215,6 @@
 	    },
 	    mounted() {
 	    	this.getNews();
-	    	// this.getSubscribed();
 	    	// this.showModal();
 
 	    },
@@ -225,37 +224,12 @@
 	      })
 	    },
 	    methods:{
-	    	getSubscribed(){
 
-	    		OneSignal.push(function() {
-					 OneSignal.on('subscriptionChange', function(isSubscribed) {
-					   console.log('isSubscribed:', isSubscribed)
-				    	if (isSubscribed) {
-				      		// The user is subscribed
-				      		//   Either the user subscribed for the first time
-				      		//   Or the user was subscribed -> unsubscribed -> subscribed
-				      		OneSignal.getUserId( function(userId) {
-				        		// Make a POST call to your server with the user ID
-
-				        		console.log('userId:', userId)
-				      		});
-				    	}
-				  	});
-
-            OneSignal.isPushNotificationsEnabled((isEnabled) => {
-              if (isEnabled) {
-                console.log('Push notifications are enabled!')
-              } else {
-                console.log('Push notifications are not enabled yet.')
-              }
-            })
-				  	//
-				  });
-	    	},
 	    	showModal(){
 	    		// alert('asdasd')
 	    		$('#modal-error').modal('show')
 	    	},
+
 	    	async getNews(){
 
 	    		let data  = JSON.parse(localStorage.getItem("news")) ? JSON.parse(localStorage.getItem("news"))[0].created_at : 1;

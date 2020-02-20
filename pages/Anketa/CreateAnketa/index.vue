@@ -160,10 +160,10 @@
 
 				this.btnStatus = true;
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
-        if(localStorage.getItem('client_data') != null && localStorage.getItem('client_data')!=''){
-          console.log('client_data1:', JSON.parse(localStorage.getItem('client_data')));
-          localStorage.setItem('client_data', '');
-        }
+		        if(localStorage.getItem('client_data') != null && localStorage.getItem('client_data')!=''){
+		          console.log('client_data1:', JSON.parse(localStorage.getItem('client_data')));
+		          localStorage.setItem('client_data', '');
+		        }
 				await this.$axios.post('/client/send-sms/', fields)
 					.then(response =>{
 						this.numberStatus = !this.numberStatus;
@@ -175,8 +175,8 @@
 						localStorage.setItem("anketaNumber", response.data.mobile_phone);
 						if(response.data.client_data !=null){
 							localStorage.setItem('client_data', JSON.stringify(response.data.client_data))
-              console.log('client_data2:', JSON.parse(localStorage.client_data));
-            }
+              				console.log('client_data2:', JSON.parse(localStorage.client_data));
+            			}
 						this.startTimerInterval();
 					}).catch((error, e) =>{
 						this.btnStatus = false;
@@ -184,42 +184,42 @@
 						console.log('code:',code)
 						if(code === 500){
 							this.title="Отказано в доступе!"
-            	this.text="Ошибка на стороне сервера!"
-            	this.img="error"
-            	$('#modal-main').modal('show');
-            	return
+			            	this.text="Ошибка на стороне сервера!"
+			            	this.img="error"
+			            	$('#modal-main').modal('show');
+			            	return
 						}
 
 						if(error.response.data.message=='is_seller'){
 							this.title="Отказ в анкетировании"
-	            this.text="Этот номер принадлежит продавцу и не может быть использован в анкетировании!"
-	            this.img="alert"
-	            $('#modal-main').modal('show')
-						} else if(error.response.data.message=='sms_not_sent'){
-              	this.title="Cмс не был отправлен!"
-              	this.text="Попробуйте еще раз!"
-              	this.img="alert"
-              $('#modal-main').modal('show')
-            } else if(error.response.data.message=='leads_limit_exceeded'){
-                this.title="Отказ в анкетировании"
-                this.text="Вы можете заполнить не более 200 анкет!"
-                this.img="alert"
-              $('#modal-main').modal('show')
-            } else if(error.response.data.message=='sms_send_limit'){
-              	this.title="Cмс не был отправлен!"
-              	this.text="Вы превысили лимит отправки смс!"
-              	this.img="alert"
-              	$('#modal-main').modal('show')
-            } else if(error.response.data.message=='already_filled'){
+				            this.text="Этот номер принадлежит продавцу и не может быть использован в анкетировании!"
+				            this.img="alert"
+				            $('#modal-main').modal('show')
+									} else if(error.response.data.message=='sms_not_sent'){
+			              	this.title="Cмс не был отправлен!"
+			              	this.text="Попробуйте еще раз!"
+			              	this.img="alert"
+			              $('#modal-main').modal('show')
+			            } else if(error.response.data.message=='leads_limit_exceeded'){
+			                this.title="Отказ в анкетировании"
+			                this.text="Вы можете заполнить не более 200 анкет!"
+			                this.img="alert"
+			              $('#modal-main').modal('show')
+			            } else if(error.response.data.message=='sms_send_limit'){
+			              	this.title="Cмс не был отправлен!"
+			              	this.text="Вы превысили лимит отправки смс!"
+			              	this.img="alert"
+			              	$('#modal-main').modal('show')
+			            } else if(error.response.data.message=='already_filled'){
 							this.tel=this.number;
-	            this.text="На указанный телефон анкета уже заполнялась в данной торговой точке!"
-	            this.img="alert"
-	            $('#modal-main').modal('show')
+				            this.text="На указанный телефон анкета уже заполнялась в данной торговой точке!"
+				            this.img="alert"
+				            $('#modal-main').modal('show')
 						} else {
 							this.title="Отказано в доступе!"
-            	this.text="Номер телефона введен неверно или не внесен в базу данных!"
-            	this.img="error"
-            	$('#modal-main').modal('show')
+			            	this.text="Номер телефона введен неверно или не внесен в базу данных!"
+			            	this.img="error"
+			            	$('#modal-main').modal('show')
 						}
 					})
 			},
