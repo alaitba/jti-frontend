@@ -66,7 +66,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    // '@nuxtjs/onesignal',
+    '@nuxtjs/onesignal',
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
     // 'bootstrap-vue/nuxt',
