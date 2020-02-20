@@ -77,7 +77,7 @@ module.exports = {
       allowLocalhostAsSecureOrigin: true,
       appId: "00841468-ed04-4d0f-9ca5-4ccc53eab1ea",
       welcomeNotification: {
-        disable: true
+        disable: false
       }
     }
   },

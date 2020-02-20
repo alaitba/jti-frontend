@@ -27,8 +27,18 @@
     methods:{  
 
       getSubscribedId(){
+        
+        OneSignal.push(function() {
+          
+        });
+      },
+
+      userTappedProvideConsentButton(){
         let _this = this;
         OneSignal.push(function() {
+          OneSignal.showNativePrompt();
+          // OneSignal.showSlidedownPrompt();
+
           OneSignal.on('subscriptionChange', function(isSubscribed) {
             if (isSubscribed) {
               console.log('isSubscribed:', isSubscribed)
@@ -46,22 +56,13 @@
               });
             }
           });
+          
           OneSignal.isPushNotificationsEnabled(function(isEnabled) {
             if (isEnabled)
               console.log("Push notifications are enabled!");
             else
               console.log("Push notifications are not enabled yet.");    
           });
-        });
-      },
-
-      userTappedProvideConsentButton(){
-        OneSignal.push(function() {
-          OneSignal.showNativePrompt();
-          // OneSignal.showSlidedownPrompt();
-
-
-
         });
       },
 
