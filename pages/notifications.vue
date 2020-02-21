@@ -5,7 +5,7 @@
 		</template>
 		<template v-else>
 			<div class="anketa">
-				<div class="container" v-if="notifications">
+				<div class="container" v-if="notifications.length">
 					<div class="anketa__head">
 						<h3 class="anketa__title">
 							Уведомления		
@@ -112,6 +112,13 @@
 								</div>
 							</div>
 						</div> -->
+					</div>
+				</div>
+				<div class="container" v-else>
+					<div class="anketa__head">
+						<h3 class="anketa__title">
+							У вас пока нет новых уведомлений		
+						</h3>
 					</div>
 				</div>
 			</div>		
