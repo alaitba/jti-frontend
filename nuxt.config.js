@@ -77,8 +77,14 @@ module.exports = {
     init: {
       allowLocalhostAsSecureOrigin: true,
       appId: "00841468-ed04-4d0f-9ca5-4ccc53eab1ea",
+      autoResubscribe: true,
+      // notifyButton: {
+      //   enable: true,
+      // },
       welcomeNotification: {
-        disable: false
+        "title": "My Custom Title",
+        "message": "Thanks for subscribing!",
+        // "url": "" /* Leave commented for the notification to not open a window on Chrome and Firefox (on Safari, it opens to your webpage) */
       }
     }
   },

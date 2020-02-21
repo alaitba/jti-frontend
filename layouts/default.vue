@@ -15,9 +15,44 @@
       HeaderStore,      
     },
     mounted(){ 
-      this.getSubscribedId();
-      this.userTappedProvideConsentButton(); 
-      this.getUserDevice();          
+      // this.getSubscriptionState();
+      // this.getSubscribedId();
+      // this.userTappedProvideConsentButton(); 
+      // this.getUserDevice();    
+
+      let _this = this;      
+      OneSignal.push(function() {
+
+        if (!OneSignal.isPushNotificationsSupported()) {
+            return;
+        }
+
+        OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+          if (isEnabled){
+            console.log("Push notifications are enabled!");
+          }
+          else{
+            OneSignal.showNativePrompt({force: true});
+            console.log("Push notifications are not enabled yet.");    
+          }
+        });
+        
+
+        OneSignal.on('subscriptionChange', function(isSubscribed) {
+          console.log('isSubscribed: ', isSubscribed)
+          if(isSubscribed){
+              OneSignal.getUserId( function(userId) {
+                console.log('userId:', userId)              
+                _this.userId = userId          
+                _this.setUserId(_this.userId);                
+              });              
+          } else{
+            console.log('false')
+            OneSignal.setSubscription(false);
+            // OneSignal.showNativePrompt({force: true});
+          }
+        })
+      });
     },
     computed: {
       ...mapState({
@@ -25,7 +60,26 @@
       })
     },
     methods:{  
+      getSubscriptionState() {
+        return Promise.all([
+          OneSignal.isPushNotificationsEnabled(),
+          OneSignal.isOptedOut()
+        ]).then(function(result) {
+            var isPushEnabled = result[0];
+            var isOptedOut = result[1];
 
+
+            let arr = {
+                isPushEnabled: isPushEnabled,
+                isOptedOut: isOptedOut
+            }
+            console.log('here', arr);
+            return {
+                isPushEnabled: isPushEnabled,
+                isOptedOut: isOptedOut
+            };
+        });
+      },
       getSubscribedId(){
         let _this = this;
         OneSignal.push(function() {
