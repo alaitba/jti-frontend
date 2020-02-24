@@ -20,39 +20,39 @@
       // this.userTappedProvideConsentButton(); 
       // this.getUserDevice();    
 
-      let _this = this;      
-      OneSignal.push(function() {
+      // let _this = this;      
+      // OneSignal.push(function() {
 
-        if (!OneSignal.isPushNotificationsSupported()) {
-            return;
-        }
+      //   if (!OneSignal.isPushNotificationsSupported()) {
+      //       return;
+      //   }
 
-        OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-          if (isEnabled){
-            console.log("Push notifications are enabled!");
-          }
-          else{
-            OneSignal.showNativePrompt({force: true});
-            console.log("Push notifications are not enabled yet.");    
-          }
-        });
+      //   OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+      //     if (isEnabled){
+      //       console.log("Push notifications are enabled!");
+      //     }
+      //     else{
+      //       OneSignal.showNativePrompt({force: true});
+      //       console.log("Push notifications are not enabled yet.");    
+      //     }
+      //   });
         
 
-        OneSignal.on('subscriptionChange', function(isSubscribed) {
-          console.log('isSubscribed: ', isSubscribed)
-          if(isSubscribed){
-              OneSignal.getUserId( function(userId) {
-                console.log('userId:', userId)              
-                _this.userId = userId          
-                _this.setUserId(_this.userId);                
-              });              
-          } else{
-            console.log('false')
-            OneSignal.setSubscription(false);
-            // OneSignal.showNativePrompt({force: true});
-          }
-        })
-      });
+      //   OneSignal.on('subscriptionChange', function(isSubscribed) {
+      //     console.log('isSubscribed: ', isSubscribed)
+      //     if(isSubscribed){
+      //         OneSignal.getUserId( function(userId) {
+      //           console.log('userId:', userId)              
+      //           _this.userId = userId          
+      //           _this.setUserId(_this.userId);                
+      //         });              
+      //     } else{
+      //       console.log('false')
+      //       OneSignal.setSubscription(false);
+      //       // OneSignal.showNativePrompt({force: true});
+      //     }
+      //   })
+      // });
     },
     computed: {
       ...mapState({
@@ -113,9 +113,6 @@
         OneSignal.push(function() {
           // OneSignal.showNativePrompt();
           OneSignal.showSlidedownPrompt();
-
-
-
         });
       },
 

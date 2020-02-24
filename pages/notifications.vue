@@ -20,22 +20,32 @@
 							<div class="item__content">
 								<p class="title" v-if="item">
 									<template v-if="item.type=='LeadCreated'">
-										Анкета отправлена потребителю
+										<template v-if="item.data.self=='0' || item.data.self==null">
+											Анкета сохранена
+										</template>
+										<template v-else>
+											Анкета отправлена потребителю на заполнение 
+										</template>
 									</template>								
 									<template v-else-if="item.type=='LeadQualified'">
-										Анкета заполнена
+										<template v-if="item.data.self=='0' || item.data.self==null">
+											Анкета заполнена
+										</template>
+										<template v-else>
+											Потребитель завершил заполнение анкеты на сайте realday.kz 
+										</template>										
 									</template>								
 									<template v-else-if="item.type=='LeadEffective'">
-										Код с пачки отправлен, анкета эффективна
+										Потребитель отправил код с пачки
 									</template>								
 									<template v-else-if="item.type=='RewardBought'">
 										{{item.data.rewardTitle}}
 									</template>								
 									<template v-else-if="item.type=='HappyBirthday'">
-										C днем рождения
+										Уважаемый Партнер, поздравляем Вас с днем рождения. С уважением, JTI
 									</template>								
 									<template v-else-if="item.type=='BalanceReplenished'">
-										Пополнен баланс телефона
+										На ваш номер было начислено 500 тг
 									</template>								
 									<!-- {{item.mobilePhone | formatNumber}} -->
 								</p>
@@ -51,8 +61,8 @@
 									</p>
 								</template>
 								<template v-else>									
-									<p class="point minus" v-if="item.data.price">
-										+ {{item.data.price | formatAmount}} баллов						
+									<p class="point" v-if="item.data.amount">
+										+ {{item.data.amount | formatAmount}} баллов						
 									</p>
 								</template>									
 								<div :class="{'status' : true, 'status--active': true}">
@@ -112,7 +122,11 @@
 								</div>
 							</div>
 						</div> -->
-					</div>
+
+						<!-- <button type="button" @click="onManageWebPushSubscriptionButtonClicked" class="button button--green">
+							Subscribe to Notifications
+						</button> -->
+					</div>					
 				</div>
 				<div class="container" v-else>
 					<div class="anketa__head">
@@ -120,6 +134,10 @@
 							У вас пока нет новых уведомлений		
 						</h3>
 					</div>
+
+					<!-- <button type="button" @click="onManageWebPushSubscriptionButtonClicked" class="button button--green">
+						Subscribe to Notifications
+					</button> -->
 				</div>
 			</div>		
 		</template>
@@ -162,7 +180,32 @@
 			}
 		},
 		mounted(){
-			this.getNotifications();
+			let _this = this;
+			_this.getNotifications();			
+
+			OneSignal.push(function() {
+		        // If we're on an unsupported browser, do nothing
+		        if (!OneSignal.isPushNotificationsSupported()) {
+		        	console.log('not supported')
+		            return;
+		        }
+		        // _this.updateMangeWebPushSubscriptionButton(buttonSelector);
+		        OneSignal.on("subscriptionChange", function(isSubscribed) {
+		        	console.log('supported')
+		            console.log('isSubscribed: ', isSubscribed)
+		          	if(isSubscribed){
+		            	OneSignal.getUserId( function(userId) {
+		                	console.log('userId:', userId)              
+		                	// let userId = userId          
+		                	_this.setUserId(userId);                
+		              	});              
+		          	} else{
+		            	console.log('false')
+		            	OneSignal.setSubscription(false);
+		            	// OneSignal.showNativePrompt({force: true});
+			        }
+		        });
+		    });
 		},
 		methods:{
 			async getNotifications(){
@@ -179,8 +222,97 @@
 				} catch(error){
 					console.log(error)
 				}
+			},
 
-			}
+			async setUserId(userId){
+
+		        // console.log('here')
+
+		        let fields = {
+		          'push_token': userId
+		        }
+
+		        this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+		        try{
+
+		          let res = await this.$axios.$post('/auth/set-push-token', fields)
+
+		          console.log('res:', res);
+		        } catch(error){
+
+		          console.log('errorPush', error)
+		        }
+		    },
+
+			getSubscriptionState(){
+				return Promise.all([
+		        	OneSignal.isPushNotificationsEnabled(),
+		        	OneSignal.isOptedOut()
+		        ]).then(function(result) {
+		            var isPushEnabled = result[0];
+		            var isOptedOut = result[1];
+		            return {
+		                isPushEnabled: isPushEnabled,
+		                isOptedOut: isOptedOut
+		            };
+		        });
+			},
+
+			onManageWebPushSubscriptionButtonClicked(){				
+				this.getSubscriptionState().then(function(state) {
+
+					console.log('asdasd')
+		            if (state.isPushEnabled) {
+		                /* Subscribed, opt them out */
+		                OneSignal.setSubscription(false);
+		            } else {
+		                if (state.isOptedOut) {
+		                    /* Opted out, opt them back in */
+		                    OneSignal.setSubscription(true);
+		                } else {
+		                    /* Unsubscribed, subscribe them */
+		                    OneSignal.registerForPushNotifications();
+		                }
+		            }
+		        });
+		        event.preventDefault();
+			},
+
+			// updateMangeWebPushSubscriptionButton(buttonSelector){
+			// 	var hideWhenSubscribed = false;
+		 //        var subscribeText = "Subscribe to Notifications";
+		 //        var unsubscribeText = "Unsubscribe from Notifications";
+
+		 //        this.getSubscriptionState().then(function(state) {
+		 //            var buttonText = !state.isPushEnabled || state.isOptedOut ? subscribeText : unsubscribeText;
+
+		 //            var element = document.querySelector(buttonSelector);
+		 //            if (element === null) {
+		 //                return;
+		 //            }
+
+		 //            element.removeEventListener('click', onManageWebPushSubscriptionButtonClicked);
+		 //            element.addEventListener('click', onManageWebPushSubscriptionButtonClicked);
+		 //            element.textContent = buttonText;
+
+		 //            if (state.hideWhenSubscribed && state.isPushEnabled) {
+		 //                element.style.display = "none";
+		 //            } else {
+		 //                element.style.display = "";
+		 //            }
+		 //        });
+			// }
+
 		}
 	}
 </script>
+
+<style lang="scss">
+	.button{
+		&--green{
+			display: block;
+			margin-top: 32px;
+		}
+	}
+</style>

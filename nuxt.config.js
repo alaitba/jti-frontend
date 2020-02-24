@@ -74,9 +74,11 @@ module.exports = {
   ],
   // Options
   oneSignal: {
+    // cdn: true,
+    // OneSignalSDK: 'https://cdn.onesignal.com/sdks/OneSignalSDK.js',
     init: {
+      appId: "00841468-ed04-4d0f-9ca5-4ccc53eab1ea",
       allowLocalhostAsSecureOrigin: true,
-      appId: "5417b9e6-310b-4114-bd99-b1ac31b3ed35",
       autoResubscribe: false,
       // notifyButton: {
       //   enable: true,
@@ -84,7 +86,8 @@ module.exports = {
       welcomeNotification: {
         disable: false,        
       }
-    }
+    },
+    // importScripts: ["/sw.js"]
   },
 
   manifest: {      
@@ -96,7 +99,7 @@ module.exports = {
   },
 
   workbox: {
-    dev: true,
+    development: true,
     autoRegister: true, // or use a global variable to track the current NODE_ENV, etc to determine dev mode
     cleanupOutdatedCaches: true,
     offline: true,
