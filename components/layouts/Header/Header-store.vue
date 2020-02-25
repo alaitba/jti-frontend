@@ -28,6 +28,7 @@
 		<div :class="{'header-mobile': true, 'show': burgerStatus, 'show--fillform' : burgerStatus && ($route.name == 'Anketa-CreateAnketa-Fillform' || $route.name == 'plan')}">
 			<div class="container">
 				<ul class="nav">
+					
 					<li class="nav__item">
 						<nuxt-link to="/" class="nav__link nav__link--green"  @click.native="showBurger()">
 							Главная
@@ -50,9 +51,16 @@
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="#" class="nav__link" disabled>
-							Уведомления
-						</nuxt-link>
+						<template v-if="getNumber">
+							<nuxt-link to="/notifications" class="nav__link nav__link--green" @click.native="showBurger()">
+								Уведомления
+							</nuxt-link>
+						</template>		
+						<template v-else>
+							<nuxt-link to="#" class="nav__link" disabled>
+								Уведомления
+							</nuxt-link>
+						</template>				
 					</li>
 					<li class="nav__item">
 						<nuxt-link to="/profile" class="nav__link nav__link--green" @click.native="showBurger()">
@@ -90,6 +98,11 @@
 		data() {
 			return {
 				burgerStatus: false
+			}
+		},
+		computed:{
+			getNumber(){
+				return localStorage.getItem("authUser") ? JSON.parse(localStorage.getItem("authUser")).mobile_phone == '77059521623' : false;
 			}
 		},
 		methods:{

@@ -21,7 +21,7 @@
 								<p class="title" v-if="item">
 									<template v-if="item.type=='LeadCreated'">
 										<template v-if="item.data.self=='0' || item.data.self==null">
-											Анкета сохранена
+											Анкета сохранена, начисление бонусов
 										</template>
 										<template v-else>
 											Анкета отправлена потребителю на заполнение 
@@ -29,7 +29,7 @@
 									</template>								
 									<template v-else-if="item.type=='LeadQualified'">
 										<template v-if="item.data.self=='0' || item.data.self==null">
-											Анкета заполнена
+											Анкета создана
 										</template>
 										<template v-else>
 											Потребитель завершил заполнение анкеты на сайте realday.kz 
