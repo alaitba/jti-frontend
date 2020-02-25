@@ -260,6 +260,20 @@
 		        	console.log('not supported')
 		            return;
 		        }
+
+
+		        OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+				    if (isEnabled){
+				    	this.modalStatus = false;		          		
+		          		localStorage.setItem('modalStatus', false);
+				      	console.log("Push notifications are enabled!");
+				    }
+				    else{
+				    	this.modalStatus = true;		          		
+		          		localStorage.setItem('modalStatus', true);
+				      	console.log("Push notifications are not enabled yet.");    
+				    }
+				});
 		        // _this.updateMangeWebPushSubscriptionButton(buttonSelector);
 		        OneSignal.on("subscriptionChange", function(isSubscribed) {
 		        	console.log('supported')

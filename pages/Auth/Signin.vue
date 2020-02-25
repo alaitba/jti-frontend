@@ -299,8 +299,7 @@ export default {
       this.errorPassword = false;
       await this.$axios.post('/auth/login/', fields)
       .then(response =>{
-        this.btnPasswordStatus = false;
-
+        this.btnPasswordStatus = false;        
         if(response.data.tradepoints){
           this.$store.commit('setTradePoints', response.data.tradepoints)
           localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoints));
