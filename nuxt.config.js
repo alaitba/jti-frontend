@@ -77,7 +77,7 @@ module.exports = {
     // cdn: true,
     // OneSignalSDK: 'https://cdn.onesignal.com/sdks/OneSignalSDK.js',
     init: {
-      appId: "5417b9e6-310b-4114-bd99-b1ac31b3ed35",
+      appId: "b3d7e18e-a5a9-44fc-b238-3c7201679563",
       allowLocalhostAsSecureOrigin: true,
       autoResubscribe: false,
       // notifyButton: {
