@@ -158,9 +158,9 @@
 		    					JTI Partner 360
 		    				</h4>
 
-		    				<button class="button button--green" type="button">
+		    				<!-- <button class="button button--green" type="button">
 		    					Обратная связь
-		    				</button>
+		    				</button> -->
 		    			</div>
 	    			</div>
 	    			<div class="footer__bottom">
