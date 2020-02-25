@@ -1,5 +1,5 @@
 <template>
-	<main class="page page--grey page--block">
+	<main class="page page--grey page--block">		
 		<template v-if="loaderStatus">
 			<loader/>
 		</template>
@@ -123,7 +123,7 @@
 							</div>
 						</div> -->
 
-						<button type="button" @click="onManageWebPushSubscriptionButtonClicked" class="button button--green">
+						<button type="button" @click="onManageWebPushSubscriptionButtonClicked" v-if="getNumber" class="button button--green">
 							Subscribe to Notifications
 						</button>
 					</div>					
@@ -135,7 +135,7 @@
 						</h3>
 					</div>
 
-					<button type="button" @click="onManageWebPushSubscriptionButtonClicked" class="button button--green">
+					<button type="button" @click="onManageWebPushSubscriptionButtonClicked" v-if="getNumber" class="button button--green">
 							Subscribe to Notifications
 						</button>
 				</div>
@@ -177,6 +177,11 @@
 				notificationsStatus: true,
 				loaderStatus: true,
 				notifications:[],
+			}
+		},
+		computed:{
+			getNumber(){
+				return this.$store.state.auth.mobile_phone == '77059521623';
 			}
 		},
 		mounted(){
