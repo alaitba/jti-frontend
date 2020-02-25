@@ -136,7 +136,7 @@
 					<div class="anketa__head">
 						<h3 
 							class="anketa__title"
-							style="line-height: 18px; color: #969696; font-size: 16px; text-align: center;"
+							style="line-height: 20px; color: #969696; font-size: 18px; justify-content: center;     text-align: center;"
 						>
 							У вас пока нет новых уведомлений		
 						</h3>

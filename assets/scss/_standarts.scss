@@ -109,6 +109,7 @@ main{
 			border: 1px solid #05B186;
 			padding: 18px 12px;
 			width: 100%;
+			line-height: 1;
 		}
 		&.red{
 			color: #F42626;
@@ -117,6 +118,7 @@ main{
 			width: 100%;
 			background: #F9F9F9;
 			display: block;
+			line-height: 1;
 		}
 	}
 	&--show{

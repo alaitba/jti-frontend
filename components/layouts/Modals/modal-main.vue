@@ -45,7 +45,7 @@
               </button>             
             </template>
             <template v-else-if="btnText == 'notifications'">
-              <button type="button" class="button button--bordered red" @click="subscribe">
+              <button type="button" class="button button--green" @click="subscribe">
                 Разрешить
               </button>             
               <button type="button" class="button button--bordered green" data-dismiss="modal">
