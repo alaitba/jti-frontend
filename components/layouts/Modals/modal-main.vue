@@ -44,6 +44,14 @@
                 Вернуться в Профиль
               </button>             
             </template>
+            <template v-else-if="btnText == 'notifications'">
+              <button type="button" class="button button--bordered red" @click="subscribe">
+                Разрешить
+              </button>             
+              <button type="button" class="button button--bordered green" data-dismiss="modal">
+                Вернуться на Главную
+              </button>             
+            </template>
             <template v-else>
               <nuxt-link to="/anketa/gifts" class="button button--green" data-dismiss="modal" v-if="btnText && !status">
                 {{btnText}}
@@ -85,6 +93,10 @@
       logOut(){
         console.log('logout')        
         this.$nuxt.$emit('logOut', 'dadas');
+      },
+      subscribe(){
+        console.log('subscribe');
+        this.$nuxt.$emit('onManageWebPushSubscriptionButtonClicked','dsds')
       }
     }
   }

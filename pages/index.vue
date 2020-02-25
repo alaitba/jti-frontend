@@ -178,6 +178,14 @@
 
 	    		</div> -->
 	    	</div>
+	    	<modal-main 
+	    		:title="title" 
+	    		:text="text" 
+	    		:img="img" 
+	    		:btnText="btnText"
+	    		v-if="modalStatus"
+	    	>	    		
+	    	</modal-main>
 	    	<modal-error/>
 	    </template>
     </main>
@@ -187,10 +195,12 @@
 	import ModalError from '~/components/layouts/Modals/ModalError.vue'
 	import moment from 'moment'
 	import Loader from '~/components/layouts/loader.vue'
+	import ModalMain from '~/components/layouts/Modals/modal-main.vue'
 	import {mapState, mapMutations} from 'vuex'
 	export default {
 	  	components: {
 	      ModalError,
+	      ModalMain,
 	      Loader,
 	    },
 	    filters:{
@@ -211,11 +221,61 @@
 	    		},
 	    		news: '',
 	    		loaderStatus: true,
+	    		title: '',
+	    		text:'',
+	    		img:'',
+	    		btnText:'',
+	    		modalStatus: localStorage.getItem('modalStatus') ? JSON.parse(localStorage.modalStatus) : true,
 	    	}
 	    },
 	    mounted() {
-	    	this.getNews();
+
+	    	let _this = this;
+
+
+	    	let interval1= setInterval(
+                () => {                    
+                    if($('#modal-main').length > 0) {
+                        clearInterval(interval1);
+                        // console.log('1');
+	                    if(_this.modalStatus){
+					    	_this.showSubscribe();                        	
+	                    }
+                    }                    
+                },
+                1000
+            );
+	    	_this.getNews();
+
+
+	    	_this.$nuxt.$on('onManageWebPushSubscriptionButtonClicked',_this.onManageWebPushSubscriptionButtonClicked);
 	    	// this.showModal();
+
+	    	OneSignal.push(function() {
+		        // If we're on an unsupported browser, do nothing
+		        if (!OneSignal.isPushNotificationsSupported()) {
+		        	console.log('not supported')
+		            return;
+		        }
+		        // _this.updateMangeWebPushSubscriptionButton(buttonSelector);
+		        OneSignal.on("subscriptionChange", function(isSubscribed) {
+		        	console.log('supported')
+		            console.log('isSubscribed: ', isSubscribed)
+		          	if(isSubscribed){
+		          		this.modalStatus = false;		          		
+		          		localStorage.setItem('modalStatus', false);
+		            	OneSignal.getUserId( function(userId) {
+		                	console.log('userId:', userId)              
+		                	// let userId = userId          
+		                	_this.setUserId(userId);                
+		              	});              
+		          	} else{
+		            	console.log('false')
+		            	OneSignal.setSubscription(false);
+		            	// OneSignal.showNativePrompt({force: true});
+			        }
+		        });
+		    });
 
 	    },
 	    computed: {
@@ -225,9 +285,17 @@
 	    },
 	    methods:{
 
-	    	showModal(){
-	    		// alert('asdasd')
+	    	showModal(modal){
 	    		$('#modal-error').modal('show')
+	    	},
+
+	    	showSubscribe(){	    		
+	    		// console.log('adas');
+    			this.title = 'Отправлять уведомления'
+    			this.text = 'Разрешите отправлять уведомления об изменениях статусов анкет, поплнения баланса и тд.'
+    			this.img = 'bell-green';
+    			this.btnText = 'notifications';
+    			$('#modal-main').modal('show');	    			
 	    	},
 
 	    	async getNews(){
@@ -265,7 +333,64 @@
 	    			}).catch(error =>{
 	    				console.log('error news')
 	    			})
-	    	}
+	    	},
+
+	    	async setUserId(userId){
+
+		        // console.log('here')
+
+		        let fields = {
+		          'push_token': userId
+		        }
+
+		        this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+		        try{
+
+		          let res = await this.$axios.$post('/auth/set-push-token', fields)
+
+		          console.log('res:', res);
+		        } catch(error){
+
+		          console.log('errorPush', error)
+		        }
+		    },
+
+			getSubscriptionState(){
+				return Promise.all([
+		        	OneSignal.isPushNotificationsEnabled(),
+		        	OneSignal.isOptedOut()
+		        ]).then(function(result) {
+		            var isPushEnabled = result[0];
+		            var isOptedOut = result[1];
+		            return {
+		                isPushEnabled: isPushEnabled,
+		                isOptedOut: isOptedOut
+		            };
+		        });
+			},
+
+			onManageWebPushSubscriptionButtonClicked(){				
+				// console.log('asdasd')
+				this.modalStatus = false;
+				$('#modal-main').modal('hide');
+				this.getSubscriptionState().then(function(state) {
+
+		            if (state.isPushEnabled) {
+		                /* Subscribed, opt them out */
+		                OneSignal.setSubscription(false);
+		            } else {
+		                if (state.isOptedOut) {
+		                    // Opted out, opt them back in 
+		                    OneSignal.setSubscription(true);
+		                } else {
+		                    /* Unsubscribed, subscribe them */
+		                    OneSignal.registerForPushNotifications();
+		                }
+		            }
+		        });
+		        // event.preventDefault();
+			},
 	    }
 	}
 </script>

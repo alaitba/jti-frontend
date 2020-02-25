@@ -123,21 +123,28 @@
 							</div>
 						</div> -->
 
-						<button type="button" @click="onManageWebPushSubscriptionButtonClicked" v-if="getNumber" class="button button--green">
+						<!-- <button type="button" @click="onManageWebPushSubscriptionButtonClicked" v-if="getNumber" class="button button--green">
 							Subscribe to Notifications
-						</button>
+						</button> -->
 					</div>					
 				</div>
-				<div class="container" v-else>
+				<div 
+					class="container" 
+					style="display: flex; align-items: center; min-height: calc(100vh - 136px);" 
+					v-else 
+				>
 					<div class="anketa__head">
-						<h3 class="anketa__title">
+						<h3 
+							class="anketa__title"
+							style="line-height: 18px; color: #969696; font-size: 16px; text-align: center;"
+						>
 							У вас пока нет новых уведомлений		
 						</h3>
 					</div>
 
-					<button type="button" @click="onManageWebPushSubscriptionButtonClicked" v-if="getNumber" class="button button--green">
-							Subscribe to Notifications
-						</button>
+					<!-- <button type="button" @click="onManageWebPushSubscriptionButtonClicked" v-if="getNumber" class="button button--green">
+						Subscribe to Notifications
+					</button> -->
 				</div>
 			</div>		
 		</template>
@@ -169,7 +176,7 @@
 				}
 			},
 	    	formatData(value) {
-	      		return moment(value).format('DD.MM.YYYY');
+	      		return moment(value).format('DD.MM.YYYY HH:mm');
 	      	}
 	    },
 		data(){

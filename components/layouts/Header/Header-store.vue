@@ -10,9 +10,10 @@
 					</div>
 					<div class="header__link">
 						<div class="notification">
-							<a href="#">
+							<nuxt-link to="/notifications" @click.native = "closeMenu">
 								<img src="~/assets/img/icons/bell.svg" alt="">
-							</a>
+							<!-- </a> -->
+							</nuxt-link>
 						</div>
 						<button :class="{'burger': true, 'open': burgerStatus}" @click="showBurger()">
 							<span class="burger__item"></span>
@@ -51,16 +52,16 @@
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<template v-if="getNumber">
+						<!-- <template v-if="getNumber"> -->
 							<nuxt-link to="/notifications" class="nav__link nav__link--green" @click.native="showBurger()">
 								Уведомления
 							</nuxt-link>
-						</template>		
+						<!-- </template>		
 						<template v-else>
 							<nuxt-link to="#" class="nav__link" disabled>
 								Уведомления
 							</nuxt-link>
-						</template>				
+						</template>				 -->
 					</li>
 					<li class="nav__item">
 						<nuxt-link to="/profile" class="nav__link nav__link--green" @click.native="showBurger()">
