@@ -226,20 +226,23 @@
 	    		img:'',
 	    		btnText:'',
 	    		modalStatus: localStorage.getItem('modalStatus') ? JSON.parse(localStorage.modalStatus) : true,
+	    		mobileOs: localStorage.getItem('android') ? JSON.parse(localStorage.getItem('android')) : false,
+
 	    	}
 	    },
 	    mounted() {
 
 	    	let _this = this;
 
+	    	_this.getUserDevice();
 
 	    	let interval1= setInterval(
                 () => {                    
                     if($('#modal-main').length > 0) {
                         clearInterval(interval1);
                         // console.log('1');
-	                    if(_this.modalStatus){
-					    	_this.showSubscribe();                        	
+	                    if(_this.modalStatus && _this.mobileOs){
+	                    	_this.showSubscribe();                        	
 	                    }
                     }                    
                 },
@@ -288,6 +291,30 @@
 	    	showModal(modal){
 	    		$('#modal-error').modal('show')
 	    	},
+
+	    	getUserDevice(){
+
+		        let ua = navigator.userAgent;
+
+		        let checker = {
+
+		          ios: ua.match(/(iPhone|iPod|iPad)/),
+		          android: ua.match(/(Android)/)
+
+		        }
+
+		        if(checker.ios){
+		          console.log('ios:',navigator.userAgent);
+		          localStorage.setItem('ios', true);
+		        } else if(checker.android){
+		          console.log('android:',navigator.userAgent)
+		          localStorage.setItem('android', true);
+		          this.mobileOs = true;
+		        } else{
+		          console.log('userAgent',navigator.userAgent)
+		        }
+
+		    },
 
 	    	showSubscribe(){	    		
 	    		// console.log('adas');
