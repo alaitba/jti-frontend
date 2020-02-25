@@ -264,12 +264,12 @@
 
 		        OneSignal.isPushNotificationsEnabled(function(isEnabled) {
 				    if (isEnabled){
-				    	this.modalStatus = false;		          		
+				    	_this.modalStatus = false;		          		
 		          		localStorage.setItem('modalStatus', false);
 				      	console.log("Push notifications are enabled!");
 				    }
 				    else{
-				    	this.modalStatus = true;		          		
+				    	_this.modalStatus = true;		          		
 		          		localStorage.setItem('modalStatus', true);
 				      	console.log("Push notifications are not enabled yet.");    
 				    }
@@ -279,7 +279,7 @@
 		        	console.log('supported')
 		            console.log('isSubscribed: ', isSubscribed)
 		          	if(isSubscribed){
-		          		this.modalStatus = false;		          		
+		          		_this.modalStatus = false;		          		
 		          		localStorage.setItem('modalStatus', false);
 		            	OneSignal.getUserId( function(userId) {
 		                	console.log('userId:', userId)              
@@ -288,7 +288,7 @@
 		              	});              
 		          	} else{
 		            	console.log('false')
-		            	OneSignal.setSubscription(false);
+		            	// OneSignal.setSubscription(false);
 		            	// OneSignal.showNativePrompt({force: true});
 			        }
 		        });
