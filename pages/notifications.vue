@@ -123,7 +123,7 @@
 							</div>
 						</div> -->
 
-						<button type="button" disabled @click="onManageWebPushSubscriptionButtonClicked" class="button button--green">
+						<button type="button" @click="onManageWebPushSubscriptionButtonClicked" class="button button--green">
 							Subscribe to Notifications
 						</button>
 					</div>					
@@ -135,7 +135,7 @@
 						</h3>
 					</div>
 
-					<button type="button" disabled @click="onManageWebPushSubscriptionButtonClicked" class="button button--green">
+					<button type="button" @click="onManageWebPushSubscriptionButtonClicked" class="button button--green">
 							Subscribe to Notifications
 						</button>
 				</div>
