@@ -8,4 +8,4 @@ Vue.component('loader', loader);
 
 Vue.component('CircleCounter', CircleCounter);
 
-Vue.component('modal-select', ModalSelect);
+Vue.component('ModalSelect', ModalSelect);
