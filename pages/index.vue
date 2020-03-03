@@ -110,7 +110,7 @@
 								    </circle-counter>
 									<div class="circle-text circle-text--main">					
 								    	<span class="name name--main">
-									    	Прогресс
+									    	Процент выполнения
 								    	</span>
 								    	<span class="number number--main">
 								    		{{computedNumberPlan}}%

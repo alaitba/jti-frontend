@@ -93,18 +93,18 @@
 								</div>
 								<div class="gifts__wrapper">
 									<template v-if="giftsHistory.length">
-										<div class="list-item item" v-for="(item,key) in list">
+										<div class="list-item item" v-for="(item,key) in giftsHistory">
 											<div class="list-item__content item__content">
-												<p class="title" v-if="item.mobilePhone">
-													{{item.mobilePhone | formatNumber}}
+												<p class="title" v-if="item.name">
+													{{item.name}}
 												</p>
-												<p class="info" v-if="item.fillingDate">
-													Сохранена {{item.fillingDate | formatData}}
+												<p class="info" v-if="item.date">
+													Сохранена {{item.date | formatData}}
 												</p>
 											</div>
 											<div class="list-item__status item__status">
-												<p class="point" v-if="item.data.amount">
-													-{{item.data.amount | formatAmount}} баллов						
+												<p class="point minus" v-if="item.amount">
+													{{item.amount | formatAmount}} баллов						
 												</p>
 												<!-- <div :class="{'status' : true, 'status--active': item.isEffective, 'status--filled': item.isQualified, 'status--waiting': !item.isQualified}">
 													<img src="~/assets/img/icons/anketa/status_active.svg" alt="" v-if="item.isEffective && item.isQualified">

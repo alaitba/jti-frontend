@@ -115,8 +115,8 @@
 		data(){
 			return{
 				loaderStatus: true,
-				selectedStore: localStorage.getItem('tradePoints') ? JSON.parse(localStorage.getItem('tradePoints'))[0] : '',
-				brands : localStorage.getItem('tradePoints') ? JSON.parse(localStorage.getItem('tradePoints')) : '',
+				selectedStore: '',
+				brands : [],
 				selectedDays: false,
 				planData:'',
 				amountDays:'',
@@ -140,27 +140,20 @@
             
             this.getHolidays();
             this.getDates();
-            if(localStorage.getItem('tradePoints')){
-            	console.log(this.calendarConfigs)
-            	this.calendarConfigs.disabledDayNames = JSON.parse(localStorage.getItem('tradePoints'))[0] ? JSON.parse(localStorage.getItem('tradePoints'))[0].purchase_days : [];
-            	this.getStoreData(JSON.parse(localStorage.getItem('tradePoints'))[0], 'first');            	
-            	// this.$refs.Calendar.selectedDaysCount('1/2/2020', 'today')
-            }
-        	
             this.$nuxt.$on('setDays',this.setDays)
+
+            this.setBrands();
+
+            // if(localStorage.getItem('tradePoints')){
+            // 	console.log(this.calendarConfigs)
+            // 	this.calendarConfigs.disabledDayNames = JSON.parse(localStorage.getItem('tradePoints'))[0] ? JSON.parse(localStorage.getItem('tradePoints'))[0].purchase_days : [];
+            // 	this.getStoreData(JSON.parse(localStorage.getItem('tradePoints'))[0], 'first');            	
+            // 	// this.$refs.Calendar.selectedDaysCount('1/2/2020', 'today')
+            // }            
+        	
 		},
 		computed:{
-			// setBrands(){
-			// 	let arr = []
-			// 	if(!JSON.parse(localStorage.getItem('tradePoints')).length){
-			// 		arr.push(JSON.parse(localStorage.getItem('tradePoints')))
-			// 		this.selectedStore = arr[0];
-			// 		return arr 
-			// 	} else {
-			// 		this.selectedStore = JSON.parse(localStorage.getItem('tradePoints'))[0]
-			// 		return JSON.parse(localStorage.getItem('tradePoints'))
-			// 	}
-			// },	
+			
 			getCurrentData(){
 				return moment().format('DD.MM.YYYY');
 			},		
@@ -199,6 +192,23 @@
 			}
 		},
 		methods:{
+
+			setBrands(){
+				
+				let arr = []
+
+				if(!JSON.parse(localStorage.getItem('tradePoints')).length){
+					arr.push(JSON.parse(localStorage.getItem('tradePoints')))
+					this.selectedStore = arr[0];
+					this.brands = arr;
+				} else {
+					this.selectedStore = JSON.parse(localStorage.getItem('tradePoints'))[0];
+					this.brands = JSON.parse(localStorage.getItem('tradePoints'))
+				}
+
+				this.calendarConfigs.disabledDayNames = this.brands[0].purchase_days;
+				this.getStoreData(this.selectedStore, 'first');
+			},	
 
 			// выясняет количество выбранных дней в текущем месяце
 			getDates(){
@@ -253,6 +263,8 @@
 			// отправляет выбранные дни торговой точки
 			async sendDays(){
 
+
+
 				let fileds = {
 					'tradepoint': this.selectedStore.account_code,
 					'weekdays': this.calendarConfigs.disabledDayNames
@@ -273,7 +285,7 @@
 
 			// меняет и записывает выбранные дни торговой точки 
 			resetDays(){
-				let obj = JSON.parse(localStorage.getItem("tradePoints"));
+				let obj = this.brands;
 				// console.log('obj:', obj);
 
 				for(let i =0; i< obj.length; i++){
