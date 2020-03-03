@@ -29,7 +29,7 @@
 			</div>		
 		</header>
 		<!-- header menu -->
-		<div :class="{'header-mobile': true, 'show': burgerStatus, 'show--fillform' : burgerStatus && ($route.name == 'Anketa-CreateAnketa-Fillform' || $route.name == 'plan')}">
+		<div :class="{'header-mobile': true, 'show': burgerStatus, 'show--fillform' : burgerStatus && ($route.name == 'Anketa-CreateAnketa-Fillform' || $route.name == 'plan' || $route.name =='Anketa-Gifts')}">
 			<div class="container">
 				<ul class="nav">
 					

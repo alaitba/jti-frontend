@@ -85,11 +85,9 @@
 	import ModalError from '~/components/layouts/Modals/ModalError.vue'
 	import {mapState, mapMutations} from 'vuex'
 	import moment from 'moment'
-	import Loader from '~/components/layouts/loader.vue'
 	export default {
 	  	components: {
 	      ModalError,      
-	      Loader,
 	    },
 	    filters:{
 	    	truncateText(text,stop,clamp){

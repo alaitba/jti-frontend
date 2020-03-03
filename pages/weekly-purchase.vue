@@ -1,0 +1,495 @@
+<template>
+	<main class="page page--flex page--grey">
+		<template v-if="loaderStatus">
+			<loader/>
+		</template>
+		<template v-else>
+			<div class="purchase">
+				<div class="container">
+					<h3 class="section__title section__title--profile">
+						Еженедельный закуп
+					</h3>
+
+					<div class="purchase__selector">
+						<div class="form-group form-group--selector" v-if="brands">
+    						<label for="input" class="form__label form__label--selector"> 
+			                  Торговая точка
+			                </label>  
+			                <multiselect 
+			            		v-model="selectedStore" 
+			            		name="brands"
+			            		track-by="account_name"
+				            	label="account_name" 				
+			            		:options="brands" 
+			            		:searchable="false" 
+			            		:close-on-select="true" 
+			            		:show-labels="false" 
+			            		placeholder="Торговая точка"
+			            		v-validate="'required'"
+			            		:disabled="brands.length<2"
+			            		@input=checkDisabledDays(selectedStore)
+			            	>					            		
+			            	</multiselect>					            	
+			            </div>
+					</div>
+
+					<div class="purchase__plan" v-if="planData">
+						<div class="item" v-if="planData.plan">
+							<div class="title">
+								План, блоки
+							</div>
+							<div class="amount">
+								{{planData.plan}}
+							</div>
+						</div>
+						<div class="item" v-if="planData.fact">
+							<div class="title">
+								Факт, блоки
+							</div>
+							<div class="amount">
+								{{planData.fact}}
+							</div>
+						</div>
+					</div>
+
+					<div class="purchase__recommendations" >
+						<div class="title">
+							Рекомендуемый закуп за один визит
+						</div>
+						<template v-if="selectedDays && amountDays && planData">
+							<div class="amount">
+								{{Math.round(((planData.plan - planData.fact)/amountDays).toFixed(2))}}
+							</div>
+						</template>
+						<template v-else>
+							<div class="amount amount--text">
+								Заполните график визитов для расчета
+							</div>
+						</template>
+					</div>
+
+					<div class="purchase__select">
+						<button class="button button--bordered green" type="button" @click="clearData">
+							Изменить график визитов
+						</button>
+					</div>
+
+					<div class="purchase__calendar" v-if="selectedDays">
+						<FunctionalCalendar 
+							ref="Calendar"
+							:configs="calendarConfigs">
+						</FunctionalCalendar>
+					</div>
+					<div 
+						class="purchase__calendar" 
+						v-else 
+						style="min-height: 300px; position: relative;">
+						<loader/>
+					</div>
+					<div class="purchase__update-date">
+						<p>
+							Последняя дата обновления: {{getCurrentData }}
+						</p>
+					</div>
+
+					<!-- <button class="button button--green" @click="resetDays"> 
+						adasdas
+					</button>
+
+					setBrands: {{brands}} -->
+				</div>				
+			</div>			
+		</template>
+		<modal-select/>
+	</main>
+
+</template>
+
+<script>	
+	import { FunctionalCalendar } from 'vue-functional-calendar';
+	// import moment from 'moment'		
+	export default{
+		components: {
+	        FunctionalCalendar
+	    },
+		data(){
+			return{
+				loaderStatus: true,
+				selectedStore: localStorage.getItem('tradePoints') ? JSON.parse(localStorage.getItem('tradePoints'))[0] : '',
+				brands : localStorage.getItem('tradePoints') ? JSON.parse(localStorage.getItem('tradePoints')) : '',
+				selectedDays: false,
+				planData:'',
+				amountDays:'',
+				calendarConfigs: {
+	                sundayStart: false,
+	                isDatePicker: false,
+	                dateFormat: 'dd/mm/yyyy',
+	                isDatePicker: false,
+	                isDateRange: false,
+	                markedDates: [],
+	                disabledDayNames: [],
+	                dayNames: ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
+	                monthNames: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июнь", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+	                hiddenElements: ['leftAndRightDays','navigationArrows'], 
+	            },
+			   // disabledDayNames:[]
+			}
+		},
+		mounted(){			
+
+            
+            this.getHolidays();
+            this.getDates();
+            if(localStorage.getItem('tradePoints')){
+            	console.log(this.calendarConfigs)
+            	this.calendarConfigs.disabledDayNames = JSON.parse(localStorage.getItem('tradePoints'))[0] ? JSON.parse(localStorage.getItem('tradePoints'))[0].purchase_days : [];
+            	this.getStoreData(JSON.parse(localStorage.getItem('tradePoints'))[0], 'first');            	
+            	// this.$refs.Calendar.selectedDaysCount('1/2/2020', 'today')
+            }
+        	
+            this.$nuxt.$on('setDays',this.setDays)
+		},
+		computed:{
+			// setBrands(){
+			// 	let arr = []
+			// 	if(!JSON.parse(localStorage.getItem('tradePoints')).length){
+			// 		arr.push(JSON.parse(localStorage.getItem('tradePoints')))
+			// 		this.selectedStore = arr[0];
+			// 		return arr 
+			// 	} else {
+			// 		this.selectedStore = JSON.parse(localStorage.getItem('tradePoints'))[0]
+			// 		return JSON.parse(localStorage.getItem('tradePoints'))
+			// 	}
+			// },	
+			getCurrentData(){
+				return moment().format('DD.MM.YYYY');
+			},		
+			getCheckedDays(){	
+				// console.log('days',this.$store.state.checkedDays,this.disabledDayNames)
+				// this.disabledDayNames = this.$store.state.checkedDays;
+				if(!this.calendarConfigs.disabledDayNames.length) return;
+				let arr = this.calendarConfigs.disabledDayNames,
+					weekdays = [];	
+				for(let i = 0; i<arr.length; i++){
+					switch (arr[i]){
+						case 'Пн':
+							weekdays.push(1)
+							break;
+						case 'Вт':
+							weekdays.push(2)
+							break;
+						case 'Ср':
+							weekdays.push(3)
+							break;
+						case 'Чт':
+							weekdays.push(4)
+							break;
+						case 'Пт':
+							weekdays.push(5)
+							break;
+						case 'Сб':
+							weekdays.push(6)
+							break;
+						case 'Вс':
+							weekdays.push(7)
+							break;
+					}
+				}
+				return weekdays;
+			}
+		},
+		methods:{
+
+			// выясняет количество выбранных дней в текущем месяце
+			getDates(){
+			    let start = moment(),
+					end = moment().endOf('month'),
+					days = ['Monday'];
+
+				this.amountDays = moment().weekdayCalc({  
+				  	rangeStart: start,  
+				  	rangeEnd: end,  
+				  	weekdays: this.getCheckedDays,  
+				  	exclusions: [],
+				  	inclusions: []
+				}) //260			
+			},		
+
+			// очищает выбранные дни в календаре и открывает модалку для выбора дней
+			clearData(){
+				this.calendarConfigs.disabledDayNames = [];
+				this.selectedDays = false;
+				$('#modal-select').modal('show');
+			},
+
+			// вставляет выбранные дни в календарь
+			setDays(){
+				this.calendarConfigs.disabledDayNames = this.$store.state.checkedDays;		
+				this.selectedDays = true;
+				this.getDates();
+				this.resetDays();
+				this.sendDays();				
+			},
+
+			// выходные и праздничные дни
+			async getHolidays(){
+
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+				try{
+
+					let res = await this.$axios.$get('/dict/holidays')
+
+					// this.calendarConfigs.disabledDayNames = ['Fr'];
+					this.calendarConfigs.markedDates = res.holidays;					
+					// console.log('res:', res);					
+					this.selectedDays= true;
+		        } catch(error){
+
+		          console.log('errorPush', error)
+		        }
+			},
+
+			// отправляет выбранные дни торговой точки
+			async sendDays(){
+
+				let fileds = {
+					'tradepoint': this.selectedStore.account_code,
+					'weekdays': this.calendarConfigs.disabledDayNames
+				}
+
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+				try{
+
+					let res = await this.$axios.$post('/purchase/save-days',fileds)					
+
+		        } catch(error){
+
+		          console.log('errorPush', error)
+		        }				
+
+			},
+
+			// меняет и записывает выбранные дни торговой точки 
+			resetDays(){
+				let obj = JSON.parse(localStorage.getItem("tradePoints"));
+				// console.log('obj:', obj);
+
+				for(let i =0; i< obj.length; i++){
+					if(obj[i].account_code == this.selectedStore.account_code){
+						obj[i].purchase_days = this.calendarConfigs.disabledDayNames;
+					}
+				}
+								
+				localStorage.setItem("tradePoints",JSON.stringify(obj));
+				this.brands = obj;
+			},
+
+			checkDisabledDays(){
+
+				this.selectedDays = false;
+
+				
+				if(this.selectedStore.purchase_days.length){
+					this.calendarConfigs.disabledDayNames = this.selectedStore.purchase_days;
+					this.getStoreData(this.selectedStore, 'true');
+					// this.selectedDays = true;
+				} else {
+					// this.selectedDays = true;
+					this.calendarConfigs.disabledDayNames = [];
+					this.getStoreData(this.selectedStore, 'true');
+				}
+
+			},
+
+			// получает план торговой точки
+			async getStoreData(value, status){
+
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');								
+
+				try{
+
+					let res = await this.$axios.$get('/purchase/plan-fact?tradepoint=' + value.account_code);
+
+					this.planData = res;
+
+					this.loaderStatus = false;
+
+					if(status == 'true'){
+						this.selectedDays = true;
+					}
+
+				} catch(error){
+					if(status == 'true'){
+						this.selectedDays = true;
+					}
+					console.log(error)
+				}
+			}
+		}
+	}
+</script>
+
+<style lang="scss">
+	.purchase{
+		width: 100%;
+		padding: 16px 0 20px 0;
+		&__selector{
+			.form{
+				&-group{
+					&--selector{
+						margin-top: 8px;
+					}
+				}
+				&__label{
+					&--selector{
+						z-index: 1;
+					}
+				}
+			}
+		}
+		&__plan{
+			margin-top: 16px;
+			display: flex;
+			justify-content: space-between;
+			.item{
+				.title{
+					font-family: 'Roboto';
+					font-style: normal;
+					font-weight: 300;
+					font-size: 16px;
+					line-height: 19px;									
+					color: #969696;
+				}
+				.amount{
+				    font-family: 'Open Sans';
+					font-style: normal;
+					font-weight: bold;
+					font-size: 18px;
+					line-height: 25px;					
+					color: #217461;
+				}
+			}
+		}
+		&__recommendations{
+			margin-top: 8px;
+			.title{
+				font-family: 'Roboto';
+				font-style: normal;
+				font-weight: 300;
+				font-size: 16px;
+				line-height: 19px;				
+				color: #969696;
+				margin-bottom: 8px;
+			}
+			.amount{
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: bold;
+				font-size: 18px;
+				line-height: 25px;				
+				color: #217461;
+				&--text{
+					font-family: 'Roboto';
+					font-style: normal;
+					font-weight: 500;
+					font-size: 16px;
+					line-height: 19px;					
+					color: #969696;
+				}
+			}
+		}
+		&__select{
+			margin-top: 24px;
+		}
+		&__update-date{
+			margin-top: 24px;
+			p{
+				margin-bottom: 0;
+				font-weight: 300;
+				font-size: 16px;
+				line-height: 19px;				
+				color: #969696;
+			}
+		}
+		&__calendar{
+			margin-top: 24px; 
+			.ring{
+				width: 40px;
+				height: 40px;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+			}
+			.vfc{
+				&-content{
+					z-index: 9 !important;
+				}
+				&-main-container{
+					background-color: transparent;
+					box-shadow: none;
+				}
+				&-arrow{
+					&-left,&-right{
+						// display: none !important;
+					}
+				}
+				&-dayNames{
+					span{
+						margin-right: 0px !important;
+						font-style: normal;
+						font-weight: 500;
+						font-size: 16px;
+						line-height: 19px;
+						text-align: center;
+						color: rgba(0, 0, 0, 0.543337) !important;
+					}
+				}
+				&-day{
+
+				}
+				&-span-day{
+					font-size: 16px !important;
+					line-height: 19px;
+					text-align: center;
+					&.vfc-today{
+						color:#212529 !important;
+						background-color: transparent !important; 
+					}
+					&.vfc-hide{
+						color: #05B186 !important;
+						font-weight: 500;
+					}					
+					&.vfc-hover{
+						background-color: transparent !important; 
+					}
+					&.vfc-marked{
+						background-color: transparent !important;
+						&.vfc-borderd{
+							color: #969696 !important;
+							font-weight: 300;							
+						}
+					}
+				}
+				&-top-date{
+					margin: 0;
+					margin-bottom: 8px !important;
+					a{
+						font-family: 'Open Sans';
+						font-style: normal;
+						font-weight: bold;
+						font-size: 18px;
+						line-height: 25px;						
+						text-align: center;
+						color: #217461 !important;
+						margin: 0;
+						&:last-child{
+							display: none;
+						}
+					}
+				}
+			}	
+		}
+	}
+</style>

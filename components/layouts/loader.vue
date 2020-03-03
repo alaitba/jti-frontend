@@ -1,9 +1,9 @@
 <template>
-	<div>
+	<!-- <div> -->
 		<div class="ring">
 		  <span></span>
 		</div>
-	</div>
+	<!-- </div> -->
 </template>
 
 <style scoped>

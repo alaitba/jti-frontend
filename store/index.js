@@ -9,6 +9,7 @@ export const state = () => {
     numberAnketa: localStorage.getItem("anketaNumber") ? localStorage.getItem("anketaNumber") : null,
     brands: null,
     tokenStatus: null,
+    checkedDays: localStorage.getItem('checkedDays') ? JSON.parse(localStorage.getItem('checkedDays')) : []
   }
 }
 
@@ -39,6 +40,9 @@ export const mutations = {
   },
   setTokenStatus (state, tokenStatus){
     state.tokenStatus = tokenStatus;
+  },
+  setCheckedDays(state, checkedDays){
+    state.checkedDays = checkedDays;
   },
   resetState (state) {
     state.auth = null;

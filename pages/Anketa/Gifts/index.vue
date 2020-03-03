@@ -4,56 +4,125 @@
 			<loader/>
 		</template>
 		<template v-else>
-			<div class="gifts">
-				<div class="container">
-					<h3 class="section__title gifts__title">
-						Призы
-					</h3>
-					<div class="gifts__points points">
-						<p>
-							Количество баллов:
-							<span v-if="balance">
-								{{balance}}
-							</span>
-							<span v-else>
-								0
-							</span>
-						</p>
-					</div>
-					<div class="gifts__wrapper" v-if="gifts.length">
-						<div class="item" v-for="(item,key) in gifts" v-if="item.qty!=0">
-	            			<nuxt-link :to="{name : 'Anketa-Gifts-id', params: {id : item.rewardId}}">
-		  						<div class="item__img" v-if="item.images">
-		  							<img :src="item.images[0].origin_url" alt="" v-if="item.images[0]">
-		  						</div>
-		  						<div class="item__content">
-		  							<div>
-		  								<h4 class="title" v-if="item.price">
-		  									{{item.price | formatPrice}} <span>баллов</span>
-		  								</h4>
-		  								<p class="text">
-		  									{{item.name}}
-		  								</p>
-						                <template v-if="item.rewardId=='069ab460-263c-ea11-80cc-1cc1dee6b654' || item.rewardId=='7b9f8a06-0a44-ea11-80cc-1cc1dee6b654'">
-						                	<p class="left" v-if="item.totalQty!=null">
-						                      количество не ограничено
-						                    </p>						                    
-						                </template>
-						                <template v-else>
-						                    <p class="left" v-if="item.totalQty!=null">
-						                      Осталось штук: {{item.totalQty | formatAmount}}
-						                    </p>
-						                </template>
-		  							</div>
-		  							<div class="d-flex">
-		  								<nuxt-link class="link" :to="{name : 'Anketa-Gifts-id', params: {id : item.rewardId}}">
-		                    				Получить приз
-		                  				</nuxt-link>
-		  							</div>
-		  						</div>
-	            			</nuxt-link>
+			<div class="fill-section">
+				<div class="fill-section__menu">
+					<ul class="nav nav-pills">
+						<li class="nav-item">
+							<a class="nav-link active" data-toggle="pill" href="#home">
+								Текущий план
+							</a>
+						</li>
+					  	<li class="nav-item">
+							<a class="nav-link" data-toggle="pill" href="#menu">
+								История
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="fill-section__content tab-content">				
+					<div class="tab-pane fade active" id="home">	
+						<div class="gifts">
+							<div class="container">
+								<h3 class="section__title gifts__title">
+									Призы
+								</h3>
+								<div class="gifts__points points">
+									<p>
+										Количество баллов:
+										<span v-if="balance">
+											{{balance}}
+										</span>
+										<span v-else>
+											0
+										</span>
+									</p>
+								</div>
+								<div class="gifts__wrapper" v-if="gifts.length">
+									<div class="item" v-for="(item,key) in gifts" v-if="item.qty!=0">
+				            			<nuxt-link :to="{name : 'Anketa-Gifts-id', params: {id : item.rewardId}}">
+					  						<div class="item__img" v-if="item.images">
+					  							<img :src="item.images[0].origin_url" alt="" v-if="item.images[0]">
+					  						</div>
+					  						<div class="item__content">
+					  							<div>
+					  								<h4 class="title" v-if="item.price">
+					  									{{item.price | formatPrice}} <span>баллов</span>
+					  								</h4>
+					  								<p class="text">
+					  									{{item.name}}
+					  								</p>
+									                <template v-if="item.rewardId=='069ab460-263c-ea11-80cc-1cc1dee6b654' || item.rewardId=='7b9f8a06-0a44-ea11-80cc-1cc1dee6b654'">
+									                	<p class="left" v-if="item.totalQty!=null">
+									                      количество не ограничено
+									                    </p>						                    
+									                </template>
+									                <template v-else>
+									                    <p class="left" v-if="item.totalQty!=null">
+									                      Осталось штук: {{item.totalQty | formatAmount}}
+									                    </p>
+									                </template>
+					  							</div>
+					  							<div class="d-flex">
+					  								<nuxt-link class="link" :to="{name : 'Anketa-Gifts-id', params: {id : item.rewardId}}">
+					                    				Получить приз
+					                  				</nuxt-link>
+					  							</div>
+					  						</div>
+				            			</nuxt-link>
+									</div>
+								</div>					
+							</div>
 						</div>
-					</div>					
+					</div>
+					<div class="tab-pane" id="menu">
+						<div class="gifts">
+							<div class="container">
+								<h3 class="section__title gifts__title">
+									История
+								</h3>
+								<div class="gifts__points points">
+									<p>
+										Количество баллов:
+										<span v-if="balance">
+											{{balance}}
+										</span>
+										<span v-else>
+											0
+										</span>
+									</p>
+								</div>
+								<div class="gifts__wrapper">
+									<template v-if="giftsHistory.length">
+										<div class="list-item item" v-for="(item,key) in list">
+											<div class="list-item__content item__content">
+												<p class="title" v-if="item.mobilePhone">
+													{{item.mobilePhone | formatNumber}}
+												</p>
+												<p class="info" v-if="item.fillingDate">
+													Сохранена {{item.fillingDate | formatData}}
+												</p>
+											</div>
+											<div class="list-item__status item__status">
+												<p class="point" v-if="item.data.amount">
+													-{{item.data.amount | formatAmount}} баллов						
+												</p>
+												<!-- <div :class="{'status' : true, 'status--active': item.isEffective, 'status--filled': item.isQualified, 'status--waiting': !item.isQualified}">
+													<img src="~/assets/img/icons/anketa/status_active.svg" alt="" v-if="item.isEffective && item.isQualified">
+													<img src="~/assets/img/icons/anketa/status_filled.svg" alt="" v-if="item.isQualified && !item.isEffective">
+													<img src="~/assets/img/icons/anketa/status_waiting.svg" alt="" v-if="!item.isQualified && !item.isEffective">
+												</div> -->
+											</div>
+										</div>
+									</template>
+									<template v-else>
+										<h5>
+											
+										</h5>
+									</template>									
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<footer-anketa/>
@@ -64,12 +133,10 @@
 <script>
 	import FooterAnketa from '~/components/layouts/Footer/Footer.vue'
 	import ModalError from '~/components/layouts/Modals/ModalError.vue'
-	import Loader from '~/components/layouts/loader.vue'
 	export default {
 		components:{
 			FooterAnketa,
 			ModalError,
-			Loader
 		},
 		filters:{
 			formatAmount(value){
@@ -86,18 +153,28 @@
 			},
 		    formatPrice(value){
 		        return parseInt(Number(value));
+		    },
+		    formatNumber (value){
+		      	value = value.replace('+','');
+		    	return '+' + String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
+		        // return value;
+		    },
+	      	formatData(value) {
+		    	return moment(value).format('DD.MM.YYYY');
 		    }
 		},
 		data(){
 			return {
 				gifts:[],
 				balance:'',
+				giftsHistory:[],
 				loaderStatus: true,
 			}
 		},
 		mounted(){
 			this.getBalance();
 			this.getPrizes();
+			this.getGiftsHistory();			
 		},
 		methods:{
 			showModal(modal){
@@ -131,7 +208,22 @@
 
 					}).catch(error =>{
 						// console.log('error',error.response)
-					})
+				})
+			},
+
+			async getGiftsHistory(){
+
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+				try{
+
+					let res = await this.$axios.$get('/rewards/history');
+					this.giftsHistory = res.data;
+					console.log('res:', this.giftsHistory);
+
+				} catch(error){
+					console.log(error);
+				}
 
 			}
 		}
@@ -145,7 +237,7 @@
 		margin-top: 16px;
 	}
 	.gifts{
-		padding: 16px 0 120px 0;
+		padding: 0px 0 120px 0;
 		width: 100%;
 		&__wrapper{
 			.item{

@@ -16,8 +16,8 @@
 					</div>			
 					<div class="anketa__wrapper" v-if="list.length">
 
-						<div class="item" v-for="(item,key) in list">
-							<div class="item__content">
+						<div class="list-item item" v-for="(item,key) in list">
+							<div class="list-item__content item__content">
 								<p class="title" v-if="item.mobilePhone">
 									{{item.mobilePhone | formatNumber}}
 								</p>
@@ -25,7 +25,7 @@
 									Сохранена {{item.fillingDate | formatData}}
 								</p>
 							</div>
-							<div class="item__status">
+							<div class="list-item__status item__status">
 								<p class="point">
 									<!-- +50 баллов -->
 								</p>
@@ -79,12 +79,10 @@
 <script>
 	import FooterAnketa from '~/components/layouts/Footer/Footer.vue'
 	import {mapState, mapMutations} from 'vuex'
-	import Loader from '~/components/layouts/loader.vue'
 	import moment from 'moment'
 	export default {
 		components:{
 			FooterAnketa,
-			Loader,
 		},
 		filters: {
 	      formatNumber (value){

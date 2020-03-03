@@ -93,13 +93,11 @@
 	import FooterAnketa from '~/components/layouts/Footer/Footer.vue'
 	import ModalError from '~/components/layouts/Modals/ModalError.vue'
 	import ModalMain from '~/components/layouts/Modals/modal-main.vue'
-	import Loader from '~/components/layouts/loader.vue'
 	export default {
 		components:{
 			FooterAnketa,
 			ModalError,
 			ModalMain,
-			Loader
 		},
 		filters:{
 			formatAmount(value){

@@ -27,7 +27,8 @@ module.exports = {
       { src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js' },
       // { src: 'https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js'},
       { src:'/libs/signature_pad.min.js'},
-      // { src:'https://cdn.onesignal.com/sdks/OneSignalSDK.js'},
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js'},
+      { src:'https://cdn.jsdelivr.net/npm/moment-weekday-calc@1.1.4/src/moment-weekday-calc.js'},
       {
         src:"https://cdn.jsdelivr.net/npm/pwacompat@2.0.6/pwacompat.min.js",
         integrity:"sha384-GOaSLecPIMCJksN83HLuYf9FToOiQ2Df0+0ntv7ey8zjUHESXhthwvq9hXAZTifA",
@@ -59,7 +60,9 @@ module.exports = {
     '~plugins/vue-swiper.js',
     '~plugins/sentry.js',
     '~/plugins/axios.js',
-    '~/plugins/serviceworker.js'
+    '~/plugins/serviceworker.js',
+    '~/plugins/global.js',    
+    '~/plugins/moment.js',
   ],
 
   /*

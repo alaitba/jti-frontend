@@ -19,7 +19,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="fill-section__content tab-content">				
+				<div class="fill-section__content tab-content">
 					<div class="tab-pane fade active container" id="home">
 						<h3 class="section__title section__title--profile">
 	    					Текущий план закупок
@@ -27,53 +27,53 @@
 
 	    				<div class="plan">
 	    					<div class="plan__selector">
-	    						<div class="form-group--selector" v-if="setBrands">
-		    						<label for="input" class="form__label form__label--selector"> 
-					                  Торговая точка
-					                </label>  
-					                <multiselect 
-					            		v-model="selectedBrand" 
-					            		name="brands"
-					            		track-by="account_name"
-						            	label="account_name" 				
-					            		:options="setBrands" 
-					            		:searchable="false" 
-					            		:close-on-select="true" 
-					            		:show-labels="false" 
-					            		placeholder="Торговая точка"
-					            		v-validate="'required'"
-					            		:disabled="setBrands.length<2"
-					            	>					            		
-					            	</multiselect>			            	
-					            </div>				            
-	    					</div>  
-							<div class="plan__graphic graphic" v-if="reports && reports[selectedBrand.account_code]">							
+	    						<div class="form-group form-group--selector" v-if="setBrands">
+		    						<label for="input" class="form__label form__label--selector">
+		                  Торговая точка
+		                </label>
+				            <multiselect
+			            		v-model="selectedBrand"
+			            		name="brands"
+			            		track-by="account_name"
+				            	label="account_name"
+			            		:options="setBrands"
+			            		:searchable="false"
+			            		:close-on-select="true"
+			            		:show-labels="false"
+			            		placeholder="Торговая точка"
+			            		v-validate="'required'"
+			            		:disabled="setBrands.length<2"
+			            	>
+				            </multiselect>
+				          </div>
+	    					</div>
+							<div class="plan__graphic graphic" v-if="reports && reports[selectedBrand.account_code]">
 	    						<swiper :options="swiperOption" ref="mySwiper">
 	    							<swiper-slide>
 			    						<div class="plan-item">
 			    							<div class="plan-item__circle">
-			    								<circle-counter 
-				                                    width="188px" 
-				                                    height="188px" 
-				                                    stroke="#C2EEE3"
-				                                    :activeCount= computedNumberPlan
-				                                    :dashCount=100
-				                                    :dash-spacing=n 
-				                                    :strokeWidth=m
-				                                    :activeWidth=c       
-				                                    activeStroke="#05B186"	              
-				                                />
+			    								<circle-counter
+                              width="188px"
+                              height="188px"
+                              stroke="#C2EEE3"
+                              :activeCount= computedNumberPlan
+                              :dashCount=100
+                              :dash-spacing=n
+                              :strokeWidth=m
+                              :activeWidth=c
+                              activeStroke="#05B186"
+                          />
 											    </circle-counter>
 
 											    <div class="circle-text">
-											    	<span class="name">					
+											    	<span class="name">
 												    	Бонус за выполнение
 											    	</span>
 											    	<span class="number">
-											    		{{reports[selectedBrand.account_code][0].bonus_portfolio | formatAmount}} тг
+											    		{{reports[selectedBrand.account_code].bonus_portfolio | formatAmount}} тг
 											    	</span>
 											    </div>
-			    							</div>    			
+			    							</div>
 			    							<div class="plan-item__main">
 			    								<p class="title">
 			    									Общий план
@@ -83,50 +83,50 @@
 			    										Закуплено блоков
 			    									</span>
 			    									<span class="number">
-			    										{{reports[selectedBrand.account_code][0].fact_portfolio}}/{{reports[selectedBrand.account_code][0].plan_portfolio}}
+			    										{{reports[selectedBrand.account_code].fact_portfolio}}/{{reports[selectedBrand.account_code].plan_portfolio}}
 			    									</span>
 			    								</p>
-			    							</div>				
+			    							</div>
 			    						</div>
 			    					</swiper-slide>
 			    					<swiper-slide>
 			    						<div class="plan-item">
 			    							<div class="plan-item__circle">
-			    								<circle-counter 
-				                                    width="188px" 
-				                                    height="188px" 
-				                                    stroke="#C2EEE3"
-				                                    :dashCount=100
-				                                    :activeCount=computedNumberBonus
-				                                    :dash-spacing=n 
-				                                    :strokeWidth=m
-				                                    :activeWidth=c       
-				                                    activeStroke="#05B186"	              
-				                                />
+			    								<circle-counter
+                              width="188px"
+                              height="188px"
+                              stroke="#C2EEE3"
+                              :dashCount=100
+                              :activeCount=computedNumberBonus
+                              :dash-spacing=n
+                              :strokeWidth=m
+                              :activeWidth=c
+                              activeStroke="#05B186"
+                          />
 											    </circle-counter>
 
 											    <div class="circle-text">
-											    	<span class="name">					
+											    	<span class="name">
 												    	Бонус за выполнение
 											    	</span>
 											    	<span class="number">
-											    		{{reports[selectedBrand.account_code][0].bonus_brand | formatAmount}} тг
+											    		{{reports[selectedBrand.account_code].bonus_brand | formatAmount}} тг
 											    	</span>
 											    </div>
-			    							</div>    			
+			    							</div>
 			    							<div class="plan-item__main">
 			    								<p class="title">
-			    									{{reports[selectedBrand.account_code][0].brand}}
+			    									{{reports[selectedBrand.account_code].brand}}
 			    								</p>
 			    								<p class="amount">
 			    									<span class="name">
 			    										Закуплено блоков
 			    									</span>
 			    									<span class="number">
-			    										{{reports[selectedBrand.account_code][0].fact_brand}}/{{reports[selectedBrand.account_code][0].plan_brand}}
+			    										{{reports[selectedBrand.account_code].fact_brand}}/{{reports[selectedBrand.account_code].plan_brand}}
 			    									</span>
 			    								</p>
-			    							</div>				
+			    							</div>
 			    						</div>
 			    					</swiper-slide>
 			    					<div class="swiper-pagination" slot="pagination"></div>
@@ -134,8 +134,13 @@
 	    					</div>
 
 
-	    					<div class="plan__images">
-	    						<div class="item">
+	    					<div class="plan__images" v-if="reports && reports[selectedBrand.account_code].photos">
+                  <template v-for="(item, key) in reports[selectedBrand.account_code].photos">
+                    <div class="item">
+                      <img :src="item.url" alt="">
+                    </div>
+                  </template>
+	    						<!-- <div class="item">
 	    							<img src="~/assets/img/plan/1.png" alt="">
 	    						</div>
 	    						<div class="item">
@@ -143,8 +148,8 @@
 	    						</div>
 	    						<div class="item">
 	    							<img src="~/assets/img/plan/1.png" alt="">
-	    						</div>
-	    					</div>  					
+	    						</div> -->
+	    					</div>
 	    				</div>
 					</div>
 					<div class="tab-pane container" id="menu">
@@ -154,27 +159,27 @@
 
 	    				<div class="history">
 	    					<div class="history__selector">
-	    						
-	    						<div class="form-group--selector" v-if="history && setBrands">
-		    						<label for="input" class="form__label form__label--selector"> 
-					                  Торговая точка
-					                </label>  
-					                <!-- {{setBrands}} -->
-					            	<multiselect 
-					            		v-model="selectedBrandHistory" 
-					            		name="brands"
-					            		track-by="account_name"
-						            	label="account_name" 				
-					            		:options="setBrands" 
-					            		:searchable="false" 
-					            		:close-on-select="true" 
-					            		:show-labels="false" 
-					            		placeholder="Торговая точка"
-					            		v-validate="'required'"
-					            		:disabled="setBrands.length<2"
-					            	>					            		
-					            	</multiselect>			            	
-					            </div>
+
+	    						<div class="form-group form-group--selector" v-if="history && setBrands">
+		    						<label for="input" class="form__label form__label--selector">
+			                  Торговая точка
+			                </label>
+			                <!-- {{setBrands}} -->
+			            	<multiselect
+			            		v-model="selectedBrandHistory"
+			            		name="brands"
+			            		track-by="account_name"
+				            	label="account_name"
+			            		:options="setBrands"
+			            		:searchable="false"
+			            		:close-on-select="true"
+			            		:show-labels="false"
+			            		placeholder="Торговая точка"
+			            		v-validate="'required'"
+			            		:disabled="setBrands.length<2"
+			            	>
+			            	</multiselect>
+			            </div>
 
 
 	    					</div>
@@ -198,7 +203,7 @@
 											<td width="20%">{{item.bonus_brand}}</td>
 										</tr> -->
 									<template v-for="(item, key) in history[selectedBrandHistory.account_code]">
-																			
+
 									    <tr class="head">
 									    	<td class="bold" width="30%">
 									    		{{item.year_month | formatData}}
@@ -213,26 +218,26 @@
 										    	<td width="20%"></td>
 										    	<td width="25%"></td>
 									    	</template>
-									    </tr>									
+									    </tr>
 									    <tr class="body">
 									    	<td class="bold" width="30%">Общий</td>
 									    	<td width="20%">{{item.plan_portfolio}}</td>
 									    	<td width="20%">{{item.fact_portfolio}}</td>
 									    	<td width="25%">{{item.bonus_portfolio}}</td>
-									    </tr>									
+									    </tr>
 									    <tr class="body">
 									    	<td class="bold" width="30%">Бренд</td>
 									    	<td width="20%">{{item.plan_brand}}</td>
 									    	<td width="20%">{{item.fact_brand}}</td>
 									    	<td width="25%">{{item.bonus_brand}}</td>
 									    </tr>
-									</template>									
+									</template>
 									    <!-- <tr>
 									    	<td width="30%">Январь</td>
 									    	<td width="20%">2 000</td>
 									    	<td width="20%">2 000</td>
 									    	<td width="25%">2 000</td>
-									    </tr>	 -->								    
+									    </tr>	 -->
 								    </tbody>
 								</table>
 	    					</div>
@@ -244,19 +249,17 @@
 	</main>
 </template>
 <script>
-	import CircleCounter from 'vue-circle-counter';  
-	import Loader from '~/components/layouts/loader.vue';
+
 	import moment from 'moment'
 
 	export default{
 		components: {
-			CircleCounter,
-			Loader
+			// CircleCounter,
 		},
 		filters:{
 			formatAmount(value){
 				if(value!=null){
-					if(typeof(value)!='string'){						
+					if(typeof(value)!='string'){
 						return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 					} else{
 						return value.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
@@ -264,7 +267,7 @@
 				} else{
 					return value
 				}
-			},	
+			},
 			formatData(value){
 	    		return moment(value).format('MMMM');
 	    	},
@@ -273,20 +276,20 @@
 			return {
 				selectedBrand: '',
 				selectedBrandHistory:'',
-				reports: '',		
-				history: '',		
+				reports: '',
+				history: '',
 				amount: 200000,
 				loaderStatus: true,
 				n: 0,
-                m: 28,
-                c: 28, 
-                brands : localStorage.getItem('tradePoints') ? JSON.parse(localStorage.getItem('tradePoints')) : '',
-                swiperOption: {	    	
-	    			pagination:{
-	    				el: '.swiper-pagination',
-		    			dynamicBullets: true
-	    			}			    			
-	    		},               
+        m: 28,
+        c: 28,
+        brands : localStorage.getItem('tradePoints') ? JSON.parse(localStorage.getItem('tradePoints')) : '',
+        swiperOption: {
+    			pagination:{
+    				el: '.swiper-pagination',
+      			dynamicBullets: true
+    			}
+    		},
 			}
 		},
 		mounted(){
@@ -303,18 +306,20 @@
 				let arr = []
 				if(!JSON.parse(localStorage.getItem('tradePoints')).length){
 					arr.push(JSON.parse(localStorage.getItem('tradePoints')))
-					this.selectedBrand = arr[0]
-					return arr 
+					this.selectedBrand = arr[0];
+					this.selectedBrandHistory = arr[0];
+					return arr
 				} else {
+					this.selectedBrandHistory = JSON.parse(localStorage.getItem('tradePoints'))[0];
 					this.selectedBrand = JSON.parse(localStorage.getItem('tradePoints'))[0]
 					return JSON.parse(localStorage.getItem('tradePoints'))
 				}
 			},
 			computedNumberPlan(){
-				return parseInt(this.reports[this.selectedBrand.account_code][0].fact_portfolio)/parseInt(this.reports[this.selectedBrand.account_code][0].plan_portfolio) > 0 ?   parseInt(this.reports[this.selectedBrand.account_code][0].fact_portfolio)/parseInt(this.reports[this.selectedBrand.account_code][0].plan_portfolio) * 100 > 100 ? 100 :  parseInt(this.reports[this.selectedBrand.account_code][0].fact_portfolio)/parseInt(this.reports[this.selectedBrand.account_code][0].plan_portfolio)*100 : 0
+				return parseInt(this.reports[this.selectedBrand.account_code].fact_portfolio)/parseInt(this.reports[this.selectedBrand.account_code].plan_portfolio) > 0 ?   parseInt(this.reports[this.selectedBrand.account_code].fact_portfolio)/parseInt(this.reports[this.selectedBrand.account_code].plan_portfolio) * 100 > 100 ? 100 :  parseInt(this.reports[this.selectedBrand.account_code].fact_portfolio)/parseInt(this.reports[this.selectedBrand.account_code].plan_portfolio)*100 : 0
 			},
 			computedNumberBonus(){
-				return parseInt(this.reports[this.selectedBrand.account_code][0].fact_brand)/parseInt(this.reports[this.selectedBrand.account_code][0].plan_brand) > 0 ?   parseInt(this.reports[this.selectedBrand.account_code][0].fact_brand)/parseInt(this.reports[this.selectedBrand.account_code][0].plan_brand) * 100 > 100 ? 100 :  parseInt(this.reports[this.selectedBrand.account_code][0].fact_brand)/parseInt(this.reports[this.selectedBrand.account_code][0].plan_brand)*100 : 0
+				return parseInt(this.reports[this.selectedBrand.account_code].fact_brand)/parseInt(this.reports[this.selectedBrand.account_code].plan_brand) > 0 ?   parseInt(this.reports[this.selectedBrand.account_code].fact_brand)/parseInt(this.reports[this.selectedBrand.account_code].plan_brand) * 100 > 100 ? 100 :  parseInt(this.reports[this.selectedBrand.account_code].fact_brand)/parseInt(this.reports[this.selectedBrand.account_code].plan_brand)*100 : 0
 			}
 		},
 		methods:{
@@ -361,87 +366,87 @@
 			z-index: 1;
 		}
 	}
-	.plan{	
-		padding-bottom: 60px;	
-		&-item{
-			background: #FFFFFF;
-			box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 4px 8px rgba(0, 0, 0, 0.04);
-			border-radius: 8px;
-			padding: 24px 16px 32px 16px;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			&__circle{
-				position: relative;
-				text-align: center;
-				.circle-text{
-					position: absolute;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					right: 0;
-					margin: auto;
-					height: 55px;
-					max-width: 90px;
-					// padding: 0 10px;
-					span{
-						display: block;
-						&.name{
-							font-weight: normal;
-							font-size: 12px;
-							line-height: 14px;
-							text-align: center;							
-							color: #969696;							
-						}
-						&.number{
-							font-family: 'Open Sans';
-							font-weight: bold;
-							font-size: 18px;
-							line-height: 25px;
-							/* identical to box height */
+	.plan{
+		padding-bottom: 60px;
+		// &-item{
+		// 	background: #FFFFFF;
+		// 	box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 4px 8px rgba(0, 0, 0, 0.04);
+		// 	border-radius: 8px;
+		// 	padding: 24px 16px 32px 16px;
+		// 	display: flex;
+		// 	flex-direction: column;
+		// 	justify-content: space-between;
+		// 	&__circle{
+		// 		position: relative;
+		// 		text-align: center;
+		// 		.circle-text{
+		// 			position: absolute;
+		// 			top: 0;
+		// 			bottom: 0;
+		// 			left: 0;
+		// 			right: 0;
+		// 			margin: auto;
+		// 			height: 55px;
+		// 			max-width: 90px;
+		// 			// padding: 0 10px;
+		// 			span{
+		// 				display: block;
+		// 				&.name{
+		// 					font-weight: normal;
+		// 					font-size: 12px;
+		// 					line-height: 14px;
+		// 					text-align: center;
+		// 					color: #969696;
+		// 				}
+		// 				&.number{
+		// 					font-family: 'Open Sans';
+		// 					font-weight: bold;
+		// 					font-size: 18px;
+		// 					line-height: 25px;
+		// 					/* identical to box height */
 
-							text-align: center;
+		// 					text-align: center;
 
-							/* Secondary Green */
+		// 					/* Secondary Green */
 
-							color: #217461;
-						}
-					}
-				}
-			}
-			&__main{
-				margin-top: 24px;
-				p{
-					margin-bottom: 0;
-				}
-				.title{
-					font-style: normal;
-					font-weight: 500;
-					font-size: 16px;
-					line-height: 19px;
-					color: #1F1F1F;
-				}
-				.amount{
-					display: flex;
-					justify-content: space-between;					
-					span{
-						&.name{
-							font-style: normal;
-							font-weight: 300;
-							font-size: 16px;
-							line-height: 19px;
-							color: #969696;
-						}
-						&.number{
-							font-weight: 500;
-							font-size: 16px;
-							line-height: 19px;
-							color: #217461;
-						}
-					}
-				}
-			}			
-		}
+		// 					color: #217461;
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// 	&__main{
+		// 		margin-top: 24px;
+		// 		p{
+		// 			margin-bottom: 0;
+		// 		}
+		// 		.title{
+		// 			font-style: normal;
+		// 			font-weight: 500;
+		// 			font-size: 16px;
+		// 			line-height: 19px;
+		// 			color: #1F1F1F;
+		// 		}
+		// 		.amount{
+		// 			display: flex;
+		// 			justify-content: space-between;
+		// 			span{
+		// 				&.name{
+		// 					font-style: normal;
+		// 					font-weight: 300;
+		// 					font-size: 16px;
+		// 					line-height: 19px;
+		// 					color: #969696;
+		// 				}
+		// 				&.number{
+		// 					font-weight: 500;
+		// 					font-size: 16px;
+		// 					line-height: 19px;
+		// 					color: #217461;
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// }
 		&__selector{
 			margin-top: 8px;
 		}
@@ -465,30 +470,30 @@
 			}
 		}
 	}
-	.form{
-		&-group{
-			&--selector{
-				position: relative;
-				.multiselect{
-					&__tags{
-						padding: 22px 12px 14px 12px;
-					}
-					&__placeholder{
-						color: #1F1F1F;
-					}
-				}
-			}			
-		}
-		&__label{
-			&--selector{
-				top: 11px;
-				font-size: 12px;
-				line-height: 14px;
-				z-index: -10;
-				color: #969696;
-			}
-		}
-	}
+	// .form{
+	// 	&-group{
+	// 		&--selector{
+	// 			position: relative;
+	// 			.multiselect{
+	// 				&__tags{
+	// 					padding: 22px 12px 14px 12px;
+	// 				}
+	// 				&__placeholder{
+	// 					color: #1F1F1F;
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// 	&__label{
+	// 		&--selector{
+	// 			top: 11px;
+	// 			font-size: 12px;
+	// 			line-height: 14px;
+	// 			z-index: -10;
+	// 			color: #969696;
+	// 		}
+	// 	}
+	// }
 
 
 	.history{
@@ -498,9 +503,9 @@
 		&__table{
 			margin-top: 16px;
 		}
-		.table{			
+		.table{
 		}
-		table{			
+		table{
 			width: 100%;
 			border: 0 !important;
 			border-radius: 8px 8px 8px 8px;
@@ -520,12 +525,12 @@
 		// 		word-break: break-word;
 		// 		font-weight: 300;
 		// 		font-size: 16px;
-		// 		line-height: 19px;				
+		// 		line-height: 19px;
 		// 		color: #FFFFFF;
 		// 		&:first-child,&:last-child{
 		// 			padding: 4px 16px;
 		// 		}
-		// 	}						
+		// 	}
 		// }
 		tbody{
 			tr{
@@ -534,9 +539,9 @@
 					td{
 						font-weight: 300;
 						font-size: 16px;
-						line-height: 19px;						
-						text-align: center;						
-						color: #FFFFFF;						
+						line-height: 19px;
+						text-align: center;
+						color: #FFFFFF;
 					}
 				}
 				&.body{
@@ -548,10 +553,10 @@
 						line-height: 14px;
 						color: #1F1F1F;
 						text-align: center;
-					}						
+					}
 					&:nth-of-type(odd){
 						td{
-							position: relative;							
+							position: relative;
 							&:before{
 								content:'';
 								position: absolute;
@@ -576,17 +581,17 @@
 									right: 16px;
 								}
 							}
-						}						
-						// border-top: 1px solid #71B1A2; 
+						}
+						// border-top: 1px solid #71B1A2;
 					}
-				}				
+				}
 			}
 			td{
 				padding: 8px;
 				word-break: break-word;
 				font-weight: normal;
 				font-size: 14px;
-				line-height: 19px;				
+				line-height: 19px;
 				color: #1F1F1F;
 				text-transform: capitalize;
 				&:first-child,&:last-child{

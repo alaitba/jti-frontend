@@ -16,8 +16,8 @@
 					</div>			
 					<div class="anketa__wrapper">
 
-						<div class="item" v-for="(item,key) in notifications">
-							<div class="item__content">
+						<div class="list-item item" v-for="(item,key) in notifications">
+							<div class="list-item__content item__content">
 								<p class="title" v-if="item">
 									<template v-if="item.type=='LeadCreated'">
 										<template v-if="item.data.self=='0' || item.data.self==null">
@@ -54,7 +54,7 @@
 									{{item.created_at | formatData}}
 								</p>
 							</div>
-							<div class="item__status">
+							<div class="list-item__status item__status">
 								<template v-if="item.type =='RewardBought' || item.type == 'BalanceReplenished'">									
 									<p class="point minus" v-if="item.data.price">
 									- {{item.data.price | formatAmount}} баллов						
@@ -151,11 +151,9 @@
 	</main>
 </template>
 <script>
-	import Loader from '~/components/layouts/loader.vue'
 	import moment from 'moment'
 	export default{
-		components:{
-			Loader
+		components:{			
 		},
 		filters: {
 	      	formatNumber (value){

@@ -87,6 +87,68 @@
 	    			</div>
 	    		</div>
 	    	</div>
+	    	<div class="section section--plan" v-if="reports && reportsId">
+	    		<div class="container">
+	    			<h3 class="section__title">
+	    				Текущий план закупок
+	    			</h3>
+	    			<div class="plan" v-if="reports && reportsId">
+	    				<div class="plan__graphic">
+	    					<div class="plan-item plan-item--main">
+								<div class="plan-item__circle">
+									<circle-counter
+			                            width="188px"
+			                            height="188px"
+			                            stroke="#C2EEE3"
+			                            :activeCount= computedNumberPlan
+			                            :dashCount=100
+			                            :dash-spacing=0
+			                            :strokeWidth=28
+			                            :activeWidth=28
+			                            activeStroke="#05B186"
+			                        />
+								    </circle-counter>
+									<div class="circle-text circle-text--main">					
+								    	<span class="name name--main">
+									    	Прогресс
+								    	</span>
+								    	<span class="number number--main">
+								    		{{computedNumberPlan}}%
+								    	</span>
+								    </div>
+								</div>
+								<div class="plan-item__main plan-item__main--main">
+    								<p class="title title--main">
+    									<span class="name name--sub">
+    										План
+    									</span>    								
+    									<span class="green">
+    										Общий
+    									</span>
+    								</p>
+    								<p class="title title--main title--right">
+    									<span class="name name--sub">
+    										Продано пачек
+    									</span>
+    									<span class="green">
+    										<!-- 3 000 из 10 000 -->
+    										{{reports[reportsId].fact_portfolio}} из {{reports[reportsId].plan_portfolio}}
+    									</span>
+    								</p>
+    							</div>
+    							<div class="plan-item__bonus">
+    								<p class="title">
+    									Бонус за выполнение плана
+    								</p>
+    								<p class="amount">
+    									{{reports[reportsId].bonus_portfolio | formatAmount}} тг
+    								</p>
+    							</div>
+							</div>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
 	    	<div class="section section--news">
 	    		<div class="container">
 	    			<h3 class="section__title">
@@ -173,10 +235,7 @@
 		    				</a>
 		    			</div>
 	    			</div>
-	    		</div>
-	    		<!-- <div class="container">
-
-	    		</div> -->
+	    		</div>	    		
 	    	</div>
 	    	<modal-main 
 	    		:title="title" 
@@ -194,14 +253,12 @@
 <script>
 	import ModalError from '~/components/layouts/Modals/ModalError.vue'
 	import moment from 'moment'
-	import Loader from '~/components/layouts/loader.vue'
 	import ModalMain from '~/components/layouts/Modals/modal-main.vue'
 	import {mapState, mapMutations} from 'vuex'
 	export default {
 	  	components: {
 	      ModalError,
-	      ModalMain,
-	      Loader,
+	      ModalMain,	      
 	    },
 	    filters:{
 	    	formatData(value){
@@ -209,7 +266,18 @@
 	    	},
 	    	truncateText(text,stop,clamp){
 				return text.slice(0,stop) +  (stop < text.length ? clamp || '...' : '');
-			}
+			},
+			formatAmount(value){
+				if(value!=null){
+					if(typeof(value)!='string'){
+						return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+					} else{
+						return value.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+					}
+				} else{
+					return value
+				}
+			},
 	    },
 	    data() {
 	    	return {
@@ -219,12 +287,15 @@
 		    			dynamicBullets: true
 	    			}
 	    		},
+
 	    		news: '',
 	    		loaderStatus: true,
 	    		title: '',
 	    		text:'',
 	    		img:'',
 	    		btnText:'',
+	    		reports: '',
+	    		reportsId: localStorage.getItem('tradepoint') ? JSON.parse(localStorage.getItem('tradepoint')).account_code : '',
 	    		modalStatus: localStorage.getItem('modalStatus') ? JSON.parse(localStorage.modalStatus) : true,
 	    		mobileOs: localStorage.getItem('android') ? JSON.parse(localStorage.getItem('android')) : false,
 
@@ -235,6 +306,11 @@
 	    	let _this = this;
 
 	    	_this.getUserDevice();
+
+
+	    	_this.getNews();
+
+	    	+_this.getPlanFact();
 
 	    	let interval1= setInterval(
                 () => {                    
@@ -248,8 +324,6 @@
                 },
                 1000
             );
-	    	_this.getNews();
-
 
 	    	_this.$nuxt.$on('onManageWebPushSubscriptionButtonClicked',_this.onManageWebPushSubscriptionButtonClicked);
 	    	// this.showModal();
@@ -296,9 +370,14 @@
 
 	    },
 	    computed: {
-	      ...mapState({
-	        tradepoint: state => state.tradepoint,
-	      })
+	      	...mapState({
+	        	tradepoint: state => state.tradepoint,
+	      	}),
+	      	computedNumberPlan(){
+				return parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio) > 0 ?   parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio) * 100 > 100 ? 100 :  parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio)*100 : 0
+
+				// return this.reports[this.reportsId]
+			},
 	    },
 	    methods:{
 
@@ -375,6 +454,24 @@
 	    				console.log('error news')
 	    			})
 	    	},
+
+	    	async getPlanFact(){
+				this.$axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("authToken");
+
+				try {
+
+					let res = await this.$axios.$get('/plan-fact');
+
+					this.reports = res.data;
+
+					this.loaderStatus = false;
+
+					console.log(this.reports,this.reportsId);
+				} catch(error){
+
+					// console.log('error', error.response)
+				}
+			},
 
 	    	async setUserId(userId){
 

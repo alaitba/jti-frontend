@@ -23,9 +23,9 @@
 	            	<div class="form-group mt-16">
 	            		<label class="checkbox-container">
   			            Покупателю есть 18 лет
-  							  	<input type="checkbox" v-model="checkBox">
-  							  	<span class="checkmark"></span>
-    							</label>
+						  	<input type="checkbox" v-model="checkBox">
+						  	<span class="checkmark"></span>
+						</label>
 	            	</div>
 	            	<button class="button button--green" type="submit" :disabled="!checkBox || number.length!=10 || btnStatus">
 	              		Далее
