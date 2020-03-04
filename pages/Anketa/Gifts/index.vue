@@ -91,10 +91,10 @@
 										</span>
 									</p>
 								</div>
-								<div class="gifts__wrapper">
+								<div class="gifts__wrapper gifts__wrapper--history ">
 									<template v-if="giftsHistory.length">
-										<div class="list-item item" v-for="(item,key) in giftsHistory">
-											<div class="list-item__content item__content">
+										<div class="list-item" v-for="(item,key) in giftsHistory">
+											<div class="list-item__content">
 												<p class="title" v-if="item.name">
 													{{item.name}}
 												</p>
@@ -102,7 +102,7 @@
 													Сохранена {{item.date | formatData}}
 												</p>
 											</div>
-											<div class="list-item__status item__status">
+											<div class="list-item__status">
 												<p class="point minus" v-if="item.amount">
 													{{item.amount | formatAmount}} баллов						
 												</p>
@@ -240,6 +240,10 @@
 		padding: 0px 0 120px 0;
 		width: 100%;
 		&__wrapper{
+			&--history{
+				margin: 0 -16px;
+				margin-top: 16px;
+			}
 			.item{
 				display: flex;
 				background: #FFFFFF;

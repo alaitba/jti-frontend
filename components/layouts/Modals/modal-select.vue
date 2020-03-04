@@ -58,7 +58,7 @@
             <button type="button" class="button button--green" data-dismiss="modal" @click="saveData()">
               Готово
             </button>
-            <button type="button" class="button button--bordered green" data-dismiss="modal">
+            <button type="button" class="button button--bordered green" data-dismiss="modal" @click="closeModal()">
               Отмена
             </button>             
           </div>              
@@ -94,6 +94,9 @@
         this.$nuxt.$emit('setDays','dsds');
 
         this.checkedDays = [];        
+      },
+      closeModal(){
+        this.$nuxt.$emit('setDefault', 'dsds')
       }      
     }
   }

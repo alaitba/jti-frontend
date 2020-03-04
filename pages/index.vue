@@ -466,6 +466,8 @@
 
 					this.loaderStatus = false;
 
+					localStorage.setItem('lastUpdated', res.lastUpdated);
+
 					console.log(this.reports,this.reportsId);
 				} catch(error){
 

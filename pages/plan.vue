@@ -269,8 +269,8 @@
 				}
 			},
 			formatData(value){
-	    		return moment(value).format('MMMM');
-	    	},
+    		return moment(value).format('MMMM');
+    	},
 		},
 		data(){
 			return {
@@ -347,7 +347,7 @@
 
 				try {
 
-					let res = await this.$axios.$get('/plan-fact/history');
+					let res = await this.$axios.$get('/plan-fact/history?from_date=2020-01-01');
 
 					// console.log(res.data);
 

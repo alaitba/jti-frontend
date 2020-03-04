@@ -14,7 +14,7 @@
 						<div class="form-group form-group--selector" v-if="brands">
     						<label for="input" class="form__label form__label--selector"> 
 			                  Торговая точка
-			                </label>  
+			                </label>  			                
 			                <multiselect 
 			            		v-model="selectedStore" 
 			            		name="brands"
@@ -32,7 +32,6 @@
 			            	</multiselect>					            	
 			            </div>
 					</div>
-
 					<div class="purchase__plan" v-if="planData">
 						<div class="item" v-if="planData.plan">
 							<div class="title">
@@ -88,7 +87,7 @@
 					</div>
 					<div class="purchase__update-date">
 						<p>
-							Последняя дата обновления: {{getCurrentData }}
+							Последняя дата обновления: {{currentData |  formatData}}
 						</p>
 					</div>
 
@@ -112,6 +111,11 @@
 		components: {
 	        FunctionalCalendar
 	    },
+	    filters:{
+	    	formatData(value){
+	    		return moment(value).format('DD.MM.YYYY');
+	    	},
+	    },
 		data(){
 			return{
 				loaderStatus: true,
@@ -120,13 +124,14 @@
 				selectedDays: false,
 				planData:'',
 				amountDays:'',
+				currentData: localStorage.getItem('lastUpdated') ? localStorage.getItem('lastUpdated') : '',
 				calendarConfigs: {
 	                sundayStart: false,
 	                isDatePicker: false,
 	                dateFormat: 'dd/mm/yyyy',
 	                isDatePicker: false,
 	                isDateRange: false,
-	                markedDates: [],
+	                markedDates: [{date: '16/3/2020', class: 'marked-class'}],
 	                disabledDayNames: [],
 	                dayNames: ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
 	                monthNames: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июнь", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
@@ -135,14 +140,15 @@
 			   // disabledDayNames:[]
 			}
 		},
-		mounted(){			
+		async mounted(){			
 
             
-            this.getHolidays();
-            this.getDates();
+            await this.setBrands();
+            await this.getHolidays();
+            await this.getDates();
             this.$nuxt.$on('setDays',this.setDays)
+            this.$nuxt.$on('setDefault', this.setDefault)
 
-            this.setBrands();
 
             // if(localStorage.getItem('tradePoints')){
             // 	console.log(this.calendarConfigs)
@@ -158,7 +164,7 @@
 				return moment().format('DD.MM.YYYY');
 			},		
 			getCheckedDays(){	
-				// console.log('days',this.$store.state.checkedDays,this.disabledDayNames)
+				console.log('days',this.calendarConfigs.disabledDayNames)
 				// this.disabledDayNames = this.$store.state.checkedDays;
 				if(!this.calendarConfigs.disabledDayNames.length) return;
 				let arr = this.calendarConfigs.disabledDayNames,
@@ -204,9 +210,7 @@
 				} else {
 					this.selectedStore = JSON.parse(localStorage.getItem('tradePoints'))[0];
 					this.brands = JSON.parse(localStorage.getItem('tradePoints'))
-				}
-
-				this.calendarConfigs.disabledDayNames = this.brands[0].purchase_days;
+				}				
 				this.getStoreData(this.selectedStore, 'first');
 			},	
 
@@ -222,7 +226,9 @@
 				  	weekdays: this.getCheckedDays,  
 				  	exclusions: [],
 				  	inclusions: []
-				}) //260			
+				}) //260	
+
+				console.log('this.amountDays: ', this.amountDays)		
 			},		
 
 			// очищает выбранные дни в календаре и открывает модалку для выбора дней
@@ -230,6 +236,11 @@
 				this.calendarConfigs.disabledDayNames = [];
 				this.selectedDays = false;
 				$('#modal-select').modal('show');
+			},
+
+			setDefault(){
+				this.calendarConfigs.disabledDayNames = this.selectedStore.purchase_days.length ? this.selectedStore.purchase_days : [];
+				this.selectedDays = !this.selectedDays;				
 			},
 
 			// вставляет выбранные дни в календарь
@@ -250,9 +261,20 @@
 
 					let res = await this.$axios.$get('/dict/holidays')
 
-					// this.calendarConfigs.disabledDayNames = ['Fr'];
-					this.calendarConfigs.markedDates = res.holidays;					
-					// console.log('res:', res);					
+					let obj = [],arr = res.holidays;
+
+
+					for(let i =0; i< arr.length; i++){
+						let item = {
+							'date': arr[i],
+							'class': 'marked-class'
+						}
+
+						obj.push(item)
+					}
+
+					this.calendarConfigs.markedDates = obj;	
+					this.calendarConfigs.disabledDayNames = this.brands[0].purchase_days;				
 					this.selectedDays= true;
 		        } catch(error){
 
@@ -424,6 +446,12 @@
 				line-height: 19px;				
 				color: #969696;
 			}
+			@media screen and (max-width: 330px) {
+				p{
+					font-size: 14px;
+					line-height: 16px;
+				}
+			}
 		}
 		&__calendar{
 			margin-top: 24px; 
@@ -472,16 +500,21 @@
 					&.vfc-hide{
 						color: #05B186 !important;
 						font-weight: 500;
-					}					
-					&.vfc-hover{
-						background-color: transparent !important; 
-					}
-					&.vfc-marked{
-						background-color: transparent !important;
-						&.vfc-borderd{
+						&.marked-class{
 							color: #969696 !important;
 							font-weight: 300;							
 						}
+					}					
+					&.vfc-hover{
+						background-color: transparent !important; 
+						&.marked-class{
+							color: #969696 !important;
+							font-weight: 300;							
+						}
+					}
+					&.vfc-marked{
+						background-color: transparent !important;
+						
 					}
 				}
 				&-top-date{
