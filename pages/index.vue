@@ -28,16 +28,30 @@
 	    	<div class="section section--icons">
 	    		<div class="container">
 	    			<div class="icons">
-	    				<div class="icons__item" @click="showModal()">
-	    					<!-- <nuxt-link to="/plan"> -->
-		    					<div class="img">
-		    						<img src="~/assets/img/icons/links/plan.svg" alt="">
-		    					</div>
-		    					<div class="title">
-		    						План закупок
-		    					</div>
-		    				<!-- </nuxt-link> -->
-	    				</div>
+	    				<template v-if="getNumber">
+	    					<div class="icons__item" >
+		    					<nuxt-link to="/plan">
+			    					<div class="img">
+			    						<img src="~/assets/img/icons/links/plan.svg" alt="">
+			    					</div>
+			    					<div class="title">
+			    						План закупок
+			    					</div>
+			    				</nuxt-link>
+		    				</div>
+	    				</template>
+	    				<template v-else>
+		    				<div class="icons__item" @click="showModal()">
+		    					<!-- <nuxt-link to="/plan"> -->
+			    					<div class="img">
+			    						<img src="~/assets/img/icons/links/plan.svg" alt="">
+			    					</div>
+			    					<div class="title">
+			    						План закупок
+			    					</div>
+			    				<!-- </nuxt-link> -->
+		    				</div>
+	    				</template>
 	    				<div class="icons__item">
 	    					<nuxt-link to="/anketa/createanketa">
 		    					<div class="img">
@@ -87,7 +101,7 @@
 	    			</div>
 	    		</div>
 	    	</div>
-	    	<div class="section section--plan" v-if="reports && reportsId">
+	    	<div class="section section--plan" v-if="reports && reportsId && getNumber">
 	    		<div class="container">
 	    			<h3 class="section__title">
 	    				Текущий план закупок
@@ -378,6 +392,9 @@
 
 				// return this.reports[this.reportsId]
 			},
+			getNumber(){
+				return localStorage.getItem("authUser") ? JSON.parse(localStorage.getItem("authUser")).mobile_phone == '77059521623' : false;
+			}
 	    },
 	    methods:{
 
