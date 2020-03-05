@@ -140,7 +140,7 @@
     										Общий
     									</span>
     									<span class="green green--light">
-    										Общий
+    										Бренд
     									</span>
     								</p>
     								<p class="title title--main title--right">
