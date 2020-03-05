@@ -9,7 +9,7 @@
 					<ul class="nav nav-pills">
 						<li class="nav-item">
 							<a class="nav-link active" data-toggle="pill" href="#home">
-								Текущий план
+								Призы
 							</a>
 						</li>
 					  	<li class="nav-item">
@@ -99,7 +99,7 @@
 													{{item.name}}
 												</p>
 												<p class="info" v-if="item.date">
-													Сохранена {{item.date | formatData}}
+													{{item.date | formatData}}
 												</p>
 											</div>
 											<div class="list-item__status">

@@ -1,7 +1,7 @@
 <template>
 	<!-- modal for auth error -->
     <!-- Отказано в доступе! -->
-    <div class="modal fade modal-auth-denied" id="modal-select">
+    <div class="modal fade modal-auth-denied" id="modal-select" data-backdrop="static" data-keyboard="false">
       <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">                          
           <!-- Modal body -->

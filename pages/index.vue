@@ -127,7 +127,7 @@
 									    	Процент выполнения
 								    	</span>
 								    	<span class="number number--main">
-								    		{{computedNumberPlan}}%
+								    		{{computedNumberPlan.toFixed(1)}}%
 								    	</span>
 								    </div>
 								</div>
@@ -139,17 +139,24 @@
     									<span class="green">
     										Общий
     									</span>
+    									<span class="green green--light">
+    										Общий
+    									</span>
     								</p>
     								<p class="title title--main title--right">
     									<span class="name name--sub">
-    										Продано пачек
+    										Закуплено блоков
     									</span>
     									<span class="green">
     										<!-- 3 000 из 10 000 -->
     										{{reports[reportsId].fact_portfolio}} из {{reports[reportsId].plan_portfolio}}
     									</span>
+    									<span class="green green--light">
+    										<!-- 3 000 из 10 000 -->
+    										{{reports[reportsId].fact_brand}} из {{reports[reportsId].fact_portfolio}}
+    									</span>
     								</p>
-    							</div>
+    							</div>    							
     							<div class="plan-item__bonus">
     								<p class="title">
     									Бонус за выполнение плана
@@ -414,14 +421,14 @@
 		        }
 
 		        if(checker.ios){
-		          console.log('ios:',navigator.userAgent);
+		          // console.log('ios:',navigator.userAgent);
 		          localStorage.setItem('ios', true);
 		        } else if(checker.android){
-		          console.log('android:',navigator.userAgent)
+		          // console.log('android:',navigator.userAgent)
 		          localStorage.setItem('android', true);
 		          this.mobileOs = true;
 		        } else{
-		          console.log('userAgent',navigator.userAgent)
+		          // console.log('userAgent',navigator.userAgent)
 		        }
 
 		    },
@@ -485,7 +492,7 @@
 
 					localStorage.setItem('lastUpdated', res.lastUpdated);
 
-					console.log(this.reports,this.reportsId);
+					// console.log(this.reports,this.reportsId);
 				} catch(error){
 
 					// console.log('error', error.response)
@@ -506,7 +513,7 @@
 
 		          let res = await this.$axios.$post('/auth/set-push-token', fields)
 
-		          console.log('res:', res);
+		          // console.log('res:', res);
 		        } catch(error){
 
 		          console.log('errorPush', error)

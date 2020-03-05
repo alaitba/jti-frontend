@@ -522,7 +522,11 @@ main{
 					font-weight: 500;
 					font-size: 16px;
 					line-height: 19px;					
-					color: #217461;				
+					color: #217461;	
+					&--light{
+						color: #05B186;
+						margin-top: 8px;
+					}			
 				}
 			}
 			.amount{
