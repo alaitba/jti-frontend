@@ -460,12 +460,15 @@
 			margin-top: 24px;
 			.item{
 				width: 31%;
+        margin-bottom: 8px;
 				&:nth-child(2n){
 					margin: 0 8px;
+          margin-bottom: 8px;
 				}
 				img{
 					max-width: 100%;
-				    width: 100%;
+				  width: 100%;
+          border-radius: 8px;
 				}
 			}
 		}

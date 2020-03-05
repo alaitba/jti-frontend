@@ -49,28 +49,28 @@
 						</nuxt-link>
 					</li>					
 					<li class="nav__item">
-						<template v-if="getNumber">
+						<!-- <template v-if="getNumber"> -->
 							<nuxt-link to="/plan" class="nav__link nav__link--green" @click.native="showBurger()">
 								План закупок
 							</nuxt-link>
-						</template>
+						<!-- </template>
 						<template v-else>
 							<nuxt-link to="#" class="nav__link" disabled>
 								План закупок
 							</nuxt-link>
-						</template>
+						</template> -->
 					</li>
 					<li class="nav__item">
-						<template v-if="getNumber">
+						<!-- <template v-if="getNumber"> -->
 							<nuxt-link to="/weekly-purchase" class="nav__link nav__link--green" @click.native="showBurger()">
 								Еженедельный закуп
 							</nuxt-link>
-						</template>
+						<!-- </template>
 						<template v-else>
 							<nuxt-link to="#" class="nav__link" disabled>
 								Еженедельный закуп
 							</nuxt-link>
-						</template>
+						</template> -->
 					</li>
 					<li class="nav__item">
 						<!-- <template v-if="getNumber"> -->
