@@ -36,6 +36,11 @@
                 {{btnText}}
               </nuxt-link>  
             </template>
+            <template v-else-if="btnText == 'agent'">
+              <nuxt-link to="/" class="button button--green" data-dismiss="modal">
+                Вернуться на Главную
+              </nuxt-link>  
+            </template>
             <template v-else-if="btnText == 'logout'">
               <button type="button" class="button button--bordered red" @click="logOut">
                 Выйти
