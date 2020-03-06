@@ -10,6 +10,8 @@
 						Еженедельный закуп
 					</h3>
 
+					{{weekEnds}}
+
 					<div class="purchase__selector">
 						<div class="form-group form-group--selector" v-if="brands">
     						<label for="input" class="form__label form__label--selector"> 
@@ -57,7 +59,9 @@
 						</div>
 						<template v-if="selectedDays && amountDays && planData">
 							<div class="amount">
-								{{Math.round(((planData.plan - planData.fact)/amountDays).toFixed(2))}}
+								{{
+									Math.round(((planData.plan - planData.fact)/amountDays).toFixed(2))
+								}}								
 							</div>
 						</template>
 						<template v-else>
@@ -124,6 +128,7 @@
 				selectedDays: false,
 				planData:'',
 				amountDays:'',
+				weekEnds: '',
 				currentData: localStorage.getItem('lastUpdated') ? localStorage.getItem('lastUpdated') : '',
 				calendarConfigs: {
 	                sundayStart: false,
@@ -147,9 +152,18 @@
             await this.getHolidays();
             await this.getDates();
             this.$nuxt.$on('setDays',this.setDays)
-            this.$nuxt.$on('setDefault', this.setDefault)
+            this.$nuxt.$on('setDefault', this.setDefault);
 
 
+            // let interval1= setInterval(
+            //     () => {                    
+            //         if($('.vfc-span-day').length > 0) {
+            //             clearInterval(interval1);
+            //             this.getWeekends();
+            //         }                    
+            //     },
+            //     1000
+            // );
             // if(localStorage.getItem('tradePoints')){
             // 	console.log(this.calendarConfigs)
             // 	this.calendarConfigs.disabledDayNames = JSON.parse(localStorage.getItem('tradePoints'))[0] ? JSON.parse(localStorage.getItem('tradePoints'))[0].purchase_days : [];
@@ -159,7 +173,6 @@
         	
 		},
 		computed:{
-			
 			getCurrentData(){
 				return moment().format('DD.MM.YYYY');
 			},		
@@ -195,7 +208,7 @@
 					}
 				}
 				return weekdays;
-			}
+			}			
 		},
 		methods:{
 
@@ -219,12 +232,12 @@
 			    let start = moment(),
 					end = moment().endOf('month'),
 					days = ['Monday'];
-
+					
 				this.amountDays = moment().weekdayCalc({  
 				  	rangeStart: start,  
 				  	rangeEnd: end,  
 				  	weekdays: this.getCheckedDays,  
-				  	exclusions: [],
+				  	exclusions: this.weekEnds,
 				  	inclusions: []
 				}) //260	
 
@@ -302,7 +315,6 @@
 
 		          console.log('errorPush', error)
 		        }				
-
 			},
 
 			// меняет и записывает выбранные дни торговой точки 
@@ -334,7 +346,6 @@
 					this.calendarConfigs.disabledDayNames = [];
 					this.getStoreData(this.selectedStore, 'true');
 				}
-
 			},
 
 			// получает план торговой точки
@@ -360,6 +371,17 @@
 					}
 					console.log(error)
 				}
+			},
+
+			getWeekends(){
+				let arr = [], a = $('.vfc-span-day.vfc-cursor-not-allowed.vfc-hide.marked-class');
+				for(let i =0; i < a.length; i++){
+					let day = Number(a[i].innerText)  >= 10 ? a[i].innerText : '0' + a[i].innerText
+					let item = moment().format('YYYY') + '-' +moment().format('MM') + '-' + day;
+					arr.push(item);
+				}
+				console.log('arr: ', arr)
+				this.weekEnds = arr;
 			}
 		}
 	}
