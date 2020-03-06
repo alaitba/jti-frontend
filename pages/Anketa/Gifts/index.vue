@@ -201,9 +201,9 @@
 
 				await this.$axios.get('/rewards/available')
 					.then(response =>{
+						this.loaderStatus = false;						
 						if(response.data.rewards.length){
 							this.gifts = response.data.rewards;
-							this.loaderStatus = false;
 						}
 
 					}).catch(error =>{
@@ -219,7 +219,8 @@
 
 					let res = await this.$axios.$get('/rewards/history');
 					this.giftsHistory = res.data;
-					console.log('res:', this.giftsHistory);
+					this.loaderStatus = false;						
+					// console.log('res:', this.giftsHistory);
 
 				} catch(error){
 					console.log(error);

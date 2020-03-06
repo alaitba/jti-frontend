@@ -47,12 +47,12 @@
 				            </multiselect>
 				          </div>
 	    					</div>
-							<div class="plan__graphic graphic" v-if="reports && reports[selectedBrand.account_code]">
-	    						<swiper :options="swiperOption" ref="mySwiper">
-	    							<swiper-slide>
-			    						<div class="plan-item">
-			    							<div class="plan-item__circle">
-			    								<circle-counter
+  							<div class="plan__graphic graphic" v-if="reports && reports[selectedBrand.account_code]">
+      						<swiper :options="swiperOption" ref="mySwiper">
+      							<swiper-slide>
+  		    						<div class="plan-item">
+  		    							<div class="plan-item__circle">
+  		    								<circle-counter
                               width="188px"
                               height="188px"
                               stroke="#C2EEE3"
@@ -63,36 +63,36 @@
                               :activeWidth=c
                               activeStroke="#05B186"
                           />
-											    </circle-counter>
+  										    </circle-counter>
 
-											    <div class="circle-text">
-											    	<span class="name">
-												    	Бонус за выполнение
-											    	</span>
-											    	<span class="number">
-											    		{{reports[selectedBrand.account_code].bonus_portfolio | formatAmount}} тг
-											    	</span>
-											    </div>
-			    							</div>
-			    							<div class="plan-item__main">
-			    								<p class="title">
-			    									Общий план
-			    								</p>
-			    								<p class="amount">
-			    									<span class="name">
-			    										Закуплено блоков
-			    									</span>
-			    									<span class="number">
-			    										{{reports[selectedBrand.account_code].fact_portfolio}}/{{reports[selectedBrand.account_code].plan_portfolio}}
-			    									</span>
-			    								</p>
-			    							</div>
-			    						</div>
-			    					</swiper-slide>
-			    					<swiper-slide>
-			    						<div class="plan-item">
-			    							<div class="plan-item__circle">
-			    								<circle-counter
+  										    <div class="circle-text">
+  										    	<span class="name">
+  											    	Бонус за выполнение
+  										    	</span>
+  										    	<span class="number">
+  										    		{{reports[selectedBrand.account_code].bonus_portfolio | formatAmount}} тг
+  										    	</span>
+  										    </div>
+  		    							</div>
+  		    							<div class="plan-item__main">
+  		    								<p class="title">
+  		    									Общий план
+  		    								</p>
+  		    								<p class="amount">
+  		    									<span class="name">
+  		    										Закуплено блоков
+  		    									</span>
+  		    									<span class="number">
+  		    										{{reports[selectedBrand.account_code].fact_portfolio}}/{{reports[selectedBrand.account_code].plan_portfolio}}
+  		    									</span>
+  		    								</p>
+  		    							</div>
+  		    						</div>
+  		    					</swiper-slide>
+  		    					<swiper-slide>
+  		    						<div class="plan-item">
+  		    							<div class="plan-item__circle">
+  		    								<circle-counter
                               width="188px"
                               height="188px"
                               stroke="#C2EEE3"
@@ -103,37 +103,40 @@
                               :activeWidth=c
                               activeStroke="#05B186"
                           />
-											    </circle-counter>
+  										    </circle-counter>
 
-											    <div class="circle-text">
-											    	<span class="name">
-												    	Бонус за выполнение
-											    	</span>
-											    	<span class="number">
-											    		{{reports[selectedBrand.account_code].bonus_brand | formatAmount}} тг
-											    	</span>
-											    </div>
-			    							</div>
-			    							<div class="plan-item__main">
-			    								<p class="title">
-			    									{{reports[selectedBrand.account_code].brand}}
-			    								</p>
-			    								<p class="amount">
-			    									<span class="name">
-			    										Закуплено блоков
-			    									</span>
-			    									<span class="number">
-			    										{{reports[selectedBrand.account_code].fact_brand}}/{{reports[selectedBrand.account_code].plan_brand}}
-			    									</span>
-			    								</p>
-			    							</div>
-			    						</div>
-			    					</swiper-slide>
-			    					<div class="swiper-pagination" slot="pagination"></div>
-		    					</swiper>
-	    					</div>
-
-
+  										    <div class="circle-text">
+  										    	<span class="name">
+  											    	Бонус за выполнение
+  										    	</span>
+  										    	<span class="number">
+  										    		{{reports[selectedBrand.account_code].bonus_brand | formatAmount}} тг
+  										    	</span>
+  										    </div>
+  		    							</div>
+  		    							<div class="plan-item__main">
+  		    								<p class="title">
+  		    									{{reports[selectedBrand.account_code].brand}}
+  		    								</p>
+  		    								<p class="amount">
+  		    									<span class="name">
+  		    										Закуплено блоков
+  		    									</span>
+  		    									<span class="number">
+  		    										{{reports[selectedBrand.account_code].fact_brand}}/{{reports[selectedBrand.account_code].plan_brand}}
+  		    									</span>
+  		    								</p>
+  		    							</div>
+  		    						</div>
+  		    					</swiper-slide>
+  		    					<div class="swiper-pagination" slot="pagination"></div>
+  	    					</swiper>
+      					</div>
+                <div class="plan__updated-data" v-if="reports && reports[selectedBrand.account_code]">
+                  <p>
+                    Последняя дата обновления: {{reports.lastUpdated |  formatDataYear}}
+                  </p>
+                </div>
 	    					<div class="plan__images" v-if="reports && reports[selectedBrand.account_code].photos">
                   <template v-for="(item, key) in reports[selectedBrand.account_code].photos">
                     <div class="item">
@@ -271,6 +274,9 @@
 			formatData(value){
     		return moment(value).format('MMMM');
     	},
+      formatDataYear(value){
+        return moment(value).format('DD.MM.YYYY');
+      },
 		},
 		data(){
 			return {
@@ -347,7 +353,7 @@
 
 				try {
 
-					let res = await this.$axios.$get('/plan-fact/history?from_date=2020-01-01');
+					let res = await this.$axios.$get('/plan-fact/history');
 
 					// console.log(res.data);
 
@@ -368,88 +374,26 @@
 	}
 	.plan{
 		padding-bottom: 60px;
-		// &-item{
-		// 	background: #FFFFFF;
-		// 	box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 4px 8px rgba(0, 0, 0, 0.04);
-		// 	border-radius: 8px;
-		// 	padding: 24px 16px 32px 16px;
-		// 	display: flex;
-		// 	flex-direction: column;
-		// 	justify-content: space-between;
-		// 	&__circle{
-		// 		position: relative;
-		// 		text-align: center;
-		// 		.circle-text{
-		// 			position: absolute;
-		// 			top: 0;
-		// 			bottom: 0;
-		// 			left: 0;
-		// 			right: 0;
-		// 			margin: auto;
-		// 			height: 55px;
-		// 			max-width: 90px;
-		// 			// padding: 0 10px;
-		// 			span{
-		// 				display: block;
-		// 				&.name{
-		// 					font-weight: normal;
-		// 					font-size: 12px;
-		// 					line-height: 14px;
-		// 					text-align: center;
-		// 					color: #969696;
-		// 				}
-		// 				&.number{
-		// 					font-family: 'Open Sans';
-		// 					font-weight: bold;
-		// 					font-size: 18px;
-		// 					line-height: 25px;
-		// 					/* identical to box height */
 
-		// 					text-align: center;
-
-		// 					/* Secondary Green */
-
-		// 					color: #217461;
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// 	&__main{
-		// 		margin-top: 24px;
-		// 		p{
-		// 			margin-bottom: 0;
-		// 		}
-		// 		.title{
-		// 			font-style: normal;
-		// 			font-weight: 500;
-		// 			font-size: 16px;
-		// 			line-height: 19px;
-		// 			color: #1F1F1F;
-		// 		}
-		// 		.amount{
-		// 			display: flex;
-		// 			justify-content: space-between;
-		// 			span{
-		// 				&.name{
-		// 					font-style: normal;
-		// 					font-weight: 300;
-		// 					font-size: 16px;
-		// 					line-height: 19px;
-		// 					color: #969696;
-		// 				}
-		// 				&.number{
-		// 					font-weight: 500;
-		// 					font-size: 16px;
-		// 					line-height: 19px;
-		// 					color: #217461;
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// }
 		&__selector{
 			margin-top: 8px;
 		}
+    &__updated-data{
+      p{
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 19px;
+        color: #969696;
+        margin-top: 24px;
+        margin-bottom: 0;
+      }
+      @media screen and (max-width: 330px) {
+        p{
+          font-size: 14px;
+          line-height: 16px;
+        }
+      }
+    }
 		&__graphic{
 			margin-top: 16px;
 		}
@@ -473,31 +417,6 @@
 			}
 		}
 	}
-	// .form{
-	// 	&-group{
-	// 		&--selector{
-	// 			position: relative;
-	// 			.multiselect{
-	// 				&__tags{
-	// 					padding: 22px 12px 14px 12px;
-	// 				}
-	// 				&__placeholder{
-	// 					color: #1F1F1F;
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// 	&__label{
-	// 		&--selector{
-	// 			top: 11px;
-	// 			font-size: 12px;
-	// 			line-height: 14px;
-	// 			z-index: -10;
-	// 			color: #969696;
-	// 		}
-	// 	}
-	// }
-
 
 	.history{
 		&__selector{

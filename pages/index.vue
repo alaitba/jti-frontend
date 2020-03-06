@@ -151,7 +151,7 @@
     									</span>
     									<span class="green green--light">
     										<!-- 3 000 из 10 000 -->
-    										{{reports[reportsId].fact_brand}} из {{reports[reportsId].fact_portfolio}}
+    										{{reports[reportsId].fact_brand}} из {{reports[reportsId].plan_brand}}
     									</span>
     								</p>
     							</div>    							
@@ -160,7 +160,7 @@
     									Бонус за выполнение плана
     								</p>
     								<p class="amount">
-    									{{reports[reportsId].bonus_portfolio | formatAmount}} тг
+    									{{reports[reportsId].bonus_total | formatAmount}} тг
     								</p>
     							</div>
 							</div>
