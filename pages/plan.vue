@@ -464,6 +464,10 @@
 						line-height: 19px;
 						text-align: center;
 						color: #FFFFFF;
+            @media screen and (max-width: 360px) {
+              font-size: 14px;
+              line-height: 19px;
+            }
 					}
 				}
 				&.body{
