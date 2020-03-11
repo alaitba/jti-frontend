@@ -27,7 +27,7 @@
 			            		placeholder="Торговая точка"
 			            		v-validate="'required'"
 			            		:disabled="brands.length<2"
-			            		@input=checkDisabledDays(selectedStore)
+			            		async @input=checkDisabledDays(selectedStore)
 			            	>					            		
 			            	</multiselect>					            	
 			            </div>
@@ -363,19 +363,19 @@
 				// console.log("3: ")
 			},
 
-			checkDisabledDays(){
+			async checkDisabledDays(){
 
 				this.selectedDays = false;
 
 				
 				if(this.selectedStore.purchase_days.length){
 					this.calendarConfigs.disabledDayNames = this.selectedStore.purchase_days;
-					this.getStoreData(this.selectedStore, 'true');
+					await this.getStoreData(this.selectedStore, 'true');
 					// this.selectedDays = true;
 				} else {
 					// this.selectedDays = true;
 					this.calendarConfigs.disabledDayNames = [];
-					this.getStoreData(this.selectedStore, 'true');
+					await this.getStoreData(this.selectedStore, 'true');
 				}
 			},
 			

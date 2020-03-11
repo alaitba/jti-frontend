@@ -20,60 +20,120 @@
 							</li>
 						</ul>
 					</div>
+					
 
-					<h3 class="section__title section__title--profile">
-						Викторины
-					</h3>
-					<div class="quiz-wrapper">
-						<div class="quiz-item">
-							<!-- <nuxt-link :to="{name : 'quiz-id', params: {id : 1}}"> -->
-								<div class="quiz-item__banner">
-									<img src="~/assets/img/news/1.png" alt="">
+					<div class="navigation-content tab-content">
+						<div class="tab-pane fade active container" id="home">
+							<h3 class="section__title section__title--profile">
+								Викторины
+							</h3>
+							<div class="quiz-wrapper">
+								<div class="quiz-item">
+									<!-- <nuxt-link :to="{name : 'quiz-id', params: {id : 1}}"> -->
+										<div class="quiz-item__banner">
+											<img src="~/assets/img/news/1.png" alt="">
+										</div>
+										<div class="quiz-item__content">
+											<h4 class="title">
+												Викторина — новая линейка!
+											</h4>
+											<p class="data">
+												30.12.2019 — 31.02.2019
+											</p>
+											<p class="text">
+												Бонус: 200тг на баланс
+											</p>
+											<!-- <button class="button button--green quiz">
+												Пройти викторину
+											</button> -->
+											<nuxt-link :to="{name : 'quiz-id', params: {id : 1}}" class="button button--green quiz">
+												Пройти викторину
+											</nuxt-link>
+										</div>
+									<!-- </nuxt-link> -->
 								</div>
-								<div class="quiz-item__content">
-									<h4 class="title">
-										Викторина — новая линейка!
-									</h4>
-									<p class="data">
-										30.12.2019 — 31.02.2019
-									</p>
-									<p class="text">
-										Бонус: 200тг на баланс
-									</p>
-									<!-- <button class="button button--green quiz">
-										Пройти викторину
-									</button> -->
-									<nuxt-link :to="{name : 'quiz-id', params: {id : 1}}" class="button button--green quiz">
-										Пройти викторину
-									</nuxt-link>
+								<div class="quiz-item">
+									<!-- <nuxt-link :to="{name : 'quiz-id', params: {id : 1}}"> -->
+										<!-- <div class="quiz-item__banner">
+											<img src="~/assets/img/news/1.png" alt="">
+										</div> -->
+										<div class="quiz-item__content no-banner">
+											<h4 class="title">
+												Викторина — новая линейка!
+											</h4>
+											<p class="data">
+												30.12.2019 — 31.02.2019
+											</p>
+											<p class="text">
+												Бонус: 200тг на баланс
+											</p>
+											<!-- <button class="button button--green quiz">
+												Пройти викторину
+											</button> -->
+											<nuxt-link :to="{name : 'quiz-id', params: {id : 1}}" class="button button--green quiz">
+												Пройти викторину
+											</nuxt-link>
+										</div>
+									<!-- </nuxt-link> -->
 								</div>
-							<!-- </nuxt-link> -->
+							</div>
 						</div>
-						<div class="quiz-item">
-							<!-- <nuxt-link :to="{name : 'quiz-id', params: {id : 1}}"> -->
-								<!-- <div class="quiz-item__banner">
-									<img src="~/assets/img/news/1.png" alt="">
-								</div> -->
-								<div class="quiz-item__content no-banner">
-									<h4 class="title">
-										Викторина — новая линейка!
-									</h4>
-									<p class="data">
-										30.12.2019 — 31.02.2019
-									</p>
-									<p class="text">
-										Бонус: 200тг на баланс
-									</p>
-									<!-- <button class="button button--green quiz">
-										Пройти викторину
-									</button> -->
-									<nuxt-link :to="{name : 'quiz-id', params: {id : 1}}" class="button button--green quiz">
-										Пройти викторину
-									</nuxt-link>
+						<div class="tab-pane container" id="menu">
+							<h3 class="section__title section__title--profile">
+								Викторины пройденные
+							</h3>
+							<div class="quiz-wrapper">
+								<div class="quiz-item">
+									<!-- <nuxt-link :to="{name : 'quiz-id', params: {id : 1}}"> -->
+										<div class="quiz-item__banner">
+											<img src="~/assets/img/news/1.png" alt="">
+										</div>
+										<div class="quiz-item__content">
+											<h4 class="title">
+												Викторина — новая линейка!
+											</h4>
+											<p class="data">
+												30.12.2019 — 31.02.2019
+											</p>
+											<p class="text">
+												Бонус: 200тг на баланс
+											</p>
+											<!-- <button class="button button--green quiz">
+												Пройти викторину
+											</button> -->
+											<nuxt-link :to="{name : 'quiz-id', params: {id : 1}}" class="button button--green quiz">
+												Пройти викторину
+											</nuxt-link>
+										</div>
+									<!-- </nuxt-link> -->
 								</div>
-							<!-- </nuxt-link> -->
+								<div class="quiz-item">
+									<!-- <nuxt-link :to="{name : 'quiz-id', params: {id : 1}}"> -->
+										<!-- <div class="quiz-item__banner">
+											<img src="~/assets/img/news/1.png" alt="">
+										</div> -->
+										<div class="quiz-item__content no-banner">
+											<h4 class="title">
+												Викторина — новая линейка!
+											</h4>
+											<p class="data">
+												30.12.2019 — 31.02.2019
+											</p>
+											<p class="text">
+												Бонус: 200тг на баланс
+											</p>
+											<!-- <button class="button button--green quiz">
+												Пройти викторину
+											</button> -->
+											<nuxt-link :to="{name : 'quiz-id', params: {id : 1}}" class="button button--green quiz">
+												Пройти викторину
+											</nuxt-link>
+										</div>
+									<!-- </nuxt-link> -->
+								</div>
+							</div>
 						</div>
-					</div>
+					</div>					
 				</div>
 			</div>
 		</template>
@@ -93,8 +153,9 @@
 
 <style lang="scss">
 	.quiz{
-		padding: 16px 0 64px 0;
-		width: 100%;	
+		padding: 0px 0 64px 0;
+		width: 100%;
+		// margin-top: 84px;	
 		&-wrapper{
 			margin-top: 8px;
 		}
