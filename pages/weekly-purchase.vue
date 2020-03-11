@@ -257,7 +257,6 @@
 
 			// вставляет выбранные дни в календарь
 			async setDays(){
-				console.log('hello')
 				this.calendarConfigs.disabledDayNames = this.$store.state.checkedDays;		
 				this.selectedDays = true;
 				await this.sendDays();				
@@ -371,11 +370,15 @@
 				if(this.selectedStore.purchase_days.length){
 					this.calendarConfigs.disabledDayNames = this.selectedStore.purchase_days;
 					await this.getStoreData(this.selectedStore, 'true');
+					await this.getWeekends();
+					await this.getDates();
 					// this.selectedDays = true;
 				} else {
 					// this.selectedDays = true;
 					this.calendarConfigs.disabledDayNames = [];
 					await this.getStoreData(this.selectedStore, 'true');
+					await this.getWeekends();
+					await this.getDates();
 				}
 			},
 			
@@ -387,7 +390,6 @@
 					let item = moment().format('YYYY') + '-' +moment().format('MM') + '-' + day;
 					arr.push(item);
 				}
-				console.log('arr: ', a)
 				this.weekEnds = arr;
 			}
 		}
