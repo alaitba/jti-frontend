@@ -1,7 +1,7 @@
 <template>
 	<main class="page page--flex page--grey">
 		<div class="fill-section">
-			<div class="fill-section__menu">
+			<div class="fill-section__menu navigation-menu">
 				<ul class="nav nav-pills">
 					<li class="nav-item">
 						<a class="nav-link active" data-toggle="pill" href="#home">
@@ -15,7 +15,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="fill-section__content tab-content">				
+			<div class="fill-section__content navigation-content tab-content">				
 				<div class="tab-pane container active" id="home">
 					<div class="head">
 						<p class="head__title">

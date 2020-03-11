@@ -5,7 +5,7 @@
 		</template>
 		<template v-else>
 			<div class="fill-section">
-				<div class="fill-section__menu">
+				<div class="navigation-menu">
 					<ul class="nav nav-pills">
 						<li class="nav-item">
 							<a class="nav-link active" data-toggle="pill" href="#home">
@@ -19,7 +19,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="fill-section__content tab-content">				
+				<div class="navigation-content tab-content">				
 					<div class="tab-pane fade active" id="home">	
 						<div class="gifts">
 							<div class="container">

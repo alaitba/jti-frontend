@@ -29,7 +29,7 @@
 			</div>		
 		</header>
 		<!-- header menu -->
-		<div :class="{'header-mobile': true, 'show': burgerStatus, 'show--fillform' : burgerStatus && ($route.name == 'Anketa-CreateAnketa-Fillform' || $route.name == 'plan' || $route.name =='Anketa-Gifts')}">
+		<div :class="{'header-mobile': true, 'show': burgerStatus, 'show--fillform' : burgerStatus && ($route.name == 'Anketa-CreateAnketa-Fillform' || $route.name == 'plan' || $route.name =='Anketa-Gifts' || $route.name =='quiz'), 'show--fillform-mobile': burgerStatus && $route.name == 'Anketa-CreateAnketa-Fillform'}">
 			<div class="container">
 				<ul class="nav">
 					
@@ -209,9 +209,11 @@
 	        	&--fillform{
 	        		height: calc(100% - 110px);
 	        		transform: translateY(110px);
-	        		@media screen and (max-width: 335px) {
-	        			height: calc(100% - 130px);
-		        		transform: translateY(128px);
+	        		&-mobile{
+	        			@media screen and (max-width: 335px) {
+		        			height: calc(100% - 130px);
+			        		transform: translateY(128px);
+		        		}
 	        		}
 	        	}
 	        }

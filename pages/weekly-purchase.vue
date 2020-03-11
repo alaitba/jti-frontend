@@ -10,8 +10,6 @@
 						Еженедельный закуп
 					</h3>
 
-					{{weekEnds}}
-
 					<div class="purchase__selector">
 						<div class="form-group form-group--selector" v-if="brands">
     						<label for="input" class="form__label form__label--selector"> 
@@ -80,7 +78,8 @@
 					<div class="purchase__calendar" v-if="selectedDays">
 						<FunctionalCalendar 
 							ref="Calendar"
-							:configs="calendarConfigs">
+							:configs="calendarConfigs"
+						>
 						</FunctionalCalendar>
 					</div>
 					<div 
@@ -90,8 +89,8 @@
 						<loader/>
 					</div>
 					<div class="purchase__update-date">
-						<p>
-							Последняя дата обновления: {{currentData |  formatData}}
+						<p>							
+							Последняя дата обновления: {{selectedStore.lastUpdated |  formatData}}
 						</p>
 					</div>
 
@@ -148,28 +147,27 @@
 		async mounted(){			
 
             
-            await this.setBrands();
-            await this.getHolidays();
-            await this.getDates();
+            
             this.$nuxt.$on('setDays',this.setDays)
             this.$nuxt.$on('setDefault', this.setDefault);
 
 
-            // let interval1= setInterval(
-            //     () => {                    
-            //         if($('.vfc-span-day').length > 0) {
-            //             clearInterval(interval1);
-            //             this.getWeekends();
-            //         }                    
-            //     },
-            //     1000
-            // );
-            // if(localStorage.getItem('tradePoints')){
-            // 	console.log(this.calendarConfigs)
-            // 	this.calendarConfigs.disabledDayNames = JSON.parse(localStorage.getItem('tradePoints'))[0] ? JSON.parse(localStorage.getItem('tradePoints'))[0].purchase_days : [];
-            // 	this.getStoreData(JSON.parse(localStorage.getItem('tradePoints'))[0], 'first');            	
-            // 	// this.$refs.Calendar.selectedDaysCount('1/2/2020', 'today')
-            // }            
+            let interval1= setInterval(
+                () => {                    
+                    if($('.vfc-span-day').length > 0) {
+                        clearInterval(interval1);
+                        // this.getWeekends();
+                    }                    
+                },
+                1000
+            );
+
+
+            await this.setBrands();
+            await this.getHolidays();
+            await this.getWeekends();
+            await this.getDates();
+            
         	
 		},
 		computed:{
@@ -177,7 +175,7 @@
 				return moment().format('DD.MM.YYYY');
 			},		
 			getCheckedDays(){	
-				console.log('days',this.calendarConfigs.disabledDayNames)
+				// console.log('days',this.calendarConfigs.disabledDayNames)
 				// this.disabledDayNames = this.$store.state.checkedDays;
 				if(!this.calendarConfigs.disabledDayNames.length) return;
 				let arr = this.calendarConfigs.disabledDayNames,
@@ -211,8 +209,8 @@
 			}			
 		},
 		methods:{
-
-			setBrands(){
+			
+			async setBrands(){
 				
 				let arr = []
 
@@ -224,7 +222,7 @@
 					this.selectedStore = JSON.parse(localStorage.getItem('tradePoints'))[0];
 					this.brands = JSON.parse(localStorage.getItem('tradePoints'))
 				}				
-				this.getStoreData(this.selectedStore, 'first');
+				await this.getStoreData(this.selectedStore, 'first');
 			},	
 
 			// выясняет количество выбранных дней в текущем месяце
@@ -241,7 +239,8 @@
 				  	inclusions: []
 				}) //260	
 
-				console.log('this.amountDays: ', this.amountDays)		
+				// console.log('this.amountDays: ', this.amountDays)	
+				// console.log("2: ")	
 			},		
 
 			// очищает выбранные дни в календаре и открывает модалку для выбора дней
@@ -257,12 +256,14 @@
 			},
 
 			// вставляет выбранные дни в календарь
-			setDays(){
+			async setDays(){
+				console.log('hello')
 				this.calendarConfigs.disabledDayNames = this.$store.state.checkedDays;		
 				this.selectedDays = true;
-				this.getDates();
-				this.resetDays();
-				this.sendDays();				
+				await this.sendDays();				
+				await this.resetDays();
+				await this.getWeekends();
+				await this.getDates();
 			},
 
 			// выходные и праздничные дни
@@ -287,8 +288,10 @@
 					}
 
 					this.calendarConfigs.markedDates = obj;	
-					this.calendarConfigs.disabledDayNames = this.brands[0].purchase_days;				
+					this.calendarConfigs.disabledDayNames = this.brands[0].purchase_days;			
+					console.log('selectedDaysB:', this.selectedDays)		
 					this.selectedDays= true;
+					console.log('selectedDaysA:', this.selectedDays)		
 		        } catch(error){
 
 		          console.log('errorPush', error)
@@ -309,43 +312,13 @@
 
 				try{
 
-					let res = await this.$axios.$post('/purchase/save-days',fileds)					
+					let res = await this.$axios.$post('/purchase/save-days',fileds)	
+					console.log("4: ")				
 
 		        } catch(error){
 
 		          console.log('errorPush', error)
 		        }				
-			},
-
-			// меняет и записывает выбранные дни торговой точки 
-			resetDays(){
-				let obj = this.brands;
-				// console.log('obj:', obj);
-
-				for(let i =0; i< obj.length; i++){
-					if(obj[i].account_code == this.selectedStore.account_code){
-						obj[i].purchase_days = this.calendarConfigs.disabledDayNames;
-					}
-				}
-								
-				localStorage.setItem("tradePoints",JSON.stringify(obj));
-				this.brands = obj;
-			},
-
-			checkDisabledDays(){
-
-				this.selectedDays = false;
-
-				
-				if(this.selectedStore.purchase_days.length){
-					this.calendarConfigs.disabledDayNames = this.selectedStore.purchase_days;
-					this.getStoreData(this.selectedStore, 'true');
-					// this.selectedDays = true;
-				} else {
-					// this.selectedDays = true;
-					this.calendarConfigs.disabledDayNames = [];
-					this.getStoreData(this.selectedStore, 'true');
-				}
 			},
 
 			// получает план торговой точки
@@ -373,14 +346,48 @@
 				}
 			},
 
+
+			// меняет и записывает выбранные дни торговой точки 
+			resetDays(){
+				let obj = this.brands;
+				// console.log('obj:', obj);
+
+				for(let i =0; i< obj.length; i++){
+					if(obj[i].account_code == this.selectedStore.account_code){
+						obj[i].purchase_days = this.calendarConfigs.disabledDayNames;
+					}
+				}
+								
+				localStorage.setItem("tradePoints",JSON.stringify(obj));
+				this.brands = obj;
+				// console.log("3: ")
+			},
+
+			checkDisabledDays(){
+
+				this.selectedDays = false;
+
+				
+				if(this.selectedStore.purchase_days.length){
+					this.calendarConfigs.disabledDayNames = this.selectedStore.purchase_days;
+					this.getStoreData(this.selectedStore, 'true');
+					// this.selectedDays = true;
+				} else {
+					// this.selectedDays = true;
+					this.calendarConfigs.disabledDayNames = [];
+					this.getStoreData(this.selectedStore, 'true');
+				}
+			},
+			
 			getWeekends(){
+				
 				let arr = [], a = $('.vfc-span-day.vfc-cursor-not-allowed.vfc-hide.marked-class');
 				for(let i =0; i < a.length; i++){
 					let day = Number(a[i].innerText)  >= 10 ? a[i].innerText : '0' + a[i].innerText
 					let item = moment().format('YYYY') + '-' +moment().format('MM') + '-' + day;
 					arr.push(item);
 				}
-				console.log('arr: ', arr)
+				console.log('arr: ', a)
 				this.weekEnds = arr;
 			}
 		}
