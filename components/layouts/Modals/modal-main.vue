@@ -36,7 +36,7 @@
                 {{btnText}}
               </nuxt-link>  
             </template>
-            <template v-else-if="btnText == 'agent'">
+            <template v-else-if="btnText == 'agent' || btnText == 'feedback'">
               <nuxt-link to="/" class="button button--green" data-dismiss="modal">
                 Вернуться на Главную
               </nuxt-link>  

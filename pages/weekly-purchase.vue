@@ -7,7 +7,7 @@
 			<div class="purchase">
 				<div class="container">
 					<h3 class="section__title section__title--profile">
-						Еженедельный закуп
+						Рекомендуемый закуп
 					</h3>
 
 					<div class="purchase__selector">
@@ -90,7 +90,7 @@
 					</div>
 					<div class="purchase__update-date">
 						<p>							
-							Последняя дата обновления: {{selectedStore.lastUpdated |  formatData}}
+							Данные актуальны по: {{selectedStore.lastUpdated |  formatData}}
 						</p>
 					</div>
 

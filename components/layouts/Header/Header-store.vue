@@ -63,12 +63,12 @@
 					<li class="nav__item">
 						<!-- <template v-if="getNumber"> -->
 							<nuxt-link to="/weekly-purchase" class="nav__link nav__link--green" @click.native="showBurger()">
-								Еженедельный закуп
+								Рекомендуемый закуп
 							</nuxt-link>
 						<!-- </template>
 						<template v-else>
 							<nuxt-link to="#" class="nav__link" disabled>
-								Еженедельный закуп
+								Рекомендуемый закуп
 							</nuxt-link>
 						</template> -->
 					</li>

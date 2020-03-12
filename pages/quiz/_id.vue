@@ -35,7 +35,7 @@
 		                                    <p class="title">						
 												{{
 													response.text													
-												}}												
+												}}											
 											</p>									
 		                                </label>
 		                            </div>		

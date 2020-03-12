@@ -134,7 +134,7 @@
       						</div>
                 			<div class="plan__updated-data" v-if="reports && reports[selectedBrand.account_code]">
 			                  	<p>
-				                    Последняя дата обновления: {{reports[selectedBrand.account_code].lastUpdated |  formatDataYear}}
+				                    Данные актуальны по: {{reports[selectedBrand.account_code].lastUpdated |  formatDataYear}}
 			                  	</p>
 			                </div>
 	    					<div class="plan__images" v-if="reports && reports[selectedBrand.account_code].photos">
