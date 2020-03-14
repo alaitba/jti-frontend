@@ -17,7 +17,7 @@
 							</p>
 						</div>	
 						<div class="feedback-name__wrapper" v-if="feedback.length">
-							<div class="feedback-name__item" v-for="(item, key) in feedback">
+							<div class="feedback-name__item" v-for="(item, key) in feedback">								
 								<nuxt-link 
 									:to="{name: 'feedback-id', params: {'id': item.id},query: {'title' : item.title}}"
 									>
@@ -37,7 +37,7 @@
 						</div>
 					</div>	
 
-					<div class="feedback-answers" v-if="answers">
+					<div class="feedback-answers" v-if="answers.length">
 						<div class="feedback__title">
 							<p>
 								Ответы
@@ -45,9 +45,25 @@
 						</div>	
 						<div class="feedback-answers__wrapper">
 							<div class="feedback-answers__item" v-for="(item, key) in answers">
-								<nuxt-link :to="{name: 'feedback-answer', params: {'answer': item.question},query: {'title' : item.topic_all.title, 'answer' : item.answer}}">
+								<template v-if="item.answer">
+									<nuxt-link :to="{name: 'feedback-answer', params: {'answer': item.question},query: {'title' : item.topic_all.title, 'answer' : item.answer}}">
+										<p class="title">
+											Ответ получен
+										</p>
+										<p class="data">
+											{{item.created_at | formatData}}
+										</p>
+										<p class="text" v-if="item.answer != null">
+											{{item.answer | truncateText(40, '...')}}
+										</p>
+										<p class="link">
+											Посмотреть ответ
+										</p>
+									</nuxt-link>
+								</template>
+								<template v-else>
 									<p class="title">
-										{{item.question}}
+										Ожидает ответа
 									</p>
 									<p class="data">
 										{{item.created_at | formatData}}
@@ -58,7 +74,7 @@
 									<p class="text" v-else>
 										ответ не получен
 									</p>
-								</nuxt-link>
+								</template>
 							</div>
 						</div>
 					</div>		
@@ -214,6 +230,15 @@
 						line-height: 19px;
 						color: #1F1F1F;
 						margin-bottom: 0;
+					}
+					&.link{
+						font-weight: 500;
+						font-size: 16px;
+						line-height: 19px;						
+						text-decoration-line: underline;						
+						color: #05B186;
+						margin-top: 16px;
+						margin-bottom: 0px;
 					}
 				}
 			}
