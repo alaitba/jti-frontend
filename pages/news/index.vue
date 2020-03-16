@@ -130,9 +130,9 @@
 
 	    				// console.log('before:', Object.values(response.data.data))
 
-	    				arr = arr.sort((a,b) => {
-	    					return moment(b.created_at) - moment(a.created_at)
-	    				});	   	    				
+	    				// arr = arr.sort((a,b) => {
+	    				// 	return moment(b.created_at) - moment(a.created_at)
+	    				// });	   	    				
 	    				
 
 	    				if(localStorage.getItem("news")){
@@ -148,6 +148,7 @@
 	    				});	
 	    				
 	    				this.news = newArr;
+	    				localStorage.setItem("news", JSON.stringify(newArr));
 
 
 

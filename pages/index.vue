@@ -4,24 +4,17 @@
 			<loader/>
 		</template>
 		<template v-else>
-	    	<div class="section section--main">
+	    	<div class="section section--main" v-if="slider.length">
 	    		<div class="main-slider">
 	    			<!-- <div class="container"> -->
-	    				<!-- <swiper :options="swiperOption" ref="mySwiper">
-	    					<swiper-slide>
-	    						<img src="~assets/img/gifts/inside/1.png" alt="">
-	    					</swiper-slide>
-						    <swiper-slide>
-						    	<img src="~assets/img/gifts/inside/1.png" alt="">
-						    </swiper-slide>
-						    <swiper-slide>
-						    	<img src="~assets/img/gifts/inside/1.png" alt="">
-						    </swiper-slide>
-						    <swiper-slide>
-						    	<img src="~assets/img/gifts/inside/1.png" alt="">
-						    </swiper-slide>
+	    				<swiper :options="swiperOption" ref="mySwiper">
+	    					<template v-for="(item, index) in slider">
+	    						<swiper-slide>
+		    						<img :src="item.image" alt="">
+		    					</swiper-slide>	
+	    					</template>	    											    
 						    <div class="swiper-pagination" slot="pagination"></div>
-	    				</swiper> -->
+	    				</swiper>
 	    			<!-- </div> -->
 	    		</div>
 	    	</div>
@@ -301,12 +294,14 @@
 	    data() {
 	    	return {
 	    		swiperOption: {
+	    			loop: true,
 	    			pagination:{
 	    				el: '.swiper-pagination',
 		    			dynamicBullets: true
 	    			}
 	    		},
 
+	    		slider: [],
 	    		news: '',
 	    		loaderStatus: true,
 	    		title: '',
@@ -329,7 +324,9 @@
 
 	    	_this.getNews();
 
-	    	+_this.getPlanFact();
+	    	_this.getPlanFact();
+
+	    	_this.getMainBanner();
 
 	    	let interval1= setInterval(
                 () => {                    
@@ -452,16 +449,16 @@
 
 	    				let arr = Object.values(response.data.data);
 
-	    				arr = arr.sort((a,b) => {
-	    					return moment(b.created_at) - moment(a.created_at)
-	    				});
+	    				// arr = arr.sort((a,b) => {
+	    				// 	return moment(b.created_at) - moment(a.created_at)
+	    				// });
 
 	    				if(localStorage.getItem("news")){
 	    					localStorage.setItem("news", JSON.stringify(JSON.parse(localStorage.getItem("news")).concat(arr)));
 	    				} else {
 	    					// console.log('news')
 	    					localStorage.setItem("news", JSON.stringify(arr));
-	    				}
+	    				}	    				
 
 	    				let newArr = JSON.parse(localStorage.getItem("news"));
 
@@ -471,7 +468,9 @@
 
 	    				this.news = newArr.slice(0,3);
 
-	    				this.loaderStatus = false;
+	    				localStorage.setItem("news", JSON.stringify(newArr));
+
+	    				// this.loaderStatus = false;
 	    			}).catch(error =>{
 	    				console.log('error news')
 	    			})
@@ -486,14 +485,34 @@
 
 					this.reports = res.data;
 
-					this.loaderStatus = false;
+					// this.loaderStatus = false;
 
 					localStorage.setItem('lastUpdated', res.lastUpdated);
 
 					// console.log(this.reports,this.reportsId);
 				} catch(error){
 
-					// console.log('error', error.response)
+					console.log('error', error)
+				}
+			},
+
+			async getMainBanner(){
+
+				this.$axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("authToken");
+
+				try {
+
+					let res = await this.$axios.$get('/dict/slider')
+
+
+					this.slider = res.data;
+
+					this.loaderStatus = false;
+
+					console.log('res: ', res);
+
+				} catch(error){
+					console.log('error', error)
 				}
 			},
 
