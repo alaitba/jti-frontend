@@ -8,12 +8,12 @@ export default function ({ store, redirect, route }) {
 	  	if((localStorage.getItem("setTradePoint")=='f')){  			
   	  		return redirect('/selectstore')
   		} else {
-        if(route.name!=='Auth-ResetPassword'){
+        if(route.name!=='auth-resetpassword'){
     			return redirect('/')          
         }
   		}  	  	
   } else{
-  	if(!localStorage.getItem("authUser") && route.name!='Auth-Signin'){
+  	if(!localStorage.getItem("authUser") && route.name!='auth-signin'){
   		return redirect('/auth/signin')
   	}
   }

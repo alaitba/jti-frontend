@@ -250,15 +250,7 @@
 	// main.page{
 	// 	padding-bottom: 100px;
 	// }
-	.swiper-slide{
-		background: #fff;
-		border-radius: 8px;
-		img{
-			// max-width: 312px !important;
-			width: auto;
-    		max-height: 162px !important;
-		}
-	}
+	
 	.points{
 		margin-top: 16px;
 	}
@@ -305,6 +297,15 @@
 			}
 		}
 		.gift{
+			.swiper-slide{
+				background: #fff;
+				border-radius: 8px;
+				img{
+					// max-width: 312px !important;
+					width: auto;
+		    		max-height: 162px !important;
+				}
+			}
 			&__banner, &__slider{
 				margin: 16px 0 0 0;
 				text-align: center;

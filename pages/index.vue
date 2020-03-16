@@ -10,7 +10,14 @@
 	    				<swiper :options="swiperOption" ref="mySwiper">
 	    					<template v-for="(item, index) in slider">
 	    						<swiper-slide>
-		    						<img :src="item.image" alt="">
+	    							<template v-if="item.link">
+	    								<nuxt-link :to="item.link">
+				    						<img :src="item.image" alt="">
+				    					</nuxt-link>
+	    							</template>
+	    							<template v-else>
+	    								<img :src="item.image" alt="">
+	    							</template>
 		    					</swiper-slide>	
 	    					</template>	    											    
 						    <div class="swiper-pagination" slot="pagination"></div>
@@ -295,6 +302,7 @@
 	    	return {
 	    		swiperOption: {
 	    			loop: true,
+	    			autoHeight: true,
 	    			pagination:{
 	    				el: '.swiper-pagination',
 		    			dynamicBullets: true
@@ -639,6 +647,14 @@
 				width: 100%;
 			}
 			// padding-top: 32px;
+		}
+		&--main{
+			.main-slider{
+				img{
+					max-height: 420px;
+				    object-fit: cover;			
+				}
+			}
 		}
 	}
 </style>

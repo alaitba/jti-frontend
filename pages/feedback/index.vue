@@ -68,12 +68,15 @@
 									<p class="data">
 										{{item.created_at | formatData}}
 									</p>
-									<p class="text" v-if="item.answer != null">
+									<p class="text" v-if="item.question">
+										{{item.question | truncateText(40, '...')}}
+									</p>
+									<!-- <p class="text" v-if="item.answer != null">
 										{{item.answer | truncateText(40, '...')}}
 									</p>
 									<p class="text" v-else>
 										ответ не получен
-									</p>
+									</p> -->
 								</template>
 							</div>
 						</div>

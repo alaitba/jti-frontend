@@ -39,7 +39,7 @@
 								</div>
 								<div class="gifts__wrapper" v-if="gifts.length">
 									<div class="item" v-for="(item,key) in gifts" v-if="item.qty!=0">
-				            			<nuxt-link :to="{name : 'Anketa-Gifts-id', params: {id : item.rewardId}}">
+				            			<nuxt-link :to="{name : 'anketa-gifts-id', params: {id : item.rewardId}}">
 					  						<div class="item__img" v-if="item.images">
 					  							<img :src="item.images[0].origin_url" alt="" v-if="item.images[0]">
 					  						</div>
@@ -63,7 +63,7 @@
 									                </template>
 					  							</div>
 					  							<div class="d-flex">
-					  								<nuxt-link class="link" :to="{name : 'Anketa-Gifts-id', params: {id : item.rewardId}}">
+					  								<nuxt-link class="link" :to="{name : 'anketa-gifts-id', params: {id : item.rewardId}}">
 					                    				Получить приз
 					                  				</nuxt-link>
 					  							</div>

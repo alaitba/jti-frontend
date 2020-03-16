@@ -61,7 +61,7 @@
 	    				</nuxt-link>	    				
     				</div> -->
     				<div class="profile-links__item">    					
-	    				<nuxt-link :to="{name: 'Auth-ResetPassword', query: { title : 'Изменение пароля'}}">
+	    				<nuxt-link :to="{name: 'auth-resetpassword', query: { title : 'Изменение пароля'}}">
 	    					<p class="title">
 	    						Сменить пароль
 	    					</p>    					
