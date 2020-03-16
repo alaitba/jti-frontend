@@ -1,52 +1,64 @@
 <template>
 	<main class="page page--white page--df">
-		<div class="container">
-			<h3 class="section__title  section__title--link" @click="$router.go(-1)">
-				Назад				
-			</h3>
-			<div class="news-item" v-if="newsItem.length && newsItem[$route.params.id]">
-				<div class="news-item__banner" v-if="newsItem[$route.params.id].media.length">
-					<img :src="newsItem[$route.params.id].media[0].url" alt="">
-				</div>
-				<div class="news-item__content">
-					<h4 class="title" v-if="newsItem[$route.params.id].title">
-						{{newsItem[$route.params.id].title.ru}}
-					</h4>
-					<p class="data" v-if="newsItem[$route.params.id].created_at">
-						{{newsItem[$route.params.id].title | formatData}}
-					</span>
-					<div class="text" v-if="newsItem[$route.params.id].contents" v-html="newsItem[$route.params.id].contents.ru">			
+		<template v-if="loaderStatus">
+			<loader/>
+		</template>
+		<template v-else>
+			<div class="container">
+				<h3 class="section__title  section__title--link" @click="$router.go(-1)">
+					Назад				
+				</h3>
+				<div class="news-item" v-if="newsItem">					
+					<div class="news-item__banner" v-if="newsItem.media.length">
+						<img :src="newsItem.media[0].url" alt="">
+					</div>
+					<div class="news-item__content">
+						<h4 class="title" v-if="newsItem.title">
+							{{newsItem.title.ru}}
+						</h4>
+						<p class="data" v-if="newsItem.created_at">
+							{{newsItem.title | formatData}}
+						</span>
+						<div class="text" v-if="newsItem.contents" v-html="newsItem.contents.ru">			
+						</div>
 					</div>
 				</div>
+				<div class="news-item" v-else>
+					<!-- <div class="news-item__content">
+						<h4 class="title">
+							Такой новости не существует
+						</h4>
+					</div> -->
+				</div>
 			</div>
-		</div>
-		<div class="section section--footer">
-    		<div class="footer">    			
-    			<div class="footer__head">
-    				<div class="container">
-	    				<h4 class="title">
-	    					JTI Partner 360
-	    				</h4>
+			<div class="section section--footer">
+	    		<div class="footer">    			
+	    			<div class="footer__head">
+	    				<div class="container">
+		    				<h4 class="title">
+		    					JTI Partner 360
+		    				</h4>
+		    			</div>
+	    				<!-- <nuxt-link class="button button--green" to="/faq">
+	    					Обратная связь
+	    				</nuxt-link> -->
 	    			</div>
-    				<!-- <nuxt-link class="button button--green" to="/faq">
-    					Обратная связь
-    				</nuxt-link> -->
-    			</div>
-    			<div class="footer__bottom">
-    				<div class="container">
-	    				<a href="https://ibecsystems.com/ru#/" target="_blank" class="copyright">
-	    					<span>
-	    						Разработано в
-	    					</span>
-	    					<img src="~/assets/img/icons/ibec_systems_logo.svg" alt="">
-	    				</a>
+	    			<div class="footer__bottom">
+	    				<div class="container">
+		    				<a href="https://ibecsystems.com/ru#/" target="_blank" class="copyright">
+		    					<span>
+		    						Разработано в
+		    					</span>
+		    					<img src="~/assets/img/icons/ibec_systems_logo.svg" alt="">
+		    				</a>
+		    			</div>
 	    			</div>
-    			</div>
-    		</div>
-    		<!-- <div class="container">
-    			
-    		</div> -->
-    	</div>     	
+	    		</div>
+	    		<!-- <div class="container">
+	    			
+	    		</div> -->
+	    	</div>     	
+	    </template>
 	</main>
 </template>
 <script>
@@ -63,11 +75,28 @@
 	    },
 		data(){
 			return {
-				newsItem: JSON.parse(localStorage.getItem("news"))
+				loaderStatus: true,
+				newsItem : ''
 			}
 		},
 		mounted(){
-			console.log('route',this.$route.params.id)
+			console.log('route',this.$route.params.id);
+			this.getNewsItem(this.$route.params.id)
+		},
+		methods:{
+			getNewsItem(id){
+				console.log('id: ',id);
+				let arr = localStorage.getItem("news") ? JSON.parse(localStorage.getItem("news")) : [];
+				for(let i = 0 ; i < arr.length; i++){
+
+					if(arr[i].id == id){
+
+						this.newsItem = arr[i];
+					} 					
+				}
+				console.log('newsItem: ', this.newsItem);
+				this.loaderStatus = false;
+			}
 		}
 	}
 </script>

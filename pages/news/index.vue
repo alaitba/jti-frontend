@@ -14,7 +14,7 @@
 	    					<template v-for="(item, key) in news">
 
 	    						<div :class="{'news__item' : true, 'news__item--noimg': item.media.length==0}">
-		    						<nuxt-link :to="{name: 'news-id', params: {id: key}}">
+		    						<nuxt-link :to="{name: 'news-id', params: {id: item.id}}">
 			    						<div class="banner" v-if="item.media.length">
 				    						<img :src="item.media[0].url" alt="">
 				    					</div>
