@@ -12,8 +12,8 @@
 	    			<p class="agent__text">
 	    				Нажмите на кнопку, чтобы агент доставил вам на торговую точку небольшое количество продукции вне графика
 	    			</p>
-	    			<button class="button button--green" type="button" @click="sendToAgent()">
-	    				Вызвать агента
+	    			<button class="button button--green" type="button" @click="sendToAgent()" :disabled="btnStatus">
+	    				Вызвать агента					
 	    			</button>
 				</div>				
 			</div>
@@ -27,6 +27,7 @@
 		data(){
 			return{
 				loaderStatus: false,
+				btnStatus: false,
 				title:'',
 				img:'',
 				text:'',
@@ -34,13 +35,35 @@
 			}
 		},
 		methods:{
-			sendToAgent(){
+			async sendToAgent(){
+				
+				this.btnStatus = true;
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
 
-				this.title="Заявка принята!"
-              	this.text="Агент прибудет к вам в ближайшее время"
-              	this.img="agent"
-              	this.btnText = 'agent'
-	            $('#modal-main').modal('show')
+				try {
+					let res = await this.$axios.$get('/agent/call');
+					
+					this.btnStatus = false;
+
+					this.title="Заявка принята!"
+	              	this.text="Агент прибудет к вам в ближайшее время"
+	              	this.img="agent"
+	              	this.btnText = 'agent'
+		            $('#modal-main').modal('show')
+
+				} catch(error){
+					this.btnStatus = false;
+					console.log('errorAgent: ', error)
+
+					this.title="Ошибка!"
+	              	this.text = 'Попробуйте позже'
+					this.img = 'error'
+	              	this.btnText = 'agent'
+		            $('#modal-main').modal('show')
+		            
+				}
+
+
 			}
 		}
 	}
