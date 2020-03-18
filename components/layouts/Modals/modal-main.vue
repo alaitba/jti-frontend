@@ -33,7 +33,7 @@
 	          	<div class="modal-footer">
 
 	            	<template v-if="btnText == 'Готово'">
-	              		<nuxt-link to="/anketa/listanketa" class="button button--green" data-dismiss="modal">
+	              		<nuxt-link to="/anketa2/listanketa" class="button button--green" data-dismiss="modal">
 	                		{{btnText}}
 	              		</nuxt-link>  
 	        		</template>
@@ -72,7 +72,7 @@
 	            	</template>
 
 	            	<template v-else>
-	              		<nuxt-link to="/anketa/gifts" class="button button--green" data-dismiss="modal" v-if="btnText && !status">
+	              		<nuxt-link to="/anketa2/gifts" class="button button--green" data-dismiss="modal" v-if="btnText && !status">
 	                		{{btnText}}
 	              		</nuxt-link>
 	              		<button type="button" class="button button--green" data-dismiss="modal" v-if="!status && !btnText">

@@ -39,12 +39,12 @@
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="/anketa/createanketa" class="nav__link nav__link--green" @click.native="showBurger()">
+						<nuxt-link to="/anketa2/createanketa" class="nav__link nav__link--green" @click.native="showBurger()">
 							Анкеты
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="/anketa/gifts" class="nav__link nav__link--green" @click.native="showBurger()">
+						<nuxt-link to="/anketa2/gifts" class="nav__link nav__link--green" @click.native="showBurger()">
 							Призы
 						</nuxt-link>
 					</li>					
