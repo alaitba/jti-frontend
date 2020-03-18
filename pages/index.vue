@@ -349,48 +349,48 @@
                 1000
             );
 
-	    	_this.$nuxt.$on('onManageWebPushSubscriptionButtonClicked',_this.onManageWebPushSubscriptionButtonClicked);
+	    	// _this.$nuxt.$on('onManageWebPushSubscriptionButtonClicked',_this.onManageWebPushSubscriptionButtonClicked);
 	    	// this.showModal();
 
-	    	OneSignal.push(function() {
-		        // If we're on an unsupported browser, do nothing
-		        if (!OneSignal.isPushNotificationsSupported()) {
-		        	console.log('not supported')
-		            return;
-		        }
+	   //  	OneSignal.push(function() {
+		  //       // If we're on an unsupported browser, do nothing
+		  //       if (!OneSignal.isPushNotificationsSupported()) {
+		  //       	console.log('not supported')
+		  //           return;
+		  //       }
 
 
-		        OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-				    if (isEnabled){
-				    	_this.modalStatus = false;		          		
-		          		localStorage.setItem('modalStatus', false);
-				      	console.log("Push notifications are enabled!");
-				    }
-				    else{
-				    	_this.modalStatus = true;		          		
-		          		localStorage.setItem('modalStatus', true);
-				      	console.log("Push notifications are not enabled yet.");    
-				    }
-				});
-		        // _this.updateMangeWebPushSubscriptionButton(buttonSelector);
-		        OneSignal.on("subscriptionChange", function(isSubscribed) {
-		        	console.log('supported')
-		            console.log('isSubscribed: ', isSubscribed)
-		          	if(isSubscribed){
-		          		_this.modalStatus = false;		          		
-		          		localStorage.setItem('modalStatus', false);
-		            	OneSignal.getUserId( function(userId) {
-		                	console.log('userId:', userId)              
-		                	// let userId = userId          
-		                	_this.setUserId(userId);                
-		              	});              
-		          	} else{
-		            	console.log('false')
-		            	// OneSignal.setSubscription(false);
-		            	// OneSignal.showNativePrompt({force: true});
-			        }
-		        });
-		    });
+		  //       OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+				//     if (isEnabled){
+				//     	_this.modalStatus = false;		          		
+		  //         		localStorage.setItem('modalStatus', false);
+				//       	console.log("Push notifications are enabled!");
+				//     }
+				//     else{
+				//     	_this.modalStatus = true;		          		
+		  //         		localStorage.setItem('modalStatus', true);
+				//       	console.log("Push notifications are not enabled yet.");    
+				//     }
+				// });
+		  //       // _this.updateMangeWebPushSubscriptionButton(buttonSelector);
+		  //       OneSignal.on("subscriptionChange", function(isSubscribed) {
+		  //       	console.log('supported')
+		  //           console.log('isSubscribed: ', isSubscribed)
+		  //         	if(isSubscribed){
+		  //         		_this.modalStatus = false;		          		
+		  //         		localStorage.setItem('modalStatus', false);
+		  //           	OneSignal.getUserId( function(userId) {
+		  //               	console.log('userId:', userId)              
+		  //               	// let userId = userId          
+		  //               	_this.setUserId(userId);                
+		  //             	});              
+		  //         	} else{
+		  //           	console.log('false')
+		  //           	// OneSignal.setSubscription(false);
+		  //           	// OneSignal.showNativePrompt({force: true});
+			 //        }
+		  //       });
+		  //   });
 
 	    },
 	    computed: {
