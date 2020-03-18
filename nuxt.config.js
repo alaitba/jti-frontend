@@ -60,7 +60,7 @@ module.exports = {
     '~plugins/vue-swiper.js',
     '~plugins/sentry.js',
     '~/plugins/axios.js',
-    '~/plugins/serviceworker.js',
+    // '~/plugins/serviceworker.js',
     '~/plugins/global.js',    
     '~/plugins/moment.js',
   ],
@@ -69,23 +69,23 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    // '@nuxtjs/onesignal',
+    '@nuxtjs/onesignal',
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
     // 'bootstrap-vue/nuxt',
     '@nuxtjs/pwa',
   ],
   // Options
-  // oneSignal: {
-  //   init: {
-  //     appId: "b3d7e18e-a5a9-44fc-b238-3c7201679563",
-  //     allowLocalhostAsSecureOrigin: true,
-  //     autoResubscribe: false,
-  //     welcomeNotification: {
-  //       disable: false,        
-  //     }
-  //   },    
-  // },
+  oneSignal: {
+    init: {
+      appId: process.env.NODE_ENV === 'development' ?  '5417b9e6-310b-4114-bd99-b1ac31b3ed35' : "b3d7e18e-a5a9-44fc-b238-3c7201679563",
+      allowLocalhostAsSecureOrigin: true,
+      autoResubscribe: false,
+      welcomeNotification: {
+        disable: false,        
+      }
+    },    
+  },
 
   manifest: {      
     lang: 'en',
