@@ -238,7 +238,7 @@
 		        	await this.$axios.post('/client/check-sms/', fields)
 		        	.then(response =>{
 		          		if(response.data.status = 'ok'){
-		          			this.$router.push('/anketa2/createanketa/fillform')
+		          			this.$router.push('/anketa/createanketa/fillform')
 		          		}
 		        	}).catch(error => {
 		            	this.errorPermanenetPassword = true;

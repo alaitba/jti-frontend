@@ -68,7 +68,7 @@
             </button>
           </form>
           <div class="auth-section__recovery-link">
-            <nuxt-link class="login-link" to="/auth2/recovery-login">
+            <nuxt-link class="login-link" to="/auth/recovery-login">
               Не помню пароль
             </nuxt-link>
           </div>
@@ -267,7 +267,7 @@ export default {
         await this.$axios.post('/auth/sms-code/', fields)
         .then(response =>{
           if(response.data.status = 'ok'){
-            this.$router.push('/auth2/createpassword')
+            this.$router.push('/auth/createpassword')
           }
         }).catch(error => {
             this.errorPermanenetPassword = true;

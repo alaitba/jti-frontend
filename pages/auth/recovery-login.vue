@@ -193,7 +193,7 @@
 			      	await this.$axios.post('/auth/reset/sms-code/', fields)
 			      	.then(response =>{
 			        	if(response.data.status = 'ok'){	
-			          		this.$router.push({path: '/auth2/resetpassword', params: { userId: '123' }})
+			          		this.$router.push({path: '/auth/resetpassword', params: { userId: '123' }})
 			        	}
 			      	}).catch(error => {
 			      		this.errorPermanenetPassword = true;
