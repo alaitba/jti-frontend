@@ -62,8 +62,6 @@
 		            $('#modal-main').modal('show')
 		            
 				}
-
-
 			}
 		}
 	}

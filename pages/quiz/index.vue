@@ -23,62 +23,64 @@
 					
 
 					<div class="navigation-content tab-content">
-						<div class="tab-pane fade active container" id="home">
+						<div class="tab-pane fade active" id="home">
 							<h3 class="section__title section__title--profile">
 								Викторины
 							</h3>
-							<div class="quiz-wrapper">
-								<div class="quiz-item">
-									<!-- <nuxt-link :to="{name : 'quiz-id', params: {id : 1}}"> -->
-										<div class="quiz-item__banner">
-											<img src="~/assets/img/news/1.png" alt="">
-										</div>
-										<div class="quiz-item__content">
-											<h4 class="title">
-												Викторина — новая линейка!
-											</h4>
-											<p class="data">
-												30.12.2019 — 31.02.2019
-											</p>
-											<p class="text">
-												Бонус: 200тг на баланс
-											</p>
-											<!-- <button class="button button--green quiz">
-												Пройти викторину
-											</button> -->
-											<nuxt-link :to="{name : 'quiz-id', params: {id : 1}}" class="button button--green quiz">
-												Пройти викторину
-											</nuxt-link>
-										</div>
-									<!-- </nuxt-link> -->
-								</div>
-								<div class="quiz-item">
-									<!-- <nuxt-link :to="{name : 'quiz-id', params: {id : 1}}"> -->
-										<!-- <div class="quiz-item__banner">
-											<img src="~/assets/img/news/1.png" alt="">
-										</div> -->
-										<div class="quiz-item__content no-banner">
-											<h4 class="title">
-												Викторина — новая линейка!
-											</h4>
-											<p class="data">
-												30.12.2019 — 31.02.2019
-											</p>
-											<p class="text">
-												Бонус: 200тг на баланс
-											</p>
-											<!-- <button class="button button--green quiz">
-												Пройти викторину
-											</button> -->
-											<nuxt-link :to="{name : 'quiz-id', params: {id : 1}}" class="button button--green quiz">
-												Пройти викторину
-											</nuxt-link>
-										</div>
-									<!-- </nuxt-link> -->
-								</div>
+							<div class="quiz-wrapper" v-if="quizzes.length">
+								<template v-for="(item, key) in quizzes">
+									<div class="quiz-item">
+										<!-- <nuxt-link :to="{name : 'quiz-id', params: {id : 1}}"> -->
+											<div class="quiz-item__banner" v-if="item.photo">
+												<img :src="item.photo" alt="">
+											</div>
+											<div :class="{'quiz-item__content' : true, 'no-banner' : !item.photo}">
+												<h4 class="title" v-if="item.title">
+													{{item.title.ru}}
+												</h4>
+												<p class="data" v-if="item.period">
+													{{item.period}}
+												</p>
+												<p class="text">
+													Бонус: 200тг на баланс
+												</p>
+												<!-- <button class="button button--green quiz">
+													Пройти викторину
+												</button> -->
+												<nuxt-link :to="{name : 'quiz-id', params: {id : item.id}}" class="button button--green quiz">
+													Пройти викторину
+												</nuxt-link>
+											</div>
+										<!-- </nuxt-link> -->
+									</div>
+									<!-- <div class="quiz-item">
+										<nuxt-link :to="{name : 'quiz-id', params: {id : 1}}">
+											<div class="quiz-item__banner">
+												<img src="~/assets/img/news/1.png" alt="">
+											</div>
+											<div class="quiz-item__content no-banner">
+												<h4 class="title">
+													Викторина — новая линейка!
+												</h4>
+												<p class="data">
+													30.12.2019 — 31.02.2019
+												</p>
+												<p class="text">
+													Бонус: 200тг на баланс
+												</p>
+												<button class="button button--green quiz">
+													Пройти викторину
+												</button>
+												<nuxt-link :to="{name : 'quiz-id', params: {id : 1}}" class="button button--green quiz">
+													Пройти викторину
+												</nuxt-link>
+											</div>
+										</nuxt-link>
+									</div> -->
+								</template>
 							</div>
 						</div>
-						<div class="tab-pane container" id="menu">
+						<div class="tab-pane" id="menu">
 							<h3 class="section__title section__title--profile">
 								Викторины пройденные
 							</h3>
@@ -144,7 +146,32 @@
 	export default {
 		data(){
 			return {
-				loaderStatus : false
+				loaderStatus : true,
+				quizzes: '',
+			}
+		},
+		mounted(){
+			this.getQuizzes();
+		},
+		methods:{
+
+			async getQuizzes(){
+
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+				try{
+
+					let res = await this.$axios.$get('/quiz/list');
+
+					this.quizzes = res.quizzes;
+
+					this.loaderStatus = false;
+					
+
+				}  catch(error){
+
+					console.log('errorQuiz: ', error)
+				}
 			}
 		}
 	}

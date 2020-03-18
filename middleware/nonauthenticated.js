@@ -3,7 +3,7 @@ if(!navigator.cookieEnabled){
 } 
 export default function ({ store, redirect, route }) {
   // If the user is not authenticated
-  if(route.name=='Selectstore') return
+  if(route.name=='selectstore') return
   if (localStorage.getItem("authToken")) {
 	  	if((localStorage.getItem("setTradePoint")=='f')){  			
   	  		return redirect('/selectstore')

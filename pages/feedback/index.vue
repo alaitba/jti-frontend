@@ -213,6 +213,11 @@
 				margin-bottom: 8px;
 				padding: 16px;
 				cursor: pointer;
+				a{
+					&:hover{
+						text-decoration: none;
+					}
+				}
 				p{
 					margin-bottom: 4px;
 					&.title{
