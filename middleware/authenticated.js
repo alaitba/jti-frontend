@@ -33,14 +33,14 @@ export default async function ({ store, redirect, $axios }) {
   		// return redirect('/')
   	} else if((localStorage.getItem("setTradePoint")=='f')) {
   		// console.log('default2',localStorage.getItem("setTradePoint"))
-  		return redirect('/selectstore')
+  		return redirect('/selectstore1')
   	} else {
   		// console.log('no trd')
   		localStorage.clear();
     	store.commit('resetState');
-    	return redirect('/auth/signin')
+    	return redirect('/auth2/signin')
   	}
   } else{
-  		return redirect('/auth/signin')
+  		return redirect('/auth2/signin')
   }
 }

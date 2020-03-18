@@ -3,18 +3,18 @@ if(!navigator.cookieEnabled){
 } 
 export default function ({ store, redirect, route }) {
   // If the user is not authenticated
-  if(route.name=='selectstore') return
+  if(route.name=='selectstore1') return
   if (localStorage.getItem("authToken")) {
 	  	if((localStorage.getItem("setTradePoint")=='f')){  			
-  	  		return redirect('/selectstore')
+  	  		return redirect('/selectstore1')
   		} else {
-        if(route.name!=='auth-resetpassword'){
+        if(route.name!=='auth2-resetpassword'){
     			return redirect('/')          
         }
   		}  	  	
   } else{
-  	if(!localStorage.getItem("authUser") && route.name!='auth-signin'){
-  		return redirect('/auth/signin')
+  	if(!localStorage.getItem("authUser") && route.name!='auth2-signin'){
+  		return redirect('/auth2/signin')
   	}
   }
 }
