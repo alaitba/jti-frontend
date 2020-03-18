@@ -24,7 +24,6 @@
 							</div>
 							<template v-if="questions.type == 'poll' && item.type == 'choice'">
 								<div class="options" v-if="item.answers">
-									{{item.selected}}
 									<template v-for="(response, key) in item.answers">
 										<div :class="{'options__item options__item--radio': true, 'active': checkArrayData(response.id, item.selected)}">
 			                                <label class="radiobutton-container">
@@ -45,7 +44,6 @@
 								</div>
 							</template>							
 							<template v-else-if="questions.type == 'poll' && item.type == 'text'">
-								{{item.selected}}
 								<div class="form">
 									<label for="" class="title__label">
 						              	Введите номер телефона
@@ -61,7 +59,6 @@
 							
 
 							<template v-else-if="questions.type == 'quiz'">
-								{{item.selected}}
 								<div class="options" v-if="item.answers">
 									<template v-for="(response, key) in item.answers">
 										<div :class="{'options__item options__item--radio': true, 'active': item.selected == response.id}">
@@ -262,37 +259,56 @@
 
 		    	this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
 
-		    	let quiz = {
+		    	this.loaderStatus = true;
 
-		    		id : this.$route.params.id,
-		    		questions : this.quiz.answers
-		    	}
-		    		this.loaderStatus = true;
+		    	let fields = {
+
+		    		quiz: {
+		    			id : this.$route.params.id,
+			    		questions : this.quiz.answers
+		    		}
+		    	}		    		
+
+		    	try {
+
+		    		let res = await this.$axios.$post('/quiz/check', fields);
+
 		    		
-		    		this.title = 'Результат: 10 из 10'
+		    		
+		    		
+		    		if(res.total == res.correct){
 
-		    		this.text = 'Поздравляем! Вам будет начислен мобильный баланс за успешное прохождение'
+		    			this.title = `Результат: ${res.correct} из ${res.total}`
 
-		    		this.img = 'money'
+			    		this.text = 'Поздравляем! Вам будет начислен мобильный баланс за успешное прохождение'
 
-		    		// this.btnText = 'full'
+			    		this.img = 'money'
 
-		    		this.btnText = 'again'
+			    		this.btnText = 'full'
+			    		
 
-		    		$('#modal-main').modal('show');
+			    		$('#modal-main').modal('show');
+
+		    		} else {
+
+		    			this.title = `Результат: ${res.correct} из ${res.total}`
+
+			    		this.text = 'Вы не смогли ответить на все вопросы правильно. Попробуйте ответить еще раз'
+
+			    		this.img = 'again'
+
+			    		this.btnText = 'again'
+
+			    		$('#modal-main').modal('show');
+		    		}
 
 
-		    	// try {
-
-		    	// 	let res = await this.$axios.$post('/quiz/check', quiz);
+		    		console.log('res: ', res);
 
 
-		    	// 	console.log('res: ', res);
-
-
-		    	// }catch(error){
-		    	// 	console.log('error', error)
-		    	// }
+		    	}catch(error){
+		    		console.log('error', error)
+		    	}
 
 
 		    }
