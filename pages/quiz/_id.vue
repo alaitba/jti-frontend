@@ -46,12 +46,12 @@
 							<template v-else-if="questions.type == 'poll' && item.type == 'text'">
 								<div class="form">
 									<label for="" class="title__label">
-						              	Введите номер телефона
+						              	Введите ответ
 						            </label>
 						            <div class="form-group">									
 										<input type="text" class="form__input" placeholder=" " v-model="item.selected">
 										<label for="input" class="form__label">
-						                	Введите ответ
+						                	Ваш ответ
 						                </label>
 									</div>
 								</div>															
