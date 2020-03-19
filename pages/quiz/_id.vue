@@ -274,13 +274,24 @@
 		    		let res = await this.$axios.$post('/quiz/check', fields);
 
 		    		
-		    		
-		    		
+		    				    		
 		    		if(res.total == res.correct){
 
 		    			this.title = `Результат: ${res.correct} из ${res.total}`
 
-			    		this.text = 'Поздравляем! Вам будет начислен мобильный баланс за успешное прохождение'
+		    			if(res.money_status == 'ok'){
+		    				
+		    				this.text = `Поздравляем! Вы получите ${res.amount} тг на баланс за успешное прохождение`
+
+		    			} else if (res.money_status == 'failed'){
+
+		    				this.text = `Поздравляем! Но Вы не получите ${res.amount} тг на баланс за успешное прохождение из за JTI`
+
+		    			} else {
+							
+							this.text = `Поздравляем! Вы успешно прошли опрос!`
+
+		    			}			    		
 
 			    		this.img = 'money'
 
