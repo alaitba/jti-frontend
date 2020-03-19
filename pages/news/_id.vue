@@ -119,7 +119,8 @@
 		padding-bottom: 100px;
 		&__banner{
 			img{
-				max-width: 100%;
+				max-height: 100%;
+				width: 100%;
 				border-radius: 8px;
 			}
 		}

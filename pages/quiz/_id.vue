@@ -26,7 +26,7 @@
 								<div class="options" v-if="item.answers">
 									<template v-for="(response, key) in item.answers">
 										<div :class="{'options__item options__item--radio': true, 'active': checkArrayData(response.id, item.selected)}">
-			                                <label class="radiobutton-container">
+			                                <label class="checkbox-container">
 			                                    <input 
 			                                    	type="checkbox" 
 			                                    	:value="response.id"
@@ -285,11 +285,11 @@
 
 		    			} else if (res.money_status == 'failed'){
 
-		    				this.text = `Поздравляем! Но Вы не получите ${res.amount} тг на баланс за успешное прохождение из за JTI`
+		    				this.text = `Произошла проблема при начислении баланса. Свяжитесь с вашим торговым агентом`
 
 		    			} else {
 							
-							this.text = `Поздравляем! Вы успешно прошли опрос!`
+							this.text = `Спасибо за прохождение опроса, Ваше мнение очень важно для нас`
 
 		    			}			    		
 
