@@ -90,9 +90,16 @@
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="#" class="nav__link" disabled>
-							Викторины
-						</nuxt-link>
+						<template v-if="getNumber">
+							<nuxt-link to="/quiz" class="nav__link nav__link--green" @click.native="showBurger()">
+								Викторины
+							</nuxt-link>
+						</template>
+						<template v-else>
+							<nuxt-link to="#" class="nav__link" disabled>
+								Викторины
+							</nuxt-link>
+						</template>
 					</li>
 					<li class="nav__item">
 						<nuxt-link to="/news" class="nav__link nav__link--green" @click.native="showBurger()">
@@ -100,14 +107,28 @@
 						</nuxt-link>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="#" class="nav__link" disabled>
-							Агент +
-						</nuxt-link>
+						<template v-if="getNumber">
+							<nuxt-link to="/agent" class="nav__link nav__link--green" @click.native="showBurger()">
+								Агент +
+							</nuxt-link>
+						</template>
+						<template v-else>
+							<nuxt-link to="#" class="nav__link" disabled>
+								Агент +
+							</nuxt-link>
+						</template>
 					</li>
 					<li class="nav__item">
-						<nuxt-link to="#" class="nav__link" disabled>
-							Обратная связь
-						</nuxt-link>
+						<template v-if="getNumber">
+							<nuxt-link to="/feedback" class="nav__link nav__link--green" @click.native="showBurger()">
+								Обратная связь
+							</nuxt-link>
+						</template>
+						<template v-else>
+							<nuxt-link to="#" class="nav__link" disabled>
+								Обратная связь
+							</nuxt-link>
+						</template>
 					</li>
 				</ul>
 			</div>

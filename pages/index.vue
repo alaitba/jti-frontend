@@ -70,22 +70,50 @@
 		    					</div>
 		    				</nuxt-link>
 	    				</div>
-	    				<div class="icons__item" @click="showModal()">
-	    					<div class="img">
-	    						<img src="~/assets/img/icons/links/agent.svg" alt="">
-	    					</div>
-	    					<div class="title">
-	    						Агент+
-	    					</div>
-	    				</div>
-	    				<div class="icons__item" @click="showModal()">
-	    					<div class="img">
-	    						<img src="~/assets/img/icons/links/quiz.svg" alt="">
-	    					</div>
-	    					<div class="title">
-	    						Викторины
-	    					</div>
-	    				</div>
+	    				<template v-if="getNumber">
+		    				<div class="icons__item">
+	    						<nuxt-link to="/agent">
+			    					<div class="img">
+			    						<img src="~/assets/img/icons/links/agent.svg" alt="">
+			    					</div>
+			    					<div class="title">
+			    						Агент+
+			    					</div>
+				    			</nuxt-link>
+		    				</div>
+		    			</template>
+		    			<template v-else>
+		    				<div class="icons__item" @click="showModal()">
+		    					<div class="img">
+		    						<img src="~/assets/img/icons/links/agent.svg" alt="">
+		    					</div>
+		    					<div class="title">
+		    						Агент+
+		    					</div>
+		    				</div>
+		    			</template>
+		    			<template v-if="getNumber">
+		    				<div class="icons__item">
+		    					<nuxt-link to="/quiz">
+			    					<div class="img">
+			    						<img src="~/assets/img/icons/links/quiz.svg" alt="">
+			    					</div>
+			    					<div class="title">
+			    						Викторины
+			    					</div>
+			    				</nuxt-link>
+		    				</div>
+		    			</template>
+		    			<template v-else>
+		    				<div class="icons__item" @click="showModal()">
+		    					<div class="img">
+		    						<img src="~/assets/img/icons/links/quiz.svg" alt="">
+		    					</div>
+		    					<div class="title">
+		    						Викторины
+		    					</div>
+		    				</div>
+		    			</template>
 	    				<div class="icons__item">
 	    					<nuxt-link to="/profile">
 		    					<div class="img">

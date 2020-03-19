@@ -85,7 +85,12 @@
 									Следующий вопрос
 								</button>
 								<button class="button button--green" :disabled="item.selected.length < 1" @click="next(item.id, item.selected, 'finish')" v-if="(questionIndex + 1)  == questions.questions.length">
-									Завершить викторину
+									<template v-if="questions.type == 'quiz'">
+										Завершить викторину
+									</template>
+									<template v-if="questions.type == 'poll'">
+										Завершить опрос
+									</template>
 								</button>
 							</div>
 						</div>						
