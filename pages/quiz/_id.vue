@@ -230,6 +230,11 @@
 
 		    		let res = await this.$axios.$get(`/quiz/${id}/get`);
 
+		    		if(res.quiz == null){
+
+		    			this.$router.push('/')
+		    		}
+
 		    		let arr = res.quiz;
 		    		for(let i = 0; i< arr.questions.length; i++){
 		    			if(arr.type == 'poll'){
@@ -275,15 +280,30 @@
 
 		    		
 		    				    		
-		    		if(res.total == res.correct){
+		    		if(res.total == res.correct){		    			
 
-		    			this.title = `Результат: ${res.correct} из ${res.total}`
+		    			if(this.questions.type == 'quiz'){
 
+		    				this.title = `Результат: ${res.correct} из ${res.total}`;
+
+		    				this.img = 'money'
+
+		    			} else if(this.questions.type == 'poll'){
+
+		    				this.title = '';
+
+		    				this.img = 'exist'
+
+		    			}
 		    			if(res.money_status == 'ok'){
+
+		    				this.title = `Результат: ${res.correct} из ${res.total}`
 		    				
 		    				this.text = `Поздравляем! Вы получите ${res.amount} тг на баланс за успешное прохождение`
 
 		    			} else if (res.money_status == 'failed'){
+
+		    				this.title = `Результат: ${res.correct} из ${res.total}`
 
 		    				this.text = `Произошла проблема при начислении баланса. Свяжитесь с вашим торговым агентом`
 
@@ -291,9 +311,7 @@
 							
 							this.text = `Спасибо за прохождение опроса, Ваше мнение очень важно для нас`
 
-		    			}			    		
-
-			    		this.img = 'money'
+		    			}			    					    		
 
 			    		this.btnText = 'full'
 			    		

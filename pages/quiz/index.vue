@@ -41,13 +41,16 @@
 												<p class="data" v-if="item.period">
 													{{item.period}}
 												</p>
-												<p class="text" v-if="item.amount">
+												<p class="text" v-if="item.amount != 0 && item.type == 'quiz'">
 													Бонус: {{item.amount}}тг на баланс
 												</p>
 												<!-- <button class="button button--green quiz">
 													Пройти викторину
 												</button> -->
-												<nuxt-link :to="{name : 'quiz-id', params: {id : item.id}}" class="button button--green quiz">
+												<nuxt-link :to="{name : 'quiz-id', params: {id : item.id}}" class="button button--green quiz" v-if="item.type == 'poll'">
+													Пройти опрос
+												</nuxt-link>
+												<nuxt-link :to="{name : 'quiz-id', params: {id : item.id}}" class="button button--green quiz" v-if="item.type == 'quiz'">
 													Пройти викторину
 												</nuxt-link>
 											</div>
@@ -178,6 +181,11 @@
 			position: relative;			
 			margin-bottom: 16px;
 			cursor: pointer;
+			a{
+				&:hover{
+					text-decoration: none;
+				}
+			}
 			&__banner{
 				overflow: hidden;
 				border-radius: 8px 8px 0 0;
