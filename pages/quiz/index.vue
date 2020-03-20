@@ -41,7 +41,7 @@
 												<p class="data" v-if="item.period">
 													{{item.period}}
 												</p>
-												<p class="text" v-if="item.amount != 0 && item.type == 'quiz'">
+												<p class="text" v-if="item.amount && item.amount!=0">
 													Бонус: {{item.amount}}тг на баланс
 												</p>
 												<!-- <button class="button button--green quiz">
