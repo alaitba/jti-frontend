@@ -70,7 +70,7 @@
 		    					</div>
 		    				</nuxt-link>
 	    				</div>
-	    				<template v-if="getNumber">
+	    				<!-- <template v-if="getNumber"> -->
 		    				<div class="icons__item">
 	    						<nuxt-link to="/agent">
 			    					<div class="img">
@@ -81,7 +81,7 @@
 			    					</div>
 				    			</nuxt-link>
 		    				</div>
-		    			</template>
+		    			<!-- </template>
 		    			<template v-else>
 		    				<div class="icons__item" @click="showModal()">
 		    					<div class="img">
@@ -91,8 +91,8 @@
 		    						Агент+
 		    					</div>
 		    				</div>
-		    			</template>
-		    			<template v-if="getNumber">
+		    			</template> -->
+		    			<!-- <template v-if="getNumber"> -->
 		    				<div class="icons__item">
 		    					<nuxt-link to="/quiz">
 			    					<div class="img">
@@ -103,7 +103,7 @@
 			    					</div>
 			    				</nuxt-link>
 		    				</div>
-		    			</template>
+		    			<!-- </template>
 		    			<template v-else>
 		    				<div class="icons__item" @click="showModal()">
 		    					<div class="img">
@@ -113,7 +113,7 @@
 		    						Викторины
 		    					</div>
 		    				</div>
-		    			</template>
+		    			</template> -->
 	    				<div class="icons__item">
 	    					<nuxt-link to="/profile">
 		    					<div class="img">
