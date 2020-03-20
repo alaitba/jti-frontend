@@ -58,12 +58,17 @@
 									</div>									
 								</template>
 							</div>
+							<div class="quiz-wrapper" v-else>
+								<h4 class="error-subtitle">
+									Пока нет опубликованных викторин
+								</h4>
+							</div>
 						</div>
 						<div class="tab-pane" id="menu">
 							<h3 class="section__title section__title--profile">
 								Викторины пройденные
 							</h3>
-							<div class="quiz-wrapper" v-if="quizzesHistory">
+							<div class="quiz-wrapper" v-if="quizzesHistory.length">
 								<template v-for="(item, key) in quizzesHistory">
 									<div class="quiz-item">
 										<!-- <nuxt-link :to="{name : 'quiz-id', params: {id : item.id}}"> -->
@@ -91,9 +96,8 @@
 									</div>									
 								</template>
 							</div>
-							<div class="quiz-wrapper" v-else>
-								
-								<h4>
+							<div class="quiz-wrapper" v-else>								
+								<h4 class="error-subtitle">
 									У вас пока нет пройденных викторин
 								</h4>
 							</div>
@@ -123,7 +127,7 @@
 
 			this.getQuizzes();
 
-			this.getQuizzesHistory();
+			// this.getQuizzesHistory();
 		},
 		methods:{
 
@@ -133,28 +137,11 @@
 
 				try{
 
-					let res = await this.$axios.$get('/quiz/list');
+					let res = await this.$axios.$get('/quiz/all');
 
-					this.quizzes = res.quizzes;
+					this.quizzes = res.current;
 
-					// this.loaderStatus = false;
-					
-
-				}  catch(error){
-
-					console.log('errorQuiz: ', error)
-				}
-			},
-
-			async getQuizzesHistory(){
-
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
-
-				try{
-
-					let res = await this.$axios.$get('/quiz/history');
-
-					this.quizzesHistory = res.quizzes;
+					this.quizzesHistory = res.history;
 
 					this.loaderStatus = false;
 					
@@ -163,7 +150,26 @@
 
 					console.log('errorQuiz: ', error)
 				}
-			}
+			},
+
+			// async getQuizzesHistory(){
+
+			// 	this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+			// 	try{
+
+			// 		let res = await this.$axios.$get('/quiz/history');
+
+			// 		this.quizzesHistory = res.quizzes;
+
+			// 		this.loaderStatus = false;
+					
+
+			// 	}  catch(error){
+
+			// 		console.log('errorQuiz: ', error)
+			// 	}
+			// }
 		}
 	}
 </script>

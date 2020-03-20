@@ -820,6 +820,16 @@ main{
 	}
 }
 
+.error{
+	&-subtitle{
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 19px;
+		font-family: Roboto;		
+		color: #1F1F1F;
+	}
+}
+
 .auth-section{
     padding-top: 40px;
     width: 100%; 
