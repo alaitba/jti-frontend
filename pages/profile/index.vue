@@ -53,13 +53,13 @@
     			</div>
 
     			<div class="profile-links">
-    				<!-- <div class="profile-links__item">
-    					<nuxt-link to="#">
+    				<div class="profile-links__item">
+    					<nuxt-link to="/feedback">
 	    					<p class="title">
 	    						Обратная связь
 	    					</p>    					
 	    				</nuxt-link>	    				
-    				</div> -->
+    				</div>
     				<div class="profile-links__item">    					
 	    				<nuxt-link :to="{name: 'auth-resetpassword', query: { title : 'Изменение пароля'}}">
 	    					<p class="title">
@@ -232,7 +232,8 @@
 			margin-top: 8px;
 			border-radius: 8px;
 			background: #fff;
-			padding: 0px 16px 0px 16px;
+			// padding: 0px 16px 0px 16px;
+			padding: 0;
 			.button{
 				&--green{
 					display: block;
@@ -248,7 +249,7 @@
 			&__item{
 				position: relative;
 				// margin-bottom: 16px;
-				padding: 18px 0;
+				// padding: 18px 0;
 				&:last-child{
 					margin-bottom: 0px;
 					// padding-bottom: 0;
@@ -264,7 +265,7 @@
 				&:after{
 					content: '';
 				    position: absolute;
-				    width: 100%;
+				    width: calc(100% - 32px);
 				    height: 1px;
 				    background: #F0F0F0;
 				    bottom: 0;
@@ -272,6 +273,7 @@
 				p{
 					margin-bottom: 0;
 					&.title{
+						padding: 18px 16px;
 						font-weight: 500;
 						font-size: 16px;
 						line-height: 19px;
@@ -282,7 +284,7 @@
 							position: absolute;
 							top: 0;
 							bottom: 0;
-							right: 0;
+							right: 16px;
 							margin: auto;
 							transform: rotate(180deg);
 							background: url('~assets/img/icons/backlink.svg');

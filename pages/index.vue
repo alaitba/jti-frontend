@@ -267,9 +267,9 @@
 		    					JTI Partner 360
 		    				</h4>
 
-		    				<!-- <button class="button button--green" type="button">
+		    				<nuxt-link to="/feedback" class="button button--green">
 		    					Обратная связь
-		    				</button> -->
+		    				</nuxt-link>
 		    			</div>
 	    			</div>
 	    			<div class="footer__bottom">
