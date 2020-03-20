@@ -48,9 +48,9 @@
 	              		<button type="button" class="button button--bordered red" @click="logOut">
 	                		Выйти
 	              		</button>             
-	              		<nuxt-link to="/" class="button button--bordered green" data-dismiss="modal">
+	              		<button class="button button--bordered green" data-dismiss="modal">
 	              			Вернуться в Профиль
-	              		</nuxt-link>
+	              		</button>
 	            	</template>
 
 	            	<template v-else-if="btnText == 'again'">
@@ -58,7 +58,7 @@
 	                		Попробовать еще раз
 	              		</button>             
 	              		<nuxt-link to="/" class="button button--bordered green" data-dismiss="modal">
-	              			Вернуться в Профиль
+	              			Вернуться на Главную
 	              		</nuxt-link>
 	            	</template>
 
@@ -66,9 +66,9 @@
 	              		<button type="button" class="button button--green" @click="subscribe">
 	                		Разрешить
 	              		</button>             
-	              		<nuxt-link to="/" class="button button--bordered green" data-dismiss="modal">
-	              			Вернуться в Профиль
-	              		</nuxt-link>
+	              		<button class="button button--bordered green" data-dismiss="modal">
+	              			Вернуться на Главную
+	              		</button>
 	            	</template>
 
 	            	<template v-else>
