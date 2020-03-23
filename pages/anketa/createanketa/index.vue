@@ -4,91 +4,99 @@
 		<div class="auth-section">
 	    	<div class="container">
 
+				<div class="information-block">
+					<h3 class="section section--text">
+						Период анкетирования завершен.
+					</h3>
+					<p class="underline">
+						Успейте обменять баллы на призы до 31 марта включительно.
+					</p>
+				</div>				
+	        	<!-- component number -->
+		        <div class="auth-section__form" v-if="numberStatus">
+		        	<form @submit.prevent="sendNumber">
+			            <label for="" class="title__label">
+			              Введите номер телефона покупателя, чтобы отправить код подтверждения
+			            </label>
+		            	<div class="form-group">
+		              		<div class="form-group__wrapper">
+		                		<the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel" autocomplete="off"/>
+		                		<label for="input" class="form__label">
+		                  			Номер телефона
+		                		</label>
+		              		</div>
+		            	</div>
 
-        	<!-- component number -->
-	        <div class="auth-section__form" v-if="numberStatus">
-	        	<form @submit.prevent="sendNumber">
-		            <label for="" class="title__label">
-		              Введите номер телефона покупателя, чтобы отправить код подтверждения
-		            </label>
-	            	<div class="form-group">
-	              		<div class="form-group__wrapper">
-	                		<the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel" autocomplete="off"/>
-	                		<label for="input" class="form__label">
-	                  			Номер телефона
-	                		</label>
-	              		</div>
-	            	</div>
-
-	            	<div class="form-group mt-16">
-	            		<label class="checkbox-container">
-  			            Покупателю есть 18 лет
-						  	<input type="checkbox" v-model="checkBox">
-						  	<span class="checkmark"></span>
-						</label>
-	            	</div>
-	            	<button class="button button--green" type="submit" :disabled="!checkBox || number.length!=10 || btnStatus">
-	              		Далее
-	            	</button>
-	            <!-- <button class="button button--green"  @click="showModal()">
-	              Далее
-	            </button> -->
-		          </form>
-	        </div>
+		            	<div class="form-group mt-16">
+		            		<label class="checkbox-container">
+	  			            Покупателю есть 18 лет
+							  	<input type="checkbox" v-model="checkBox">
+							  	<span class="checkmark"></span>
+							</label>
+		            	</div>
+		            	<button class="button button--green" type="submit" :disabled="!checkBox || number.length!=10 || btnStatus">
+		              		Далее
+		            	</button>
+		            <!-- <button class="button button--green"  @click="showModal()">
+		              Далее
+		            </button> -->
+			          </form>
+		        </div>
 
 			    <h3 class="auth-section__title" v-if="smsEnterStatus">
-          		Подтверждение номера
-        	</h3>
+	          		Подтверждение номера
+	        	</h3>
 
-			    <div class="auth-section__form auth-section__form--sms" v-if="smsEnterStatus">
-	          <form @submit.prevent="">
-	            <label for="" class="title__label" >
-	              Введите код, оправленный покупателю по СМС на номер: <strong v-if="number">
-	              	+7 {{number | formatNumber}}
-	              </strong>
-	            </label>
-	            <div class="form-group">
-	              <div class="form-group__wrapper">
-	                <the-mask
-	                  :class="{'form__input form__input--sms form__input--grey': true, 'permanent': permanent, 'error' : errorPermanenetPassword }"
-	                  type="tel"
-	                  mask="####"
-	                  v-model="permanentPassword"
-	                  placeholder="••••"
-	                  :masked="false"
-	                  maxlength="4"
-	                  @input="sendSms()"
-	                />
-	              </div>
-	              <span class="error-text" v-if="errorPermanenetPassword">
-	                Неверный код подтверждения!
-	              </span>
-	            </div>
-	          </form>
-	          <div class="auth-section__recovery-link confirm">
-	            <a class="login-link" href="#" v-if="repeatSms" @click="showTimer">
-	              Выслать код повторно
-	            </a>
-	            <p class="timer" v-if="!repeatSms">
-	              Выслать код повторно через
-	              <span>{{
-	                timer
-	              }}</span>
-	            </p>
+				<div class="auth-section__form auth-section__form--sms" v-if="smsEnterStatus">
+		          	<form @submit.prevent="">
+		            	<label for="" class="title__label" >
+		              		Введите код, оправленный покупателю по СМС на номер: 
+		              		<strong v-if="number">
+		              			+7 {{number | formatNumber}}
+		              		</strong>
+		            	</label>
+		            	<div class="form-group">
+		              		<div class="form-group__wrapper">
+			                	<the-mask
+			                  		:class="{'form__input form__input--sms form__input--grey': true, 'permanent': permanent, 'error' : errorPermanenetPassword }"
+			                  		type="tel"
+			                  		mask="####"
+			                  		v-model="permanentPassword"
+			                  		placeholder="••••"
+			                  		:masked="false"
+			                  		maxlength="4"
+			                  		@input="sendSms()"
+			                	/>
+		              		</div>
+		              		<span class="error-text" v-if="errorPermanenetPassword">
+		                		Неверный код подтверждения!
+		              		</span>
+		            	</div>
+		          	</form>
+		          	<div class="auth-section__recovery-link confirm">
+		            	<a class="login-link" href="#" v-if="repeatSms" @click="showTimer">
+		              		Выслать код повторно
+		            	</a>
+		            	<p class="timer" v-if="!repeatSms">
+		              		Выслать код повторно через
+		              		<span>
+			              		{{timer}}
+			              	</span>
+		            	</p>
 
-	            <h3 v-if="sms_code" style="text-align:center; margin-top: 16px;">
-	              {{sms_code}}
-	            </h3>
+		            	<h3 v-if="sms_code" style="text-align:center; margin-top: 16px;">
+		              		{{sms_code}}
+		            	</h3>
 
 
-	            <!-- <nuxt-link class="login-link" to="/selectstore">
-	              Не помню пароль
-	            </nuxt-link> -->
-	          </div>
-	        </div>
+		            <!-- <nuxt-link class="login-link" to="/selectstore">
+		              Не помню пароль
+		            </nuxt-link> -->
+		          	</div>
+		        </div>
 
-        </div>
-    </div>
+        	</div>
+    	</div>
 
 		<footer-anketa v-if="footerStatus"/>
 		<modal-main :title="title" :text="text" :img="img" :number="tel"></modal-main>
@@ -116,7 +124,7 @@
 
 		data() {
 			return {
-				numberStatus: true,
+				numberStatus: false,
 				smsEnterStatus: false,
 				errorPermanenetPassword: false,
 				permanent: false,
@@ -327,6 +335,21 @@
 	}
 </script>
 <style lang="scss">
+	.information-block{
+	    text-align: center;
+	    margin-top: calc(50% - 30px);
+	}
+	.section--text{
+		// font-size: 20px;
+		// line-height: 22px;
+		margin-bottom: 10px;
+	}
+	.underline{
+		font-weight: 300;
+		font-size: 16px;
+	    line-height: 19px;
+	    color: #000000;
+	}
 	.auth-section{
 	    padding-top: 32px;
 	    width: 100%;
