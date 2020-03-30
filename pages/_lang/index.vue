@@ -389,7 +389,7 @@
             );
 
 	    	_this.$nuxt.$on('onManageWebPushSubscriptionButtonClicked',_this.onManageWebPushSubscriptionButtonClicked);
-	    	this.showModal();
+	    	// this.showModal();
 
 	    	OneSignal.push(function() {
 		        // If we're on an unsupported browser, do nothing
@@ -448,7 +448,7 @@
 	    methods:{
 
 	    	showModal(modal){
-	    		$('#modal-error').modal('show')
+	    		// $('#modal-error').modal('show')
 	    	},
 
 	    	getUserDevice(){

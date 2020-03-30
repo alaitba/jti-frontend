@@ -7,9 +7,9 @@
 			<div class="quiz-inside">
 				<div class="container" v-if="questions">
 					<h3 class="section__title  section__title--link black" @click="$router.go(-1)" v-if="questions.title">
-						{{questions.title[$i18n.locale]}}
+						{{questions.title[$i18n.locale ==='kk' ? 'kz' : 'ru']}}
 					</h3>
-					<div class="questions" v-if="questions.questions.length">						
+					<div class="questions" v-if="questions.questions.length">
 						<div v-for="(item, index) in questions.questions" v-show="questionIndex == index">
 							<div class="questions__banner" v-if="item.photo != null ">
 								<img :src="item.photo" alt="">
@@ -19,12 +19,12 @@
 									Вопрос {{index + 1}} из {{questions.questions.length}}
 								</template>
 								<template v-if="$i18n.locale === 'kk'">
-									Сұрақ № {{index + 1}} 
+									Сұрақ №{{index + 1}}
 								</template>
 							</div>
 							<div class="questions__title" v-if="item.question">
 								{{
-									item.question[$i18n.locale]
+									item.question[$i18n.locale ==='kk' ? 'kz' : 'ru']
 								}}
 							</div>
 							<template v-if="questions.type == 'poll' && item.type == 'choice'">
@@ -32,56 +32,56 @@
 									<template v-for="(response, key) in item.answers">
 										<div :class="{'options__item options__item--radio': true, 'active': checkArrayData(response.id, item.selected)}">
 			                                <label class="checkbox-container">
-			                                    <input 
-			                                    	type="checkbox" 
+			                                    <input
+			                                    	type="checkbox"
 			                                    	:value="response.id"
-			                                    	v-model="item.selected" 		                                    
+			                                    	v-model="item.selected"
 			                                    >
 			                                    <span class="checkmark"></span>
-			                                    <p class="title">						
+			                                    <p class="title">
 													{{
-														response.answer[$i18n.locale]	
-													}}											
-												</p>									
+														response.answer[$i18n.locale ==='kk' ? 'kz' : 'ru']
+													}}
+												</p>
 			                                </label>
-			                            </div>		
-		                            </template>					
+			                            </div>
+		                            </template>
 								</div>
-							</template>							
+							</template>
 							<template v-else-if="questions.type == 'poll' && item.type == 'text'">
 								<div class="form">
 									<label for="" class="title__label">
 						              	{{$t('Введите ответ')}}
 						            </label>
-						            <div class="form-group">									
+						            <div class="form-group">
 										<input type="text" class="form__input" placeholder=" " v-model="item.selected">
 										<label for="input" class="form__label">
 						                	{{$t('Ваш ответ')}}
 						                </label>
 									</div>
-								</div>															
+								</div>
 							</template>
-							
+
 
 							<template v-else-if="questions.type == 'quiz'">
 								<div class="options" v-if="item.answers">
 									<template v-for="(response, key) in item.answers">
 										<div :class="{'options__item options__item--radio': true, 'active': item.selected == response.id}">
 			                                <label class="radiobutton-container">
-			                                    <input 
-			                                    	type="radio" 
+			                                    <input
+			                                    	type="radio"
 			                                    	:value="response.id"
-			                                    	v-model="item.selected" 		                                    
+			                                    	v-model="item.selected"
 			                                    >
 			                                    <span class="checkmark"></span>
-			                                    <p class="title">						
+			                                    <p class="title">
 													{{
-														response.answer[$i18n.locale]					
-													}}											
-												</p>									
+														response.answer[$i18n.locale ==='kk' ? 'kz' : 'ru']
+													}}
+												</p>
 			                                </label>
-			                            </div>		
-		                            </template>					
+			                            </div>
+		                            </template>
 								</div>
 							</template>
 
@@ -98,7 +98,7 @@
 									</template>
 								</button>
 							</div>
-						</div>						
+						</div>
 						<!-- <div class="questions__result" v-if="questionIndex == questions.questions.length">
 							Результат:  {{score()}} из {{userResponses.length}}
 						</div> -->
@@ -106,7 +106,7 @@
 				</div>
 			</div>
 
-		</template>		
+		</template>
 		<modal-main :title="title" :text="text" :img="img" :btnText="btnText" ></modal-main>
 	</main>
 </template>
@@ -121,73 +121,73 @@
 				quiz:{
 					id: '',
 					answers: [],
-				},	
+				},
 				questions: '',
 				title:'',
 				text:'',
 				img:'',
-				btnText:''			
+				btnText:''
 				// quiz: [
 				//   	{
 				//       	title: "Вопрос для викторины может быть любой длинны, потому что это вопрос для викторины 1?",
 				//       	answer: '',
 				//       	type:'options',
 				//       	responses: [
-				//         	{text: 'Вариант ответа 1.', correct: 'one', key: 1}, 
-				//         	{text: 'Right!', correct: 'two', key:'2'}, 
-				//         	{text: 'Вариант ответа 3, где вариант может достигать нескольних строк', correct: 'three', key: 3}, 
-				//         	{text: 'Вариант ответа 4, где вариант может достигать нескольних строк, а может и больше !',correct: 'four',  key: 4}, 
+				//         	{text: 'Вариант ответа 1.', correct: 'one', key: 1},
+				//         	{text: 'Right!', correct: 'two', key:'2'},
+				//         	{text: 'Вариант ответа 3, где вариант может достигать нескольних строк', correct: 'three', key: 3},
+				//         	{text: 'Вариант ответа 4, где вариант может достигать нескольних строк, а может и больше !',correct: 'four',  key: 4},
 				//       	]
-				//     }, 
+				//     },
 				//     {
 				//       	title: "Вопрос для викторины может быть любой длинны, потому что это вопрос для викторины 2?",
 				//       	answer: '',
 				//       	type:'options',
 				//       	responses: [
-				//         	{text: 'Вариант ответа 1.', correct: 'one', key: 1}, 
-				//         	{text: 'Right!', correct: 'two', key:'2'}, 
-				//         	{text: 'Вариант ответа 3, где вариант может достигать нескольних строк', correct: 'three', key: 3}, 
-				//         	{text: 'Вариант ответа 4, где вариант может достигать нескольних строк, а может и больше !',correct: 'four',  key: 4}, 
+				//         	{text: 'Вариант ответа 1.', correct: 'one', key: 1},
+				//         	{text: 'Right!', correct: 'two', key:'2'},
+				//         	{text: 'Вариант ответа 3, где вариант может достигать нескольних строк', correct: 'three', key: 3},
+				//         	{text: 'Вариант ответа 4, где вариант может достигать нескольних строк, а может и больше !',correct: 'four',  key: 4},
 				//       	]
-				//     }, 
+				//     },
 				//     {
 				//       	title: "Вопрос для викторины может быть любой длинны, потому что это вопрос для викторины 3?",
 				//       	answer: '',
 				//       	type:'options',
 				//       	responses: [
-				//         	{text: 'Вариант ответа 1.', correct: 'one', key: 1}, 
-				//         	{text: 'Right!', correct: 'two', key:'2'}, 
-				//         	{text: 'Вариант ответа 3, где вариант может достигать нескольних строк', correct: 'three', key: 3}, 
-				//         	{text: 'Вариант ответа 4, где вариант может достигать нескольних строк, а может и больше !',correct: 'four',  key: 4}, 
-				//       	]
-				//     }, 
-				//     {
-				//       	title: "Вопрос для викторины может быть любой длинны, потому что это вопрос для викторины 4?",
-				//       	answer: '',
-				//       	type:'options',
-				//       	responses: [
-				//         	{text: 'Вариант ответа 1.', correct: 'one', key: 1}, 
-				//         	{text: 'Right!', correct: 'two', key:'2'}, 
-				//         	{text: 'Вариант ответа 3, где вариант может достигать нескольних строк', correct: 'three', key: 3}, 
-				//         	{text: 'Вариант ответа 4, где вариант может достигать нескольних строк, а может и больше !',correct: 'four',  key: 4}, 
+				//         	{text: 'Вариант ответа 1.', correct: 'one', key: 1},
+				//         	{text: 'Right!', correct: 'two', key:'2'},
+				//         	{text: 'Вариант ответа 3, где вариант может достигать нескольних строк', correct: 'three', key: 3},
+				//         	{text: 'Вариант ответа 4, где вариант может достигать нескольних строк, а может и больше !',correct: 'four',  key: 4},
 				//       	]
 				//     },
 				//     {
 				//       	title: "Вопрос для викторины может быть любой длинны, потому что это вопрос для викторины 4?",
 				//       	answer: '',
-				//       	type:'input'				      	
-				//     }, 
+				//       	type:'options',
+				//       	responses: [
+				//         	{text: 'Вариант ответа 1.', correct: 'one', key: 1},
+				//         	{text: 'Right!', correct: 'two', key:'2'},
+				//         	{text: 'Вариант ответа 3, где вариант может достигать нескольних строк', correct: 'three', key: 3},
+				//         	{text: 'Вариант ответа 4, где вариант может достигать нескольних строк, а может и больше !',correct: 'four',  key: 4},
+				//       	]
+				//     },
+				//     {
+				//       	title: "Вопрос для викторины может быть любой длинны, потому что это вопрос для викторины 4?",
+				//       	answer: '',
+				//       	type:'input'
+				//     },
 				//     {
 				//       	title: "Вопрос для викторины может быть любой длинны, потому что это вопрос для викторины 4?",
 				//       	answer: [],
 				//       	type:'roll',
 				//       	responses: [
-				//         	{text: 'Вариант ответа 1.', correct: 'one', key: 1}, 
-				//         	{text: 'Right!', correct: 'two', key:'2'}, 
-				//         	{text: 'Вариант ответа 3, где вариант может достигать нескольних строк', correct: 'three', key: 3}, 
-				//         	{text: 'Вариант ответа 4, где вариант может достигать нескольних строк, а может и больше !',correct: 'four',  key: 4}, 
+				//         	{text: 'Вариант ответа 1.', correct: 'one', key: 1},
+				//         	{text: 'Right!', correct: 'two', key:'2'},
+				//         	{text: 'Вариант ответа 3, где вариант может достигать нескольних строк', correct: 'three', key: 3},
+				//         	{text: 'Вариант ответа 4, где вариант может достигать нескольних строк, а может и больше !',correct: 'four',  key: 4},
 				//       	]
-				//     }, 
+				//     },
 				// ]
 			}
 		},
@@ -215,15 +215,15 @@
 				// console.log('arr: ', this.quiz.answers)
 			},
 			userResponsesLength(){
-				this.userResponses = Array(this.questions.length).fill('');				
+				this.userResponses = Array(this.questions.length).fill('');
 			},
 			score(){
 		      return this.userResponses.filter(function(val) { return val=='two' }).length;
 		    },
-		    checkArrayData(value, array){ 
+		    checkArrayData(value, array){
                 // console.log(value);
                 return array.indexOf(value) > -1
-            },  
+            },
 
             async tryAgain(){
             	this.questionIndex = 0;
@@ -231,7 +231,7 @@
             	// this.loaderStatus = false;
             	await this.getQuestions(this.$route.params.id)
             	// console.log('again');
-            },    
+            },
 		    async getQuestions(id){
 
 		    	this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
@@ -282,15 +282,15 @@
 		    			id : this.$route.params.id,
 			    		questions : this.quiz.answers
 		    		}
-		    	}		    		
+		    	}
 
 		    	try {
 
 		    		let res = await this.$axios.$post('/quiz/check', fields);
 
-		    		
-		    				    		
-		    		if(res.total == res.correct){		    			
+
+
+		    		if(res.total == res.correct){
 
 		    			if(this.questions.type == 'quiz'){
 
@@ -308,7 +308,7 @@
 		    			if(res.money_status == 'ok'){
 
 		    				this.title = this.$t('Результат:') + res.correct + this.$t('из') + res.total;
-		    				
+
 		    				this.text = this.$t('Поздравляем! Вы получите') + res.amount + this.$t('тг на баланс за успешное прохождение')
 
 		    			} else if (res.money_status == 'failed'){
@@ -318,13 +318,13 @@
 		    				this.text = this.$t('Произошла проблема при начислении баланса. Свяжитесь с вашим торговым агентом')
 
 		    			} else {
-							
+
 							this.text = this.$t('Спасибо за прохождение опроса, Ваше мнение очень важно для нас')
 
-		    			}			    					    		
+		    			}
 
 			    		this.btnText = 'full'
-			    		
+
 
 			    		$('#modal-main').modal('show');
 
@@ -353,7 +353,7 @@
 		    }
 		},
 		computed:{
-			
+
 		}
 	}
 </script>
@@ -374,7 +374,7 @@
 				margin-top: 8px;
 				font-weight: normal;
 				font-size: 12px;
-				line-height: 14px;				
+				line-height: 14px;
 				color: #969696;
 			}
 			&__title{

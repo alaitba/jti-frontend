@@ -20,7 +20,7 @@
 							</li>
 						</ul>
 					</div>
-					
+
 
 					<div class="navigation-content tab-content">
 						<div class="tab-pane fade active" id="home">
@@ -36,13 +36,13 @@
 											</div>
 											<div :class="{'quiz-item__content' : true, 'no-banner' : !item.photo}">
 												<h4 class="title" v-if="item.title">
-													{{item.title.ru}}
+													{{item.title[$i18n.locale ==='kk' ? 'kz' : 'ru']}}
 												</h4>
 												<p class="data" v-if="item.period">
 													{{item.period}}
 												</p>
 												<p class="text" v-if="item.amount && item.amount!=0">
-													Бонус: {{item.amount}}тг 
+													Бонус: {{item.amount}}тг
 												</p>
 												<!-- <button class="button button--green quiz">
 													Пройти викторину
@@ -55,7 +55,7 @@
 												</nuxt-link>
 											</div>
 										</nuxt-link>
-									</div>									
+									</div>
 								</template>
 							</div>
 							<div class="quiz-wrapper" v-else>
@@ -77,7 +77,7 @@
 											</div>
 											<div :class="{'quiz-item__content' : true, 'no-banner' : !item.photo}">
 												<h4 class="title" v-if="item.title">
-													{{item.title.ru}}
+													{{item.title[$i18n.locale ==='kk' ? 'kz' : 'ru']}}
 												</h4>
 												<p class="data" v-if="item.completed_at">
 													{{item.completed_at | formatData}}
@@ -93,16 +93,16 @@
 												</nuxt-link> -->
 											</div>
 										<!-- </nuxt-link> -->
-									</div>									
+									</div>
 								</template>
 							</div>
-							<div class="quiz-wrapper" v-else>								
+							<div class="quiz-wrapper" v-else>
 								<h4 class="error-subtitle">
 									{{$t('У вас пока нет пройденных викторин')}}
 								</h4>
 							</div>
 						</div>
-					</div>					
+					</div>
 				</div>
 			</div>
 		</template>
@@ -144,7 +144,7 @@
 					this.quizzesHistory = res.history;
 
 					this.loaderStatus = false;
-					
+
 
 				}  catch(error){
 
@@ -163,7 +163,7 @@
 			// 		this.quizzesHistory = res.quizzes;
 
 			// 		this.loaderStatus = false;
-					
+
 
 			// 	}  catch(error){
 
@@ -179,12 +179,12 @@
 	.quiz{
 		padding: 0px 0 64px 0;
 		width: 100%;
-		// margin-top: 84px;	
+		// margin-top: 84px;
 		&-wrapper{
 			margin-top: 8px;
 		}
 		&-item{
-			position: relative;			
+			position: relative;
 			margin-bottom: 16px;
 			cursor: pointer;
 			a{
@@ -219,7 +219,7 @@
 				.data{
 					font-weight: normal;
 					font-size: 12px;
-					line-height: 14px;					
+					line-height: 14px;
 					color: #969696;
 					margin-bottom: 4px;
 				}
