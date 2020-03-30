@@ -2,44 +2,47 @@
   <!-- Превышение лимита! -->
   <div class="modal fade modal-auth-denied modal-auth-denied--limited" id="modal-auth-alert">
     <div class="modal-dialog modal-sm modal-dialog-centered">
-      <div class="modal-content">                          
+      <div class="modal-content">
         <!-- Modal body -->
         <div class="modal-body">
             <div class="head">
-              <div class="head__img">
-                <img src="~/assets/img/icons/alert.svg" alt="">
-              </div>                    
-              <div class="head__content">
-                <h4>
-                  Превышение лимита!
-                </h4>
-                <p>
-                  Вы ввели пароль болше 5 раз. Попробуйте еще раз через <span class="time">{{passwordTimerText}}</span>
-                </p>
-              </div>                    
-            </div>                   
-            <div class="footer">
-              
+                <div class="head__img">
+                    <img src="~/assets/img/icons/alert.svg" alt="">
+                </div>
+                <div class="head__content">
+                    <h4>
+                        {{$t('Превышение лимита!')}}
+                    </h4>
+                    <p v-if="$i18n.locale === 'ru'">
+                        {{$t('Вы ввели пароль болше 5 раз. Попробуйте еще раз через')}}<span class="time">{{passwordTimerText}}</span>
+                    </p>
+                    <p v-if="$i18n.locale === 'kk'">
+                        {{$t('Вы ввели пароль болше 5 раз. Попробуйте еще раз через')}}<span class="time">{{passwordTimerText}}</span> қайта теріп көріңіз
+                    </p>
+                </div>
             </div>
-        </div>              
+            <div class="footer">
+
+            </div>
+        </div>
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="button button--green" data-dismiss="modal" :disabled="disabledByTimer" @click="stopTimer()">
-            Повторить попытку
-          </button>
-          
-
-          <template v-if="disabledByTimer">
-            <button type="button" class="button button--bordered green" data-dismiss="modal" :disabled="disabledByTimer" >
-              Повторить попытку
+            <button type="button" class="button button--green" data-dismiss="modal" :disabled="disabledByTimer" @click="stopTimer()">
+                {{$t('Повторить попытку')}}
             </button>
-          </template>
-          <template v-else>
-            <nuxt-link class="button button--bordered green" to="/auth/recovery-login" data-dismiss="modal">
-              Не помню пароль
-            </nuxt-link>
-          </template>          
-        </div>              
+
+
+            <template v-if="disabledByTimer">
+                <button type="button" class="button button--bordered green" data-dismiss="modal" :disabled="disabledByTimer" >
+                    {{$t('Повторить попытку')}}
+                </button>
+            </template>
+            <template v-else>
+                <nuxt-link class="button button--bordered green" :to="$i18n.path('auth/recovery-login')" data-dismiss="modal">
+                    {{$t('Не помню пароль')}}
+                </nuxt-link>
+            </template>
+        </div>
       </div>
     </div>
   </div>
@@ -47,49 +50,49 @@
 
 
 <script>
-  export default{
-    data(){
-      return {
-        passwordTimer:600,
-        passwordTimerText:'',
-        passwordTime:'',
-        disabledByTimer: true,
-      }
-    },
-    mounted(){
-      // this.startTimerInterval();
-    },
-    methods:{
-      startTimer() {
-        // console.log('timer password');
-        if(this.passwordTimer){
-          this.passwordTimer = this.passwordTimer-1
-          let min = Math.floor(this.passwordTimer/60)
-          let sec = this.passwordTimer - min * 60;
-          if(min < 10) min = '0'+min;
-          if(sec < 10) sec = '0'+sec;
-          this.passwordTimerText = min+':'+ sec
-        } else {
-          clearInterval(this.time);
-          // console.log('time');
-          this.passwordTimer = 600;        
-          // this.repeatSms = true;
-          this.disabledByTimer= false;
+    export default{
+        data(){
+            return {
+                passwordTimer:600,
+                passwordTimerText:'',
+                passwordTime:'',
+                disabledByTimer: true,
+            }
+        },
+        mounted(){
+          // this.startTimerInterval();
+        },
+        methods:{
+            startTimer() {
+                // console.log('timer password');
+                if(this.passwordTimer){
+                    this.passwordTimer = this.passwordTimer-1
+                    let min = Math.floor(this.passwordTimer/60)
+                    let sec = this.passwordTimer - min * 60;
+                    if(min < 10) min = '0'+min;
+                    if(sec < 10) sec = '0'+sec;
+                    this.passwordTimerText = min+':'+ sec
+                } else {
+                    clearInterval(this.time);
+                    // console.log('time');
+                    this.passwordTimer = 600;
+                    // this.repeatSms = true;
+                    this.disabledByTimer= false;
+                }
+
+            // return  ;
+            },
+            stopTimer(){
+                clearInterval(this.time);
+                this.passwordTimer = 600;
+                $('#modal-auth-alert').modal('show');
+            },
+            startTimerInterval(){
+                this.time = setInterval(() =>{
+                    // console.log('startTimerInterval')
+                    this.startTimer();
+                },1000);
+            }
         }
-        
-        // return  ;
-      },
-      stopTimer(){
-          clearInterval(this.time);
-          this.passwordTimer = 600;        
-          $('#modal-auth-alert').modal('show');
-      },
-      startTimerInterval(){
-        this.time = setInterval(() =>{
-          // console.log('startTimerInterval')
-          this.startTimer();
-        },1000);
-      } 
     }
-  }
 </script>

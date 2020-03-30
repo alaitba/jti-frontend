@@ -6,6 +6,10 @@ module.exports = {
   // cache: true,
   loading: true,
 
+  router: {
+    middleware: 'i18n'
+  },
+
   /*
   ** Headers of the page
   */
@@ -60,7 +64,7 @@ module.exports = {
     '~plugins/vue-swiper.js',
     '~plugins/sentry.js',
     '~/plugins/axios.js',
-    // '~/plugins/serviceworker.js',
+    '~/plugins/i18n.js',
     '~/plugins/global.js',    
     '~/plugins/moment.js',
   ],

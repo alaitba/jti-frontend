@@ -1,5 +1,5 @@
 
-export default async function ({ store, redirect, $axios }) {
+export default async function ({ app, store, redirect, $axios }) {
   // If the user is authenticated redirect to home page
 
   // if(!store.state.tokenStatus){
@@ -16,7 +16,7 @@ export default async function ({ store, redirect, $axios }) {
 	 //    	localStorage.clear();
 	 //    	store.commit('resetState');
 	 //  }
-  // }  
+  // }
   // $axios.post('/auth/refresh/')
   //   .then(response => {
   //     localStorage.setItem('authToken',response.data.token);
@@ -27,20 +27,21 @@ export default async function ({ store, redirect, $axios }) {
   //     localStorage.clear();
   //   })
 
-  if (localStorage.getItem("authToken")) { 
+  if (localStorage.getItem("authToken")) {
+    // console.log('default2',app.i18n.path)
   	if((localStorage.getItem("setTradePoint")=='t')){
   		// console.log('default',localStorage.getItem("setTradePoint"))
   		// return redirect('/')
   	} else if((localStorage.getItem("setTradePoint")=='f')) {
-  		// console.log('default2',localStorage.getItem("setTradePoint"))
-  		return redirect('/selectstore')
+
+  		return redirect(app.i18n.path('selectstore'))
   	} else {
   		// console.log('no trd')
   		localStorage.clear();
     	store.commit('resetState');
-    	return redirect('/auth/signin')
+    	return redirect(app.i18n.path('auth/signin'))
   	}
   } else{
-  		return redirect('/auth/signin')
+  		return redirect(app.i18n.path('auth/signin'))
   }
 }

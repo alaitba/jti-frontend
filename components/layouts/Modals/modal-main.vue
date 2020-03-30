@@ -3,87 +3,96 @@
     <!-- Отказано в доступе! -->
     <div class="modal fade modal-auth-denied" id="modal-main">
       	<div class="modal-dialog modal-sm modal-dialog-centered">
-        	<div class="modal-content">                          
+        	<div class="modal-content">
           	<!-- Modal body -->
           		<div class="modal-body">
               		<div class="head">
                 		<div class="head__img" v-if="img">
                   			<img :src="`/icons/${img}.svg`" alt="">
-                		</div>                    
+                		</div>
 	                	<div class="head__content">
 	                  		<h4 v-if="title">
 	                    		{{title}}
 	                  		</h4>
 	                  		<h4 v-else-if="number">
 	                    		<template v-if="number.length>=11">
-	                      			{{number | formatNumber}}                    
-	                    		</template>                    
+	                      			{{number | formatNumber}}
+	                    		</template>
 	                    		<template v-else>
-	                      			+7 {{number | formatNumber}}                    
-	                    		</template>                    
+	                      			+7 {{number | formatNumber}}
+	                    		</template>
 	                  		</h4>
 	                  		<p v-if="text">
 	                    		{{text}}
 	                  		</p>
-	                	</div>                    
-              		</div>                                 
-          		</div>      
+	                	</div>
+              		</div>
+          		</div>
 
           <!-- Modal footer -->
 	          	<div class="modal-footer">
 
 	            	<template v-if="btnText == 'Готово'">
-	              		<nuxt-link to="/anketa2/listanketa" class="button button--green" data-dismiss="modal">
-	                		{{btnText}}
-	              		</nuxt-link>  
+	              		<nuxt-link :to="$i18n.path('anketa/listanketa')" class="button button--green" data-dismiss="modal">
+	                		{{$t('Готово')}}
+	              		</nuxt-link>
 	        		</template>
 
 	            	<template v-else-if="btnText == 'agent' || btnText == 'feedback' || btnText == 'full'"  >
-	              		<nuxt-link to="/" class="button button--green" data-dismiss="modal">
-	                		Вернуться на Главную
-	              		</nuxt-link>  
+	              		<nuxt-link :to="$i18n.path('')" class="button button--green" data-dismiss="modal">
+	                		{{$t('Вернуться на Главную')}}
+	              		</nuxt-link>
 	            	</template>
 
 	            	<template v-else-if="btnText == 'logout'">
 	              		<button type="button" class="button button--bordered red" @click="logOut">
-	                		Выйти
-	              		</button>             
+	                		{{$t('Выйти')}}
+	              		</button>
 	              		<button class="button button--bordered green" data-dismiss="modal">
-	              			Вернуться в Профиль
+	              			{{$t('Вернуться в Профиль')}}
 	              		</button>
 	            	</template>
 
 	            	<template v-else-if="btnText == 'again'">
 	              		<button type="button" class="button button button--green" data-dismiss="modal" @click="tryAgain">
-	                		Попробовать еще раз
-	              		</button>             
-	              		<nuxt-link to="/" class="button button--bordered green" data-dismiss="modal">
-	              			Вернуться на Главную
+	                		{{$t('Попробовать еще раз')}}
+	              		</button>
+	              		<nuxt-link :to="$i18n.path('')" class="button button--bordered green" data-dismiss="modal">
+	              			{{$t('Вернуться на Главную')}}
 	              		</nuxt-link>
 	            	</template>
 
 	            	<template v-else-if="btnText == 'notifications'">
 	              		<button type="button" class="button button--green" @click="subscribe">
-	                		Разрешить
-	              		</button>             
+	                		{{$t('Разрешить')}}
+	              		</button>
 	              		<button class="button button--bordered green" data-dismiss="modal">
-	              			Вернуться на Главную
+	              			{{$t('Вернуться на Главную')}}
+	              		</button>
+	            	</template>
+
+	            	<template v-else-if="btnText == 'gifts'">
+	              		<nuxt-link :to="$i18n.path('anketa/gifts')" class="button button--green" data-dismiss="modal" v-if="btnText && !status">
+	                		{{$t('Вернуться в Призы')}}
+	              		</nuxt-link>
+	              		<button type="button" class="button button--green" data-dismiss="modal" v-if="!status && !btnText">
+	                		{{$t('Повторить попытку')}}
 	              		</button>
 	            	</template>
 
 	            	<template v-else>
-	              		<nuxt-link to="/anketa2/gifts" class="button button--green" data-dismiss="modal" v-if="btnText && !status">
-	                		{{btnText}}
+	              		<nuxt-link :to="$i18n.path('anketa/gifts')" class="button button--green" data-dismiss="modal" v-if="btnText && !status">
+	                		{{$t('Вернуться в Призы')}}
 	              		</nuxt-link>
 	              		<button type="button" class="button button--green" data-dismiss="modal" v-if="!status && !btnText">
-	                		Повторить попытку
-	              		</button>            
-	              		<button type="button" class="button button--green" v-if="status && !btnText " @click="sendSms">
-	                		Повторить попытку
+	                		{{$t('Повторить попытку')}}
 	              		</button>
-	            	</template>   
+	              		<button type="button" class="button button--green" v-if="status && !btnText " @click="sendSms">
+	                		{{$t('Повторить попытку')}}
+	              		</button>
+	            	</template>
 
-	          	</div>              
+	          	</div>
         	</div>
       	</div>
     </div>
@@ -100,8 +109,8 @@
           			value = String(value).replace('+','')
           			return '+'+ String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
         		} else{
-          			return value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4");  
-        		}       
+          			return value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4");
+        		}
 		    }
     	},
     	methods:{
@@ -112,7 +121,7 @@
       		},
 
       		logOut(){
-        		console.log('logout')        
+        		console.log('logout')
         		this.$nuxt.$emit('logOut', 'dadas');
       		},
 

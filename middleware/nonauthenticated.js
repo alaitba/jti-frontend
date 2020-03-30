@@ -1,20 +1,21 @@
 if(!navigator.cookieEnabled){
-  alert('Включите cookies в настройках браузера и обновите страницу');  
-} 
-export default function ({ store, redirect, route }) {
-  // If the user is not authenticated
-  if(route.name=='selectstore') return
-  if (localStorage.getItem("authToken")) {
-	  	if((localStorage.getItem("setTradePoint")=='f')){  			
-  	  		return redirect('/selectstore')
+	alert('Включите cookies в настройках браузера и обновите страницу');
+}
+export default function ({ app, store, redirect, route }) {
+  	// If the user is not authenticated
+  	if(route.path.replace(new RegExp('/kk', 'g'),'') == '/selectstore') return
+  	if (localStorage.getItem("authToken")) {
+	  	if((localStorage.getItem("setTradePoint")=='f')){
+  	  		return redirect(app.i18n.path('selectstore'))
   		} else {
-        if(route.name!=='auth-resetpassword'){
-    			return redirect('/')          
-        }
-  		}  	  	
-  } else{
-  	if(!localStorage.getItem("authUser") && route.name!='auth-signin'){
-  		return redirect('/auth/signin')
+        	if(route.path.replace(new RegExp('/kk', 'g'),'') != '/auth/resetpassword'){
+          		console.log('routegh: ', route.path.replace(new RegExp('/kk', 'g'),''))
+    			return redirect(app.i18n.path(''))
+        	}
+  		}
+  	} else{
+  		if(!localStorage.getItem("authUser") && route.path.replace(new RegExp('/kk', 'g'),'') !='/auth/signin'){
+  			return redirect(app.i18n.path('auth/signin'))
+  		}
   	}
-  }
 }

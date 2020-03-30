@@ -1,4 +1,4 @@
-<template>	
+<template>
 	<main class="page page--flex page--grey">
   		<template v-if="loaderStatus">
 			<loader/>
@@ -7,30 +7,30 @@
 			<div class="answer-inside">
 				<div class="container">
 					<h3 class="section__title  section__title--link" @click="$router.go(-1)">
-						Ответы
+						{{$t('Ответы')}}
 					</h3>
 
 					<div class="answer-inside__block answer-inside__block--admin">
 						<p class="subtitle">
-							Ответ от администрации
+							{{$t('Ответ от администрации')}}
 						</p>
 						<p class="text" v-if="$route.query.answer!=null">
 							{{$route.query.answer}}
 						</p>
 						<p class="text" v-else>
-							ответ не получен
+							{{$t('ответ не получен')}}
 						</p>
 					</div>
 
 					<div class="answer-inside__block answer-inside__block--user">
 						<p class="subtitle">
-							Ваше сообщение
+							{{$t('Ваше сообщение')}}
 						</p>
 						<p class="title">
 							{{$route.query.title}}
 						</p>
 						<p class="text">
-							{{$route.params.answer}}
+							{{$route.query.question}}
 						</p>
 					</div>
 				</div>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-	
+
 	export default {
 		data(){
 
@@ -49,7 +49,7 @@
 			}
 		},
 		mounted(){
-			// console.log('params', this.$route.params);
+			console.log('params', this.$route);
 			// console.log('query', this.$route.query);
 		}
 
@@ -59,10 +59,10 @@
 <style lang="scss">
 	.answer-inside{
 		padding: 16px 0 64px 0;
-
+		width: 100%;
 		&__block{
 			&--admin{
-				margin-top: 24px;	
+				margin-top: 24px;
 			}
 			&--user{
 				margin-top: 40px;
@@ -71,7 +71,7 @@
 				&.title{
 					font-weight: 500;
 					font-size: 16px;
-					line-height: 19px;					
+					line-height: 19px;
 					color: #1F1F1F;
 					margin-bottom: 8px;
 				}
@@ -89,7 +89,7 @@
 					color: #1F1F1F;
 				}
 
-			}			
+			}
 		}
 	}
 </style>

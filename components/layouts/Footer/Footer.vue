@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="footer__wrapper">
 				<div class="footer__item">
-					<nuxt-link to="/anketa/createanketa/" class="">		
+					<nuxt-link :to="$i18n.path('anketa/createanketa')" class="">		
 						<div class="footer__icon">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path class="path" d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#969696" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -13,12 +13,12 @@
 							</svg>
 						</div>
 						<div class="footer__title">
-							Создать
+							{{$t('Создать')}}
 						</div>
 					</nuxt-link>
 				</div>
 				<div class="footer__item">
-					<nuxt-link to="/anketa/listanketa">	
+					<nuxt-link :to="$i18n.path('anketa/listanketa')">	
 						<div class="footer__icon">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path class="path" d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#969696" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -28,13 +28,13 @@
 								<path class="path path--light" d="M10 9H9H8" stroke="#969696" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
 						</div>
-						<div class="footer__title">
-							Мои анкеты
+						<div :class="{'footer__title': true, 'kz' : $i18n.locale === 'kk'}">
+							{{$t('Мои анкеты')}}
 						</div>
 					</nuxt-link>
 				</div>
 				<div class="footer__item">
-					<nuxt-link to="/anketa/gifts">	
+					<nuxt-link :to="$i18n.path('anketa/gifts')">	
 						<div class="footer__icon">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path class="path path--fill" d="M20.8457 11.2319V21.9017H3.18175V11.2319H1.53601V22.7245C1.53601 23.179 1.90435 23.5474 2.35885 23.5474H21.6686C22.1231 23.5474 22.4914 23.179 22.4914 22.7245V11.2319H20.8457Z" fill="#969696"/>
@@ -45,12 +45,12 @@
 							</svg>
 						</div>
 						<div class="footer__title">
-							Призы
+							{{$t('Призы')}}
 						</div>
 					</nuxt-link>
 				</div>
 				<div class="footer__item">
-					<nuxt-link to="/anketa/conditions">	
+					<nuxt-link :to="$i18n.path('anketa/conditions')">	
 						<div class="footer__icon">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path class="path path--light" d="M2 3H8C9.06087 3 10.0783 3.42143 10.8284 4.17157C11.5786 4.92172 12 5.93913 12 7V21C12 20.2044 11.6839 19.4413 11.1213 18.8787C10.5587 18.3161 9.79565 18 9 18H2V3Z" stroke="#969696" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -59,7 +59,7 @@
 
 						</div>
 						<div class="footer__title">
-							Условия
+							{{$t('Условия')}}
 						</div>
 					</nuxt-link>
 				</div>
@@ -97,6 +97,9 @@
 			line-height: 14px;			
 			text-align: center;
 			color: #969696;
+			&.kz{
+			    word-break: break-all;
+			}
 			@media screen and (max-width: 370px) {
 				font-size: 11px;
 				line-height: 12px;		
