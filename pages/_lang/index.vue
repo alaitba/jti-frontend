@@ -381,7 +381,7 @@
                         clearInterval(interval1);
                         // console.log('1');
 	                    if(_this.modalStatus && _this.mobileOs){
-	                    	// _this.showSubscribe();
+	                    	_this.showSubscribe();
 	                    }
                     }
                 },
@@ -477,8 +477,8 @@
 
 	    	showSubscribe(){
 	    		// console.log('adas');
-    			this.title = 'Отправлять уведомления'
-    			this.text = 'Разрешите отправлять уведомления об изменениях статусов анкет, поплнения баланса и тд.'
+    			this.title = this.$('Отправлять уведомления')
+    			this.text = this.$t('Разрешите отправлять уведомления об изменениях статусов анкет, поплнения баланса и тд.')
     			this.img = 'bell-green';
     			this.btnText = 'notifications';
     			$('#modal-main').modal('show');
