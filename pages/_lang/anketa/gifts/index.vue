@@ -4,8 +4,16 @@
 			<loader/>
 		</template>
 		<template v-else>
-			<div class="fill-section">
-				<div class="navigation-menu">
+            <div class="information-block information-block--gifts">
+                <h3 class="section section--text">
+                    {{$t('Период анкетирования завершен.')}}
+                </h3>
+                <p class="underline">
+                    {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
+                </p>
+            </div>
+			<div class="fill-section" style="display: none">
+				<div class="navigation-menu" style="display: none">
 					<ul class="nav nav-pills">
 						<li class="nav-item">
 							<a class="nav-link active" data-toggle="pill" href="#home">
@@ -19,7 +27,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="navigation-content tab-content">
+				<div class="navigation-content tab-content" style="display: none">
 					<div class="tab-pane fade active" id="home">
 						<div class="gifts">
 							<div class="container">

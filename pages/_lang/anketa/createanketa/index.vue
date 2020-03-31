@@ -1,17 +1,16 @@
 <template>
 	<main class="page page--grey page--block">
 		<!-- <header-auth/>		 -->
-		<div class="auth-section">
+        <div class="information-block information-block--gifts">
+            <h3 class="section section--text">
+                {{$t('Период анкетирования завершен.')}}
+            </h3>
+            <p class="underline">
+                {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
+            </p>
+        </div>
+		<div class="auth-section" style="display: none;">
 	    	<div class="container">
-
-				<!-- <div class="information-block">
-					<h3 class="section section--text">
-						{{$t('Период анкетирования завершен.')}}
-					</h3>
-					<p class="underline">
-						{{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
-					</p>
-				</div> -->				
 	        	<!-- component number -->
 		        <div class="auth-section__form" v-if="numberStatus">
 		        	<form @submit.prevent="sendNumber">
@@ -124,7 +123,7 @@
 
 		data() {
 			return {
-				numberStatus: true,
+				numberStatus: false,
 				smsEnterStatus: false,
 				errorPermanenetPassword: false,
 				permanent: false,
@@ -335,10 +334,6 @@
 	}
 </script>
 <style lang="scss">
-	.information-block{
-	    text-align: center;
-	    margin-top: calc(50% - 30px);
-	}
 	.section--text{
 		// font-size: 20px;
 		// line-height: 22px;

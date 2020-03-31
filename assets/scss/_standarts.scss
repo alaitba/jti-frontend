@@ -1133,6 +1133,20 @@ main{
 	}
 }
 
+.information-block{
+    // text-align: center;
+    // margin-top: calc(50% - 30px);
+    &--gifts{
+        padding: 0 16px;
+        height: calc(100vh - 122px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
 .navigation{
 	width: 100%;
 	&-menu{
@@ -1176,6 +1190,11 @@ main{
 	&-content{
 		margin-top: 70px;
 		padding-bottom: 84px;
+        &.kz{
+            @media screen and (max-width: 346px) {
+                margin-top: 82px;
+            }
+        }
 	}
 }
 

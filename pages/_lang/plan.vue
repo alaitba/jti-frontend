@@ -19,7 +19,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="navigation-content tab-content">
+				<div :class="{'navigation-content tab-content' : true, 'kz' : $i18n.locale === 'kk'}">
 					<div class="tab-pane fade active container" id="home">
 						<h3 class="section__title section__title--profile">
 	    					{{$t('Текущий план закупок')}}
@@ -313,10 +313,10 @@
 				}
 			},
 			computedNumberPlan(){
-				return parseInt(this.reports[this.selectedBrand.account_code].fact_portfolio)/parseInt(this.reports[this.selectedBrand.account_code].plan_portfolio) > 0 ?   parseInt(this.reports[this.selectedBrand.account_code].fact_portfolio)/parseInt(this.reports[this.selectedBrand.account_code].plan_portfolio) * 100 > 100 ? 100 :  parseInt(this.reports[this.selectedBrand.account_code].fact_portfolio)/parseInt(this.reports[this.selectedBrand.account_code].plan_portfolio)*100 : 0
+				return parseInt(this.reports[this.selectedBrand.account_code].fact_portfolio)/parseInt(this.reports[this.selectedBrand.account_code].plan_portfolio) > 0 ?   parseInt(this.reports[this.selectedBrand.account_code].fact_portfolio)/parseInt(this.reports[this.selectedBrand.account_code].plan_portfolio) * 100 > 99.99 ? 100 :  parseInt(this.reports[this.selectedBrand.account_code].fact_portfolio)/parseInt(this.reports[this.selectedBrand.account_code].plan_portfolio)*100 : 0
 			},
 			computedNumberBonus(){
-				return parseInt(this.reports[this.selectedBrand.account_code].fact_brand)/parseInt(this.reports[this.selectedBrand.account_code].plan_brand) > 0 ?   parseInt(this.reports[this.selectedBrand.account_code].fact_brand)/parseInt(this.reports[this.selectedBrand.account_code].plan_brand) * 100 > 100 ? 100 :  parseInt(this.reports[this.selectedBrand.account_code].fact_brand)/parseInt(this.reports[this.selectedBrand.account_code].plan_brand)*100 : 0
+				return parseInt(this.reports[this.selectedBrand.account_code].fact_brand)/parseInt(this.reports[this.selectedBrand.account_code].plan_brand) > 0 ?   parseInt(this.reports[this.selectedBrand.account_code].fact_brand)/parseInt(this.reports[this.selectedBrand.account_code].plan_brand) * 100 > 100 ? 99.99 :  parseInt(this.reports[this.selectedBrand.account_code].fact_brand)/parseInt(this.reports[this.selectedBrand.account_code].plan_brand)*100 : 0
 			}
 		},
 		methods:{

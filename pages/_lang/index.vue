@@ -437,7 +437,7 @@
 	        	tradepoint: state => state.tradepoint,
 	      	}),
 	      	computedNumberPlan(){
-				return parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio) > 0 ?   parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio) * 100 > 100 ? 100 :  parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio)*100 : 0
+				return parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio) > 0 ?   parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio) * 100 > 100 ? 99.99 :  parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio)*100 : 0
 
 				// return this.reports[this.reportsId]
 			},

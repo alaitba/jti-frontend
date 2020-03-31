@@ -27,7 +27,7 @@
     					</p>
     					<p class="tel">
     						+{{profile.tel | formatNumber}}
-    					</p>    			
+    					</p>
     				</div>
     				<div class="profile__item" v-if="profile.tradepoint">
     					<p class="title">
@@ -48,7 +48,7 @@
     						<a :href="'tel:+'+tradeagent.tel">
     							+{{tradeagent.tel | formatNumber}}
     						</a>
-    					</p>    			
+    					</p>
     				</div>
     			</div>
 
@@ -57,28 +57,28 @@
     					<nuxt-link :to="$i18n.path('feedback')">
 	    					<p class="title">
 	    						{{$t('Обратная связь')}}
-	    					</p>    					
-	    				</nuxt-link>	    				
+	    					</p>
+	    				</nuxt-link>
     				</div>
-    				<div class="profile-links__item">    					
+    				<div class="profile-links__item">
 	    				<!-- <nuxt-link :to="{name: 'auth-resetpassword', query: { title : 'Изменение пароля'}}"> -->
 	    				<nuxt-link :to="$i18n.path(`auth/resetpassword?title=${$t('Изменение пароля')}`)">
 	    					<p class="title">
 	    						{{$t('Сменить пароль')}}
-	    					</p>    					
-	    				</nuxt-link>	    				
+	    					</p>
+	    				</nuxt-link>
     				</div>
-    				<div class="profile-links__item"> 
+    				<!-- <div class="profile-links__item">
     					<p class="title" v-if="$i18n.locale === 'ru'" @click ="changeLang('kk')">
     						Қазақша нұсқасы
-    					</p>    						    				
+    					</p>
     					<p class="title" v-if="$i18n.locale === 'kk'" @click ="changeLang('')">
     						Русская версия
-    					</p>    						    				
-    				</div>
+    					</p>
+    				</div> -->
     				<!-- <nuxt-link class="button button--green" to="#">
     					Обратная связь
-    				</nuxt-link> -->    				
+    				</nuxt-link> -->
 
     				<!-- <nuxt-link class="button button--bordered red" :to="{name: 'Auth-ResetPassword', query: { title : 'Изменение пароля'}}">
     					Изменить пароль
@@ -108,14 +108,14 @@
 			}
 		},
 		components: {
-			ModalMain,	
+			ModalMain,
 		},
 		data(){
 			return{
 				profile: {
 					name: localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')).last_name + ' ' + JSON.parse(localStorage.getItem('account')).first_name + ' ' + JSON.parse(localStorage.getItem('account')).middle_name : '',
 					tel: localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')).mobile_phone : '',
-					tradepoint: localStorage.getItem('tradepoint') ? 'Магазин "' + JSON.parse(localStorage.getItem('tradepoint')).account_name + '" ' + ' г.' + JSON.parse(localStorage.getItem('tradepoint')).city + ', ' + JSON.parse(localStorage.getItem('tradepoint')).street_address: '',				
+					tradepoint: localStorage.getItem('tradepoint') ? 'Магазин "' + JSON.parse(localStorage.getItem('tradepoint')).account_name + '" ' + ' г.' + JSON.parse(localStorage.getItem('tradepoint')).city + ', ' + JSON.parse(localStorage.getItem('tradepoint')).street_address: '',
 				},
 				tradeagent:{
 					name: localStorage.getItem('tradeagent') ? JSON.parse(localStorage.getItem('tradeagent')).employee_name : '',
@@ -125,7 +125,7 @@
 				text: '',
 				number:'',
 				img: 'logout',
-				btnText: 'logout',				
+				btnText: 'logout',
 			}
 		},
 		mounted(){
@@ -172,7 +172,7 @@
 <style lang="scss">
 	.page{
 		&--pd{
-			padding-top: 16px; 
+			padding-top: 16px;
 			padding-bottom: 120px;
 		}
 	}
@@ -223,26 +223,26 @@
 				font-size: 12px;
 				line-height: 14px;
 				color: #969696;
-				margin-bottom: 4px;		
+				margin-bottom: 4px;
 			}
 			.name{
 				font-weight: 500;
 				font-size: 16px;
 				line-height: 19px;
-				color: #1F1F1F;				
+				color: #1F1F1F;
 			}
 			.tel{
 				font-weight: 500;
 				font-size: 16px;
-				line-height: 19px;				
+				line-height: 19px;
 				color: #1F1F1F;
 				&--green{
 					margin-top: 8px;
 					a{
 						text-decoration: none;
-						color: #05B186;	
+						color: #05B186;
 					}
-					
+
 				}
 			}
 		}
@@ -320,6 +320,6 @@
 		&-logout{
 			margin-top: 24px;
 		}
-		
+
 	}
 </style>
