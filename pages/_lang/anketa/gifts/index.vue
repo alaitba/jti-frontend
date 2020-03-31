@@ -1,4 +1,4 @@
-<template>	
+<template>
 	<main class="page page--flex page--grey">
 		<template v-if="loaderStatus">
 			<loader/>
@@ -19,8 +19,8 @@
 						</li>
 					</ul>
 				</div>
-				<div class="navigation-content tab-content">				
-					<div class="tab-pane fade active" id="home">	
+				<div class="navigation-content tab-content">
+					<div class="tab-pane fade active" id="home">
 						<div class="gifts">
 							<div class="container">
 								<h3 class="section__title gifts__title">
@@ -39,7 +39,7 @@
 								</div>
 								<div class="gifts__wrapper" v-if="gifts.length">
 									<div class="item" v-for="(item,key) in gifts" v-if="item.qty!=0">
-				            			<nuxt-link 				            				
+				            			<nuxt-link
 				            				:to="$i18n.path(`anketa/gifts/${item.rewardId}`)"
 				            			>
 					  						<div class="item__img" v-if="item.images">
@@ -48,15 +48,15 @@
 					  						<div class="item__content">
 					  							<div>
 					  								<h4 class="title" v-if="item.price">
-					  									{{item.price | formatPrice}} <span>баллов</span>
+					  									{{item.price | formatPrice}} <span>{{$t('баллов')}}</span>
 					  								</h4>
 					  								<p class="text">
-					  									{{item.name}}
+					  									{{item.name[$i18n.locale ==='kk' ? 'kz' : 'ru']}}
 					  								</p>
 									                <template v-if="item.rewardId=='069ab460-263c-ea11-80cc-1cc1dee6b654' || item.rewardId=='7b9f8a06-0a44-ea11-80cc-1cc1dee6b654'">
 									                	<p class="left" v-if="item.totalQty!=null">
 									                      {{$t('количество не ограничено')}}
-									                    </p>						                    
+									                    </p>
 									                </template>
 									                <template v-else>
 									                    <p class="left" v-if="item.totalQty!=null">
@@ -65,8 +65,8 @@
 									                </template>
 					  							</div>
 					  							<div class="d-flex">
-					  								<nuxt-link 
-					  									class="link" 
+					  								<nuxt-link
+					  									class="link"
 					  									:to="$i18n.path(`anketa/gifts/${item.rewardId}`)"
 					  								>
 					                    				{{$t('Получить приз')}}
@@ -75,7 +75,7 @@
 					  						</div>
 				            			</nuxt-link>
 									</div>
-								</div>					
+								</div>
 							</div>
 						</div>
 					</div>
@@ -101,7 +101,7 @@
 										<div class="list-item" v-for="(item,key) in giftsHistory">
 											<div class="list-item__content">
 												<p class="title" v-if="item.name">
-													{{item.name}}
+													{{item.name[$i18n.locale ==='kk' ? 'kz' : 'ru']}}
 												</p>
 												<p class="info" v-if="item.date">
 													{{item.date | formatData}}
@@ -109,7 +109,7 @@
 											</div>
 											<div class="list-item__status">
 												<p class="point minus" v-if="item.amount">
-													{{item.amount | formatAmount}} {{$t('баллов')}}						
+													{{item.amount | formatAmount}} {{$t('баллов')}}
 												</p>
 												<!-- <div :class="{'status' : true, 'status--active': item.isEffective, 'status--filled': item.isQualified, 'status--waiting': !item.isQualified}">
 													<img src="~/assets/img/icons/anketa/status_active.svg" alt="" v-if="item.isEffective && item.isQualified">
@@ -121,9 +121,9 @@
 									</template>
 									<template v-else>
 										<h5>
-											
+
 										</h5>
-									</template>									
+									</template>
 								</div>
 							</div>
 						</div>
@@ -147,7 +147,7 @@
 			formatAmount(value){
 				// return typeof(value)
 				if(value!=null){
-					if(typeof(value)!='string'){						
+					if(typeof(value)!='string'){
 						return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 					} else{
 						return value.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
@@ -179,7 +179,7 @@
 		mounted(){
 			this.getBalance();
 			this.getPrizes();
-			this.getGiftsHistory();			
+			this.getGiftsHistory();
 		},
 		methods:{
 			showModal(modal){
@@ -206,7 +206,7 @@
 
 				await this.$axios.get('/rewards/available')
 					.then(response =>{
-						this.loaderStatus = false;						
+						this.loaderStatus = false;
 						if(response.data.rewards.length){
 							this.gifts = response.data.rewards;
 						}
@@ -224,7 +224,7 @@
 
 					let res = await this.$axios.$get('/rewards/history');
 					this.giftsHistory = res.data;
-					this.loaderStatus = false;						
+					this.loaderStatus = false;
 					// console.log('res:', this.giftsHistory);
 
 				} catch(error){

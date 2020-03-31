@@ -13,15 +13,15 @@
 					</h3>
 					<div class="gifts__points points">
 						<p>
-							{{$t('Количество баллов:')}} 
+							{{$t('Количество баллов:')}}
 							<span v-if="balance">
-								{{balance}}	
+								{{balance}}
 							</span>
 							<span v-else>
 								0
 							</span>
 						</p>
-					</div>	
+					</div>
 
 
 					<div class="gift" v-if="gift">
@@ -50,10 +50,10 @@
 						</div>
 						<div class="gift__content">
 							<h4 class="point" v-if="gift.price">
-								{{gift.price | formatPrice}} баллов
+								{{gift.price | formatPrice}} {{$t('баллов')}}
 							</h4>
 							<p class="title" v-if="gift.name">
-								{{gift.name}}
+								{{gift.name[$i18n.locale ==='kk' ? 'kz' : 'ru']}}
 							</p>
 							<template v-if="gift.rewardId=='069ab460-263c-ea11-80cc-1cc1dee6b654' || gift.rewardId=='7b9f8a06-0a44-ea11-80cc-1cc1dee6b654'">
 			                    <p class="left" v-if="gift.totalQty">
@@ -63,17 +63,17 @@
 			                  <template v-else>
 			                  	<p class="left" v-if="gift.totalQty!=null">
 			                    	{{$t('Осталось штук:')}} {{gift.totalQty | formatAmount}}
-			                    </p>			                    
-		                  	</template>			
+			                    </p>
+		                  	</template>
 
-							<div class="text" v-if="gift.description" v-html="gift.description"></div>
+							<div class="text" v-if="gift.description" v-html="gift.description[$i18n.locale ==='kk' ? 'kz' : 'ru']"></div>
 							<!-- <p class="text" v-if="gift.description">
 								{{gift.description}}
 								Рюкзак сделан из велюра зеленого цвета. На рюкзаке термопечатью нанесен логотип JTI Company <br>
 								<strong>Внимание!</strong> Определенный приз можно заказать только 1 раз. При заказе приза, представитель JTI доставит вам его на торговую точку.
 							</p> -->
-						</div>					
-					</div>			
+						</div>
+					</div>
 				</div>
 				<div :class="{'gifts__select' : true, 'kz': $i18n.locale === 'kk'}">
 					<div class="container">
@@ -103,7 +103,7 @@
 			formatAmount(value){
 				// return typeof(value)
 				if(value!=null){
-					if(typeof(value)!='string'){						
+					if(typeof(value)!='string'){
 						return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 					} else{
 						return value.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
@@ -118,11 +118,11 @@
 		},
 		data(){
 			return {
-				swiperOption: {	    	
+				swiperOption: {
 	    			pagination:{
 	    				el: '.swiper-pagination',
 		    			dynamicBullets: true
-	    			}			    			
+	    			}
 	    		},
 				balance:'',
 				gift: '',
@@ -139,7 +139,7 @@
 		},
 		mounted(){
 			this.getBalance();
-			this.getPrizes();			
+			this.getPrizes();
 			console.log(this.$route)
 		},
 		methods:{
@@ -172,7 +172,7 @@
 				// console.log(fields)
 				await this.$axios.get('/rewards/available')
 					.then(response =>{
-						// if(response.data.rewards.length){				
+						// if(response.data.rewards.length){
 							for(var i =0; i< response.data.rewards.length;i++){
 								if(response.data.rewards[i].rewardId == this.$route.params.id){
 									this.gift = response.data.rewards[i];
@@ -180,7 +180,7 @@
 								}
 							}
 
-					}).catch(error =>{						
+					}).catch(error =>{
 						console.log('error',error.response)
 					})
 
@@ -201,7 +201,7 @@
 				await this.$axios.get('/rewards/get?reward_id=' + this.$route.params.id)
 					.then(response =>{
 						// if(response.data.rewards.length){
-						// this.$store.commit('setBalance')				
+						// this.$store.commit('setBalance')
 						if(this.gift.rewardId == "7d9f8a06-0a44-ea11-80cc-1cc1dee6b654" || this.gift.rewardId == "089ab460-263c-ea11-80cc-1cc1dee6b654"){
 							this.title = JSON.parse(localStorage.getItem('authUser')).mobile_phone;
 							this.text = this.$t('на указанный номер в ближайшее время будет начислено 500 тг');
@@ -216,7 +216,7 @@
 								this.text = `приз будет доставлен торговым представителем к вам на точку г. ${this.tradePoint.city} , ул. ${this.tradePoint.street_address}`;
 							} else {
 								this.text = `Жүлдені сауда өкілі сізге ${this.tradePoint.city} қаласы, ${this.tradePoint.street_address} мекен-жайына бойынша жеткізеді.`
-							}							
+							}
 							this.img = 'gift'
 						}
 						this.btnText = 'gifts'
@@ -240,7 +240,7 @@
 		}
 	}
 </script>
-<style lang="scss">	
+<style lang="scss">
 	// .swiper-pagination-bullet{
 	// 	background: #C2EEE3;
 	// 	opacity: 1;
@@ -254,7 +254,7 @@
 	// main.page{
 	// 	padding-bottom: 100px;
 	// }
-	
+
 	.points{
 		margin-top: 16px;
 	}
@@ -263,7 +263,7 @@
 	}
 	.gifts{
 		&-inside{
-			padding: 16px 0 220px 0 !important;			
+			padding: 16px 0 220px 0 !important;
 		}
 		width: 100%;
 		// &__title{
@@ -288,7 +288,7 @@
 		// 				height: 20px;
 		// 			}
 		// 		}
-				
+
 		// 	}
 		// }
 		&__select{
@@ -342,7 +342,7 @@
 			.title{
 				font-weight: 500;
 				font-size: 16px;
-				line-height: 19px;				
+				line-height: 19px;
 				color: #1F1F1F;
 				margin-bottom: 8px;
 			}
@@ -354,18 +354,18 @@
 				margin-bottom: 0;
 			}
 			.text{
-				margin-top: 16px;				
+				margin-top: 16px;
 				p{
 					b{
 						font-weight: 300;
 					}
 					font-weight: 300;
 					font-size: 16px;
-					line-height: 19px;				
+					line-height: 19px;
 					color: #1F1F1F;
 					margin-bottom: 0;
 				}
-			}			
+			}
 		}
 	}
 </style>
