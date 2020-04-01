@@ -643,6 +643,11 @@
 		}
 	}
 	.section{
+        &--plan{
+            .plan{
+                padding-bottom: 0 !important;
+            }
+        }
 		&__title{
 			line-height: 33px;
 			color: #969696;
@@ -676,6 +681,8 @@
                         position: absolute;
                         width: 100%;
                         height: 100%;
+                        top: 0;
+                        left: 0;
 						&:hover{
 							text-decoration: none;
 						}
