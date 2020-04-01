@@ -41,7 +41,7 @@ export default async function ({ app, store, redirect, $axios }) {
     		return redirect('/auth/signin')
   		}
 	} else{
-        console.log(app.path, 'hi')
+        console.log(app.i18n.path, 'hi')
   		return redirect(app.i18n.path('auth/signin'))
   	}
 }
