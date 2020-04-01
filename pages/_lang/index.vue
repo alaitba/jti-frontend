@@ -489,7 +489,7 @@
 
 	    	showSubscribe(){
 	    		// console.log('adas');
-    			this.title = this.$('Отправлять уведомления')
+    			this.title = this.$t('Отправлять уведомления')
     			this.text = this.$t('Разрешите отправлять уведомления об изменениях статусов анкет, поплнения баланса и тд.')
     			this.img = 'bell-green';
     			this.btnText = 'notifications';
