@@ -14,12 +14,12 @@
 					<!-- <a href="#" class="lang">
 						Қазақша
 					</a> -->
-					<!-- <a class="lang" v-if="$i18n.locale === 'ru'" @click ="changeLang('kk')">
+					<a class="lang" v-if="$i18n.locale === 'ru'" @click ="changeLang('kk')">
 						Қаз
 					</a>
 					<a class="lang" v-if="$i18n.locale === 'kk'" @click ="changeLang('')">
 						Рус
-					</a> -->
+					</a>
 					<!-- <div class="burger-menu"></div> -->
 				</div>
 			</div>

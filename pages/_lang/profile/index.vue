@@ -68,14 +68,14 @@
 	    					</p>
 	    				</nuxt-link>
     				</div>
-    				<!-- <div class="profile-links__item">
+    				<div class="profile-links__item">
     					<p class="title" v-if="$i18n.locale === 'ru'" @click ="changeLang('kk')">
     						Қазақша нұсқасы
     					</p>
     					<p class="title" v-if="$i18n.locale === 'kk'" @click ="changeLang('')">
     						Русская версия
     					</p>
-    				</div> -->
+    				</div>
     				<!-- <nuxt-link class="button button--green" to="#">
     					Обратная связь
     				</nuxt-link> -->
