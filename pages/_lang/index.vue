@@ -31,13 +31,13 @@
 	    				<!-- <template v-if="getNumber"> -->
 	    					<div :class="{'icons__item' : true, 'mh92' : $i18n.locale === 'kk'}">
 		    					<nuxt-link :to="$i18n.path('plan')">
-			    					<div class="img">
-			    						<img src="~/assets/img/icons/links/plan.svg" alt="">
-			    					</div>
-			    					<div class="title">
-			    						{{$t('icons-plan-title')}}
-			    					</div>
 			    				</nuxt-link>
+                                <div class="img">
+                                    <img src="~/assets/img/icons/links/plan.svg" alt="">
+                                </div>
+                                <div class="title">
+                                    {{$t('icons-plan-title')}}
+                                </div>
 		    				</div>
 	    				<!-- </template>
 	    				<template v-else>
@@ -52,34 +52,34 @@
 	    				</template> -->
 	    				<div :class="{'icons__item' : true, 'mh92' : $i18n.locale === 'kk'}">
 	    					<nuxt-link :to="$i18n.path('anketa/createanketa')">
-		    					<div class="img">
-		    						<img src="~/assets/img/icons/links/new.svg" alt="">
-		    					</div>
-		    					<div class="title">
-		    						{{$t('icons-anketa-title')}}
-		    					</div>
 		    				</nuxt-link>
+                            <div class="img">
+                                <img src="~/assets/img/icons/links/new.svg" alt="">
+                            </div>
+                            <div class="title">
+                                {{$t('icons-anketa-title')}}
+                            </div>
 	    				</div>
 	    				<div :class="{'icons__item' : true, 'mh92' : $i18n.locale === 'kk'}">
 	    					<nuxt-link :to="$i18n.path('anketa/gifts')">
-		    					<div class="img">
-		    						<img src="~/assets/img/icons/links/gift.svg" alt="">
-		    					</div>
-		    					<div class="title">
-		    						{{$t('icons-gifts-title')}}
-		    					</div>
 		    				</nuxt-link>
+                            <div class="img">
+                                <img src="~/assets/img/icons/links/gift.svg" alt="">
+                            </div>
+                            <div class="title">
+                                {{$t('icons-gifts-title')}}
+                            </div>
 	    				</div>
 	    				<!-- <template v-if="getNumber"> -->
 		    				<div :class="{'icons__item' : true, 'mh92' : $i18n.locale === 'kk'}">
-	    						<nuxt-link :to="$i18n.path('agent')">
-			    					<div class="img">
-			    						<img src="~/assets/img/icons/links/agent.svg" alt="">
-			    					</div>
-			    					<div class="title">
-			    						{{$t('icons-agent-title')}}
-			    					</div>
+                                <nuxt-link :to="$i18n.path('agent')">
 				    			</nuxt-link>
+                                <div class="img">
+                                    <img src="~/assets/img/icons/links/agent.svg" alt="">
+                                </div>
+                                <div class="title">
+                                    {{$t('icons-agent-title')}}
+                                </div>
 		    				</div>
 		    			<!-- </template>
 		    			<template v-else>
@@ -95,13 +95,13 @@
 		    			<!-- <template v-if="getNumber"> -->
 		    				<div :class="{'icons__item' : true, 'mh92' : $i18n.locale === 'kk'}">
 		    					<nuxt-link :to="$i18n.path('quiz')">
-			    					<div class="img">
-			    						<img src="~/assets/img/icons/links/quiz.svg" alt="">
-			    					</div>
-			    					<div class="title">
-			    						{{$t('icons-quiz-title')}}
-			    					</div>
 			    				</nuxt-link>
+                                <div class="img">
+                                    <img src="~/assets/img/icons/links/quiz.svg" alt="">
+                                </div>
+                                <div class="title">
+                                    {{$t('icons-quiz-title')}}
+                                </div>
 		    				</div>
 		    			<!-- </template>
 		    			<template v-else>
@@ -116,13 +116,13 @@
 		    			</template> -->
 	    				<div :class="{'icons__item' : true, 'mh92' : $i18n.locale === 'kk'}">
 	    					<nuxt-link :to="$i18n.path('profile')">
-		    					<div class="img">
-		    						<img src="~/assets/img/icons/links/profile.svg" alt="">
-		    					</div>
-		    					<div class="title">
-		    						{{$t('icons-profile-title')}}
-		    					</div>
 		    				</nuxt-link>
+                            <div class="img">
+                                <img src="~/assets/img/icons/links/profile.svg" alt="">
+                            </div>
+                            <div class="title">
+                                {{$t('icons-profile-title')}}
+                            </div>
 	    				</div>
 	    			</div>
 	    		</div>
@@ -205,7 +205,7 @@
 	    			</div>
 	    		</div>
 	    	</div>
-	    	<div class="section section--news" v-if="news[0].title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
+	    	<div class="section section--news">
 	    		<div class="container">
 	    			<h3 class="section__title">
 	    				{{$t('section-news-title')}}
@@ -213,7 +213,7 @@
 	    			<div class="news" v-if="news">
 	    				<template v-if="news.length">
 	    					<template v-for="(item, key) in news">
-		    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length==0}" v-if="item.title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
+		    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length==0}">
 		    						<nuxt-link
 		    							:to="$i18n.path(`news/${item.id}`)"
 		    						>
@@ -221,13 +221,25 @@
 				    						<img :src="item.media[0].url" alt="">
 				    					</div>
 				    					<div class="content">
-				    						<h4 class="title" v-if="item.title">
-					    						{{item.title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]}}
-					    					</h4>
+                                            <template v-if="item.title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
+                                                <h4 class="title" v-if="item.title">
+                                                    {{item.title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]}}
+                                                </h4>
+                                            </template>
+                                            <template v-else>
+                                                <h4 class="title" v-if="item.title">
+                                                    {{item.title['ru']}}
+                                                </h4>
+                                            </template>
 					    					<p class="data" v-if="item.created_at">
 					    						{{ item.created_at | formatData}}
 					    					</p>
-					    					<div class="text" v-if="item.contents" v-html="item.contents[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]"></div>
+                                            <template v-if="item.contents[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
+    					    					<div class="text" v-if="item.contents" v-html="item.contents[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]"></div>
+                                            </template>
+                                            <template v-else>
+                                                <div class="text" v-if="item.contents" v-html="item.contents['ru']"></div>
+                                            </template>
 				    					</div>
 				    				</nuxt-link>
 		    					</div>
@@ -259,7 +271,7 @@
 		    					</div>
 		    				</nuxt-link>
 	    				</div> -->
-	    				<div class="news__all" v-if="news[0].title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
+	    				<div class="news__all">
 	    					<!-- <nuxt-link class="news__link" to="/news">
 	    						Все новости
 	    					</nuxt-link> -->
@@ -651,6 +663,9 @@
 					width: calc((100% - 16px)/3);
 					height: 100%;
 					margin-bottom: 8px;
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
 					&.mh92{
 						height: 92px;
 						display: flex;
@@ -658,6 +673,9 @@
 					    justify-content: center;
 					}
 					&>a{
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
 						&:hover{
 							text-decoration: none;
 						}

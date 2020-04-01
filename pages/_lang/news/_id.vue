@@ -13,14 +13,30 @@
 						<img :src="newsItem.media[0].url" alt="">
 					</div>
 					<div class="news-item__content">
+                        <template v-if="newsItem.title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
+                            <h4 class="title" v-if="newsItem.title">
+                                {{newsItem.title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]}}
+                            </h4>
+                        </template>
+                        <template v-else>
+                            <h4 class="title" v-if="newsItem.title">
+                                {{newsItem.title['ru']}}
+                            </h4>
+                        </template>
 						<h4 class="title" v-if="newsItem.title">
 							{{newsItem.title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]}}
 						</h4>
 						<p class="data" v-if="newsItem.created_at">
 							{{newsItem.title | formatData}}
-						</span>
-						<div class="text" v-if="newsItem.contents" v-html="newsItem.contents[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
-						</div>
+						</p>
+						<template v-if="newsItem.contents[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
+                            <div class="text" v-if="newsItem.contents" v-html="newsItem.contents[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div class="text" v-if="newsItem.contents" v-html="newsItem.contents['ru']">
+                            </div>
+                        </template>
 					</div>
 				</div>
 				<div class="news-item" v-else>
