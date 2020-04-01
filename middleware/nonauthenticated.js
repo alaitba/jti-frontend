@@ -14,8 +14,10 @@ export default function ({ app, store, redirect, route }) {
         	}
   		}
   	} else{
+        console.log('hello')
   		if(!localStorage.getItem("authUser") && route.path.replace(new RegExp('/kk', 'g'),'') !='/auth/signin'){
-  			return redirect('/auth/signin')
+            console.log(app.i18n.path('auth/signin'), app.i18n.path(''), app.i18n.path('/'))
+  			return redirect(app.i18n.path('auth/signin'))
   		}
   	}
 }

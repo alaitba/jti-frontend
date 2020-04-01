@@ -26,7 +26,6 @@ export default async function ({ app, store, redirect, $axios }) {
   //     console.log('error');
   //     localStorage.clear();
   //   })
-
     if (localStorage.getItem("authToken")) {
         // console.log('default2',app.i18n.path)
   	    if((localStorage.getItem("setTradePoint")=='t')){
@@ -42,7 +41,7 @@ export default async function ({ app, store, redirect, $axios }) {
     		return redirect('/auth/signin')
   		}
 	} else{
-        console.log(app.i18n.path('auth/signin'), app.i18n.path(''), app.i18n.path('/'))
-  		return redirect('/auth/signin')
+        console.log(app.path, 'hi')
+  		return redirect(app.i18n.path('auth/signin'))
   	}
 }
