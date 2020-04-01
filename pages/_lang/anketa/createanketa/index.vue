@@ -3,7 +3,7 @@
 		<!-- <header-auth/>		 -->
         <div class="information-block information-block--gifts">
             <h3 class="section section--text">
-                {{$t('Период анкетирования завершен.')}}
+                {{$t('Период анкетирования завершен')}}
             </h3>
             <p class="underline">
                 {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
