@@ -6,10 +6,10 @@
 		<template v-else>
             <div class="information-block information-block--gifts">
                 <h3 class="section section--text">
-                    {{$t('Период анкетирования завершен.')}}
+                    {{$t('Период программы завершён')}}
                 </h3>
                 <p class="underline">
-                    {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
+                    <!-- {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}} -->
                 </p>
             </div>
 			<div class="fill-section" style="display: none">
@@ -185,8 +185,8 @@
 			}
 		},
 		mounted(){
-			this.getBalance();
-			this.getPrizes();
+			// this.getBalance();
+			// this.getPrizes();
 			this.getGiftsHistory();
 		},
 		methods:{
