@@ -6,16 +6,16 @@ export default function ({ app, store, redirect, route }) {
   	if(route.path.replace(new RegExp('/kk', 'g'),'') == '/selectstore') return
   	if (localStorage.getItem("authToken")) {
 	  	if((localStorage.getItem("setTradePoint")=='f')){
-  	  		return redirect(app.i18n.path('selectstore'))
+  	  		return redirect('/selectstore')
   		} else {
         	if(route.path.replace(new RegExp('/kk', 'g'),'') != '/auth/resetpassword'){
           		console.log('routegh: ', route.path.replace(new RegExp('/kk', 'g'),''))
-    			return redirect(app.i18n.path(''))
+    			return redirect('/')
         	}
   		}
   	} else{
   		if(!localStorage.getItem("authUser") && route.path.replace(new RegExp('/kk', 'g'),'') !='/auth/signin'){
-  			return redirect(app.i18n.path('auth/signin'))
+  			return redirect('/auth/signin')
   		}
   	}
 }

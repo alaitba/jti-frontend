@@ -27,21 +27,22 @@ export default async function ({ app, store, redirect, $axios }) {
   //     localStorage.clear();
   //   })
 
-  if (localStorage.getItem("authToken")) {
-    // console.log('default2',app.i18n.path)
-  	if((localStorage.getItem("setTradePoint")=='t')){
-  		// console.log('default',localStorage.getItem("setTradePoint"))
-  		// return redirect('/')
-  	} else if((localStorage.getItem("setTradePoint")=='f')) {
+    if (localStorage.getItem("authToken")) {
+        // console.log('default2',app.i18n.path)
+  	    if((localStorage.getItem("setTradePoint")=='t')){
+  		    // console.log('default',localStorage.getItem("setTradePoint"))
+	        // return redirect('/')
+  	    } else if((localStorage.getItem("setTradePoint")=='f')) {
 
-  		return redirect(app.i18n.path('selectstore'))
-  	} else {
-  		// console.log('no trd')
-  		localStorage.clear();
-    	store.commit('resetState');
-    	return redirect(app.i18n.path('auth/signin'))
+  			return redirect('/selectstore')
+  		} else {
+  			// console.log('no trd')
+  			localStorage.clear();
+    		store.commit('resetState');
+    		return redirect('/auth/signin')
+  		}
+	} else{
+        console.log(app.i18n.path('auth/signin'), app.i18n.path(''), app.i18n.path('/'))
+  		return redirect('/auth/signin')
   	}
-  } else{
-  		return redirect(app.i18n.path('auth/signin'))
-  }
 }
