@@ -26,6 +26,7 @@ export default async function ({ app, store, redirect, $axios }) {
   //     console.log('error');
   //     localStorage.clear();
   //   })
+
     if (localStorage.getItem("authToken")) {
         // console.log('default2',app.i18n.path)
   	    if((localStorage.getItem("setTradePoint")=='t')){
@@ -33,15 +34,14 @@ export default async function ({ app, store, redirect, $axios }) {
 	        // return redirect('/')
   	    } else if((localStorage.getItem("setTradePoint")=='f')) {
 
-  			return redirect('/selectstore')
+  			return redirect(app.i18n.path('selectstore'))
   		} else {
   			// console.log('no trd')
   			localStorage.clear();
     		store.commit('resetState');
-    		return redirect('/auth/signin')
+    		return redirect(app.i18n.path('auth/signin'))
   		}
 	} else{
-        console.log(app.i18n.path, 'hi')
   		return redirect(app.i18n.path('auth/signin'))
   	}
 }
