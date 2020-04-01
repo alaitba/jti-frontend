@@ -23,7 +23,7 @@ export default async ({ app, store }) => {
     ? store.getters.langs
     : await getLangs(isDev
       ? 'http://localhost:3000/locales' //http://0.0.0.0:3000/locales
-      : 'https://partner360.kz/locales')
+      : '/locales')
 
   if (!isLoadedLangs)
     store.commit('setLangs', langs)
