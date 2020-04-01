@@ -181,13 +181,13 @@
 				gifts:[],
 				balance:'',
 				giftsHistory:[],
-				loaderStatus: true,
+				loaderStatus: false,
 			}
 		},
 		mounted(){
 			// this.getBalance();
 			// this.getPrizes();
-			this.getGiftsHistory();
+			// this.getGiftsHistory();
 		},
 		methods:{
 			showModal(modal){

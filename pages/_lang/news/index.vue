@@ -13,7 +13,7 @@
 	    				<template v-if="news.length>0">
 	    					<template v-for="(item, key) in news">
 
-	    						<div :class="{'news__item' : true, 'news__item--noimg': item.media.length==0}">
+	    						<div :class="{'news__item' : true, 'news__item--noimg': item.media.length==0}" v-if="item.title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
 		    						<nuxt-link :to="$i18n.path(`news/${item.id}`)">
 			    						<div class="banner" v-if="item.media.length">
 				    						<img :src="item.media[0].url" alt="">

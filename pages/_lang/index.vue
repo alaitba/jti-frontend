@@ -205,7 +205,7 @@
 	    			</div>
 	    		</div>
 	    	</div>
-	    	<div class="section section--news">
+	    	<div class="section section--news" v-if="news[0].title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
 	    		<div class="container">
 	    			<h3 class="section__title">
 	    				{{$t('section-news-title')}}
@@ -213,7 +213,7 @@
 	    			<div class="news" v-if="news">
 	    				<template v-if="news.length">
 	    					<template v-for="(item, key) in news">
-		    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length==0}">
+		    					<div :class="{'news__item' : true, 'news__item--noimg': item.media.length==0}" v-if="item.title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
 		    						<nuxt-link
 		    							:to="$i18n.path(`news/${item.id}`)"
 		    						>
@@ -259,7 +259,7 @@
 		    					</div>
 		    				</nuxt-link>
 	    				</div> -->
-	    				<div class="news__all">
+	    				<div class="news__all" v-if="news[0].title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]">
 	    					<!-- <nuxt-link class="news__link" to="/news">
 	    						Все новости
 	    					</nuxt-link> -->
