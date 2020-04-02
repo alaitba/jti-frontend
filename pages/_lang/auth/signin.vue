@@ -299,7 +299,8 @@
 
                 let fields = {
                     'mobile_phone': '7'+this.number,
-                    'password': this.password
+                    'password': this.password,
+                    'locale': this.$i18n.locale
                 }
 
                 await this.$axios.post('/auth/login/', fields)

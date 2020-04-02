@@ -147,7 +147,8 @@
 	        let fields = {
 	        	'mobile_phone': JSON.parse(localStorage.getItem("authUser")).mobile_phone,
 	          	'password': this.password,
-	          	'password_check': this.newPassword
+	          	'password_check': this.newPassword,
+                'locale': this.$i18n.locale
 	        }
         	this.btnStatus = true;
         	await this.$axios.post('/auth/reset/create-password',fields)

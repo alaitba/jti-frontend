@@ -148,9 +148,29 @@
 	            }else if (lang == 'kk') {
 	                this.$router.push('/kk' + this.$route.fullPath.replace(new RegExp('(\/'+this.$route.params.lang+')'), ''))
 	            }
+
+                this.changeLocale(lang);
 	            // this.changeLanguageWrap = false
 	            // this.opened=false
 	        },
+
+            async changeLocale(locale){
+
+                this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+                let fields = {
+                    'locale': locale.length ? locale : 'ru'
+                }
+                try {
+
+                    let res  = await this.$axios.$post('/auth/set-locale', fields);
+
+                    console.log("localeRes", res)
+                } catch(error){
+                    console.log('error', error)
+                }
+
+            },
 			async logOut(){
 
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
