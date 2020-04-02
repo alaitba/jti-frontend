@@ -1,4 +1,4 @@
-# [jti.com](https://jti.com)
+# [partner360.kz](https://partner360.kz)
 
 >  Проект для JTI продавцов с интеграцией с их внутренними сервисами - Siebel, CRM.
 
