@@ -23,9 +23,9 @@
                                 {{newsItem.title['ru']}}
                             </h4>
                         </template>
-						<h4 class="title" v-if="newsItem.title">
+						<!-- <h4 class="title" v-if="newsItem.title">
 							{{newsItem.title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]}}
-						</h4>
+						</h4> -->
 						<p class="data" v-if="newsItem.created_at">
 							{{newsItem.title | formatData}}
 						</p>
