@@ -116,7 +116,12 @@
 	  		    							</div>
 	  		    							<div class="plan-item__main">
 	  		    								<p class="title">
-	  		    									{{reports[selectedBrand.account_code].brand}}
+	  		    									<template v-if="reports[selectedBrand.account_code].brand == 'Не определен'">
+	  		    										{{$t('Не определен')}}
+	  		    									</template>
+	  		    									<template v-else>	  		    							
+		  		    									{{reports[selectedBrand.account_code].brand}}
+	  		    									</template>
 	  		    								</p>
 	  		    								<p class="amount">
 	  		    									<span class="name">

@@ -18,7 +18,7 @@
 
 						<div class="list-item item" v-for="(item,key) in notifications">
 							<div class="list-item__content item__content">
-								<p class="title" v-if="item">
+								<p :class="{'title': true, 'mb4': item.type == 'NotificationFromAdmin'}" v-if="item">
 									<template v-if="item.type=='LeadCreated'">
 										<template v-if="item.data.self=='0' || item.data.self==null">
 											{{$t('Анкета сохранена, начисление бонусов')}}
@@ -47,9 +47,14 @@
 									<template v-else-if="item.type=='BalanceReplenished'">
 										{{$t('На ваш номер было начислено 500 тг')}}
 									</template>								
+									<template v-else-if="item.type=='NotificationFromAdmin'">
+										{{item.data.title[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]}}
+									</template>
 									<!-- {{item.mobilePhone | formatNumber}} -->
 								</p>
-								
+								<p class="undertitle" v-if="item.type == 'NotificationFromAdmin'">
+									{{item.data.message[$i18n.locale === 'kk' ? 'kz' : $i18n.locale]}}
+								</p>
 								<p class="info" v-if="item.created_at">
 									{{item.created_at | formatData}}
 								</p>

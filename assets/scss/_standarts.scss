@@ -642,7 +642,15 @@ main{
 			line-height: 19px;
 			color: #1F1F1F;
 			margin-bottom: 10px;
+            &.mb4{
+                margin-bottom: 4px;
+            }
 		}
+        .undertitle{
+            font-size: 14px;
+            line-height: 15px;
+            margin-bottom: 10px;
+        }
 		.info{
 			font-weight: normal;
 			font-size: 12px;
