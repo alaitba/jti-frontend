@@ -1,6 +1,7 @@
 <template>
   <!-- Превышение лимита! -->
-  <div class="modal fade modal-auth-denied modal-auth-denied--limited" id="modal-auth-alert">
+  <div class="modal fade modal-auth-denied modal-auth-denied--limited" id="modal-auth-alert" data-backdrop="static"
+        data-keyboard="false">
     <div class="modal-dialog modal-sm modal-dialog-centered">
       <div class="modal-content">
         <!-- Modal body -->
