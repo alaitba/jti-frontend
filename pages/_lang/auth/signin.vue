@@ -243,6 +243,12 @@
                             this.img="error"
                             $('#modal-main').modal('show')
                         }
+                        else if(error.response.data.message=='auth_blocked'){
+                            this.title = this.$t('Превышение лимита!');
+                            this.text = this.$t('Вы ввели пароль больше 5 раз. Попробуйте еще раз через 10 минут')
+                            this.img="error"
+                            $('#modal-main').modal('show')
+                        }
                         else {
                             this.title = this.$t('Отказано в доступе!')
                             this.text = this.$t('Номер телефона введен неверно или не внесен в базу данных!')
