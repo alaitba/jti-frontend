@@ -14,10 +14,10 @@
                         {{$t('Превышение лимита!')}}
                     </h4>
                     <p v-if="$i18n.locale === 'ru'">
-                        {{$t('Вы ввели пароль болше 5 раз. Попробуйте еще раз через')}}<span class="time">{{passwordTimerText}}</span>
+                        {{$t('Вы ввели пароль больше 5 раз. Попробуйте еще раз через')}} <span class="time">{{passwordTimerText}}</span>
                     </p>
                     <p v-if="$i18n.locale === 'kk'">
-                        {{$t('Вы ввели пароль болше 5 раз. Попробуйте еще раз через')}}<span class="time">{{passwordTimerText}}</span> қайта теріп көріңіз
+                        {{$t('Вы ввели пароль больше 5 раз. Попробуйте еще раз через')}} <span class="time">{{passwordTimerText}}</span> минуттан кейін қайта теріп көріңіз
                     </p>
                 </div>
             </div>
@@ -27,21 +27,21 @@
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
-            <button type="button" class="button button--green" data-dismiss="modal" :disabled="disabledByTimer" @click="stopTimer()">
+            <!-- <button type="button" class="button button--green" data-dismiss="modal" :disabled="disabledByTimer" @click="stopTimer()">
                 {{$t('Повторить попытку')}}
-            </button>
+            </button> -->
 
 
-            <template v-if="disabledByTimer">
-                <button type="button" class="button button--bordered green" data-dismiss="modal" :disabled="disabledByTimer" >
+            <!-- <template v-if="disabledByTimer"> -->
+                <button type="button" class="button button--green" :to="$i18n.path('auth/sigin')" :disabled="disabledByTimer" data-dismiss="modal">
                     {{$t('Повторить попытку')}}
                 </button>
-            </template>
-            <template v-else>
+            <!-- </template>
+            <template v-else> -->
                 <nuxt-link class="button button--bordered green" :to="$i18n.path('auth/recovery-login')" data-dismiss="modal">
                     {{$t('Не помню пароль')}}
                 </nuxt-link>
-            </template>
+            <!-- </template> -->
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@
         },
         methods:{
             startTimer() {
-                // console.log('timer password');
+                console.log('timer password: ', this.passwordTimer);
                 if(this.passwordTimer){
                     this.passwordTimer = this.passwordTimer-1
                     let min = Math.floor(this.passwordTimer/60)

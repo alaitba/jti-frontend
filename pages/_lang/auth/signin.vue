@@ -333,13 +333,23 @@
 
 
                     }).catch(error => {
-                        if(this.counter == 5){
-                            this.showModal();
-                            this.btnPasswordStatus = true;
-                        } else{
+                        // console.log(error.response.data.auth_fail_count)
+                        if(error.response.data.auth_fail_count && error.response.data.auth_fail_count < 5){
                             this.btnPasswordStatus = false;
                             this.errorPassword = true;
+                            // this.showModal();
+                            // this.btnPasswordStatus = true;
+                        }else{
+                            this.showModal();
+                            this.btnPasswordStatus = true;
                         }
+                        // if(this.counter == 5){
+                        //     this.showModal();
+                        //     this.btnPasswordStatus = true;
+                        // } else if (){
+                        //     this.btnPasswordStatus = false;
+                        //     this.errorPassword = true;
+                        // }
                     });
             },
 
