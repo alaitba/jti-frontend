@@ -10,8 +10,8 @@ export default function ({ $axios, redirect, app, store }) {
             redirect("/400");
         }
         if (code === 401) {
-            localStorage.clear();
             store.commit('resetState');
+            localStorage.clear();
             redirect('/auth/signin')
         }
         // if (code === 403) {

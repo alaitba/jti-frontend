@@ -145,8 +145,8 @@
         },
         data() {
             return{
-                loginStatus : true,
-                passEnterStatus: false,
+                // loginStatus : true,
+                // passEnterStatus: false,
                 smsEnterStatus: false,
                 number:'',
                 password: '',
@@ -173,6 +173,9 @@
         computed: {
             ...mapState({
                 auth: state => state.auth,
+                loginStatus: state => state.loginStatus,
+                passEnterStatus: state => state.passEnterStatus,
+                phoneNumber: state => state.number
             }),
             // checkSms(){
                 //   if(this.auth.sms_code == this.permanentPassword){
@@ -200,7 +203,8 @@
                         localStorage.setItem("authUserStatus", true);
                         this.$store.commit('setUser',response.data);
                         this.$store.commit('setNumber', this.number);
-                        this.loginStatus = !this.loginStatus;
+                        this.$store.commit('changeLoginStatus',false);
+                        // this.loginStatus = !this.loginStatus;                        
                         this.btnSignStatus = false;
 
                         if(response.data.sms_code){
@@ -208,7 +212,8 @@
                         }
 
                         if(response.data.message == 'need_password'){
-                            this.passEnterStatus = !this.passEnterStatus;
+                            // this.passEnterStatus = !this.passEnterStatus;
+                            this.$store.commit('changePassStatus', true);                            
                         }
 
                         if(response.data.message == 'need_otp'){
@@ -304,7 +309,7 @@
                 this.errorPassword = false;
 
                 let fields = {
-                    'mobile_phone': '7'+this.number,
+                    'mobile_phone': '7'+this.phoneNumber,
                     'password': this.password,
                     'locale': this.$i18n.locale
                 }
@@ -312,7 +317,8 @@
                 await this.$axios.post('/auth/login/', fields)
                     .then(response =>{
                         this.btnPasswordStatus = false;
-
+                        this.number = '';
+                        this.password = '';
                         if(response.data.tradepoints){
                             this.$store.commit('setTradePoints', response.data.tradepoints)
                             localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoints));
@@ -338,7 +344,7 @@
                         }
 
 
-                    }).catch(error => {
+                    }).catch(error => {                        
                         // console.log(error.response.data.auth_fail_count)
                         if(error.response.data.auth_fail_count && error.response.data.auth_fail_count < 5){
                             this.btnPasswordStatus = false;
@@ -346,8 +352,10 @@
                             // this.showModal();
                             // this.btnPasswordStatus = true;
                         }else{
+                            this.number = '';
+                            this.password = '';
                             this.showModal();
-                            this.btnPasswordStatus = true;
+                            this.btnPasswordStatus = false;
                         }
                         // if(this.counter == 5){
                         //     this.showModal();
@@ -376,7 +384,8 @@
                         }
 
                         if(response.data.message == 'need_password'){
-                            this.passEnterStatus = !this.passEnterStatus;
+                            // this.passEnterStatus = !this.passEnterStatus;
+                            this.$store.commit('changePassStatus', false);
                         }
 
                         if(response.data.message == 'need_otp'){
@@ -417,8 +426,10 @@
             },
 
             checkNumber(number){
-                this.loginStatus = !this.loginStatus;
-                this.passEnterStatus = !this.passEnterStatus;
+                this.$store.commit('changeLoginStatus',false);
+                // this.loginStatus = !this.loginStatus;
+                // this.passEnterStatus = !this.passEnterStatus;
+                this.$store.commit('changePassStatus', true);
                 this.smsEnterStatus = !this.smsEnterStatus;
                 // console.log(number, "number");
                 this.startTimerInterval();

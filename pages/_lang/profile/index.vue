@@ -165,20 +165,19 @@
 
                     let res  = await this.$axios.$post('/auth/set-locale', fields);
 
-                    console.log("localeRes", res)
+                    // console.log("localeRes", res)
                 } catch(error){
                     console.log('error', error)
                 }
 
             },
-			async logOut(){
-
+			async logOut(){				
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
 				await this.$axios.get('/auth/logout')
 					.then(response =>{
 						$('#modal-main').modal('hide');
-						localStorage.clear();
 						this.$store.commit('resetState');
+						localStorage.clear();						
 						this.$router.push(this.$i18n.path(''))
 					}).catch(error =>{
 						console.log(error);

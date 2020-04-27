@@ -13,6 +13,8 @@ export const state = () => {
         locales: ['ru', 'kk'],
         locale: 'ru',
         langs: null,
+        loginStatus: true,
+        passEnterStatus: false
     }
 }
 
@@ -21,6 +23,12 @@ export const mutations = {
         if (state.locales.indexOf(locale) !== -1) {
             state.locale = locale
         }
+    },
+    changeLoginStatus(state, loginStatus){
+        state.loginStatus = loginStatus;
+    },
+    changePassStatus(state, passEnterStatus){
+        state.passEnterStatus = passEnterStatus;
     },
     setLangs(state, payload) {
         state.langs = payload
@@ -64,5 +72,7 @@ export const mutations = {
         state.authToken = null;
         state.numberAnketa = null;
         state.brands = null;
+        state.loginStatus = true;
+        state.passEnterStatus = false;
     }
 }

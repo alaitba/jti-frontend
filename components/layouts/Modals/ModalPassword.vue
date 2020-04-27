@@ -39,9 +39,9 @@
                 </button>
             <!-- </template>
             <template v-else> -->
-                <nuxt-link class="button button--bordered green" :to="$i18n.path('auth/recovery-login')" data-dismiss="modal">
-                    {{$t('Не помню пароль')}}
-                </nuxt-link>
+                <button type="button" class="button button--bordered green" @click="goToMain()" data-dismiss="modal">
+                    {{$t('Вернуться на Главную')}}
+                </button>
             <!-- </template> -->
         </div>
       </div>
@@ -64,6 +64,12 @@
           // this.startTimerInterval();
         },
         methods:{
+            goToMain(){
+                this.passwordTimer = 600;
+                clearInterval(this.time);
+                this.$store.commit('changeLoginStatus',true);
+                this.$store.commit('changePassStatus', false);  
+            },
             startTimer() {
                 console.log('timer password: ', this.passwordTimer);
                 if(this.passwordTimer){

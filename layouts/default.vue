@@ -15,7 +15,7 @@
       HeaderStore,      
     },
     mounted(){ 
-      console.log('route-name', this.$route.name)
+      // console.log('route-name', this.$route.name)
     },
     computed: {
       ...mapState({
