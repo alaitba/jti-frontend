@@ -34,9 +34,9 @@
 
 
             <!-- <template v-if="disabledByTimer"> -->
-                <button type="button" class="button button--green" :to="$i18n.path('auth/sigin')" :disabled="disabledByTimer" data-dismiss="modal">
+                <!-- <button type="button" class="button button--green" :to="$i18n.path('auth/sigin')" :disabled="disabledByTimer" data-dismiss="modal">
                     {{$t('Повторить попытку')}}
-                </button>
+                </button> -->
             <!-- </template>
             <template v-else> -->
                 <button type="button" class="button button--bordered green" @click="goToMain()" data-dismiss="modal">
