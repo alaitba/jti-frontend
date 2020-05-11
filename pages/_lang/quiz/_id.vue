@@ -30,18 +30,19 @@
 							<template v-if="questions.type == 'poll' && item.type == 'choice'">
 								<div class="options" v-if="item.answers">
 									<template v-for="(response, key) in item.answers">
-										<div :class="{'options__item options__item--radio': true, 'active': checkArrayData(response.id, item.selected)}">
+										<div :class="{'options__item options__item--radio': true, 'active': checkArrayData(response.id, item.selected), 'options__item--photo': response.photo}">
 			                                <label class="checkbox-container">
 			                                    <input
 			                                    	type="checkbox"
 			                                    	:value="response.id"
 			                                    	v-model="item.selected"
 			                                    >
+			                                    <img :src="response.photo" alt="" class="img" v-if="response.photo" :id="`img-${key}`">
 			                                    <span class="checkmark"></span>
 			                                    <p class="title">
 													{{
 														response.answer[$i18n.locale ==='kk' ? 'kz' : 'ru']
-													}}
+													}}													
 												</p>
 			                                </label>
 			                            </div>
@@ -66,18 +67,19 @@
 							<template v-else-if="questions.type == 'quiz'">
 								<div class="options" v-if="item.answers">
 									<template v-for="(response, key) in item.answers">
-										<div :class="{'options__item options__item--radio': true, 'active': item.selected == response.id}">
+										<div :class="{'options__item options__item--radio': true, 'active': item.selected == response.id, 'options__item--photo': response.photo}">
 			                                <label class="radiobutton-container">
 			                                    <input
 			                                    	type="radio"
 			                                    	:value="response.id"
 			                                    	v-model="item.selected"
 			                                    >
-			                                    <span class="checkmark"></span>
+			                                    <img :src="response.photo" alt="" class="img" v-if="response.photo" :id="`img-${key}`">
+			                                    <span class="checkmark"></span>			
 			                                    <p class="title">
 													{{
 														response.answer[$i18n.locale ==='kk' ? 'kz' : 'ru']
-													}}
+													}}																											
 												</p>
 			                                </label>
 			                            </div>
@@ -126,7 +128,8 @@
 				title:'',
 				text:'',
 				img:'',
-				btnText:''
+				btnText:'',
+				height: 0,
 				// quiz: [
 				//   	{
 				//       	title: "Вопрос для викторины может быть любой длинны, потому что это вопрос для викторины 1?",
@@ -213,6 +216,16 @@
 					await this.checkAnswers();
 				}
 				// console.log('arr: ', this.quiz.answers)
+			},
+			getHeightContainer (el) {
+				setTimeout(() => {
+				   	let elem = document.getElementById(`img-${el}`);			   	
+				   	if(!elem) return 10;
+				    let height = elem.clientHeight
+				    this.height = height;
+					console.log("el:", el, height)
+					return 100					
+                }, 10);
 			},
 			userResponsesLength(){
 				this.userResponses = Array(this.questions.length).fill('');

@@ -921,6 +921,9 @@ main{
 // options select
 
 .options{
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     &__item{
         margin-top: 8px;
         position: relative;
@@ -929,6 +932,7 @@ main{
         box-sizing: border-box;
         border-radius: 8px;
         cursor: pointer;
+        width: 100%;
         label{
             font-family: 'Roboto';
             font-style: normal;
@@ -985,6 +989,29 @@ main{
 				color: #969696;
 				margin-bottom: 0;
 			}
+	    }
+	    &--photo{
+	    	width: calc((100% - 16px)/2);
+	    	.checkmark{
+	    		top: auto;
+	    		bottom: 32px;
+	    	}
+	    	label{
+	    		padding-top: 0;
+			    padding-bottom: 32px;
+			    padding-left: 0;
+			    padding-right: 0;
+	    	}
+	    	.title{
+	    		font-size: 14px;
+	    		line-height: 16px;
+	    		padding-left: 36px;
+	    		padding-right: 8px;
+	    		padding-top: 8px;
+	    	}
+	    	.img{
+	    		max-width: 100%;
+	    	}
 	    }
     }
 }

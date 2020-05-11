@@ -121,17 +121,17 @@
       		},
 
       		logOut(){
-        		console.log('logout')
+        		// console.log('logout')
         		this.$nuxt.$emit('logOut', 'dadas');
       		},
 
       		tryAgain(){
-      			console.log('try again');
+      			// console.log('try again');
       			this.$nuxt.$emit('tryAgain', 'again')
       		},
 
       		subscribe(){
-        		console.log('subscribe');
+        		// console.log('subscribe');
         		this.$nuxt.$emit('onManageWebPushSubscriptionButtonClicked','dsds')
       		}
 

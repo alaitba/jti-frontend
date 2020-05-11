@@ -178,7 +178,7 @@
 						$('#modal-main').modal('hide');
 						this.$store.commit('resetState');
 						localStorage.clear();						
-						this.$router.push(this.$i18n.path(''))
+						this.$router.push('/')
 					}).catch(error =>{
 						console.log(error);
 					})
