@@ -27,8 +27,7 @@ export default async function ({ app, store, redirect, $axios }) {
   //     localStorage.clear();
   //   })
 
-    if (localStorage.getItem("authToken")) {
-        // console.log('default2',app.i18n.path)
+    if (localStorage.getItem("authToken")) {        
   	    if((localStorage.getItem("setTradePoint")=='t')){
   		    // console.log('default',localStorage.getItem("setTradePoint"))
 	        // return redirect('/')

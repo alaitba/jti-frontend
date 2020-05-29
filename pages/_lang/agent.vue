@@ -38,7 +38,7 @@
 			async sendToAgent(){
 				
 				this.btnStatus = true;
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 				try {
 					let res = await this.$axios.$get('/agent/call');

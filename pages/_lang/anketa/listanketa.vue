@@ -118,7 +118,7 @@
 					'perpage': 100,
 					'page':1
 				}
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+sessionStorage.getItem('authToken');
 
 				await this.$axios.get('/client/lead-history/', fields)
 		        .then(response =>{

@@ -151,15 +151,17 @@
 
 	          			if(response.data.status == 'ok'){
 	            			this.$store.commit('setAuthToken', response.data.token);
-	            			localStorage.setItem("authToken", response.data.token);
+	            			sessionStorage.setItem("authToken", response.data.token);
+	            			localStorage.setItem("authToken", 'token');
+	            			localStorage.setItem("authUserStatus", 'token');
 	            			this.$store.commit('setTokenStatus', true);
-	            			this.$store.commit('setUserStatus', true);
+	            			this.$store.commit('setUserStatus', 'token');
 	            			if(response.data.message=='authorized'){
 	              				localStorage.setItem("setTradePoint", 't');
 	              				localStorage.setItem("tradepoint", JSON.stringify(response.data.tradepoint));
 	              				localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoint));
-	              				localStorage.setItem('account',JSON.stringify(response.data.account));
-	              				localStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));
+	              				sessionStorage.setItem('account',JSON.stringify(response.data.account));
+	              				sessionStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));
 	              				this.$router.push(this.$i18n.path(''));
 	            			} else if(response.data.message=='need_tradepoint'){
 	              				localStorage.setItem("setTradePoint", 'f');

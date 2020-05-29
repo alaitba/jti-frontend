@@ -166,7 +166,7 @@
 				}
 
 				this.btnStatus = true;
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+sessionStorage.getItem('authToken');
 		        if(localStorage.getItem('client_data') != null && localStorage.getItem('client_data')!=''){
 		          console.log('client_data1:', JSON.parse(localStorage.getItem('client_data')));
 		          localStorage.setItem('client_data', '');
@@ -179,7 +179,7 @@
 						this.sms_code = response.data.sms_code;
 						this.btnStatus = false;
 						this.$store.commit('setNumberAnketa', response.data.mobile_phone);
-						localStorage.setItem("anketaNumber", response.data.mobile_phone);
+						sessionStorage.setItem("anketaNumber", response.data.mobile_phone);
 						if(response.data.client_data !=null){
 							localStorage.setItem('client_data', JSON.stringify(response.data.client_data))
               				console.log('client_data2:', JSON.parse(localStorage.client_data));
@@ -238,7 +238,7 @@
 			        'sms_code': this.permanentPassword,
 			    }
 
-			    this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
+			    this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+sessionStorage.getItem('authToken');
 			    if(this.permanentPassword.length==4){
 		        	this.errorPermanenetPassword = false;
 		        	// this.$router.push('/anketa/createanketa/fillform')
@@ -260,7 +260,7 @@
 					'mobile_phone': '+7'+this.number,
 					'legal_age': this.checkBox
 				}
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+sessionStorage.getItem('authToken');
 
 		      	await this.$axios.post('/client/send-sms/', fields)
 		        .then(response =>{

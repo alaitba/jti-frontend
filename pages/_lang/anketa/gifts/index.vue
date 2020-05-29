@@ -196,7 +196,7 @@
 
 			async getBalance(){
 
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 				await this.$axios.get('/rewards/balance')
 					.then(response =>{
@@ -210,7 +210,7 @@
 
 			async getPrizes(){
 
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 				await this.$axios.get('/rewards/available')
 					.then(response =>{
@@ -226,7 +226,7 @@
 
 			async getGiftsHistory(){
 
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 				try{
 

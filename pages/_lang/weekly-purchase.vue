@@ -264,7 +264,7 @@
 			// выходные и праздничные дни
 			async getHolidays(){
 
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 				try{
 
@@ -303,7 +303,7 @@
 					'weekdays': this.calendarConfigs.disabledDayNames
 				}
 
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 				try{
 
@@ -319,7 +319,7 @@
 			// получает план торговой точки
 			async getStoreData(value, status){
 
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 				try{
 

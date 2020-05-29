@@ -93,8 +93,7 @@
 				newsItem : ''
 			}
 		},
-		mounted(){
-			console.log('route',this.$route.params.id);
+		mounted(){			
 			this.getNewsItem(this.$route.params.id)
 		},
 		methods:{
@@ -107,8 +106,7 @@
 
 						this.newsItem = arr[i];
 					}
-				}
-				console.log('newsItem: ', this.newsItem);
+				}				
 				this.loaderStatus = false;
 			}
 		}

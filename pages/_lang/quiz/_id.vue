@@ -247,7 +247,7 @@
             },
 		    async getQuestions(id){
 
-		    	this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+		    	this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 		    	try{
 
@@ -285,7 +285,7 @@
 		    },
 		    async checkAnswers(){
 
-		    	this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+		    	this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 		    	this.loaderStatus = true;
 

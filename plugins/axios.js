@@ -12,6 +12,7 @@ export default function ({ $axios, redirect, app, store }) {
         if (code === 401) {
             store.commit('resetState');
             localStorage.clear();
+            sessionStorage.clear();
             redirect('/auth/signin')
         }
         // if (code === 403) {

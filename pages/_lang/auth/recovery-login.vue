@@ -134,12 +134,12 @@
             async sendRecoveryNumber() {
 
                 let fields = {
-                    'mobile_phone': JSON.parse(localStorage.getItem("authUser")).mobile_phone,
+                    'mobile_phone': JSON.parse(sessionStorage.getItem("authUser")).mobile_phone,
                 }
               // console.log(fields,'fields')
                 await this.$axios.post('/auth/reset/phone/', fields)
                 .then(response =>{
-                    localStorage.setItem("authUser", JSON.stringify(response.data));
+                    sessionStorage.setItem("authUser", JSON.stringify(response.data));
                     localStorage.setItem("authUserStatus", true);
                     this.$store.commit('setUser',response.data);
                     this.$store.commit('setNumber', this.number);
@@ -185,7 +185,7 @@
             async sendRecoverySms() {
                 // console.log('here')
                 let fields = {
-                    'mobile_phone': JSON.parse(localStorage.getItem("authUser")).mobile_phone,
+                    'mobile_phone': JSON.parse(sessionStorage.getItem("authUser")).mobile_phone,
                     'sms_code': this.recoveryPermanentPassword,
                 }
                 if(this.recoveryPermanentPassword.length==4){
@@ -217,7 +217,7 @@
 
 
               let fields = {
-                  'mobile_phone': JSON.parse(localStorage.getItem("authUser")).mobile_phone,
+                  'mobile_phone': JSON.parse(sessionStorage.getItem("authUser")).mobile_phone,
               }
               // console.log(fields,'fields')
               await this.$axios.post('/auth/reset/phone/', fields)
@@ -266,7 +266,7 @@
 
             async sendRecoveryPassword() {
                 let fields = {
-                    'mobile_phone': JSON.parse(localStorage.getItem("authUser")).mobile_phone,
+                    'mobile_phone': JSON.parse(sessionStorage.getItem("authUser")).mobile_phone,
                     'password': this.password,
                     'password_check': this.newPassword
                 }
@@ -279,7 +279,7 @@
                         // console.log('tradepoints',response.data.tradepoints)
                     }
                     if(response.data.status == 'ok'){
-                        localStorage.setItem("authToken", response.data.token);
+                        sessionStorage.setItem("authToken", response.data.token);
                         if(response.data.message=='authorized'){
                           this.$router.push('/')
                         } else {

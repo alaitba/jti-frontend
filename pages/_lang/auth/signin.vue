@@ -204,12 +204,12 @@
         },
         methods:{
             submit(){
-                console.log(this.$refs.invisibleRecaptcha)
+                // console.log(this.$refs.invisibleRecaptcha)
                 // this.$refs.invisibleRecaptcha.reset();
                 this.$refs.invisibleRecaptcha.execute();
             },
             async onVerify(response) {
-                console.log('response', response)
+                // console.log('response', response)
                 // this.response = response;
                 if (response) {
                     this.response = response;
@@ -231,8 +231,8 @@
 
                 await this.$axios.post('/auth/phone/', fields)
                     .then(response =>{
-                        localStorage.setItem("authUser", JSON.stringify(response.data));
-                        localStorage.setItem("authUserStatus", true);
+                        sessionStorage.setItem("authUser", JSON.stringify(response.data));
+                        // localStorage.setItem("authUserStatus", true);
                         this.$store.commit('setUser',response.data);
                         this.$store.commit('setNumber', this.number);
                         this.$store.commit('changeLoginStatus',false);
@@ -358,16 +358,18 @@
                         }
 
                         if(response.data.status == 'ok'){
-                            this.$store.commit('setUserStatus', true);
+                            this.$store.commit('setUserStatus', 'token');
                             this.$store.commit('setAuthToken', response.data.token);
                             this.$store.commit('setTokenStatus', true);
-                            localStorage.setItem("authToken", response.data.token);
+                            localStorage.setItem("authUserStatus", 'token');
+                            sessionStorage.setItem("authToken", response.data.token);
+                            localStorage.setItem("authToken", 'token');
                             if(response.data.message=='authorized'){
                                 localStorage.setItem("setTradePoint", 't');
                                 localStorage.setItem("tradepoint", JSON.stringify(response.data.tradepoint));
                                 localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoint));
-                                localStorage.setItem('account',JSON.stringify(response.data.account));
-                                localStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));
+                                sessionStorage.setItem('account',JSON.stringify(response.data.account));
+                                sessionStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));
                                 this.$router.push(this.$i18n.path(''));
                             } else if(response.data.message=='need_tradepoint'){
                                 localStorage.setItem("setTradePoint", 'f');

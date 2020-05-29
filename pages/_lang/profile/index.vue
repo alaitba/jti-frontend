@@ -113,13 +113,13 @@
 		data(){
 			return{
 				profile: {
-					name: localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')).last_name + ' ' + JSON.parse(localStorage.getItem('account')).first_name + ' ' + JSON.parse(localStorage.getItem('account')).middle_name : '',
-					tel: localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')).mobile_phone : '',
+					name: sessionStorage.getItem('account') ? JSON.parse(sessionStorage.getItem('account')).last_name + ' ' + JSON.parse(sessionStorage.getItem('account')).first_name + ' ' + JSON.parse(sessionStorage.getItem('account')).middle_name : '',
+					tel: sessionStorage.getItem('account') ? JSON.parse(sessionStorage.getItem('account')).mobile_phone : '',
 					tradepoint: localStorage.getItem('tradepoint') ? 'Магазин "' + JSON.parse(localStorage.getItem('tradepoint')).account_name + '" ' + ' г.' + JSON.parse(localStorage.getItem('tradepoint')).city + ', ' + JSON.parse(localStorage.getItem('tradepoint')).street_address: '',
 				},
 				tradeagent:{
-					name: localStorage.getItem('tradeagent') ? JSON.parse(localStorage.getItem('tradeagent')).employee_name : '',
-					tel: localStorage.getItem('tradeagent') ? JSON.parse(localStorage.getItem('tradeagent')).phone : '',
+					name: sessionStorage.getItem('tradeagent') ? JSON.parse(sessionStorage.getItem('tradeagent')).employee_name : '',
+					tel: sessionStorage.getItem('tradeagent') ? JSON.parse(sessionStorage.getItem('tradeagent')).phone : '',
 				},
 				title: '',
 				text: '',
@@ -129,8 +129,7 @@
 			}
 		},
 		mounted(){
-			this.$nuxt.$on('logOut',this.logOut);
-			// console.log('i18b', this.$i18n)
+			this.$nuxt.$on('logOut',this.logOut);			
 		},
 		methods:{
 			showModal(modal){
@@ -156,7 +155,7 @@
 
             async changeLocale(locale){
 
-                this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+                this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
                 let fields = {
                     'locale': locale.length ? locale : 'ru'
@@ -172,12 +171,13 @@
 
             },
 			async logOut(){				
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 				await this.$axios.get('/auth/logout')
 					.then(response =>{
 						$('#modal-main').modal('hide');
 						this.$store.commit('resetState');
-						localStorage.clear();						
+						localStorage.clear();
+						sessionStorage.clear();						
 						this.$router.push('/')
 					}).catch(error =>{
 						console.log(error);

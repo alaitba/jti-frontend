@@ -327,7 +327,7 @@
 		methods:{
 
 			async getPlanFact(){
-				this.$axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("authToken");
+				this.$axios.defaults.headers.common['Authorization'] = "Bearer " + sessionStorage.getItem("authToken");
 
 				try {
 
@@ -347,6 +347,8 @@
 
 			async getHistory(){
 
+				this.$axios.defaults.headers.common['Authorization'] = "Bearer " + sessionStorage.getItem("authToken");
+
 				try {
 
 					let res = await this.$axios.$get('/plan-fact/history');
@@ -354,6 +356,7 @@
 					// console.log(res.data);
 
 					this.history = res.data;
+					
 				} catch(error){
 
 					// console.log('error', error.response)

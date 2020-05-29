@@ -289,7 +289,7 @@
 				options: {},
 				brands: [],
 				// selectedBrand:'',
-				anketaNumber : localStorage.getItem("anketaNumber"),
+				anketaNumber : sessionStorage.getItem("anketaNumber"),
 				number:'',
 				title:'',
 				text:'',
@@ -359,7 +359,7 @@
 
 			async getProducts() {
 
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 				await this.$axios.get('/dict/tobacco-products/')
 		        .then(response =>{
@@ -401,7 +401,7 @@
 		    	}
 
 		    	this.smsBtnStatus = true;
-		    	this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
+		    	this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+sessionStorage.getItem('authToken');
 
 		    	await this.$axios.post('/client/create-lead/', fields)
 		    		.then(response =>{
@@ -437,7 +437,7 @@
 					'self': ''
 				}
 			
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+sessionStorage.getItem('authToken');
 
 				await this.$axios.post('/client/create-lead/', fields)
 			        .then(response =>{

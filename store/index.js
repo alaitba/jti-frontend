@@ -1,7 +1,7 @@
 export const state = () => {
     return {
         auth: JSON.parse(localStorage.getItem("authUser")) ? JSON.parse(localStorage.getItem("authUser")) : null,
-        authStatus: false,
+        authStatus: localStorage.getItem("authUserStatus") ? localStorage.getItem("authUserStatus") : null,
         number: null,
         tradepoints: JSON.parse(localStorage.getItem("tradePoints")) ? JSON.parse(localStorage.getItem("tradePoints")) : null,
         selectedTradePoint: null,
@@ -65,7 +65,7 @@ export const mutations = {
     },
     resetState (state) {
         state.auth = null;
-        state.authStatus = false;
+        state.authStatus = null;
         state.number = null;
         state.tradepoints = null;
         state.setTradePoint = null;

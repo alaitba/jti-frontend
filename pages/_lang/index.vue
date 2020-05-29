@@ -176,7 +176,8 @@
     									</span>
     									<span class="green">
     										<!-- 3 000 из 10 000 -->
-    										<template v-if="$i18n.locale ==='ru'">    		{{reports[reportsId].fact_portfolio}} из {{reports[reportsId].plan_portfolio}}
+    										<template v-if="$i18n.locale ==='ru'">
+    											{{reports[reportsId].fact_portfolio}} из {{reports[reportsId].plan_portfolio}}
     										</template>
     										<template v-if="$i18n.locale ==='kk'">
     											{{reports[reportsId].fact_portfolio}}/{{reports[reportsId].plan_portfolio}}
@@ -387,7 +388,7 @@
 
 	    	_this.getMainBanner();
 
-	    	let interval1= setInterval(
+	    	let interval1 = setInterval(
                 () => {
                     if($('#modal-main').length > 0) {
                         clearInterval(interval1);
@@ -500,7 +501,7 @@
 
 	    		let data  = JSON.parse(localStorage.getItem("news")) ? JSON.parse(localStorage.getItem("news"))[0].created_at : 1;
 
-	    		this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+	    		this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 	    		await this.$axios.get('/news?from_date=' + data)
 	    			.then(response =>{
@@ -536,7 +537,7 @@
 	    	},
 
 	    	async getPlanFact(){
-				this.$axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("authToken");
+				this.$axios.defaults.headers.common['Authorization'] = "Bearer " + sessionStorage.getItem("authToken");
 
 				try {
 
@@ -557,7 +558,7 @@
 
 			async getMainBanner(){
 
-				this.$axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("authToken");
+				this.$axios.defaults.headers.common['Authorization'] = "Bearer " + sessionStorage.getItem("authToken");
 
 				try {
 
@@ -583,7 +584,7 @@
 		          'push_token': userId
 		        }
 
-		        this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+		        this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 		        try{
 

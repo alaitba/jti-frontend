@@ -65,7 +65,7 @@
 					'account_code': this.selected,
 				}
 
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
 				try{
 					let res = await this.$axios.$post('/auth/set-tradepoint', fields
@@ -73,8 +73,8 @@
 						// console.log(res,'res')
 						localStorage.setItem("setTradePoint", 't');
 						localStorage.setItem("tradepoint", JSON.stringify(res.tradepoint));
-						localStorage.setItem('account',JSON.stringify(res.account));
-			            localStorage.setItem('tradeagent',JSON.stringify(res.tradeagent));
+						sessionStorage.setItem('account',JSON.stringify(res.account));
+			            sessionStorage.setItem('tradeagent',JSON.stringify(res.tradeagent));
 						this.$router.push(this.$i18n.path(''));
 				} catch(err){
 					if(err.response.data == "Unauthorized."){

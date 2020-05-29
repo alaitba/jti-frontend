@@ -145,7 +145,7 @@
       		async sendPassword() {
 
 	        let fields = {
-	        	'mobile_phone': JSON.parse(localStorage.getItem("authUser")).mobile_phone,
+	        	'mobile_phone': JSON.parse(sessionStorage.getItem("authUser")).mobile_phone,
 	          	'password': this.password,
 	          	'password_check': this.newPassword,
                 'locale': this.$i18n.locale
@@ -164,14 +164,16 @@
             		if(response.data.status == 'ok'){
               			this.$store.commit('setAuthToken', response.data.token);
               			this.$store.commit('setTokenStatus', true);
-              			localStorage.setItem("authToken", response.data.token);
-              			this.$store.commit('setUserStatus', true);
+              			sessionStorage.setItem("authToken", response.data.token);
+                        localStorage.setItem("authToken", 'token');
+              			this.$store.commit('setUserStatus', 'token');
+                        localStorage.setItem("authUserStatus", 'token');
               			if(response.data.message=='authorized'){
                 			localStorage.setItem("setTradePoint", 't');
 			                localStorage.setItem("tradepoint", JSON.stringify(response.data.tradepoint));
 			                localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoint));
-			                localStorage.setItem('account',JSON.stringify(response.data.account));
-			                localStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));
+			                sessionStorage.setItem('account',JSON.stringify(response.data.account));
+			                sessionStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));
 			                this.$router.push(this.$i18n.path(''));
               			} else if(response.data.message=='need_tradepoint'){
                 			localStorage.setItem("setTradePoint", 'f');
