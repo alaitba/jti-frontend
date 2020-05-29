@@ -9,7 +9,7 @@
 
                 <!-- component login -->
                 <div class="auth-section__form" v-if="loginStatus">
-                    <form @submit.prevent="authBtn">
+                    <form @submit.prevent="submit">
                         <label for="" class="title__label">
                             {{$t('Введите номер телефона')}}
                         </label>
@@ -29,9 +29,20 @@
                                 </label>
                             </div>
                         </div>
+                        <!-- <div class="form-group">
+                            
+                        </div> -->
                         <button class="button button--green" type="submit" :disabled="number.length<10 || btnSignStatus">
                             {{$t('Далее')}}
                         </button>
+                        <vue-recaptcha                             
+                            @verify="onVerify" 
+                            @expired="onExpired" 
+                            ref="invisibleRecaptcha" 
+                            size="invisible" 
+                            :sitekey="sitekey"
+                        >                                
+                        </vue-recaptcha>
                         <!-- <button class="button button--green"  @click="showModal()">
                             Далее
                         </button> -->
@@ -134,6 +145,8 @@
     import {TheMask} from 'vue-the-mask'
     import {mapState, mapMutations} from 'vuex'
 
+    import VueRecaptcha from 'vue-recaptcha';
+
     export default {
         layout: 'auth',
         components: {
@@ -141,12 +154,15 @@
             TheMask,
             HeaderAuth,
             ModalPassword,
-            ModalMain
+            ModalMain,
+            VueRecaptcha
         },
         data() {
             return{
                 // loginStatus : true,
                 // passEnterStatus: false,
+                sitekey: '6Lde8vkUAAAAAPbi_7yFommRwz2frkaSlYoiKbRm',
+                response: '',
                 smsEnterStatus: false,
                 number:'',
                 password: '',
@@ -187,11 +203,27 @@
             // }
         },
         methods:{
-
+            submit(){
+                console.log(this.$refs.invisibleRecaptcha)
+                // this.$refs.invisibleRecaptcha.reset();
+                this.$refs.invisibleRecaptcha.execute();
+            },
+            async onVerify(response) {
+                console.log('response', response)
+                // this.response = response;
+                if (response) {
+                    this.response = response;
+                    await this.authBtn();
+                }
+            },
+            onExpired: function () {
+                console.log('Expired')
+            },
             async authBtn() {
 
                 let fields = {
                     'mobile_phone': '7'+this.number,
+                    'captcha': this.response,
                 }
 
                 this.btnSignStatus = true;

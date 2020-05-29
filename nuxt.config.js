@@ -33,6 +33,7 @@ module.exports = {
       { src:'/libs/signature_pad.min.js'},
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js'},
       { src:'https://cdn.jsdelivr.net/npm/moment-weekday-calc@1.1.4/src/moment-weekday-calc.js'},
+      { src: "https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit", async: true, defer: true},
       {
         src:"https://cdn.jsdelivr.net/npm/pwacompat@2.0.6/pwacompat.min.js",
         integrity:"sha384-GOaSLecPIMCJksN83HLuYf9FToOiQ2Df0+0ntv7ey8zjUHESXhthwvq9hXAZTifA",
