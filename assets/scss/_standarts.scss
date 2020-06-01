@@ -981,6 +981,9 @@ main{
 				color: #217461;
 				margin-bottom: 0;
 				word-break: break-all;
+				&--break-word {
+					word-break: break-word;
+				}
 			}
 			.address{
 				font-weight: normal;
