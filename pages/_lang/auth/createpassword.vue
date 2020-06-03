@@ -133,7 +133,7 @@
 	  	methods:{
 	    	async sendPassword() {
 	      		let fields = {
-	        		'mobile_phone': JSON.parse(localStorage.getItem("authUser")).mobile_phone,
+	        		'mobile_phone': JSON.parse(sessionStorage.getItem("authUser")).mobile_phone,
 	        		'password': this.password,
 	        		'password_check': this.newPassword,
                     'locale': this.$i18n.locale
