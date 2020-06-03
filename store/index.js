@@ -14,7 +14,8 @@ export const state = () => {
         locale: 'ru',
         langs: null,
         loginStatus: true,
-        passEnterStatus: false
+        passEnterStatus: false,
+        subscribeStatus: localStorage.getItem('subscribeStatus') ? JSON.parse(localStorage.getItem('subscribeStatus')) : true,
     }
 }
 
@@ -41,6 +42,9 @@ export const mutations = {
     },
     setUserStatus (state,authStatus) {
         state.authStatus = authStatus
+    },
+    setSubscribeStatus (state, subscribeStatus){
+        state.subscribeStatus = subscribeStatus
     },
     setNumber (state, number) {
       	state.number = number

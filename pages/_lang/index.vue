@@ -391,9 +391,9 @@
 	    	let interval1 = setInterval(
                 () => {
                     if($('#modal-main').length > 0) {
-                        clearInterval(interval1);
-                        // console.log('1');
-	                    if(_this.modalStatus && _this.mobileOs){
+                        clearInterval(interval1);                        
+                        // console.log('1', _this.subscribeStatus, _this.mobileOs);
+	                    if(_this.subscribeStatus && _this.mobileOs){
 	                    	_this.showSubscribe();
 	                    }
                     }
@@ -414,13 +414,13 @@
 
 		        OneSignal.isPushNotificationsEnabled(function(isEnabled) {
 				    if (isEnabled){
-				    	_this.modalStatus = false;
-		          		localStorage.setItem('modalStatus', false);
+				    	_this.$store.commit('setSubscribeStatus', false);
+						localStorage.setItem('subscribeStatus', false);
 				      	console.log("Push notifications are enabled!");
 				    }
 				    else{
-				    	_this.modalStatus = true;
-		          		localStorage.setItem('modalStatus', true);
+				    	_this.$store.commit('setSubscribeStatus', true);
+						localStorage.setItem('subscribeStatus', true);
 				      	console.log("Push notifications are not enabled yet.");
 				    }
 				});
@@ -429,8 +429,8 @@
 		        	console.log('supported')
 		            console.log('isSubscribed: ', isSubscribed)
 		          	if(isSubscribed){
-		          		_this.modalStatus = false;
-		          		localStorage.setItem('modalStatus', false);
+		          		_this.$store.commit('setSubscribeStatus', false);
+						localStorage.setItem('subscribeStatus', false);
 		            	OneSignal.getUserId( function(userId) {
 		                	console.log('userId:', userId)
 		                	// let userId = userId
@@ -448,6 +448,7 @@
 	    computed: {
 	      	...mapState({
 	        	tradepoint: state => state.tradepoint,
+	        	subscribeStatus: state => state.subscribeStatus
 	      	}),
 	      	computedNumberPlan(){
 				return parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio) > 0 ?   parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio) * 100 > 100 ? 99.99 :  parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio)*100 : 0
@@ -489,7 +490,7 @@
 		    },
 
 	    	showSubscribe(){
-	    		// console.log('adas');
+	    		if(!this.$t('Отправлять уведомления')) return;
     			this.title = this.$t('Отправлять уведомления')
     			this.text = this.$t('Разрешите отправлять уведомления об изменениях статусов анкет, пополнения баланса и тд.')
     			this.img = 'bell-green';
@@ -614,6 +615,8 @@
 			onManageWebPushSubscriptionButtonClicked(){
 				// console.log('asdasd')
 				this.modalStatus = false;
+				this.$store.commit('setSubscribeStatus', false);
+				localStorage.setItem('subscribeStatus', false);
 				$('#modal-main').modal('hide');
 				this.getSubscriptionState().then(function(state) {
 
