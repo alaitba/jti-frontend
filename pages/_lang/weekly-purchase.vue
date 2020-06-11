@@ -131,7 +131,7 @@
 				planData:'',
 				amountDays:'',
 				weekEnds: '',
-				currentData: localStorage.getItem('lastUpdated') ? localStorage.getItem('lastUpdated') : '',
+				// currentData: localStorage.getItem('lastUpdated') ? localStorage.getItem('lastUpdated') : '',
 				calendarConfigs: {
 	                sundayStart: false,
 	                isDatePicker: false,

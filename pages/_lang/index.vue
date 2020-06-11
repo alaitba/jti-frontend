@@ -546,9 +546,11 @@
 
 					this.reports = res.data;
 
+					// console.log(res.data, 'plan')
+
 					// this.loaderStatus = false;
 
-					localStorage.setItem('lastUpdated', res.lastUpdated);
+					// localStorage.setItem('lastUpdated', res.lastUpdated);
 
 					// console.log(this.reports,this.reportsId);
 				} catch(error){

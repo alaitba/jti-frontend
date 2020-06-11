@@ -104,7 +104,7 @@
 	  	},
 	  	computed: {
 	    	...mapState({
-	      		number: state => state.number,
+	      		phoneNumber: state => state.number,
 	    	}),
 	  		checkPassword() {
 	  			if(this.passwordsFilled){
@@ -133,7 +133,7 @@
 	  	methods:{
 	    	async sendPassword() {
 	      		let fields = {
-	        		'mobile_phone': JSON.parse(sessionStorage.getItem("authUser")).mobile_phone,
+	        		'mobile_phone': '7'+this.phoneNumber,
 	        		'password': this.password,
 	        		'password_check': this.newPassword,
                     'locale': this.$i18n.locale

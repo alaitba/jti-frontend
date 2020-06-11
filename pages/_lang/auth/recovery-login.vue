@@ -122,6 +122,7 @@
         computed: {
             ...mapState({
               auth: state => state.auth,
+              phoneNumber: state =>state.number,
             })
         },
         mounted(){
@@ -134,7 +135,7 @@
             async sendRecoveryNumber() {
 
                 let fields = {
-                    'mobile_phone': JSON.parse(sessionStorage.getItem("authUser")).mobile_phone,
+                    'mobile_phone': '7'+this.phoneNumber,
                 }
               // console.log(fields,'fields')
                 await this.$axios.post('/auth/reset/phone/', fields)
@@ -185,7 +186,7 @@
             async sendRecoverySms() {
                 // console.log('here')
                 let fields = {
-                    'mobile_phone': JSON.parse(sessionStorage.getItem("authUser")).mobile_phone,
+                    'mobile_phone': '7'+this.phoneNumber,
                     'sms_code': this.recoveryPermanentPassword,
                 }
                 if(this.recoveryPermanentPassword.length==4){
@@ -217,7 +218,7 @@
 
 
               let fields = {
-                  'mobile_phone': JSON.parse(sessionStorage.getItem("authUser")).mobile_phone,
+                  'mobile_phone': '7'+this.phoneNumber,
               }
               // console.log(fields,'fields')
               await this.$axios.post('/auth/reset/phone/', fields)
@@ -266,7 +267,7 @@
 
             async sendRecoveryPassword() {
                 let fields = {
-                    'mobile_phone': JSON.parse(sessionStorage.getItem("authUser")).mobile_phone,
+                    'mobile_phone': '7'+this.phoneNumber,
                     'password': this.password,
                     'password_check': this.newPassword
                 }

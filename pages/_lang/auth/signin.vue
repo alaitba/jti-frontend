@@ -231,7 +231,8 @@
 
                 await this.$axios.post('/auth/phone/', fields)
                     .then(response =>{
-                        sessionStorage.setItem("authUser", JSON.stringify(response.data));
+                        // sessionStorage.setItem("authUser", JSON.stringify(response.data));
+                        sessionStorage.setItem("mobile_phone", this.number);
                         // localStorage.setItem("authUserStatus", true);
                         this.$store.commit('setUser',response.data);
                         this.$store.commit('setNumber', this.number);
@@ -404,7 +405,7 @@
             async sendSmsAgain() {
 
                 let fields = {
-                    'mobile_phone': '7'+this.number,
+                    'mobile_phone': '7'+this.phoneNumber,
                 }
                 // console.log(fields,'fields')
                 await this.$axios.post('/auth/phone/', fields)

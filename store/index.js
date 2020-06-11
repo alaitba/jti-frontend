@@ -1,8 +1,8 @@
 export const state = () => {
     return {
-        auth: JSON.parse(localStorage.getItem("authUser")) ? JSON.parse(localStorage.getItem("authUser")) : null,
+        auth: JSON.parse(sessionStorage.getItem("authUser")) ? JSON.parse(sessionStorage.getItem("authUser")) : null,
         authStatus: localStorage.getItem("authUserStatus") ? localStorage.getItem("authUserStatus") : null,
-        number: null,
+        number: sessionStorage.getItem("mobile_phone") ? sessionStorage.getItem("mobile_phone") : null,
         tradepoints: JSON.parse(localStorage.getItem("tradePoints")) ? JSON.parse(localStorage.getItem("tradePoints")) : null,
         selectedTradePoint: null,
         authToken: localStorage.getItem("authToken") ? localStorage.getItem("authToken") : null,
