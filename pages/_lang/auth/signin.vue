@@ -301,7 +301,7 @@
             async sendSms() {
 
                 let fields = {
-                    'mobile_phone': '7'+this.number,
+                    'mobile_phone': '7'+this.phoneNumber,
                     'sms_code': this.permanentPassword,
                 }
                 // console.log('sendSms',this.permanentPassword.length)
@@ -411,7 +411,7 @@
                 await this.$axios.post('/auth/phone/', fields)
                     .then(response =>{
                         this.$store.commit('setUser',response.data);
-                        this.$store.commit('setNumber', this.number);
+                        // this.$store.commit('setNumber', this.number);
                         this.smsEnterStatus = true;
 
                         if(response.data.sms_code){

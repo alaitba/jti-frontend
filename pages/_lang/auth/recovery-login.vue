@@ -134,16 +134,18 @@
 
             async sendRecoveryNumber() {
 
+                // console.log(this.phoneNumber,'phoneNumber')
+
                 let fields = {
                     'mobile_phone': '7'+this.phoneNumber,
                 }
-              // console.log(fields,'fields')
+                // console.log(fields,'fields')
                 await this.$axios.post('/auth/reset/phone/', fields)
                 .then(response =>{
                     sessionStorage.setItem("authUser", JSON.stringify(response.data));
                     localStorage.setItem("authUserStatus", true);
                     this.$store.commit('setUser',response.data);
-                    this.$store.commit('setNumber', this.number);
+                    // this.$store.commit('setNumber', this.number);
                     // console.log(this.$store.state.auth,'data')
                     this.recoveryNumberStatus = !this.recoveryNumberStatus;
                     this.startTimerInterval();
@@ -185,6 +187,7 @@
 
             async sendRecoverySms() {
                 // console.log('here')
+                // console.log(this.phoneNumber,'phoneNumber')
                 let fields = {
                     'mobile_phone': '7'+this.phoneNumber,
                     'sms_code': this.recoveryPermanentPassword,
@@ -321,7 +324,7 @@
             },
 
             startTimerInterval(){
-                console.log('hello');
+                // console.log('hello');
                 // clearInterval(this.time);
                 this.time = setInterval(() =>{
                     this.startTimer();
