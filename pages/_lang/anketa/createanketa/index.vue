@@ -9,10 +9,11 @@
                 {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
             </p>
         </div>
-		<div class="auth-section" style="display: none;">
+		<div class="auth-section">
 	    	<div class="container">
 	        	<!-- component number -->
 		        <div class="auth-section__form" v-if="numberStatus">
+	        	<!-- <div class="auth-section__form" v-if="true"> -->
 		        	<form @submit.prevent="sendNumber">
 			            <label for="" class="title__label">
 			            	{{$t('Введите номер телефона покупателя, чтобы отправить код подтверждения')}}
@@ -123,6 +124,7 @@
 
 		data() {
 			return {
+				// numberStatus: false,
 				numberStatus: false,
 				smsEnterStatus: false,
 				errorPermanenetPassword: false,
@@ -135,21 +137,22 @@
 				footerStatus: true,
 				sms_code:'',
 
-				// for modals
-			  title:'',
+					// for modals
+				title:'',
 				number: '',
-			  text:'',
-			  img:'',
-			  tel:'',
+				text:'',
+				img:'',
+				tel:'',
 
-			    // btnstatus
+				    // btnstatus
 
-		    btnStatus: false,
+			    btnStatus: false,
 			}
 		},
 		computed: {
 		    ...mapState({
 		      auth: state => state.auth,
+		      phoneNumber: state => state.number,
 		      authToken: state => state.authToken,
 		    }),
 		},
@@ -173,6 +176,7 @@
 		        }
 				await this.$axios.post('/client/send-sms/', fields)
 					.then(response =>{
+						// this.numberStatus = !this.numberStatus;
 						this.numberStatus = !this.numberStatus;
 						this.footerStatus = !this.footerStatus;
 						this.smsEnterStatus = !this.smsEnterStatus;

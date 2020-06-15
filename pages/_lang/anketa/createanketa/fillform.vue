@@ -134,15 +134,15 @@
 					            		</multiselect>
 					            	
 					            </div> -->
-					            <label for="" class="title__label" v-if="!getFilledAnketa">
+					            <!-- <label for="" class="title__label" v-if="!getFilledAnketa">
 					            	{{$t('Подпись покупателя')}}
 					            </label>
 					            <div class="form-group" v-if="!getFilledAnketa"> 
 					              	<div class="form-group__wrapper form-group__wrapper--grey" @click="showModal('modal-agreement')" v-if="!field.img">
-						                <!-- <input type="text" :class="{'form__input': true, 'error' : false }" placeholder=" " v-model="field.firstName" >
+						                <input type="text" :class="{'form__input': true, 'error' : false }" placeholder=" " v-model="field.firstName" >
 						                <label for="input" class="form__label">
 						                  Имя
-						                </label>   -->
+						                </label>  
 						              </div>
 					              	<div class="form-group__wrapper form-group__wrapper--grey" :style="{'background-image' : 'url(' +field.img+ ')'}" v-if="field.img">
 					              	
@@ -154,18 +154,27 @@
 					            	<p class="content">
 					            		{{$t('В случае несоответствия данных потребителя, он может изменить данные самостоятельно на сайте realday.kz')}}
 					            	</p>
-					            </div>
+					            </div> -->
 								
-								<template v-if="!getFilledAnketa">
+								<!-- <template v-if="!getFilledAnketa">
 									<button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.img.length || !field.selectedBrand.length || !ageValidate || anketaBtnStatus">
 						              {{$t('Сохранить анкету')}}
 						            </button>
-								</template>	
-								<template v-else>
+								</template>	 -->
+
+
+								<!-- discleimer -->
+
+								<div class="form-group mb-32">
+					            	<p class="content">
+					            		{{$t('discleimer')}}
+					            	</p>
+					            </div>
+								<!-- <template v-else> -->
 									<button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.selectedBrand.length || !ageValidate || anketaBtnStatus">
 						              {{$t('Сохранить анкету')}}
 						            </button>
-								</template>				            
+								<!-- </template>				             -->
 					            <!-- <button class="button button--green"  @click="showModal()">
 					              Далее
 					            </button> -->
@@ -179,7 +188,7 @@
 							<p class="head__title">
 								{{$t('Номер телефона покупателя')}} <br>
 								<span v-if="anketaNumber">
-									+{{anketaNumber | formatNumber}}.
+									+{{anketaNumber | formatNumber}}
 								</span>
 							</p>
 						</div>
