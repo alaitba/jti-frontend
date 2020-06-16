@@ -1,7 +1,7 @@
 <template>
 	<main class="page page--grey page--block">
 		<!-- <header-auth/>		 -->
-        <template  v-if="phoneNumber == '7073222207' || phoneNumber == '7059521623' || phoneNumber == '7017540038' || phoneNumber == '7477800068' || phoneNumber == '7085222707' || phoneNumber == '7471748557'">        
+        <template  v-if="phoneNumber == '7073222207' || phoneNumber == '7059521623' || phoneNumber == '7017540038' || phoneNumber == '7477800068' || phoneNumber == '7085222707' || phoneNumber == '7471748557' || phoneNumber == '7000000760'">        
 			<div class="auth-section">
 		    	<div class="container">
 		        	<!-- component number -->
@@ -174,7 +174,7 @@
 				this.btnStatus = true;
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+sessionStorage.getItem('authToken');
 		        if(localStorage.getItem('client_data') != null && localStorage.getItem('client_data')!=''){
-		          console.log('client_data1:', JSON.parse(localStorage.getItem('client_data')));
+		          // console.log('client_data1:', JSON.parse(localStorage.getItem('client_data')));
 		          localStorage.setItem('client_data', '');
 		        }
 				await this.$axios.post('/client/send-sms/', fields)
