@@ -1,14 +1,14 @@
 <template>
 	<main class="page page--grey page--block">
 		<!-- <header-auth/>		 -->
-        <div class="information-block information-block--gifts">
+        <!-- <div class="information-block information-block--gifts">
             <h3 class="section section--text">
                 {{$t('Период анкетирования завершен')}}
             </h3>
             <p class="underline">
                 {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
             </p>
-        </div>
+        </div> -->
 		<div class="auth-section">
 	    	<div class="container">
 	        	<!-- component number -->
@@ -125,7 +125,7 @@
 		data() {
 			return {
 				// numberStatus: false,
-				numberStatus: false,
+				numberStatus: true,
 				smsEnterStatus: false,
 				errorPermanenetPassword: false,
 				permanent: false,

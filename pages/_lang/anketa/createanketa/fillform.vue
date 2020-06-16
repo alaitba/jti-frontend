@@ -165,11 +165,11 @@
 
 								<!-- discleimer -->
 
-								<div class="form-group mb-32">
+								<!-- <div class="form-group mb-32">
 					            	<p class="content">
 					            		{{$t('discleimer')}}
 					            	</p>
-					            </div>
+					            </div> -->
 								<!-- <template v-else> -->
 									<button class="button button--green" type="submit" :disabled="errors.any() || !anketaNumber || !field.selectedBrand.length || !ageValidate || anketaBtnStatus">
 						              {{$t('Сохранить анкету')}}
