@@ -225,7 +225,7 @@
 					.then(response =>{
 						this.loaderStatus = false;
 						if(response.data.rewards.length){
-							this.gifts = response.data.rewards;
+							this.gifts = response.data.rewards.sort((a,b) => { return a.price - b.price});
 						}
 
 					}).catch(error =>{
@@ -279,6 +279,7 @@
 		        }
 		        &>a{
 		          display: flex;
+		          width: 100%;
 		          &:hover{
 		            text-decoration: none;
 		          }
