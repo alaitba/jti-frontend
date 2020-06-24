@@ -223,7 +223,7 @@
 
                 let fields = {
                     'mobile_phone': '7'+this.number,
-                    'captcha': this.response,
+                    // 'captcha': this.response,
                 }
 
                 this.btnSignStatus = true;
