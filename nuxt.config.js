@@ -30,10 +30,10 @@ module.exports = {
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js' },
       { src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js' },
       // { src: 'https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js'},
-      { src:'/libs/signature_pad.min.js'},
+      // { src:'/libs/signature_pad.min.js'},
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js'},
       { src:'https://cdn.jsdelivr.net/npm/moment-weekday-calc@1.1.4/src/moment-weekday-calc.js'},
-      { src: "https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit", async: true, defer: true},
+      // { src: "https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit", async: true, defer: true},
       {
         src:"https://cdn.jsdelivr.net/npm/pwacompat@2.0.6/pwacompat.min.js",
         integrity:"sha384-GOaSLecPIMCJksN83HLuYf9FToOiQ2Df0+0ntv7ey8zjUHESXhthwvq9hXAZTifA",

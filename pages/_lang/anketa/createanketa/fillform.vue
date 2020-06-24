@@ -200,7 +200,7 @@
 							<!-- <button class="button button--green" type="button" @click="showModal('modal-error')">
 					        	Отправить ссылку
 					        </button> -->
-					        <button class="button button--green" type="button" :disabled="!anketaNumber || smsBtnStatus" @click="sendLinkSms()">
+					        <button class="button button--green" type="button" :disabled="!anketaNumber || smsBtnStatus || getFilledAnketa" @click="sendLinkSms()">
 				        		{{$t('Отправить ссылку')}}
 					        </button>
 						</div>
