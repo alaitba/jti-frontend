@@ -210,7 +210,7 @@
 		</div>	
 
 		<modal-agreement></modal-agreement>
-		<modal-draw-sign></modal-draw-sign>
+		<!-- <modal-draw-sign></modal-draw-sign> -->
 		<modal-anketa-error></modal-anketa-error>
 		<modal-error></modal-error>
 		<modal-main :title="title" :text="text" :img="img" :number="number" :btnText="btnText"></modal-main>

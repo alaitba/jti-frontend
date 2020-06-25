@@ -9,7 +9,7 @@
 
                 <!-- component login -->
                 <div class="auth-section__form" v-if="loginStatus">
-                    <form @submit.prevent="authBtn">
+                    <form @submit.prevent="submit">
                         <label for="" class="title__label">
                             {{$t('Введите номер телефона')}}
                         </label>
@@ -35,14 +35,14 @@
                         <button class="button button--green" type="submit" :disabled="number.length<10 || btnSignStatus">
                             {{$t('Далее')}}
                         </button>
-                        <!-- <vue-recaptcha                             
+                        <vue-recaptcha                             
                             @verify="onVerify" 
                             @expired="onExpired" 
                             ref="invisibleRecaptcha" 
                             size="invisible" 
                             :sitekey="sitekey"
                         >                                
-                        </vue-recaptcha> -->
+                        </vue-recaptcha>
                         <!-- <button class="button button--green"  @click="showModal()">
                             Далее
                         </button> -->
@@ -223,7 +223,7 @@
 
                 let fields = {
                     'mobile_phone': '7'+this.number,
-                    // 'captcha': this.response,
+                    'captcha': this.response,
                 }
 
                 this.btnSignStatus = true;
