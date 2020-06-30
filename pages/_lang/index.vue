@@ -167,7 +167,8 @@
     										{{$t('section-plan-total')}}
     									</span>
     									<span class="green green--light">
-    										{{$t('section-plan-brand')}}
+    										<!-- {{$t('section-plan-brand')}} -->
+    										{{$t('На середину месяца')}}
     									</span>
     								</p>
     								<p class="title title--main title--right">
@@ -195,7 +196,8 @@
     								</p>
     							</div>
     							<div class="plan-item__bonus">
-    								<p class="title">    									{{$t('section-plan-bonus')}}
+    								<p class="title">    									
+    									{{$t('section-plan-bonus')}}
     								</p>
     								<p class="amount">
     									{{reports[reportsId].bonus_total | formatAmount}} тг

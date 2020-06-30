@@ -1,7 +1,7 @@
 <template>
 	<main class="page page--grey page--block">
 		<!-- <header-auth/>		 -->
-        <template  v-if="phoneNumber == '7073222207' || phoneNumber == '7059521623' || phoneNumber == '7017540038' || phoneNumber == '7477800068' || phoneNumber == '7085222707' || phoneNumber == '7471748557' || phoneNumber == '7000000760'">        
+        <!-- <template  v-if="phoneNumber == '7073222207' || phoneNumber == '7059521623' || phoneNumber == '7017540038' || phoneNumber == '7477800068' || phoneNumber == '7085222707' || phoneNumber == '7471748557' || phoneNumber == '7000000760'">         -->
 			<div class="auth-section">
 		    	<div class="container">
 		        	<!-- component number -->
@@ -21,8 +21,8 @@
 			            	</div>
 
 			            	<div class="form-group mt-16">
-			            		<label class="checkbox-container" style="padding-left:24px">
-		  			            	{{$t('Покупателю есть 18 лет')}}
+			            		<label class="checkbox-container" style="padding-left:24px">		  			            	
+		  			            	{{ $t('Покупатель является совершеннолетним курильщиком')}}
 								  	<input type="checkbox" v-model="checkBox">
 								  	<span class="checkmark" style="left:0px"></span>
 								</label>
@@ -90,8 +90,8 @@
 
 	        	</div>
 	    	</div>
-		</template>
-		<template v-else>
+		<!-- </template> -->
+		<!-- <template v-else>
 	        <div class="information-block information-block--gifts">
 	            <h3 class="section section--text">            	
 	                {{$t('Период анкетирования завершен')}}	                
@@ -100,7 +100,7 @@
 	                {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
 	            </p>
 	        </div>
-        </template>
+        </template> -->
 		<footer-anketa v-if="footerStatus"/>
 		<modal-main :title="title" :text="text" :img="img" :number="tel"></modal-main>
 		<!-- <modal-sms-error></modal-sms-error>

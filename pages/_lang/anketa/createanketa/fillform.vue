@@ -455,7 +455,7 @@
 			         		this.title = this.$t('Анкета сохранена');
 			         		this.text = this.$t('Спасибо, Партнёр! Не забудьте напомнить потребителю отправить код с пачки LD');
 			         		this.img = 'exist';
-			         		this.btnText = this.$t('Готово');
+			         		this.btnText = 'anketa';
 			         		$('#modal-main').modal('show')
 			          	} 
 			        }).catch(error => {

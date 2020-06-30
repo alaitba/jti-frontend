@@ -32,7 +32,7 @@
           <!-- Modal footer -->
 	          	<div class="modal-footer">
 
-	            	<template v-if="btnText == 'Готово'">
+	            	<template v-if="btnText == 'anketa'">
 	              		<nuxt-link :to="$i18n.path('anketa/listanketa')" class="button button--green" data-dismiss="modal">
 	                		{{$t('Готово')}}
 	              		</nuxt-link>
