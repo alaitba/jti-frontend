@@ -93,6 +93,7 @@
 	import FooterAnketa from '~/components/layouts/Footer/Footer.vue'
 	import ModalError from '~/components/layouts/Modals/ModalError.vue'
 	import ModalMain from '~/components/layouts/Modals/modal-main.vue'
+	import {mapState, mapMutations} from 'vuex'
 	export default {
 		components:{
 			FooterAnketa,
@@ -140,7 +141,13 @@
 		mounted(){
 			this.getBalance();
 			this.getPrizes();
-			console.log(this.$route)
+			console.log('locale',this.$i18n.locale);
+		},
+		computed:{
+			...mapState({
+        		auth: state => state.auth,
+                phoneNumber: state => state.number,
+      		}),
 		},
 		methods:{
 			showModal(modal){
@@ -203,15 +210,15 @@
 						// if(response.data.rewards.length){
 						// this.$store.commit('setBalance')
 						if(this.gift.rewardId == "7d9f8a06-0a44-ea11-80cc-1cc1dee6b654" || this.gift.rewardId == "089ab460-263c-ea11-80cc-1cc1dee6b654"){
-							this.title = JSON.parse(localStorage.getItem('authUser')).mobile_phone;
+							this.title = this.phoneNumber;
 							this.text = this.$t('на указанный номер в ближайшее время будет начислено 500 тг');
 							this.img = 'money'
 						} else if(this.gift.rewardId == "7b9f8a06-0a44-ea11-80cc-1cc1dee6b654" || this.gift.rewardId=='069ab460-263c-ea11-80cc-1cc1dee6b654'){
-							this.title = this.gift.name;
+							this.title = this.gift.name[this.$i18n.locale ==='kk' ? 'kz' : 'ru'];
 							this.text = this.$t("Поздравляем, вы приобрели купон на участие в розыгрыше! Участники розыгрыша и победители будут объявлены в разделе 'Новости'");
 							this.img = 'gift'
 						} else{
-							this.title = this.gift.name;
+							this.title = this.gift.name[this.$i18n.locale ==='kk' ? 'kz' : 'ru'];
 							if(this.$i18n.locale == 'ru'){
 								this.text = `приз будет доставлен торговым представителем к вам на точку г. ${this.tradePoint.city} , ул. ${this.tradePoint.street_address}`;
 							} else {

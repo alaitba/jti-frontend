@@ -192,6 +192,7 @@
 			this.getBalance();
 			this.getPrizes();
 			this.getGiftsHistory();
+			// console.log('locale',this.$i18n.locale);
 		},
 		computed: {
       		...mapState({

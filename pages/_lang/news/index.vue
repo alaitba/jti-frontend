@@ -130,7 +130,7 @@
 	    	async getNews(){
 
 
-	    		let data  = JSON.parse(localStorage.getItem("news")).length>0 ? JSON.parse(localStorage.getItem("news"))[0].created_at : 1;
+	    		let data  = localStorage.getItem("news").length>0 ? JSON.parse(localStorage.getItem("news"))[0].created_at : 1;
 
 	    		this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
 
