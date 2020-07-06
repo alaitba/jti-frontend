@@ -79,11 +79,11 @@
 			            localStorage.setItem('tradeagent',JSON.stringify(res.tradeagent));
 						this.$router.push(this.$i18n.path(''));
 				} catch(err){
-					if(err.response.data == "Unauthorized."){
-						localStorage.clear();
-					    this.$store.commit('resetState');
-				    	this.$router.push(this.$i18n.path('auth/signin'))
-					}
+					// if(err.response.data == "Unauthorized."){
+					// 	localStorage.clear();
+					//     this.$store.commit('resetState');
+				 //    	this.$router.push(this.$i18n.path('auth/signin'))
+					// }
 					// if(err.response.data.message=="Unauthorized"){
 					// 	localStorage.clear()
 					// 	this.$store.commit('resetState');

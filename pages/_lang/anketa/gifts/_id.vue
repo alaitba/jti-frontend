@@ -220,9 +220,9 @@
 						} else{
 							this.title = this.gift.name[this.$i18n.locale ==='kk' ? 'kz' : 'ru'];
 							if(this.$i18n.locale == 'ru'){
-								this.text = `приз будет доставлен торговым представителем к вам на точку г. ${this.tradePoint.city} , ул. ${this.tradePoint.street_address}`;
+								this.text = `приз будет доставлен к вам на точку г. ${this.tradePoint.city} , ул. ${this.tradePoint.street_address} по окончанию программы`;
 							} else {
-								this.text = `Жүлдені сауда өкілі сізге ${this.tradePoint.city} қаласы, ${this.tradePoint.street_address} мекен-жайына бойынша жеткізеді.`
+								this.text = `Жүлдені сізге ${this.tradePoint.city} қаласы, ${this.tradePoint.street_address} мекен-жайын бойынша бағдарламаның соңында жеткізеді.`
 							}
 							this.img = 'gift'
 						}
