@@ -113,13 +113,13 @@
 		data(){
 			return{
 				profile: {
-					name: sessionStorage.getItem('account') ? JSON.parse(sessionStorage.getItem('account')).last_name + ' ' + JSON.parse(sessionStorage.getItem('account')).first_name + ' ' + JSON.parse(sessionStorage.getItem('account')).middle_name : '',
-					tel: sessionStorage.getItem('account') ? JSON.parse(sessionStorage.getItem('account')).mobile_phone : '',
+					name: localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')).last_name + ' ' + JSON.parse(localStorage.getItem('account')).first_name + ' ' + JSON.parse(localStorage.getItem('account')).middle_name : '',
+					tel: localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')).mobile_phone : '',
 					tradepoint: localStorage.getItem('tradepoint') ? 'Магазин "' + JSON.parse(localStorage.getItem('tradepoint')).account_name + '" ' + ' г.' + JSON.parse(localStorage.getItem('tradepoint')).city + ', ' + JSON.parse(localStorage.getItem('tradepoint')).street_address: '',
 				},
 				tradeagent:{
-					name: sessionStorage.getItem('tradeagent') ? JSON.parse(sessionStorage.getItem('tradeagent')).employee_name : '',
-					tel: sessionStorage.getItem('tradeagent') ? JSON.parse(sessionStorage.getItem('tradeagent')).phone : '',
+					name: localStorage.getItem('tradeagent') ? JSON.parse(localStorage.getItem('tradeagent')).employee_name : '',
+					tel: localStorage.getItem('tradeagent') ? JSON.parse(localStorage.getItem('tradeagent')).phone : '',
 				},
 				title: '',
 				text: '',
@@ -155,7 +155,7 @@
 
             async changeLocale(locale){
 
-                this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
+                this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
 
                 let fields = {
                     'locale': locale.length ? locale : 'ru'
@@ -171,7 +171,7 @@
 
             },
 			async logOut(){				
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
 				await this.$axios.get('/auth/logout')
 					.then(response =>{
 						$('#modal-main').modal('hide');

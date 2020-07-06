@@ -232,7 +232,8 @@
                 await this.$axios.post('/auth/phone/', fields)
                     .then(response =>{
                         // sessionStorage.setItem("authUser", JSON.stringify(response.data));
-                        sessionStorage.setItem("mobile_phone", this.number);
+                        // sessionStorage.setItem("mobile_phone", this.number);
+                        localStorage.setItem("mobile_phone", this.number);
                         // localStorage.setItem("authUserStatus", true);
                         this.$store.commit('setUser',response.data);
                         this.$store.commit('setNumber', this.number);
@@ -363,14 +364,16 @@
                             this.$store.commit('setAuthToken', response.data.token);
                             this.$store.commit('setTokenStatus', true);
                             localStorage.setItem("authUserStatus", 'token');
-                            sessionStorage.setItem("authToken", response.data.token);
-                            localStorage.setItem("authToken", 'token');
+                            // sessionStorage.setItem("authToken", response.data.token);
+                            localStorage.setItem("authToken", response.data.token);
                             if(response.data.message=='authorized'){
                                 localStorage.setItem("setTradePoint", 't');
                                 localStorage.setItem("tradepoint", JSON.stringify(response.data.tradepoint));
                                 localStorage.setItem("tradePoints", JSON.stringify(response.data.tradepoint));
-                                sessionStorage.setItem('account',JSON.stringify(response.data.account));
-                                sessionStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));
+                                // sessionStorage.setItem('account',JSON.stringify(response.data.account));
+                                // sessionStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));
+                                localStorage.setItem('account',JSON.stringify(response.data.account));
+                                localStorage.setItem('tradeagent',JSON.stringify(response.data.tradeagent));
                                 this.$router.push(this.$i18n.path(''));
                             } else if(response.data.message=='need_tradepoint'){
                                 localStorage.setItem("setTradePoint", 'f');

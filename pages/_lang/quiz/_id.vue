@@ -254,7 +254,7 @@ export default {
     },
     async getQuestions(id) {
       this.$axios.defaults.headers.common["Authorization"] =
-        "Bearer " + sessionStorage.getItem("authToken");
+        "Bearer " + localStorage.getItem("authToken");
 
       try {
         let res = await this.$axios.$get(`/quiz/${id}/get`);
@@ -287,7 +287,7 @@ export default {
     },
     async checkAnswers() {
       this.$axios.defaults.headers.common["Authorization"] =
-        "Bearer " + sessionStorage.getItem("authToken");
+        "Bearer " + localStorage.getItem("authToken");
 
       this.loaderStatus = true;
 

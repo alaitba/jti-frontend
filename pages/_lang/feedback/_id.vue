@@ -68,7 +68,7 @@
 
 			sendFeedback(){
 
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
 
 
 				let field = {

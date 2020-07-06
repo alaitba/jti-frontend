@@ -283,7 +283,8 @@
                         // console.log('tradepoints',response.data.tradepoints)
                     }
                     if(response.data.status == 'ok'){
-                        sessionStorage.setItem("authToken", response.data.token);
+                        // sessionStorage.setItem("authToken", response.data.token);
+                        localStorage.setItem("authToken", response.data.token);
                         if(response.data.message=='authorized'){
                           this.$router.push('/')
                         } else {

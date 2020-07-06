@@ -224,7 +224,7 @@
 		},
 		methods:{
 			async getNotifications(){
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
+				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
 				try{
 					
 					let res = await this.$axios.$get('/notifications');
@@ -247,7 +247,7 @@
 		          'push_token': userId
 		        }
 
-		        this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('authToken');
+		        this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
 
 		        try{
 

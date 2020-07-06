@@ -16,9 +16,9 @@ export default function ({ app, store, redirect, route }) {
         	}
   		}
   	} else{
-        if(!sessionStorage.getItem("mobile_phone") && !(route.name == 'auth-signin' || route.name == 'lang-auth-signin')){
+        if(!localStorage.getItem("mobile_phone") && !(route.name == 'auth-signin' || route.name == 'lang-auth-signin')){
             // console.log(app.i18n.path('auth/signin'), app.i18n.path(''), app.i18n.path('/'))
-  			return redirect(app.i18n.path('auth/signin'))
+  			 return redirect(app.i18n.path('auth/signin'))
   		}
   	}
 }
