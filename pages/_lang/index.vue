@@ -35,9 +35,9 @@
 	    					<p v-if="coupons_ld !=null">
 	    						{{$t('Купонов')}}: <span>{{ coupons_ld}}</span>
 	    					</p>
-	    					<p class="data">
+	    					<!-- <p class="data">
 	    						20.02.2000
-	    					</p>
+	    					</p> -->
 	    				</div>
 	    				<div class="coupons__item">
 	    					<h5 class="title">
@@ -46,16 +46,16 @@
 	    					<p v-if="coupons_winstone != null">
 	    						{{$t('Купонов')}}: <span>{{coupons_winstone}}</span>
 	    					</p>
-	    					<p class="data" v-if="coupons_data">
+	    					<!-- <p class="data" v-if="coupons_data">
 	    						{{
 	    							coupons_data | formatData
 	    						}}
-	    					</p>
+	    					</p> -->
 	    				</div>
 	    			</div>
 	    		</div>
 	    	</div>
-	    	<div class="section section--icons">
+	    	<div :class="{'section section--icons' : true, 'pd16' : (phoneNumber != '7073222207' && phoneNumber != '7059521623')}">
 	    		<div class="container">
 	    			<div class="icons">
 	    				<!-- <template v-if="getNumber"> -->
@@ -763,10 +763,10 @@
 						font-size: 12px;
 						line-height: 14px;
 						color: #969696;
-						margin-bottom: 0;
-						&.data{
-							margin-top: 4px;
-						}
+						margin-bottom: 4px;
+						// &.data{
+						// 	margin-top: 4px;
+						// }
 						span{
 							font-weight: bold;
 							font-size: 14px;
@@ -778,7 +778,9 @@
 			}
 		}
 		&--icons{
-			// padding-top: 16px;
+			&.pd16{				
+				padding-top: 16px;
+			}
 			.icons{
 				display: flex;
 				flex-wrap:wrap;
