@@ -25,7 +25,7 @@
 	    			<!-- </div> -->
 	    		</div>
 	    	</div>
-	    	<div class="section section--coupons" v-if="phoneNumber == '7073222207' || phoneNumber == '7059521623' ">
+	    	<div class="section section--coupons" v-if="coupons_ld !=null && coupons_winstone != null">
 	    		<div class="container">
 	    			<div class="coupons">
 	    				<div class="coupons__item">
@@ -55,7 +55,8 @@
 	    			</div>
 	    		</div>
 	    	</div>
-	    	<div :class="{'section section--icons' : true, 'pd16' : (phoneNumber != '7073222207' && phoneNumber != '7059521623')}">
+	    	<!-- <div :class="{'section section--icons' : true, 'pd16' : (phoneNumber != '7073222207' && phoneNumber != '7059521623')}"> -->
+    		<div class="section section--icons">
 	    		<div class="container">
 	    			<div class="icons">
 	    				<!-- <template v-if="getNumber"> -->
