@@ -25,6 +25,36 @@
 	    			<!-- </div> -->
 	    		</div>
 	    	</div>
+	    	<div class="section section--coupons" v-if="phoneNumber == '7073222207' || phoneNumber == '7059521623' ">
+	    		<div class="container">
+	    			<div class="coupons">
+	    				<div class="coupons__item">
+	    					<h5 class="title">
+	    						{{$t('Купоны LD')}}
+	    					</h5>
+	    					<p v-if="coupons_ld !=null">
+	    						{{$t('Купонов')}}: <span>{{ coupons_ld}}</span>
+	    					</p>
+	    					<p class="data">
+	    						20.02.2000
+	    					</p>
+	    				</div>
+	    				<div class="coupons__item">
+	    					<h5 class="title">
+	    						{{$t('Купоны Winston')}}
+	    					</h5>
+	    					<p v-if="coupons_winstone != null">
+	    						{{$t('Купонов')}}: <span>{{coupons_winstone}}</span>
+	    					</p>
+	    					<p class="data" v-if="coupons_data">
+	    						{{
+	    							coupons_data | formatData
+	    						}}
+	    					</p>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
 	    	<div class="section section--icons">
 	    		<div class="container">
 	    			<div class="icons">
@@ -374,7 +404,9 @@
 	    		reportsId: localStorage.getItem('tradepoint') ? JSON.parse(localStorage.getItem('tradepoint')).account_code : '',
 	    		modalStatus: localStorage.getItem('modalStatus') ? JSON.parse(localStorage.modalStatus) : true,
 	    		mobileOs: localStorage.getItem('android') ? JSON.parse(localStorage.getItem('android')) : false,
-
+	    		coupons_data: null,
+	    		coupons_ld: null,
+	    		coupons_winstone: null
 	    	}
 	    },
 	    mounted() {
@@ -383,12 +415,15 @@
 
 	    	_this.getUserDevice();
 
-
 	    	_this.getNews();
 
 	    	_this.getPlanFact();
 
 	    	_this.getMainBanner();
+
+	    	_this.getCouponsLD();
+
+	    	_this.getCouponsWN();
 
 	    	let interval1 = setInterval(
                 () => {
@@ -450,7 +485,8 @@
 	    computed: {
 	      	...mapState({
 	        	tradepoint: state => state.tradepoint,
-	        	subscribeStatus: state => state.subscribeStatus
+	        	subscribeStatus: state => state.subscribeStatus,
+	        	phoneNumber: state => state.number
 	      	}),
 	      	computedNumberPlan(){
 				return parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio) > 0 ?   parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio) * 100 > 100 ? 99.99 :  parseInt(this.reports[this.reportsId].fact_portfolio)/parseInt(this.reports[this.reportsId].plan_portfolio)*100 : 0
@@ -466,7 +502,7 @@
 	    	showModal(modal){
 	    		// $('#modal-error').modal('show')
 	    	},
-
+	    	
 	    	getUserDevice(){
 
 		        let ua = navigator.userAgent;
@@ -498,6 +534,51 @@
     			this.img = 'bell-green';
     			this.btnText = 'notifications';
     			$('#modal-main').modal('show');
+	    	},
+
+	    	async getCouponsLD(){
+
+	    		this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+
+	    		try{
+	    			let res = await this.$axios.$get('/coupons/get-ld');
+	    			this.coupons_ld = res.coupons;    				
+	    		} catch(error){
+	    			console.log('errorCouposnLd', error)
+	    		}
+	    		    		
+	    	},
+
+	    	async getCouponsWN(){
+
+	    		this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+	    		try{
+
+		    		let res = await this.$axios.$get('/rewards/history');
+					console.log(res, 'coupons');						
+
+					if(res.data.length){
+
+						for(let i =0; i< res.data.length; i++){
+							if(res.data[i].name['ru'] == "Купон для участия в розыгрыше"){
+								this.coupons_winstone ++;
+							}
+						}
+					} else {
+
+						this.coupons_winstone = 0;
+
+					} 
+
+					this.coupons_data = moment();
+
+
+	    		} catch(error){
+	    			console.log('errorWinstone', error)
+	    		}	    		
+
 	    	},
 
 	    	async getNews(){
@@ -662,8 +743,42 @@
 			line-height: 33px;
 			color: #969696;
 		}
+		&--coupons{
+			padding: 12px 0 14px 0;
+			.coupons{
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-evenly;
+				&__item{
+					text-align: center;
+					.title{
+						font-weight: 500;
+						font-size: 16px;
+						line-height: 19px;
+						color: #217461;
+						margin-bottom: 5px;
+					}
+					p{
+						font-weight: normal;
+						font-size: 12px;
+						line-height: 14px;
+						color: #969696;
+						margin-bottom: 0;
+						&.data{
+							margin-top: 4px;
+						}
+						span{
+							font-weight: bold;
+							font-size: 14px;
+							line-height: 16px;
+							color: #1F1F1F;
+						}
+					}
+				}
+			}
+		}
 		&--icons{
-			padding-top: 16px;
+			// padding-top: 16px;
 			.icons{
 				display: flex;
 				flex-wrap:wrap;
