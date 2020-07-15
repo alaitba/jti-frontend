@@ -248,7 +248,7 @@
 
 				let fields = {
 			        // 'mobile_phone': '+7'+this.number,
-			        'mobile_phone': this.numberAnketa,
+			        'mobile_phone': '+' + this.numberAnketa,
 			        'sms_code': this.permanentPassword,
 			    }
 
@@ -271,7 +271,7 @@
 			async sendSmsAgain() {
 
 		      	let fields = {
-					'mobile_phone': this.numberAnketa,
+					'mobile_phone': '+' + this.numberAnketa,
 					'legal_age': this.checkBox
 				}
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
