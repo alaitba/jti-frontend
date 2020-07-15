@@ -137,7 +137,7 @@
                 // console.log(this.phoneNumber,'phoneNumber')
 
                 let fields = {
-                    'mobile_phone': '7'+this.phoneNumber,
+                    'mobile_phone': this.phoneNumber,
                 }
                 // console.log(fields,'fields')
                 await this.$axios.post('/auth/reset/phone/', fields)
@@ -189,7 +189,7 @@
                 // console.log('here')
                 // console.log(this.phoneNumber,'phoneNumber')
                 let fields = {
-                    'mobile_phone': '7'+this.phoneNumber,
+                    'mobile_phone': this.phoneNumber,
                     'sms_code': this.recoveryPermanentPassword,
                 }
                 if(this.recoveryPermanentPassword.length==4){
@@ -221,14 +221,14 @@
 
 
               let fields = {
-                  'mobile_phone': '7'+this.phoneNumber,
+                  'mobile_phone': this.phoneNumber,
               }
               // console.log(fields,'fields')
               await this.$axios.post('/auth/reset/phone/', fields)
                 .then(response =>{
                   this.$store.commit('setUser',response.data);
-                  this.$store.commit('setNumber', this.auth.mobile_phone);
-                  // // console.log(this.$store.state.auth,'data')
+                  console.log(this.auth.mobile_phone,'data')
+                  // this.$store.commit('setNumber', this.phoneNumber);
                   if(response.data.sms_code){
                     this.sms_code = response.data.sms_code;
                   }
@@ -270,7 +270,7 @@
 
             async sendRecoveryPassword() {
                 let fields = {
-                    'mobile_phone': '7'+this.phoneNumber,
+                    'mobile_phone': this.phoneNumber,
                     'password': this.password,
                     'password_check': this.newPassword
                 }

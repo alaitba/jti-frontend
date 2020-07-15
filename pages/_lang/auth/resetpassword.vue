@@ -146,7 +146,7 @@
       		async sendPassword() {
 
 	        let fields = {
-	        	'mobile_phone': '7'+this.phoneNumber,
+	        	'mobile_phone': this.phoneNumber,
 	          	'password': this.password,
 	          	'password_check': this.newPassword,
                 'locale': this.$i18n.locale

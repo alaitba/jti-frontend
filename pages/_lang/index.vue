@@ -199,7 +199,7 @@
     									</span>
     									<span class="green green--light">
     										<!-- {{$t('section-plan-brand')}} -->
-    										{{$t('На середину месяца')}}
+    										{{$t('На середину месяца')}} <span>(15.07.2020)</span>
     									</span>
     								</p>
     								<p class="title title--main title--right">
@@ -236,6 +236,14 @@
     							</div>
 							</div>
 	    				</div>
+	    				<div class="plan__updated-data" v-if="reports && reports[reportsId]">
+		                  	<p v-if="$i18n.locale === 'ru'">
+			                    Данные актуальны по: {{reports[reportsId].lastUpdated |  formatDataYear}}
+		                  	</p>
+                            <p v-if="$i18n.locale === 'kk'">
+                                Мәліметтер {{reports[reportsId].lastUpdated |  formatDataYear}} бойынша өзекті
+                            </p>
+		                </div>
 	    			</div>
 	    		</div>
 	    	</div>
@@ -382,6 +390,9 @@
 					return value
 				}
 			},
+			formatDataYear(value){
+		        return moment(value).format('DD.MM.YYYY');
+		    },
 	    },
 	    data() {
 	    	return {
@@ -745,7 +756,7 @@
 			color: #969696;
 		}
 		&--coupons{
-			padding: 12px 0 14px 0;
+			padding: 12px 0 0px 0;
 			.coupons{
 				display: flex;
 				flex-wrap: wrap;
@@ -779,8 +790,8 @@
 			}
 		}
 		&--icons{
+			padding-top: 16px;
 			&.pd16{				
-				padding-top: 16px;
 			}
 			.icons{
 				display: flex;

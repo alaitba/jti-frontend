@@ -49,8 +49,8 @@
 	    					</div>
   							<div class="plan__graphic graphic" v-if="reports && reports[selectedBrand.account_code]">
       							<swiper :options="swiperOption" ref="mySwiper">
-	      							<swiper-slide>
-	  		    						<div class="plan-item">
+	      							<swiper-slide style="height: initial;">
+	  		    						<div class="plan-item" style="height: 100%;">
 	  		    							<div class="plan-item__circle">
 	  		    								<circle-counter
 					                            	width="188px"
@@ -122,7 +122,7 @@
 	  		    									<template v-else>	  		    							
 		  		    									{{reports[selectedBrand.account_code].brand}}
 	  		    									</template> -->
-	  		    									{{ $t('План на середину месяца')}}
+	  		    									{{ $t('План на середину месяца')}} <span>(15.07.2020)</span>
 	  		    								</p>
 	  		    								<p class="amount">
 	  		    									<span class="name">
@@ -269,11 +269,11 @@
 				}
 			},
 			formatData(value){
-    		return moment(value).format('MMMM');
-    	},
-      formatDataYear(value){
-        return moment(value).format('DD.MM.YYYY');
-      },
+        		return moment(value).format('MMMM');
+            },
+            formatDataYear(value){
+                return moment(value).format('DD.MM.YYYY');
+            },
 		},
 		data(){
 			return {
@@ -289,8 +289,9 @@
 		        brands : localStorage.getItem('tradePoints') ? JSON.parse(localStorage.getItem('tradePoints')) : '',
 	        	swiperOption: {
 	    			pagination:{
-	    				el: '.swiper-pagination',
-	      			dynamicBullets: true
+	    			    el: '.swiper-pagination',
+                        dynamicBullets: true,
+                        autoHeight: true,
 	    			}
 				},
 			}

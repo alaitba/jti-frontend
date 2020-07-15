@@ -15,7 +15,7 @@
                         </label>
                         <div class="form-group">
                             <div class="form-group__wrapper">
-                                <the-mask
+                                <!-- <the-mask
                                     :mask="['+7(###)-###-##-##']"
                                     class="form__input"
                                     placeholder=" "
@@ -23,7 +23,8 @@
                                     :masked="false"
                                     type="tel"
                                     autocomplete="off"
-                                />
+                                /> -->
+                                <masked-input v-model="number" mask="\+\7(111)-111-11-11" placeholder=" " class="form__input" type="tel" autocomplete="off"/>
                                 <label for="input" class="form__label">
                                     {{$t('Номер телефона')}}
                                 </label>
@@ -32,7 +33,7 @@
                         <!-- <div class="form-group">
                             
                         </div> -->
-                        <button class="button button--green" type="submit" :disabled="number.length<10 || btnSignStatus">
+                        <button class="button button--green" type="submit" :disabled="number.replace(/_|[()-]/g,'').length<12 || btnSignStatus">
                             {{$t('Далее')}}
                         </button>
                         <!-- <vue-recaptcha                             
@@ -143,6 +144,7 @@
     import ModalMain from '~/components/layouts/Modals/modal-main.vue'
 
     import {TheMask} from 'vue-the-mask'
+    import MaskedInput from 'vue-masked-input'
     import {mapState, mapMutations} from 'vuex'
 
     import VueRecaptcha from 'vue-recaptcha';
@@ -155,7 +157,8 @@
             HeaderAuth,
             ModalPassword,
             ModalMain,
-            VueRecaptcha
+            VueRecaptcha,
+            MaskedInput
         },
         data() {
             return{
@@ -193,14 +196,11 @@
                 passEnterStatus: state => state.passEnterStatus,
                 phoneNumber: state => state.number
             }),
-            // checkSms(){
-                //   if(this.auth.sms_code == this.permanentPassword){
-                //     this.errorPermanenetPassword = false;
-                //   } else {
-                //     this.errorPermanenetPassword = true;
-                //   }
-                //   return this.errorPermanenetPassword;
-            // }
+            checkPhone(){
+                let text = this.number;
+                
+                return  this.number.replace(/[()-]/g,'').length;
+            }
         },
         methods:{
             submit(){
@@ -222,7 +222,7 @@
             async authBtn() {
 
                 let fields = {
-                    'mobile_phone': '7'+this.number,
+                    'mobile_phone': this.number.replace(/[()-]/g,''),
                     // 'captcha': this.response,
                 }
 
@@ -233,10 +233,10 @@
                     .then(response =>{
                         // sessionStorage.setItem("authUser", JSON.stringify(response.data));
                         // sessionStorage.setItem("mobile_phone", this.number);
-                        localStorage.setItem("mobile_phone", this.number);
+                        localStorage.setItem("mobile_phone", this.number.replace(/[()-]/g,''));
                         // localStorage.setItem("authUserStatus", true);
                         this.$store.commit('setUser',response.data);
-                        this.$store.commit('setNumber', this.number);
+                        this.$store.commit('setNumber', this.number.replace(/[()-]/g,''));
                         this.$store.commit('changeLoginStatus',false);
                         // this.loginStatus = !this.loginStatus;                        
                         this.btnSignStatus = false;
@@ -302,7 +302,7 @@
             async sendSms() {
 
                 let fields = {
-                    'mobile_phone': '7'+this.phoneNumber,
+                    'mobile_phone': this.phoneNumber,
                     'sms_code': this.permanentPassword,
                 }
                 // console.log('sendSms',this.permanentPassword.length)
@@ -343,7 +343,7 @@
                 this.errorPassword = false;
 
                 let fields = {
-                    'mobile_phone': '7'+this.phoneNumber,
+                    'mobile_phone': this.phoneNumber,
                     'password': this.password,
                     'locale': this.$i18n.locale
                 }
@@ -408,7 +408,7 @@
             async sendSmsAgain() {
 
                 let fields = {
-                    'mobile_phone': '7'+this.phoneNumber,
+                    'mobile_phone': this.phoneNumber,
                 }
                 // console.log(fields,'fields')
                 await this.$axios.post('/auth/phone/', fields)

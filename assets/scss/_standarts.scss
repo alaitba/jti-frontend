@@ -564,6 +564,9 @@ main{
 					&--light{
 						color: #05B186;
 						margin-top: 8px;
+						span{
+							color: #217461;
+						}
 					}
 				}
 			}
@@ -1102,9 +1105,9 @@ main{
 						line-height: 20px;
 						color: #217461;
 						margin-bottom: 8px;
-						white-space: nowrap; /* Запрещаем перенос строк */
-					    overflow: hidden;
-					    text-overflow: ellipsis;
+						// white-space: nowrap; /* Запрещаем перенос строк */
+					 //    overflow: hidden;
+					 //    text-overflow: ellipsis;
 					}
 					.data{
 						font-weight: normal;
@@ -1119,7 +1122,7 @@ main{
 						line-height: 19px;
 						color: #1F1F1F;
 						p{
-						    word-break: break-all;
+						    word-break: break-word;
 						}
 					}
 				}

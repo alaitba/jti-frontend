@@ -115,7 +115,7 @@
 			},
 			formatPrice(value){
 		        return parseInt(Number(value));
-		    }
+		    },
 		},
 		data(){
 			return {
@@ -222,7 +222,7 @@
 							if(this.$i18n.locale == 'ru'){
 								this.text = `приз будет доставлен к вам на точку г. ${this.tradePoint.city} , ул. ${this.tradePoint.street_address} по окончанию программы`;
 							} else {
-								this.text = `Жүлдені сізге ${this.tradePoint.city} қаласы, ${this.tradePoint.street_address} мекен-жайын бойынша бағдарламаның соңында жеткізеді.`
+								this.text = `Жүлде сізге ${this.tradePoint.city} қаласы, ${this.tradePoint.street_address} мекен-жайына бағдарламаның соңында жеткізіледі.`
 							}
 							this.img = 'gift'
 						}

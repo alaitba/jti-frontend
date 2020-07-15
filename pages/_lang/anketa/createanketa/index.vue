@@ -13,7 +13,8 @@
 				            </label>
 			            	<div class="form-group">
 			              		<div class="form-group__wrapper">
-			                		<the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel" autocomplete="off"/>
+			                		<!-- <the-mask :mask="['+7(###)-###-##-##']" class="form__input" placeholder=" " v-model="number" :masked="false" type="tel" autocomplete="off"/> -->
+			                		<masked-input v-model="number" mask="\+\7(111)-111-11-11" placeholder=" " class="form__input" type="tel" autocomplete="off"/>
 			                		<label for="input" class="form__label">
 			                  			{{$t('Номер телефона')}}
 			                		</label>
@@ -27,7 +28,7 @@
 								  	<span class="checkmark" style="left:0px"></span>
 								</label>
 			            	</div>
-			            	<button class="button button--green" type="submit" :disabled="!checkBox || number.length!=10 || btnStatus">
+			            	<button class="button button--green" type="submit" :disabled="!checkBox || number.replace(/_|[()-]/g,'').length<12 || btnStatus">
 			              		{{$t('Далее')}}
 			            	</button>
 			            <!-- <button class="button button--green"  @click="showModal()">
@@ -44,8 +45,8 @@
 			          	<form @submit.prevent="">
 			            	<label for="" class="title__label" >
 			              		{{$t('Введите код, отправленный покупателю по СМС на номер:')}}
-			              		<strong v-if="number">
-			              			+7 {{number | formatNumber}}
+			              		<strong v-if="numberAnketa">
+			              			+{{numberAnketa | formatNumber}}
 			              		</strong>
 			            	</label>
 			            	<div class="form-group">
@@ -115,6 +116,7 @@
 	import ModalMain from '~/components/layouts/Modals/modal-main.vue'
 	import {TheMask} from 'vue-the-mask'
 	import {mapState, mapMutations} from 'vuex'
+	import MaskedInput from 'vue-masked-input'
 	export default{
 		components : {
 			TheMask,
@@ -123,6 +125,7 @@
 			// ModalNumberError,
 			ModalMain,
 			FooterAnketa,
+			MaskedInput
 		},
 
 		data() {
@@ -157,17 +160,19 @@
 		      auth: state => state.auth,
 		      phoneNumber: state => state.number,
 		      authToken: state => state.authToken,
+		      numberAnketa: state => state.numberAnketa
 		    }),
 		},
 		filters:{
 			formatNumber(value) {
-				return value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4");
+				return value.replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
 			}
 		},
 		methods:{
 			async sendNumber(){
 				let fields = {
-					'mobile_phone': '+7'+this.number,
+					// 'mobile_phone': '+7'+this.number,
+					'mobile_phone': this.number.replace(/[()-]/g,''),
 					'legal_age': this.checkBox
 				}
 
@@ -190,13 +195,13 @@
 						localStorage.setItem("anketaNumber", response.data.mobile_phone);
 						if(response.data.client_data !=null){
 							localStorage.setItem('client_data', JSON.stringify(response.data.client_data))
-              				console.log('client_data2:', JSON.parse(localStorage.client_data));
+              				// console.log('client_data2:', JSON.parse(localStorage.client_data));
             			}
 						this.startTimerInterval();
 					}).catch((error, e) =>{
 						this.btnStatus = false;
 						const code = parseInt(error.response && error.response.status);
-						console.log('code:',code)
+						// console.log('code:',code)
 						if(code === 500){
 							this.title= this.$t('Отказано в доступе!')
 			            	this.text= this.$t('Ошибка на стороне сервера!')
@@ -242,7 +247,8 @@
 			async sendSms() {
 
 				let fields = {
-			        'mobile_phone': '+7'+this.number,
+			        // 'mobile_phone': '+7'+this.number,
+			        'mobile_phone': this.numberAnketa,
 			        'sms_code': this.permanentPassword,
 			    }
 
@@ -265,7 +271,7 @@
 			async sendSmsAgain() {
 
 		      	let fields = {
-					'mobile_phone': '+7'+this.number,
+					'mobile_phone': this.numberAnketa,
 					'legal_age': this.checkBox
 				}
 				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
