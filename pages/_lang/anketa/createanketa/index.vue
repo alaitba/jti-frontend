@@ -23,7 +23,7 @@
 
 			            	<div class="form-group mt-16">
 			            		<label class="checkbox-container" style="padding-left:24px">		  			            	
-		  			            	{{ $t('Покупатель является совершеннолетним курильщиком')}}
+		  			            	{{ $t('Покупатель является курильщиком, достигшим 21 года')}}
 								  	<input type="checkbox" v-model="checkBox">
 								  	<span class="checkmark" style="left:0px"></span>
 								</label>

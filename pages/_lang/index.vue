@@ -569,7 +569,7 @@
 	    		try{
 
 		    		let res = await this.$axios.$get('/rewards/history');
-					console.log(res, 'coupons');						
+					// console.log(res, 'coupons');						
 
 					if(res.data.length){
 

@@ -37,6 +37,11 @@
 	                		{{$t('Готово')}}
 	              		</nuxt-link>
 	        		</template>
+	        		<template v-else-if="btnText == 'anketa-error'">
+	              		<nuxt-link :to="$i18n.path('anketa/createanketa')" class="button button--green" data-dismiss="modal">
+	                		{{$t('Вернуться в Анкету')}}
+	              		</nuxt-link>
+	        		</template>
 
 	            	<template v-else-if="btnText == 'agent' || btnText == 'feedback' || btnText == 'full'"  >
 	              		<nuxt-link :to="$i18n.path('')" class="button button--green" data-dismiss="modal">

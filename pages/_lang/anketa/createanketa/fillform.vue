@@ -91,7 +91,7 @@
 					              	</template>	
 					              	<template v-if="errors.has('birthData') && (!ageValidate)">. </template>					              	
 					              	<template v-if="!ageValidate">
-					              		{{$t('Потребитель должен быть старше 18 лет')}}
+					              		{{$t('Потребитель должен быть старше 21 года')}}
 					              	</template>						              	
 					              </span>
 
@@ -237,23 +237,23 @@
 		ru:{
 			messages: {				
 	            date_format: "Введите правильные данные",	            
-	            date_between: 'Потребитель должен быть старше 18 лет',
+	            date_between: 'Потребитель должен быть старше 21 года',
 	            required: 'Поле обязательно к заполнению',
 	            after: 'Введите правильный год рождения'
 	        }, 
 	        custom: {
-	        	birthData: "Потребитель должен быть старше 18 лет",
+	        	birthData: "Потребитель должен быть старше 21 года",
 	        }
 		},
 		kk:{
 			messages: {
                 date_format: "Дұрыс деректерді енгізіңіз",
-                date_between: 'Тұтынушы 18 жастан асқан болуы керек',
+                date_between: 'Тұтынушы 21 жастан асқан болуы керек',
                 required: 'Міндетті өріс',
                 after:'Дұрыс туған жылды енгізіңіз'
             },
             custom: {
-	        	birthData: "Тұтынушы 18 жастан асқан болуы керек",
+	        	birthData: "Тұтынушы 21 жастан асқан болуы керек",
 	        }
 		}
 	}
@@ -329,7 +329,7 @@
 		    	if(this.field.birthData){
 		    		let  chosenDate = moment(this.field.birthData, "DD-MM-YYYY");
 			    	let age = moment().diff(chosenDate, 'years')	
-			    	if(age>=18){
+			    	if(age>=21){
 			    		return true
 			    	} else {
 			    		return false
@@ -340,13 +340,25 @@
 		    },
 
 		},
-		mounted(){
-			this.getProducts();
+		async mounted(){
+			await this.getProducts();
 			Validator.localize(this.$i18n.locale,dict[this.$i18n.locale])
-			this.$nuxt.$on('Save',(data) =>{
-				this.field.img = data;
-				// console.log('data',this.field.img)
-			})
+			// this.$nuxt.$on('Save',(data) =>{
+			// 	this.field.img = data;
+			// 	// console.log('data',this.field.img)
+			// })
+
+			if(this.getFilledAnketa && !this.ageValidate){
+
+				// alert('miko');
+
+				this.title = this.$t('Отказано в доступе!');
+         		this.text = this.$t('Потребителю нет 21 года. Согласно новому кодексу «О здоровье народа и системе здравоохранения», лицам младше 21 года продажа сигарет запрещена.');
+         		this.img = 'error';
+         		this.btnText = 'anketa-error';
+         		$('#modal-main').modal('show')
+
+			}
 		},
 		methods:{
 			showModal(modal){
@@ -357,12 +369,12 @@
 				// 	// });
 				// }
 				// this.text = 'Раздел будет доступен с 3 февраля'
-				console.log('modal', modal)
+				// console.log('modal', modal)
 				$('#'+modal).modal('show')
 			},
 
 			saveToCache(){
-				console.log(this.field,'field');
+				// console.log(this.field,'field');
                 localStorage.setItem('anketaFields', JSON.stringify(this.field));
             },
 
