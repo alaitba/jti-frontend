@@ -1124,6 +1124,14 @@ main{
 						p{
 						    word-break: break-word;
 						}
+						img{
+						    max-width: 100%;
+						    height: auto;
+						    display: flex;
+						    margin: auto;
+						    /* justify-content: center; */
+						    /* align-items: center; */
+						}
 					}
 				}
 			}
