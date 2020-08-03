@@ -159,6 +159,14 @@
 				line-height: 19px;
 				color: #000000;
 				margin-top: 8px;
+				img{
+				    max-width: 100%;
+				    height: auto;
+				    display: flex;
+				    margin: auto;
+				    /* justify-content: center; */
+				    /* align-items: center; */
+				}
 			}
 		}
 	}
