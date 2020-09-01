@@ -22,63 +22,75 @@
 				</div>
 				<div class="navigation-content tab-content" >
 					<div class="tab-pane fade active" id="home">
-						<div class="gifts">
-							<div class="container">
-								<h3 class="section__title gifts__title">
-									{{$t('Призы')}}
-								</h3>
-								<div class="gifts__points points">
-									<p>
-										{{$t('Количество баллов:')}}
-										<span v-if="balance">
-											{{balance}}
-										</span>
-										<span v-else>
-											0
-										</span>
-									</p>
-								</div>
-								<div class="gifts__wrapper" v-if="gifts.length">
-									<div class="item" v-for="(item,key) in gifts" v-if="item.qty!=0">
-				            			<nuxt-link
-				            				:to="$i18n.path(`anketa/gifts/${item.rewardId}`)"
-				            			>
-					  						<div class="item__img" v-if="item.images">
-					  							<img :src="item.images[0].origin_url" alt="" v-if="item.images[0]">
-					  						</div>
-					  						<div class="item__content">
-					  							<div>
-					  								<h4 class="title" v-if="item.price">
-					  									{{item.price | formatPrice}} <span>{{$t('баллов')}}</span>
-					  								</h4>
-					  								<p class="text">
-					  									{{item.name[$i18n.locale ==='kk' ? 'kz' : 'ru']}}
-					  								</p>
-									                <template v-if="item.rewardId=='069ab460-263c-ea11-80cc-1cc1dee6b654' || item.rewardId=='7b9f8a06-0a44-ea11-80cc-1cc1dee6b654'">
-									                	<p class="left" v-if="item.totalQty!=null">
-									                      {{$t('количество не ограничено')}}
-									                    </p>
-									                </template>
-									                <template v-else>
-									                    <p class="left" v-if="item.totalQty!=null">
-									                      {{$t('Осталось штук:')}} {{item.totalQty | formatAmount}}
-									                    </p>
-									                </template>
-					  							</div>
-					  							<div class="d-flex">
-					  								<nuxt-link
-					  									class="link"
-					  									:to="$i18n.path(`anketa/gifts/${item.rewardId}`)"
-					  								>
-					                    				{{$t('Получить приз')}}
-					                  				</nuxt-link>
-					  							</div>
-					  						</div>
-				            			</nuxt-link>
+						<template v-if="false">
+							<div class="gifts">
+								<div class="container">
+									<h3 class="section__title gifts__title">
+										{{$t('Призы')}}
+									</h3>
+									<div class="gifts__points points">
+										<p>
+											{{$t('Количество баллов:')}}
+											<span v-if="balance">
+												{{balance}}
+											</span>
+											<span v-else>
+												0
+											</span>
+										</p>
+									</div>
+									<div class="gifts__wrapper" v-if="gifts.length">
+										<div class="item" v-for="(item,key) in gifts" v-if="item.qty!=0">
+					            			<nuxt-link
+					            				:to="$i18n.path(`anketa/gifts/${item.rewardId}`)"
+					            			>
+						  						<div class="item__img" v-if="item.images">
+						  							<img :src="item.images[0].origin_url" alt="" v-if="item.images[0]">
+						  						</div>
+						  						<div class="item__content">
+						  							<div>
+						  								<h4 class="title" v-if="item.price">
+						  									{{item.price | formatPrice}} <span>{{$t('баллов')}}</span>
+						  								</h4>
+						  								<p class="text">
+						  									{{item.name[$i18n.locale ==='kk' ? 'kz' : 'ru']}}
+						  								</p>
+										                <template v-if="item.rewardId=='069ab460-263c-ea11-80cc-1cc1dee6b654' || item.rewardId=='7b9f8a06-0a44-ea11-80cc-1cc1dee6b654'">
+										                	<p class="left" v-if="item.totalQty!=null">
+										                      {{$t('количество не ограничено')}}
+										                    </p>
+										                </template>
+										                <template v-else>
+										                    <p class="left" v-if="item.totalQty!=null">
+										                      {{$t('Осталось штук:')}} {{item.totalQty | formatAmount}}
+										                    </p>
+										                </template>
+						  							</div>
+						  							<div class="d-flex">
+						  								<nuxt-link
+						  									class="link"
+						  									:to="$i18n.path(`anketa/gifts/${item.rewardId}`)"
+						  								>
+						                    				{{$t('Получить приз')}}
+						                  				</nuxt-link>
+						  							</div>
+						  						</div>
+					            			</nuxt-link>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</template>
+						<template v-else>
+					        <div class="information-block information-block--gifts" style="height: calc(100vh - 210px);">
+					            <h3 class="section section--text" style="line-height: 1.2;">            	
+					                {{$t('Период программы завершен')}}	                
+					            </h3>
+					            <!-- <p class="underline">
+					                {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
+					            </p> -->
+					        </div>
+				        </template>
 					</div>
 					<div class="tab-pane" id="menu">
 						<div class="gifts">
@@ -86,7 +98,7 @@
 								<h3 class="section__title gifts__title">
 									{{$t('История')}}
 								</h3>
-								<div class="gifts__points points">
+								<!-- <div class="gifts__points points">
 									<p>
 										{{$t('Количество баллов:')}}
 										<span v-if="balance">
@@ -96,7 +108,7 @@
 											0
 										</span>
 									</p>
-								</div>
+								</div> -->
 								<div class="gifts__wrapper gifts__wrapper--history ">
 									<template v-if="giftsHistory.length">
 										<div class="list-item" v-for="(item,key) in giftsHistory">
