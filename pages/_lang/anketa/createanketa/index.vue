@@ -98,9 +98,9 @@
 	            <h3 class="section section--text" style="line-height: 1.2;">            	
 	                {{$t('Период программы завершен')}}	                
 	            </h3>
-	            <p class="underline">
+	            <!-- <p class="underline">
 	                {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
-	            </p>
+	            </p> -->
 	        </div>
         </template>
 		<footer-anketa v-if="footerStatus"/>
