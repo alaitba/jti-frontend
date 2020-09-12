@@ -101,6 +101,7 @@
                                     placeholder="••••"
                                     :masked="false"
                                     maxlength="4"
+                                    autocomplete="one-time-code"
                                     @input="sendSms()"
                                 />
                             </div>
