@@ -6,7 +6,7 @@
 			<div class="auth-section">
 		    	<div class="container">
 		        	<!-- component number -->
-			        <div class="auth-section__form" v-if="numberStatus ">
+			        <div class="auth-section__form" v-if="numberStatus">
 		        	<!-- <div class="auth-section__form" v-if="true"> -->
 			        	<form @submit.prevent="sendNumber">
 				            <label for="" class="title__label">
@@ -60,6 +60,7 @@
 				                  		placeholder="••••"
 				                  		:masked="false"
 				                  		maxlength="4"
+				                  		autocomplete="one-time-code"
 				                  		@input="sendSms()"
 				                	/>
 			              		</div>
