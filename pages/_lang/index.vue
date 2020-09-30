@@ -199,7 +199,7 @@
     									</span>
     									<span class="green green--light">
     										<!-- {{$t('section-plan-brand')}} -->
-    										{{$t('На середину месяца')}} <span>(14.08.2020)</span>
+    										{{$t('На середину месяца')}} <span>(15.10.2020)</span>
     									</span>
     								</p>
     								<p class="title title--main title--right">
