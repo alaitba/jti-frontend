@@ -45,6 +45,7 @@
                                   :masked="false"
                                   maxlength="4"
                                   @input="sendRecoverySms()"
+                                  autocomplete="one-time-code"
                                 />
                             </div>
                             <span class="error-text" v-if="errorPermanenetPassword">

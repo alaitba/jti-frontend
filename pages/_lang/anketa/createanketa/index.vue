@@ -6,7 +6,7 @@
 			<div class="auth-section">
 		    	<div class="container">
 		        	<!-- component number -->
-			        <div class="auth-section__form" v-if="numberStatus ">
+			        <div class="auth-section__form" v-if="numberStatus">
 		        	<!-- <div class="auth-section__form" v-if="true"> -->
 			        	<form @submit.prevent="sendNumber">
 				            <label for="" class="title__label">
@@ -60,6 +60,7 @@
 				                  		placeholder="••••"
 				                  		:masked="false"
 				                  		maxlength="4"
+				                  		autocomplete="one-time-code"
 				                  		@input="sendSms()"
 				                	/>
 			              		</div>
@@ -98,9 +99,9 @@
 	            <h3 class="section section--text" style="line-height: 1.2;">            	
 	                {{$t('Период программы завершен')}}	                
 	            </h3>
-	            <p class="underline">
+	            <!-- <p class="underline">
 	                {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
-	            </p>
+	            </p> -->
 	        </div>
         </template>
 		<footer-anketa v-if="footerStatus"/>
