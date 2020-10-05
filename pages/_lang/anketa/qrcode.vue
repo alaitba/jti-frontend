@@ -4,7 +4,7 @@
 			<div class="container">
 				<div class="section section--condition">
 					<h3 class="section__title">
-						QR-код
+						QR-код 
 					</h3>
 					<div class="content">
 						<div class="qrcode__content">
@@ -13,7 +13,7 @@
 								<div class="qrcode__loader">
 									<div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 								</div>
-								<img  load="" src="https://api.qrserver.com/v1/create-qr-code/?data=Example " alt="">
+								<img  load="" :src="'https://api.qrserver.com/v1/create-qr-code/?data=Example' + salerID" alt="">
 
 							</div>
 
@@ -57,6 +57,7 @@
 						</svg>
 					</div>
 				</div>
+				
 
 
 			</div>
@@ -70,11 +71,12 @@
 		data() {
 			return {
 				qrModal: false,
+				salerID : localStorage.getItem('tradepoint') ? JSON.parse(localStorage.getItem('tradepoint')).contact_uid : '',
 			}
 		},
 		components:{
 			FooterAnketa,
-		}
+		},
 	}
 </script>
 <style lang="scss">
