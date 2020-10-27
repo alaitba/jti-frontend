@@ -1,8 +1,8 @@
 <template>
 	<main class="page page--grey page--block">
 		<!-- <header-auth/>		 -->
-        <!-- <template  v-if="phoneNumber == '7073222207' || phoneNumber == '7059521623' || phoneNumber == '7017540038' || phoneNumber == '7477800068' || phoneNumber == '7085222707' || phoneNumber == '7471748557' || phoneNumber == '7000000760'">         -->
-        <template v-if="false">
+        <template  v-if="phoneNumber == '+77059521623' ||  phoneNumber == '+77085222707' || phoneNumber == '+77471748557'">        
+        <!-- <template v-if="false"> -->
 			<div class="auth-section">
 		    	<div class="container">
 		        	<!-- component number -->
@@ -97,7 +97,7 @@
 		<template v-else>
 	        <div class="information-block information-block--gifts">
 	            <h3 class="section section--text" style="line-height: 1.2;">            	
-	                {{$t('Период программы завершен')}}	                
+	                {{$t('Период программы завершен')}}            
 	            </h3>
 	            <!-- <p class="underline">
 	                {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}

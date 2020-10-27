@@ -22,7 +22,8 @@
 				</div>
 				<div class="navigation-content tab-content" >
 					<div class="tab-pane fade active" id="home">
-						<template v-if="false">
+						<template  v-if="phoneNumber == '+77059521623' ||  phoneNumber == '+77085222707' || phoneNumber == '+77471748557'">
+						<!-- <template v-if="false"> -->
 							<div class="gifts">
 								<div class="container">
 									<h3 class="section__title gifts__title">
@@ -84,7 +85,7 @@
 						<template v-else>
 					        <div class="information-block information-block--gifts" style="height: calc(100vh - 210px);">
 					            <h3 class="section section--text" style="line-height: 1.2;">            	
-					                {{$t('Период программы завершен')}}	                
+					                {{$t('Период программы завершен')}}            
 					            </h3>
 					            <!-- <p class="underline">
 					                {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
