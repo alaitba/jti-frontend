@@ -25,33 +25,33 @@
 	    			<!-- </div> -->
 	    		</div>
 	    	</div>
-	    	<div class="section section--coupons" v-if="coupons_ld !=null && coupons_winstone != null">
+	    	<div class="section section--coupons">
 	    		<div class="container">
 	    			<div class="coupons">
-	    				<!-- <div class="coupons__item">
-	    					<h5 class="title">
-	    						{{$t('Купоны LD')}}
-	    					</h5>
-	    					<p v-if="coupons_ld !=null">
-	    						{{$t('Купонов')}}: <span>{{ coupons_ld}}</span>
-	    					</p>
-	    					<p class="data">
-	    						20.02.2000
-	    					</p>
-	    				</div> -->
 	    				<div class="coupons__item">
 	    					<h5 class="title">
 	    						{{$t('Купоны LD')}}
 	    					</h5>
+	    					<p>
+	    						{{$t('Купонов')}}: <span>{{ coupons_ld == null ? '0' : coupons_ld}}</span>
+	    					</p>
+	    					<!-- <p class="data">
+	    						20.02.2000
+	    					</p> -->
+	    				</div>
+	    				<!-- <div class="coupons__item">
+	    					<h5 class="title">
+	    						{{$t('Купоны Winston')}}
+	    					</h5>
 	    					<p v-if="coupons_winstone != null">
 	    						{{$t('Купонов')}}: <span>{{coupons_winstone}}</span>
 	    					</p>
-	    					<!-- <p class="data" v-if="coupons_data">
+	    					<p class="data" v-if="coupons_data">
 	    						{{
 	    							coupons_data | formatData
 	    						}}
-	    					</p> -->
-	    				</div>
+	    					</p>
+	    				</div> -->
 	    			</div>
 	    		</div>
 	    	</div>
@@ -199,7 +199,7 @@
     									</span>
     									<span class="green green--light">
     										<!-- {{$t('section-plan-brand')}} -->
-    										{{$t('На середину месяца')}} <span>(15.10.2020)</span>
+    										{{$t('На середину месяца')}} <span>(15.11.2020)</span>
     									</span>
     								</p>
     								<p class="title title--main title--right">
@@ -435,7 +435,7 @@
 
 	    	_this.getCouponsLD();
 
-	    	_this.getCouponsWN();
+	    	// _this.getCouponsWN();
 
 	    	let interval1 = setInterval(
                 () => {
@@ -552,20 +552,6 @@
 
 	    		this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
 
-
-	    		try{
-	    			let res = await this.$axios.$get('/coupons/get-ld');
-	    			this.coupons_ld = res.coupons;    				
-	    		} catch(error){
-	    			console.log('errorCouposnLd', error)
-	    		}
-	    		    		
-	    	},
-
-	    	async getCouponsWN(){
-
-	    		this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
-
 	    		try{
 
 		    		let res = await this.$axios.$get('/rewards/history');
@@ -575,12 +561,12 @@
 
 						for(let i =0; i< res.data.length; i++){
 							if(res.data[i].name['ru'] == "Купон для участия в розыгрыше"){
-								this.coupons_winstone ++;
+								this.coupons_ld ++;
 							}
 						}
 					} else {
 
-						this.coupons_winstone = 0;
+						this.coupons_ld = 0;
 
 					} 
 
@@ -589,9 +575,40 @@
 
 	    		} catch(error){
 	    			console.log('errorWinstone', error)
-	    		}	    		
-
+	    		}	
+	    		    		
 	    	},
+
+	    	// async getCouponsWN(){
+
+	    	// 	this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('authToken');
+
+	    	// 	try{
+
+		    // 		let res = await this.$axios.$get('/rewards/history');
+			// 		// console.log(res, 'coupons');						
+
+			// 		if(res.data.length){
+
+			// 			for(let i =0; i< res.data.length; i++){
+			// 				if(res.data[i].name['ru'] == "Купон для участия в розыгрыше"){
+			// 					this.coupons_winstone ++;
+			// 				}
+			// 			}
+			// 		} else {
+
+			// 			this.coupons_winstone = 0;
+
+			// 		} 
+
+			// 		this.coupons_data = moment();
+
+
+	    	// 	} catch(error){
+	    	// 		console.log('errorWinstone', error)
+	    	// 	}	    		
+
+	    	// },
 
 	    	async getNews(){
 
