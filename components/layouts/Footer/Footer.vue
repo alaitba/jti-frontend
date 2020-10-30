@@ -17,6 +17,21 @@
 						</div>
 					</nuxt-link>
 				</div>
+
+				<div class="footer__item"  v-if="phoneNumber == '+77059521623' ||  phoneNumber == '+77085222707' || phoneNumber == '+77471748557'">
+					<nuxt-link :to="$i18n.path('anketa/qrcode')" class="">		
+						<div class="footer__icon">
+							<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path class="path path--light" d="M14.6667 22H12.2222V19.5556H14.6667V22ZM12.2222 13.4444H9.77778V19.5556H12.2222V13.4444ZM22 11H19.5556V15.8889H22V11ZM19.5556 8.55556H17.1111V11H19.5556V8.55556ZM4.88889 11H2.44444V13.4444H4.88889V11ZM2.44444 8.55556H0V11H2.44444V8.55556ZM11 2.44444H13.4444V0H11V2.44444ZM1.83333 1.83333V5.5H5.5V1.83333H1.83333ZM7.33333 7.33333H0V0H7.33333V7.33333ZM1.83333 16.5V20.1667H5.5V16.5H1.83333ZM7.33333 22H0V14.6667H7.33333V18.3333V22ZM16.5 1.83333V5.5H20.1667V1.83333H16.5ZM22 7.33333H14.6667V0H22V7.33333ZM19.5556 19.5556V15.8889H14.6667V18.3333H17.1111V22H22V19.5556H19.5556ZM17.1111 11H12.2222V13.4444H17.1111V11ZM12.2222 8.55556H4.88889V11H7.33333V13.4444H9.77778V11H12.2222V8.55556ZM13.4444 7.33333V4.88889H11V2.44444H8.55556V7.33333H13.4444ZM4.58333 2.75H2.75V4.58333H4.58333V2.75ZM4.58333 17.4167H2.75V19.25H4.58333V17.4167ZM19.25 2.75H17.4167V4.58333H19.25V2.75Z" fill="#969696"/>
+							</svg>
+
+						</div>
+						<div class="footer__title">
+							QR-код
+						</div>
+					</nuxt-link>
+				</div>				
+
 				<div class="footer__item">
 					<nuxt-link :to="$i18n.path('anketa/listanketa')">	
 						<div class="footer__icon">
@@ -81,7 +96,7 @@
 			flex-wrap: wrap;
 		} 
 		&__item{
-			width: 25%;
+			width: 20%;
 			padding: 10px 8px;		
 			text-align: center;	
 			&>a{
@@ -138,3 +153,15 @@
 		}
 	}
 </style>
+
+<script>
+import {mapState, mapMutations} from 'vuex'
+
+export default {
+	computed: {
+		    ...mapState({
+		      phoneNumber: state => state.number,
+		    }),
+		},
+}
+</script>
