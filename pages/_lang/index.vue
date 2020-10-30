@@ -28,20 +28,20 @@
 	    	<div class="section section--coupons" v-if="coupons_ld !=null && coupons_winstone != null">
 	    		<div class="container">
 	    			<div class="coupons">
-	    				<div class="coupons__item">
+	    				<!-- <div class="coupons__item">
 	    					<h5 class="title">
 	    						{{$t('Купоны LD')}}
 	    					</h5>
 	    					<p v-if="coupons_ld !=null">
 	    						{{$t('Купонов')}}: <span>{{ coupons_ld}}</span>
 	    					</p>
-	    					<!-- <p class="data">
+	    					<p class="data">
 	    						20.02.2000
-	    					</p> -->
-	    				</div>
+	    					</p>
+	    				</div> -->
 	    				<div class="coupons__item">
 	    					<h5 class="title">
-	    						{{$t('Купоны Winston')}}
+	    						{{$t('Купоны LD')}}
 	    					</h5>
 	    					<p v-if="coupons_winstone != null">
 	    						{{$t('Купонов')}}: <span>{{coupons_winstone}}</span>
