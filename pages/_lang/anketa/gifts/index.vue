@@ -22,8 +22,8 @@
 				</div>
 				<div class="navigation-content tab-content" >
 					<div class="tab-pane fade active" id="home">
-						<template  v-if="phoneNumber == '+77059521623' ||  phoneNumber == '+77085222707' || phoneNumber == '+77471748557'">
-						<!-- <template v-if="false"> -->
+						<!-- <template  v-if="phoneNumber == '+77059521623' ||  phoneNumber == '+77085222707' || phoneNumber == '+77471748557'"> -->
+						<template v-if="true">
 							<div class="gifts">
 								<div class="container">
 									<h3 class="section__title gifts__title">

@@ -13,7 +13,7 @@
 								<div class="qrcode__loader">
 									<div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 								</div>
-								<img  load="" :src="'https://api.qrserver.com/v1/create-qr-code/?data=https://realday.kz/reg?partner=' + salerID" alt="">
+								<img  load="" :src="'https://api.qrserver.com/v1/create-qr-code/?data=https://realday.kz/reg?partner=' + salerID" alt="qrcode">
 
 							</div>
 

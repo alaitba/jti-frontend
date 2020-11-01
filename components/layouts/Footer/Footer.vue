@@ -18,7 +18,7 @@
 					</nuxt-link>
 				</div>
 
-				<div class="footer__item"  v-if="phoneNumber == '+77059521623' ||  phoneNumber == '+77085222707' || phoneNumber == '+77471748557'">
+				<div class="footer__item">
 					<nuxt-link :to="$i18n.path('anketa/qrcode')" class="">		
 						<div class="footer__icon">
 							<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
