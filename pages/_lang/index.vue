@@ -199,7 +199,7 @@
     									</span>
     									<span class="green green--light">
     										<!-- {{$t('section-plan-brand')}} -->
-    										{{$t('На середину месяца')}} <span>(15.11.2020)</span>
+    										{{$t('На середину месяца')}} <span>(15.12.2020)</span>
     									</span>
     								</p>
     								<p class="title title--main title--right">
@@ -227,7 +227,7 @@
     								</p>
     							</div>
     							<div class="plan-item__bonus">
-    								<p class="title">    									
+    								<p class="title">
     									{{$t('section-plan-bonus')}}
     								</p>
     								<p class="amount">
@@ -440,7 +440,7 @@
 	    	let interval1 = setInterval(
                 () => {
                     if($('#modal-main').length > 0) {
-                        clearInterval(interval1);                        
+                        clearInterval(interval1);
                         // console.log('1', _this.subscribeStatus, _this.mobileOs);
 	                    if(_this.subscribeStatus && _this.mobileOs){
 	                    	_this.showSubscribe();
@@ -514,7 +514,7 @@
 	    	showModal(modal){
 	    		// $('#modal-error').modal('show')
 	    	},
-	    	
+
 	    	getUserDevice(){
 
 		        let ua = navigator.userAgent;
@@ -555,7 +555,7 @@
 	    		try{
 
 		    		let res = await this.$axios.$get('/rewards/history');
-					// console.log(res, 'coupons');						
+					// console.log(res, 'coupons');
 
 					if(res.data.length){
 
@@ -568,15 +568,15 @@
 
 						this.coupons_ld = 0;
 
-					} 
+					}
 
 					this.coupons_data = moment();
 
 
 	    		} catch(error){
 	    			console.log('errorWinstone', error)
-	    		}	
-	    		    		
+	    		}
+
 	    	},
 
 	    	// async getCouponsWN(){
@@ -586,7 +586,7 @@
 	    	// 	try{
 
 		    // 		let res = await this.$axios.$get('/rewards/history');
-			// 		// console.log(res, 'coupons');						
+			// 		// console.log(res, 'coupons');
 
 			// 		if(res.data.length){
 
@@ -599,14 +599,14 @@
 
 			// 			this.coupons_winstone = 0;
 
-			// 		} 
+			// 		}
 
 			// 		this.coupons_data = moment();
 
 
 	    	// 	} catch(error){
 	    	// 		console.log('errorWinstone', error)
-	    	// 	}	    		
+	    	// 	}
 
 	    	// },
 
@@ -639,7 +639,7 @@
 	    					newArr = newArr.sort((a,b) => {
 		    					return moment(b.created_at) - moment(a.created_at)
 		    				});
-	    				}	    				
+	    				}
 
 	    				this.news = newArr.slice(0,3);
 
@@ -808,7 +808,7 @@
 		}
 		&--icons{
 			padding-top: 16px;
-			&.pd16{				
+			&.pd16{
 			}
 			.icons{
 				display: flex;
