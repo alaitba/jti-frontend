@@ -119,10 +119,10 @@
 	  		    									<!-- <template v-if="reports[selectedBrand.account_code].brand == 'Не определен'">
 	  		    										{{$t('Не определен')}}
 	  		    									</template>
-	  		    									<template v-else>	  		    							
+	  		    									<template v-else>
 		  		    									{{reports[selectedBrand.account_code].brand}}
 	  		    									</template> -->
-	  		    									{{ $t('План на середину месяца')}} <span>(15.11.2020)</span>
+	  		    									{{ $t('План на середину месяца')}} <span>(15.12.2020)</span>
 	  		    								</p>
 	  		    								<p class="amount">
 	  		    									<span class="name">
@@ -358,7 +358,7 @@
 					// console.log(res.data);
 
 					this.history = res.data;
-					
+
 				} catch(error){
 
 					// console.log('error', error.response)
