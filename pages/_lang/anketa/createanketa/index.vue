@@ -2,7 +2,7 @@
 	<main class="page page--grey page--block">
 		<!-- <header-auth/>		 -->
         <!-- <template  v-if="phoneNumber == '+77059521623' ||  phoneNumber == '+77085222707' || phoneNumber == '+77471748557'">         -->
-        <template v-if="true">
+        <template v-if="false">
 			<div class="auth-section">
 		    	<div class="container">
 		        	<!-- component number -->

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<main class="page page--grey page--block qrcode" >
+		<main v-if="false" class="page page--grey page--block qrcode" >
 			<div class="container">
 				<div class="section section--condition">
 					<h3 class="section__title">
@@ -58,8 +58,21 @@
 
 			</div>
 		</main>
+
+		<template v-else>
+	        <div class="information-block information-block--gifts mt-56">
+	            <h3 class="section section--text" style="line-height: 1.2;">            	
+	                {{$t('Период программы завершен')}}            
+	            </h3>
+	            <!-- <p class="underline">
+	                {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
+	            </p> -->
+	        </div>
+        </template>
 		<footer-anketa/>
 	</div>
+
+	
 </template>
 <script>
 	import FooterAnketa from '~/components/layouts/Footer/Footer.vue'
@@ -76,6 +89,9 @@
 	}
 </script>
 <style lang="scss">
+	.mt-56 {
+		margin-top: 56px;
+	}
 	.qrcode {
 		&__text{
 			font-size: 12px;
