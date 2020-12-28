@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<main class="page page--grey page--block">
+		<main v-if="false" class="page page--grey page--block">
 			<div class="container">
 				<div class="section section--condition">
 					<h3 class="section__title">
@@ -46,7 +46,7 @@
 								</span>
 								<span>
                                     <!-- {{$t('2.4.4. Для участия в еженедельных розыгрышах Участнику необходимо набрать 100 (сто) баллов. Дата оглашения результатов каждого розыгрыша на Веб-приложении в течение следующих 4 (четырех) суток после окончания календарной недели.')}} -->
-									
+
                                     {{$t('Для участия в финальном розыгрыше Участнику необходимо приобрести электронный купон в Веб- приложении путем его обмена на 25 (двадцать пять) баллов.')}}
 
 									<br><br> <span class="blue">{{$t('Определение победителей будет происходить по принципу случайного выбора.')}}</span>
@@ -135,6 +135,17 @@
 				</div>
 			</div>
 		</main>
+
+        <template v-else>
+            <div class="information-block information-block--gifts mt-56">
+                <h3 class="section section--text" style="line-height: 1.2;">
+                    {{$t('Период программы завершен')}}
+                </h3>
+                <!-- <p class="underline">
+                    {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
+                </p> -->
+            </div>
+        </template>
 		<footer-anketa/>
 	</div>
 </template>

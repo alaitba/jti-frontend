@@ -1,19 +1,19 @@
 <template>
-	<main class="page page--grey page--block">
+	<main  class="page page--grey page--block">
 		<template v-if="loaderStatus">
 			<loader/>
 		</template>
-		<template v-else>		
-			<div class="anketa">
+		<template >
+			<div v-if="false" class="anketa">
 				<div class="container" v-if="anketaStatus">
 					<div :class="{'anketa__head': true, 'kz' : $i18n.locale === 'kk'}">
 						<h3 class="anketa__title">
-							{{$t('Мои анкеты')}}						
+							{{$t('Мои анкеты')}}
 						</h3>
 						<span class="amount" v-if="list">
 							{{$t('Анкет:')}} {{list.length}}
 						</span>
-					</div>			
+					</div>
 					<div class="anketa__wrapper" v-if="list.length">
 
 						<div class="list-item item" v-for="(item,key) in list">
@@ -72,6 +72,17 @@
 					</div>
 				</div>
 			</div>
+
+            <template v-else>
+                <div class="information-block information-block--gifts mt-56">
+                    <h3 class="section section--text" style="line-height: 1.2;">
+                        {{$t('Период программы завершен')}}
+                    </h3>
+                    <!-- <p class="underline">
+                        {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
+                    </p> -->
+                </div>
+            </template>
 			<footer-anketa/>
 		</template>
 	</main>
@@ -104,7 +115,7 @@
 		},
 		computed:{
 			...mapState({
-		      authToken: state => state.authToken,     
+		      authToken: state => state.authToken,
 		      anketaNumber: state =>state.numberAnketa
 		    }),
 		},
@@ -123,12 +134,12 @@
 				await this.$axios.get('/client/lead-history/', fields)
 		        .then(response =>{
 		        	if(response.data.status =='ok'){
-		         		this.anketaStatus = true;	            	
-		         		this.list = response.data.data;		
-		         		this.loaderStatus = false;         				
-		          	} 
+		         		this.anketaStatus = true;
+		         		this.list = response.data.data;
+		         		this.loaderStatus = false;
+		          	}
 		        }).catch(error => {
-		            
+
 		        });
 
 
@@ -137,7 +148,7 @@
 	}
 </script>
 
-<style lang="scss">	
+<style lang="scss">
 	// .anketa{
 	// 	padding: 16px 0 120px;
 	// 	min-height: 100vh;
@@ -157,7 +168,7 @@
 	// 		}
 	// 	}
 	// 	&__title{
-	// 		line-height: 33px;			
+	// 		line-height: 33px;
 	// 		color: #969696;
 	// 	}
 
@@ -168,7 +179,7 @@
 	// 			background-color: #fff;
 	// 			display: flex;
 	// 			justify-content: space-between;
-	// 			position: relative;				
+	// 			position: relative;
 	// 			&:after{
 	// 				content: '';
 	// 				position: absolute;
@@ -184,14 +195,14 @@
 	// 				.title{
 	// 					font-weight: 500;
 	// 					font-size: 16px;
-	// 					line-height: 19px;						
+	// 					line-height: 19px;
 	// 					color: #1F1F1F;
 	// 					margin-bottom: 10px;
 	// 				}
 	// 				.info{
 	// 					font-weight: normal;
 	// 					font-size: 12px;
-	// 					line-height: 14px;						
+	// 					line-height: 14px;
 	// 					color: #969696;
 	// 					margin-bottom: 0;
 	// 				}
@@ -209,7 +220,7 @@
 	// 					color: #05B186;
 	// 					margin-bottom: 10px;
 	// 				}
-	// 				.status{						
+	// 				.status{
 	// 					&--active,&--filled, &--waiting{
 	// 						text-align: right;
 	// 						img{

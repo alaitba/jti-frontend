@@ -3,9 +3,9 @@
 		<template v-if="loaderStatus">
 			<loader/>
 		</template>
-		<template v-else>
+		<template >
 
-			<div class="fill-section" >
+			<div v-if="false" class="fill-section" >
 				<div class="navigation-menu" >
 					<ul class="nav nav-pills">
 						<li class="nav-item">
@@ -84,8 +84,8 @@
 						</template>
 						<template v-else>
 					        <div class="information-block information-block--gifts" style="height: calc(100vh - 210px);">
-					            <h3 class="section section--text" style="line-height: 1.2;">            	
-					                {{$t('Период программы завершен')}}            
+					            <h3 class="section section--text" style="line-height: 1.2;">
+					                {{$t('Период программы завершен')}}
 					            </h3>
 					            <!-- <p class="underline">
 					                {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
@@ -144,16 +144,16 @@
 					</div>
 				</div>
 			</div>
-		
-		    <!-- <div class="information-block information-block--gifts">
+
+		     <div class="information-block information-block--gifts">
                 <h3 class="section section--text">
                     {{$t('Период программы завершён')}}
                 </h3>
-                <p class="underline">
-                    {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
-                </p>
-            </div>        -->
-        
+<!--                <p class="underline">-->
+<!--                    {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}-->
+<!--                </p>-->
+            </div>
+
 			<footer-anketa/>
 			<modal-error/>
 		</template>
