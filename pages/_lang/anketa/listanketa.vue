@@ -95,56 +95,56 @@
 		components:{
 			FooterAnketa,
 		},
-		filters: {
-	      formatNumber (value){
-	      	value = value.replace('+','');
-	        return '+' + String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
-	        // return value;
-	      },
-	      formatData(value) {
-	      	return moment(value).format('DD.MM.YYYY');
-	      }
-	    },
-
-		data() {
-			return {
-				list: null,
-				anketaStatus: false,
-				loaderStatus: true
-			}
-		},
-		computed:{
-			...mapState({
-		      authToken: state => state.authToken,
-		      anketaNumber: state =>state.numberAnketa
-		    }),
-		},
-		mounted(){
-			this.getAnketaHistory();
-		},
-		methods: {
-			async getAnketaHistory() {
-
-				let fields = {
-					'perpage': 100,
-					'page':1
-				}
-				this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
-
-				await this.$axios.get('/client/lead-history/', fields)
-		        .then(response =>{
-		        	if(response.data.status =='ok'){
-		         		this.anketaStatus = true;
-		         		this.list = response.data.data;
-		         		this.loaderStatus = false;
-		          	}
-		        }).catch(error => {
-
-		        });
-
-
-			},
-		}
+		// filters: {
+	    //   formatNumber (value){
+	    //   	value = value.replace('+','');
+	    //     return '+' + String(value).replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
+	    //     // return value;
+	    //   },
+	    //   formatData(value) {
+	    //   	return moment(value).format('DD.MM.YYYY');
+	    //   }
+	    // },
+        //
+		// data() {
+		// 	return {
+		// 		list: null,
+		// 		anketaStatus: false,
+		// 		loaderStatus: true
+		// 	}
+		// },
+		// computed:{
+		// 	...mapState({
+		//       authToken: state => state.authToken,
+		//       anketaNumber: state =>state.numberAnketa
+		//     }),
+		// },
+		// mounted(){
+		// 	this.getAnketaHistory();
+		// },
+		// methods: {
+		// 	async getAnketaHistory() {
+        //
+		// 		let fields = {
+		// 			'perpage': 100,
+		// 			'page':1
+		// 		}
+		// 		this.$axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('authToken');
+        //
+		// 		await this.$axios.get('/client/lead-history/', fields)
+		//         .then(response =>{
+		//         	if(response.data.status =='ok'){
+		//          		this.anketaStatus = true;
+		//          		this.list = response.data.data;
+		//          		this.loaderStatus = false;
+		//           	}
+		//         }).catch(error => {
+        //
+		//         });
+        //
+        //
+		// 	},
+		// }
 	}
 </script>
 

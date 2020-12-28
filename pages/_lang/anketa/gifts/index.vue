@@ -3,7 +3,7 @@
 		<template v-if="loaderStatus">
 			<loader/>
 		</template>
-		<template >
+		<template>
 
 			<div v-if="false" class="fill-section" >
 				<div class="navigation-menu" >
@@ -23,7 +23,7 @@
 				<div class="navigation-content tab-content" >
 					<div class="tab-pane fade active" id="home">
 						<!-- <template  v-if="phoneNumber == '+77059521623' ||  phoneNumber == '+77085222707' || phoneNumber == '+77471748557'"> -->
-						<template v-if="true">
+						<template v-if="false">
 							<div class="gifts">
 								<div class="container">
 									<h3 class="section__title gifts__title">
@@ -145,18 +145,22 @@
 				</div>
 			</div>
 
-		     <div class="information-block information-block--gifts">
-                <h3 class="section section--text">
-                    {{$t('Период программы завершён')}}
-                </h3>
-<!--                <p class="underline">-->
-<!--                    {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}-->
-<!--                </p>-->
-            </div>
 
+            <template v-else>
+                <div class="information-block information-block--gifts">
+                    <h3 class="section section--text" style="line-height: 1.2;">
+                        {{$t('Период программы завершен')}}
+                    </h3>
+                    <!-- <p class="underline">
+                        {{$t('Успейте обменять баллы на призы до 31 марта включительно.')}}
+                    </p> -->
+                </div>
+            </template>
 			<footer-anketa/>
 			<modal-error/>
 		</template>
+
+
 	</main>
 </template>
 <script>
